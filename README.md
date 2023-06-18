@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ZERO 开发日志
 
-## Getting Started
+## 技术选型
 
-First, run the development server:
+1. 前端框架 [NextJS](https://nextjs.org/)
+2. 前端样式 [TailwindCSS](https://tailwindcss.com/)
+3. 代码检查与格式化
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+   - [eslint](https://eslint.org/)
+   - [typescript-eslint](https://typescript-eslint.io/linting/typed-linting/)
+   - [prettier](https://prettier.io/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. 代码提交
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   - 钩子工具 [husky](https://typicode.github.io/husky/)
+   - 暂存区校验 [lint-staged](https://github.com/okonet/lint-staged/)
+   - 提交信息规范 [commitlint](https://commitlint.js.org/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+5. 站点生成
+   - MarkDown 文件读取 [contentlayer](https://www.contentlayer.dev/)
+   - Sitemap 生成 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap/)
+   - 日期处理 [date-fns](https://date-fns.org/)
 
-## Learn More
+## 提交规范
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| 类型     | 描述                     |
+| -------- | ------------------------ |
+| feat     | 新功能                   |
+| fix      | 修复                     |
+| docs     | 文档变更                 |
+| chore    | 构建过程或辅助工具的变动 |
+| style    | 代码格式                 |
+| refactor | 代码重构                 |
+| ci       | 自动化相关               |
+| test     | 代码测试                 |
+| perf     | 性能优化                 |
+| revert   | 回退                     |
+| vercel   | vercel 相关              |
