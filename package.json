@@ -49,8 +49,8 @@
     "prettier-plugin-tailwindcss": "^0.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "rehype-external-links": "^2.1.0",
     "rehype-pretty-code": "^0.9.8",
-    "remark-external-links": "^9.0.1",
     "remark-gfm": "^3.0.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.3"

@@ -6,9 +6,9 @@
 2. 前端样式 [TailwindCSS](https://tailwindcss.com/)
 3. 代码检查与格式化
 
-   - [eslint](https://eslint.org/)
-   - [typescript-eslint](https://typescript-eslint.io/linting/typed-linting/)
-   - [prettier](https://prettier.io/)
+   - 代码检查 [eslint](https://eslint.org/)
+   - TypeScript 规则 [typescript-eslint](https://typescript-eslint.io/linting/typed-linting/)
+   - 格式美化 [prettier](https://prettier.io/)
 
 4. 代码提交
 
@@ -17,9 +17,16 @@
    - 提交信息规范 [commitlint](https://commitlint.js.org/)
 
 5. 站点生成
+
    - MarkDown 文件读取 [contentlayer](https://www.contentlayer.dev/)
    - Sitemap 生成 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap/)
    - 日期处理 [date-fns](https://date-fns.org/)
+
+6. 内容解析
+   - 图标库 [lucide-react](https://lucide.dev/guide/packages/lucide-react)
+   - 外部链接 [rehype-external-links](https://github.com/rehypejs/rehype-external-links)
+   - 代码高亮 [rehype-pretty-code](https://rehype-pretty-code.netlify.app/)
+   - 辅助解析 [remarkGfm](https://github.com/remarkjs/remark-gfm)
 
 ## 提交规范
 

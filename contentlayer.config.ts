@@ -1,6 +1,6 @@
 import { defineDocumentType, makeSource } from '@contentlayer/source-files'
+import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
-import remarkExternalLinks from 'remark-external-links'
 import remarkGfm from 'remark-gfm'
 
 export const Post = defineDocumentType(() => ({
@@ -42,7 +42,10 @@ export default makeSource({
   contentDirPath: './content',
   documentTypes: [Post],
   mdx: {
-    rehypePlugins: [[rehypePrettyCode, { theme: 'github-dark' }]],
-    remarkPlugins: [remarkGfm, remarkExternalLinks],
+    rehypePlugins: [
+      [rehypeExternalLinks, { rel: ['nofollow'] }],
+      [rehypePrettyCode, { theme: 'github-dark' }],
+    ],
+    remarkPlugins: [remarkGfm],
   },
 })
