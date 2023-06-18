@@ -8,7 +8,6 @@ interface MDXProps {
 
 const MDX: FC<MDXProps> = ({ code }) => {
   const Component = useMDXComponent(code)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <Component components={{ img: (props: any) => <Image {...props} alt="" /> }} />
 }
 

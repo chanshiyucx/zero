@@ -68,10 +68,10 @@ React 和 Vue 等现代前端框架其实都是在做同一件事：解决状态
 
 数据流是指状态的流向，在 React 中数据流向比较简单清晰，即根据状态生成 DOM，然后通过 DOM 上绑定的事件来触发事件函数来更新状态，所有流程都是单向的：
 
-<picture>
+<!-- <picture>
   <source srcSet="/static/react-vs-vue/react_01_dark.png" media="(prefers-color-scheme: dark)" />
   <img src="/static/react-vs-vue/react_01_light.png" alt="" />
-</picture>
+</picture> -->
 
 ### 单一数据源
 
