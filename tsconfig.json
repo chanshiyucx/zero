@@ -21,18 +21,6 @@
       "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    ".contentlayer/generated",
-    ".eslintrc.js",
-    "commitlint.config.js",
-    "next-sitemap.config.js",
-    "next.config.js",
-    "postcss.config.js",
-    "tailwind.config.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".contentlayer/generated"],
   "exclude": ["node_modules"]
 }

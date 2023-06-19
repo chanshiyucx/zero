@@ -7,7 +7,7 @@ tags:
   - Vue
 ---
 
-由于工作需要写了几年的 React，又由于工作需要最近几个月在写 Vue，所以对这俩框架都有一定程度上的了解和一些理解，本文就从框架用户（即前端开发者，下同）的角度简单聊聊现代前端框架以及对 React 和 Vue 的异同点，不涉及源码和底层实现的分析。
+TEST由于工作需要写了几年的 React，又由于工作需要最近几个月在写 Vue，所以对这俩框架都有一定程度上的了解和一些理解，本文就从框架用户（即前端开发者，下同）的角度简单聊聊现代前端框架以及对 React 和 Vue 的异同点，不涉及源码和底层实现的分析。
 
 ## 现代前端框架
 
@@ -67,11 +67,6 @@ React 和 Vue 等现代前端框架其实都是在做同一件事：解决状态
 ### 单向数据流
 
 数据流是指状态的流向，在 React 中数据流向比较简单清晰，即根据状态生成 DOM，然后通过 DOM 上绑定的事件来触发事件函数来更新状态，所有流程都是单向的：
-
-<!-- <picture>
-  <source srcSet="/static/react-vs-vue/react_01_dark.png" media="(prefers-color-scheme: dark)" />
-  <img src="/static/react-vs-vue/react_01_light.png" alt="" />
-</picture> -->
 
 ### 单一数据源
 
