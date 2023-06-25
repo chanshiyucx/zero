@@ -11,6 +11,10 @@ TEST由于工作需要写了几年的 React，又由于工作需要最近几个�
 
 ## 现代前端框架
 
+![SSR](/static/react-rendering-and-nextjs-13/ssr.png)
+
+![CSR](/static/react-rendering-and-nextjs-13/csr.png)
+
 首先看一下 React 和 Vue 是什么。简单来说，他们俩都是用于构建 UI 的 JavaScript 框架，一般用来开发 Web 应用，当然他们也可以用来开发手机 App 和桌面端应用（本文不做讨论）。说到 JavaScript 框架就不得不提 jQuery 这个神一般的框架。我们先做个对比，为了便于区分，我们引入一个概念，将 React、Vue 和 Angular 等框架称之为**现代前端框架**，jQuery 及其他类似框架称之为 **jQuery 式框架**。
 
 以一个简单的 Count 组件为例，每点击一下按钮数字会 +1，jQuery 代码如下：

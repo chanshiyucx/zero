@@ -3,6 +3,7 @@ import { spawn } from 'node:child_process'
 import { defineDocumentType } from '@contentlayer/source-files'
 import { makeSource } from 'contentlayer/source-remote-files'
 import rehypeExternalLinks from 'rehype-external-links'
+import rehypeImgSize from 'rehype-img-size'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 
@@ -44,12 +45,12 @@ export const Post = defineDocumentType(() => ({
 const syncContentFromGit = async (contentDir: string) => {
   const syncRun = async () => {
     const gitUrl = 'git@github.com:chanshiyucx/content.git'
-
     if (fs.existsSync(contentDir)) {
-      await runBashCommand(`cd ${contentDir}; git pull;`)
+      await runBashCommand(`cd ${contentDir} && git pull`)
     } else {
       await runBashCommand(`git clone --depth 1 --single-branch ${gitUrl} ${contentDir}`)
     }
+    await runBashCommand(`cp -r ${contentDir}/static public/`)
   }
 
   let wasCancelled = false
@@ -99,6 +100,9 @@ export default makeSource({
     rehypePlugins: [
       [rehypeExternalLinks, { rel: ['nofollow'] }],
       [rehypePrettyCode, { theme: 'github-dark' }],
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      [rehypeImgSize, { dir: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
   },
