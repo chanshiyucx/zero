@@ -3,54 +3,37 @@ import { spawn } from 'node:child_process'
 import { defineDocumentType } from '@contentlayer/source-files'
 import { makeSource } from 'contentlayer/source-remote-files'
 import rehypeExternalLinks from 'rehype-external-links'
-import rehypeImgSize from 'rehype-img-size'
+// import rehypeImgSize from 'rehype-img-size'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 
+const POST_PATH = '時雨'
+
 export const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: 'posts/**/*.md',
+  filePathPattern: `${POST_PATH}/**/*.md`,
   contentType: 'mdx',
-  fields: {
-    title: {
-      type: 'string',
-      required: true,
-    },
-    date: {
-      type: 'date',
-      required: true,
-    },
-    description: {
-      type: 'string',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: { type: 'string' },
-      required: true,
-    },
-  },
   computedFields: {
     url: {
       type: 'string',
       resolve: (post) => `/${post._raw.flattenedPath}`,
     },
-    slug: {
+    title: {
       type: 'string',
-      resolve: (weekly) => weekly._raw.sourceFileDir.replace('posts/', ''),
+      resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/, '').replace(/.md/, '').replace(/-/g, ' '),
     },
   },
 }))
 
 const syncContentFromGit = async (contentDir: string) => {
   const syncRun = async () => {
-    const gitUrl = 'git@github.com:chanshiyucx/content.git'
+    const gitUrl = 'git@github.com:chanshiyucx/blog.git'
     if (fs.existsSync(contentDir)) {
       await runBashCommand(`cd ${contentDir} && git pull`)
     } else {
       await runBashCommand(`git clone --depth 1 --single-branch ${gitUrl} ${contentDir}`)
     }
-    await runBashCommand(`cp -r ${contentDir}/static public/`)
+    await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
   }
 
   let wasCancelled = false
@@ -93,7 +76,7 @@ const runBashCommand = (command: string) =>
 export default makeSource({
   syncFiles: syncContentFromGit,
   contentDirPath: 'content',
-  contentDirInclude: ['posts'],
+  contentDirInclude: [POST_PATH],
   documentTypes: [Post],
   disableImportAliasWarning: true,
   mdx: {
@@ -102,7 +85,7 @@ export default makeSource({
       [rehypePrettyCode, { theme: 'github-dark' }],
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      [rehypeImgSize, { dir: 'public' }],
+      // [rehypeImgSize, { dir: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
   },

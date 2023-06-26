@@ -37,4 +37,4 @@ next-env.d.ts
 # contentlayer
 .contentlayer
 /content
-/public/static
+/public/IMAGES
