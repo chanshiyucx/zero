@@ -1,5 +1,5 @@
-import { allPosts } from 'contentlayer/generated'
-import { format, parseISO } from 'date-fns'
+// import { allPosts } from 'contentlayer/generated'
+// import { format, parseISO } from 'date-fns'
 
 // export const generateStaticParams = () => allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
 

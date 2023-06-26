@@ -20,7 +20,11 @@ export const Post = defineDocumentType(() => ({
     },
     title: {
       type: 'string',
-      resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/, '').replace(/.md/, '').replace(/-/g, ' '),
+      resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/g, '').replace(/.md/g, '').replace(/-/g, ' '),
+    },
+    no: {
+      type: 'number',
+      resolve: (post) => Number(post._raw.sourceFilePath.match(/\d{4}\/\d{2}/)[0].replace(/\//g, '')),
     },
   },
 }))

@@ -1,11 +1,10 @@
 import { allPosts, Post } from 'contentlayer/generated'
-import { compareDesc } from 'date-fns'
 import MDX from '@/components/MDX'
 
 export default function Home() {
-  const posts: Post[] = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-  const post: Post = posts.at(-1)!
+  const posts: Post[] = allPosts.sort((a, b) => b.no - a.no)
 
+  const post: Post = posts[0]
   const list = posts.map((e) => ({ ...e, body: '' }))
   console.log('list-----', list)
   return (

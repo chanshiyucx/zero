@@ -20,7 +20,6 @@
 
    - MarkDown 文件读取 [contentlayer](https://www.contentlayer.dev/)
    - Sitemap 生成 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap/)
-   - 日期处理 [date-fns](https://date-fns.org/)
 
 6. 内容解析
    - 图标库 [lucide-react](https://lucide.dev/guide/packages/lucide-react)
