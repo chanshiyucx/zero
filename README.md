@@ -26,6 +26,7 @@
    - 外部链接 [rehype-external-links](https://github.com/rehypejs/rehype-external-links)
    - 代码高亮 [rehype-pretty-code](https://rehype-pretty-code.netlify.app/)
    - 辅助解析 [remarkGfm](https://github.com/remarkjs/remark-gfm)
+   - 图片尺寸计算 [image-size](https://github.com/image-size/image-size)
 
 ## 提交规范
 
@@ -42,3 +43,10 @@
 | perf     | 性能优化                 |
 | revert   | 回退                     |
 | vercel   | vercel 相关              |
+
+## 技术攻关
+
+### 1. 图片尺寸计算
+
+[Ability to add width and height to the image](https://github.com/remcohaszing/remark-mdx-images/issues/3)
+[rehype-img-size](https://github.com/ksoichiro/rehype-img-size/blob/master/index.js)

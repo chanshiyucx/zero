@@ -3,9 +3,9 @@ import { spawn } from 'node:child_process'
 import { defineDocumentType } from '@contentlayer/source-files'
 import { makeSource } from 'contentlayer/source-remote-files'
 import rehypeExternalLinks from 'rehype-external-links'
-// import rehypeImgSize from 'rehype-img-size'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
+import rehypeImageSizes from './utils/rehypeImageSizes'
 
 const POST_PATH = '時雨'
 
@@ -18,13 +18,13 @@ export const Post = defineDocumentType(() => ({
       type: 'string',
       resolve: (post) => `/${post._raw.flattenedPath}`,
     },
-    title: {
-      type: 'string',
-      resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/g, '').replace(/.md/g, '').replace(/-/g, ' '),
-    },
     no: {
       type: 'number',
       resolve: (post) => Number(post._raw.sourceFilePath.match(/\d{4}\/\d{2}/)[0].replace(/\//g, '')),
+    },
+    title: {
+      type: 'string',
+      resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/g, '').replace(/.md/g, '').replace(/-/g, ' '),
     },
   },
 }))
@@ -87,9 +87,7 @@ export default makeSource({
     rehypePlugins: [
       [rehypeExternalLinks, { rel: ['nofollow'] }],
       [rehypePrettyCode, { theme: 'github-dark' }],
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // [rehypeImgSize, { dir: 'public' }],
+      [rehypeImageSizes, { root: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
   },

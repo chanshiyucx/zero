@@ -1,5 +1,5 @@
 import { useMDXComponent } from 'next-contentlayer/hooks'
-// import Image from 'next/image'
+import Image from 'next/image'
 import { FC } from 'react'
 
 interface MDXProps {
@@ -13,9 +13,8 @@ const MDX: FC<MDXProps> = ({ code }) => {
     <Component
       components={{
         img: (props: any) => {
-          // console.log(props)
-          // return <Image {...props} alt="" />
-          return <img {...props} alt="" />
+          console.log(props)
+          return <Image {...props} alt="" />
         },
       }}
     />
