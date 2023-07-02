@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from 'react'
+import { PhotoProvider } from '@/components/PhotoView'
 import './globals.css'
 
 const inter = Inter({
@@ -8,6 +9,10 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 })
+
+const photoViewConfig = {
+  maskOpacity: 0.5,
+}
 
 export const metadata: Metadata = {
   title: '蝉時雨',
@@ -27,7 +32,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN" className={inter.variable}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
+      </body>
     </html>
   )
 }

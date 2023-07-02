@@ -2,6 +2,7 @@ import type { ImageProps } from 'next/image'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import Image from 'next/image'
 import { FC } from 'react'
+import { PhotoView } from '@/components/PhotoView'
 
 interface MDXProps {
   code: string
@@ -14,7 +15,11 @@ const MDX: FC<MDXProps> = ({ code }) => {
     <Component
       components={{
         img: (props) => {
-          return <Image {...(props as ImageProps)} alt={props.alt ?? ''} />
+          return (
+            <PhotoView src={props.src}>
+              <Image {...(props as ImageProps)} alt={props.alt ?? ''} />
+            </PhotoView>
+          )
         },
       }}
     />
