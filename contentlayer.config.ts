@@ -2,6 +2,7 @@ import fs from 'fs'
 import { spawn } from 'node:child_process'
 import { defineDocumentType } from '@contentlayer/source-files'
 import { makeSource } from 'contentlayer/source-remote-files'
+import { bundleMDX } from 'mdx-bundler'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
@@ -25,6 +26,16 @@ export const Post = defineDocumentType(() => ({
     title: {
       type: 'string',
       resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/g, '').replace(/.md/g, '').replace(/-/g, ' '),
+    },
+    description: {
+      type: 'json',
+      resolve: async (post) => {
+        const regex = /^(.+)?\r?\n\s*(.+)?(\r?\n)?/
+        const result = regex.exec(post.body.raw)
+        const raw = result ? result[2] : ''
+        const { code } = await bundleMDX({ source: raw })
+        return { code, raw }
+      },
     },
   },
 }))

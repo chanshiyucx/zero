@@ -27,6 +27,7 @@
    - 代码高亮 [rehype-pretty-code](https://rehype-pretty-code.netlify.app/)
    - 辅助解析 [remarkGfm](https://github.com/remarkjs/remark-gfm)
    - 图片尺寸计算 [image-size](https://github.com/image-size/image-size)
+   - 图片预览 [react-photo-view](https://github.com/MinJieLiu/react-photo-view)
 
 ## 提交规范
 
