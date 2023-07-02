@@ -1,3 +1,4 @@
+import type { ImageProps } from 'next/image'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import Image from 'next/image'
 import { FC } from 'react'
@@ -12,9 +13,8 @@ const MDX: FC<MDXProps> = ({ code }) => {
   return (
     <Component
       components={{
-        img: (props: any) => {
-          console.log(props)
-          return <Image {...props} alt="" />
+        img: (props) => {
+          return <Image {...(props as ImageProps)} alt={props.alt ?? ''} />
         },
       }}
     />

@@ -31,7 +31,7 @@ export const Post = defineDocumentType(() => ({
 
 const syncContentFromGit = async (contentDir: string) => {
   const syncRun = async () => {
-    const gitUrl = 'git@github.com:chanshiyucx/blog.git'
+    const gitUrl = 'https://github.com/chanshiyucx/blog.git'
     if (fs.existsSync(contentDir)) {
       await runBashCommand(`cd ${contentDir} && git pull`)
     } else {
