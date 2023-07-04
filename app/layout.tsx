@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import React from 'react'
+import { ReactNode } from 'react'
+import Cloud from '@/components/Cloud'
 import { PhotoProvider } from '@/components/PhotoView'
+import Side from '@/components/Side'
 import './globals.css'
 
 const inter = Inter({
@@ -29,10 +31,12 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN" className={inter.variable}>
       <body className={inter.className}>
+        <Cloud />
+        <Side />
         <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
       </body>
     </html>

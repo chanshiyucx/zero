@@ -22,11 +22,15 @@
    - Sitemap 生成 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap/)
 
 6. 内容解析
+
    - 图标库 [lucide-react](https://lucide.dev/guide/packages/lucide-react)
    - 外部链接 [rehype-external-links](https://github.com/rehypejs/rehype-external-links)
    - 代码高亮 [rehype-pretty-code](https://rehype-pretty-code.netlify.app/)
    - 辅助解析 [remarkGfm](https://github.com/remarkjs/remark-gfm)
    - 图片尺寸计算 [image-size](https://github.com/image-size/image-size)
+   - SVG 图标 [svgr](https://github.com/gregberge/svgr)
+
+7. 动画效果
    - 图片预览 [react-photo-view](https://github.com/MinJieLiu/react-photo-view)
 
 ## 提交规范
