@@ -29,6 +29,7 @@
    - 辅助解析 [remarkGfm](https://github.com/remarkjs/remark-gfm)
    - 图片尺寸计算 [image-size](https://github.com/image-size/image-size)
    - SVG 图标 [svgr](https://github.com/gregberge/svgr)
+   - 样式管理 [clsx](https://github.com/lukeed/clsx)
 
 7. 动画效果
    - 图片预览 [react-photo-view](https://github.com/MinJieLiu/react-photo-view)
