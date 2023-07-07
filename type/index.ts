@@ -28,7 +28,10 @@ export interface Theme {
   type: ThemeType
   name: string
   description: string
-  color: string
+  color: {
+    primary: string
+    background: string
+  }
   image: StaticImageData
   url: string
 }

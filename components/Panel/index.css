@@ -2,12 +2,12 @@
   @apply fixed inset-0 z-20;
 }
 
-.mask,
-.main {
+.panel .mask,
+.panel .main {
   @apply absolute inset-0;
 }
 
-.main {
+.panel .main {
   pointer-events: none;
   perspective: 37.5rem;
   transform: translateY(-100%);
@@ -15,42 +15,42 @@
   animation: 0.9s ease-out 0s 1 normal forwards running dropDown;
 }
 
-.wrapper {
+.panel .wrapper {
   @apply h-full w-full;
   will-change: transform;
   animation: 3s ease-out 0s 1 normal forwards running dropWave;
 }
 
-.short-line,
-.long-line {
+.panel .short-line,
+.panel .long-line {
   @apply absolute left-1/2 top-0;
   width: 37.5rem;
   height: calc(50% - 11.25rem);
   transform: translateX(-50%);
 }
 
-.short-line div,
-.long-line div {
+.panel .short-line div,
+.panel .long-line div {
   @apply absolute;
   width: 2px;
   height: 200%;
   background-color: var(--theme-color);
 }
 
-.short-line div {
+.panel .short-line div {
   bottom: 0;
 }
-.short-line div:nth-child(1) {
+.panel .short-line div:nth-child(1) {
   left: 3.4375rem;
 }
-.short-line div:nth-child(2) {
+.panel .short-line div:nth-child(2) {
   right: 3.4375rem;
 }
 
-.long-line div {
+.panel .long-line div {
   bottom: -1.5625rem;
 }
-.long-line div::after {
+.panel .long-line div::after {
   @apply absolute block rounded-full;
   content: '';
   left: -0.25rem;
@@ -59,53 +59,52 @@
   height: 0.625rem;
   background-color: var(--theme-color);
 }
-.long-line div:nth-child(1) {
+.panel .long-line div:nth-child(1) {
   left: 1.5625rem;
 }
-.long-line div:nth-child(2) {
+.panel .long-line div:nth-child(2) {
   right: 1.5625rem;
 }
 
-.content {
+.panel .content {
   @apply absolute left-1/2 top-1/2 rounded-xl text-center;
   pointer-events: all;
   width: 37.5rem;
   background: #fff;
-  box-shadow: var(--background-color) 0 0 1.25rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 1.25rem;
   transform: translate(-50%, -50%);
 }
 
-.head {
+.panel .head {
   @apply w-full text-lg tracking-wider;
   height: 3.125rem;
   line-height: 3.125rem;
   box-sizing: border-box;
   border-radius: 0.75rem 0.75rem 0 0;
-  border-bottom: 1px solid var(--background-color);
   background-color: var(--background-color);
 }
 
-.body {
+.panel .body {
   @apply relative m-0 flex w-full list-none flex-wrap px-10 py-4;
   height: 16.25rem;
 }
 
-.body li {
+.panel .body li {
   @apply flex w-1/2 items-center justify-center tracking-wider;
 }
 
-.body li span {
+.panel .body li span {
   @apply inline-block px-3 py-1.5;
   border-style: solid;
   border-width: 1px;
   border-left-width: 1rem;
 }
 
-.body li.active {
+.panel .body li.active {
   color: var(--theme-color);
 }
 
-.foot {
+.panel .foot {
   @apply relative w-full;
   height: 3.125rem;
   border-radius: 0 0 0.75rem 0.75rem;
@@ -113,28 +112,31 @@
   background-color: var(--background-color);
 }
 
-.description {
+.panel .description {
   @apply absolute bottom-0 left-1/2  cursor-pointer overflow-hidden rounded-full;
   width: 18.75rem;
   height: 3.125rem;
   line-height: 3.125rem;
   background-color: white;
-  box-shadow: var(--background-color) 0 0 1rem;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 0 1.25rem;
   transform: translate(-50%, 50%);
   transition: all 0.5s cubic-bezier(0.86, -0.02, 0.08, 1.02) 0s;
 }
-.description:hover::before {
+.panel .description:hover::before {
   transform: translateX(0);
 }
-.description::before,
-.description::after {
+.panel .description::before,
+.panel .description::after {
   @apply absolute inset-0 block rounded-full;
   content: '';
-  background-color: var(--background-color);
 }
-.description::before {
+.panel .description::before {
   transform: translateX(-100%);
   transition: all 0.5s cubic-bezier(0.86, -0.02, 0.08, 1.02) 0s;
+  background-color: var(--background-color);
+}
+.panel .description::after {
+  content: attr(data-title);
 }
 
 /* 面板下落动画 */

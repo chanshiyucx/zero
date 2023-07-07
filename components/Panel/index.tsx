@@ -1,9 +1,8 @@
 import type { Theme, ThemeType } from '@/type'
 import clsx from 'clsx'
 import color from 'color'
-import { ExternalLink } from 'lucide-react'
 import { FC } from 'react'
-import styles from './index.module.css'
+import './index.css'
 
 interface PanelProps {
   list: Theme[]
@@ -16,28 +15,28 @@ const Panel: FC<PanelProps> = ({ list, theme, togglePanle, toggleTheme }) => {
   const currentTheme = list.find((e) => e.type === theme)
 
   return (
-    <div className={styles.panel}>
-      <div className={styles.mask} onClick={togglePanle}></div>
-      <div className={styles.main}>
-        <div className={styles.wrapper}>
-          <div className={styles['short-line']}>
+    <div className="panel">
+      <div className="mask" onClick={togglePanle}></div>
+      <div className="main">
+        <div className="wrapper">
+          <div className="short-line">
             <div></div>
             <div></div>
           </div>
-          <div className={styles.content}>
-            <div className={styles.head}>霞彩焕花火，花火知我愿</div>
-            <ul className={styles.body}>
+          <div className="content">
+            <div className="head">霞彩焕花火，花火知我愿</div>
+            <ul className="body">
               {list.map((t) => {
                 return (
                   <li
                     key={t.name}
-                    className={clsx('cursor-pointer', theme === t.type && styles.active)}
+                    className={clsx('cursor-pointer', theme === t.type && 'active')}
                     onClick={() => toggleTheme(t.type)}
                   >
                     <span
                       style={{
-                        borderColor: t.color,
-                        backgroundColor: color(t.color).alpha(0.3).string(),
+                        borderColor: t.color.primary,
+                        backgroundColor: color(t.color.primary).alpha(0.3).string(),
                       }}
                     >
                       {t.name}
@@ -46,13 +45,17 @@ const Panel: FC<PanelProps> = ({ list, theme, togglePanle, toggleTheme }) => {
                 )
               })}
             </ul>
-            <div className={styles.foot}>
-              <a className={styles.description} href={currentTheme?.url} rel="noopener noreferrer" target="_blank">
-                {currentTheme?.description} <ExternalLink />
-              </a>
+            <div className="foot">
+              <a
+                className="description"
+                href={currentTheme?.url}
+                rel="noopener noreferrer"
+                target="_blank"
+                data-title={currentTheme?.description}
+              ></a>
             </div>
           </div>
-          <div className={styles['long-line']}>
+          <div className="long-line">
             <div></div>
             <div></div>
           </div>
