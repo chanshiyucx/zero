@@ -1,4 +1,4 @@
-import { Cloud } from '@/type'
+import type { Cloud } from '@/type'
 
 const CLOUD_API = 'https://v0.yiketianqi.com/free/day?unescape=1&version=v61&appid=53266342&appsecret=mB1eOBjO'
 

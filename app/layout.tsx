@@ -1,15 +1,19 @@
 import { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Noto_Serif_SC } from 'next/font/google'
 import { ReactNode } from 'react'
 import Cloud from '@/components/Cloud'
 import { PhotoProvider } from '@/components/PhotoView'
 import Side from '@/components/Side'
 import './globals.css'
+import { Nya } from '@/utils'
 
-const inter = Inter({
+Nya()
+
+const serif = Noto_Serif_SC({
   subsets: ['latin'],
+  weight: '500',
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-serif',
 })
 
 const photoViewConfig = {
@@ -33,8 +37,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-CN" className={inter.variable}>
-      <body className={inter.className}>
+    <html lang="zh-CN" className={serif.variable}>
+      <body className="flex justify-center">
         <Cloud />
         <Side />
         <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>

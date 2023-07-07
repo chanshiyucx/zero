@@ -31,8 +31,10 @@
    - SVG 图标 [svgr](https://github.com/gregberge/svgr)
    - 样式管理 [clsx](https://github.com/lukeed/clsx)
 
-7. 动画效果
+7. 效果增强
    - 图片预览 [react-photo-view](https://github.com/MinJieLiu/react-photo-view)
+   - 颜色转换 [color](https://github.com/Qix-/color)
+   - 打字机 [Typed.js](https://github.com/mattboldt/typed.js)
 
 ## 提交规范
 

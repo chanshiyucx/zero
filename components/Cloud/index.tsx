@@ -34,7 +34,7 @@ const Cloud: FC = () => {
   }, [])
 
   return (
-    <div className="fixed right-3 top-3 z-10  hidden items-center lg:flex">
+    <div className="fixed right-3 top-3 hidden items-center lg:flex">
       {weatherComponents[code]}
       <div className="flex transform flex-col justify-center px-1.5">
         <span className="text-base leading-4">{temperature}℃</span>
