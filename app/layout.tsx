@@ -6,6 +6,7 @@ import Cloud from '@/components/Cloud'
 import { PhotoProvider } from '@/components/PhotoView'
 import Side from '@/components/Side'
 import './globals.css'
+import { PhotoProviderBase } from 'react-photo-view/dist/types'
 
 const serif = Noto_Serif_SC({
   subsets: ['latin'],
@@ -14,8 +15,10 @@ const serif = Noto_Serif_SC({
   variable: '--font-serif',
 })
 
-const photoViewConfig = {
-  maskOpacity: 0.5,
+const photoViewConfig: PhotoProviderBase = {
+  maskOpacity: 1,
+  maskClassName: 'photo-view-mask',
+  bannerVisible: false,
 }
 
 export const metadata: Metadata = {

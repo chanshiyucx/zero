@@ -12,17 +12,22 @@ const MDX: FC<MDXProps> = ({ code }) => {
   const Component = useMDXComponent(code)
 
   return (
-    <Component
-      components={{
-        img: (props) => {
-          return (
-            <PhotoView src={props.src}>
-              <Image {...(props as ImageProps)} alt={props.alt ?? ''} />
-            </PhotoView>
-          )
-        },
-      }}
-    />
+    <div className="prose max-w-none">
+      <Component
+        components={{
+          img: (props) => {
+            return (
+              <>
+                <PhotoView src={props.src}>
+                  <Image {...(props as ImageProps)} alt={props.alt ?? ''} />
+                </PhotoView>
+                {props.alt && <span className="mb-8 block text-center italic">◭ {props.alt}</span>}
+              </>
+            )
+          },
+        }}
+      />
+    </div>
   )
 }
 

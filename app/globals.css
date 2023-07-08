@@ -4,7 +4,7 @@
 
 @layer components {
   :root {
-    --font-color: #444;
+    --font-color: #374151;
     scrollbar-gutter: stable both-edges;
     overflow-y: overlay;
   }
@@ -84,12 +84,12 @@
 
   /* custom page */
   .page {
-    @apply relative flex min-h-screen w-full max-w-screen-lg items-center pb-8 pt-8 lg:pb-12 lg:pt-12;
+    @apply relative flex min-h-screen w-full max-w-screen-lg items-center py-8 lg:py-12;
   }
   .mask {
     @apply shadow-inner;
     will-change: height;
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: rgba(0, 0, 0, 0.04);
   }
   .mask:before {
     content: '';
@@ -107,5 +107,22 @@
   }
   .meta svg {
     @apply w-5;
+  }
+
+  /* photo */
+  .photo-view-mask {
+    background-color: var(--background-color) !important;
+  }
+
+  /* code */
+  pre {
+    position: relative;
+  }
+
+  pre[data-language]::before {
+    @apply absolute right-2 top-2 text-base uppercase leading-4;
+    content: attr(data-language);
+    color: var(--font-color);
+    border-bottom: 2px solid currentColor;
   }
 }

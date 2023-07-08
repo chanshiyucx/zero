@@ -7,6 +7,7 @@ import AOS from 'aos'
 import { allPosts } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
 import { Bookmark, Calendar, Tag } from 'lucide-react'
+import Link from 'next/link'
 import { FC, MouseEvent, useEffect, useRef, useState } from 'react'
 import MDX from '@/components/MDX'
 
@@ -101,28 +102,29 @@ const Home: FC = () => {
         <div ref={listRef} className="relative space-y-4">
           {posts.map((post) => {
             return (
-              <article
-                key={post._id}
-                className="cursor-pointer overflow-x-hidden py-4 tracking-wide sm:px-4"
-                data-aos="fade-left"
-                onMouseOver={handleMask}
-                onMouseEnter={handleMask}
-              >
-                <h3 className="mb-2 text-xl italic">{post.title}</h3>
-                <MDX key={post._id} code={post.description.code} />
-                <div className="meta mt-2 flex w-fit justify-start">
-                  <Calendar className="mr-1" />
-                  {post.date}
-                  <Bookmark className="mx-1" />
-                  {post.category}
-                  <Tag className="mx-1" />
-                  {post.tags.map((tag) => (
-                    <span className="mr-2" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </article>
+              <Link key={post._id} href={`/posts/${post.title}`}>
+                <article
+                  className="cursor-pointer overflow-x-hidden py-4 tracking-wide sm:px-4"
+                  data-aos="fade-left"
+                  onMouseOver={handleMask}
+                  onMouseEnter={handleMask}
+                >
+                  <h2 className="mb-2 text-xl italic">{post.title}</h2>
+                  <MDX key={post._id} code={post.description.code} />
+                  <div className="meta mt-2 flex justify-start">
+                    <Calendar className="mr-1" />
+                    {post.date}
+                    <Bookmark className="ml-4 mr-1" />
+                    {post.category}
+                    <Tag className="ml-4 mr-1" />
+                    {post.tags.map((tag) => (
+                      <span className="mr-2" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              </Link>
             )
           })}
         </div>

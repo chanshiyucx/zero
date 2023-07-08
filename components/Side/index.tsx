@@ -62,7 +62,7 @@ const Side: FC = () => {
       {showPanel && <Panel list={themeList} theme={theme} toggleTheme={toggleTheme} togglePanle={togglePanle} />}
 
       {/* side menu */}
-      <div className="z-10 flex h-3/5 w-full justify-end">
+      <div className="z-20 flex h-3/5 w-full justify-end">
         <nav className="nav nav-y flex w-12 flex-col items-center justify-end">
           <Link className={clsx(pathname === '/' && 'active')} href="/" data-name="创作">
             <ScrollText />

@@ -38,7 +38,7 @@ export const Post = defineDocumentType(() => ({
   computedFields: {
     url: {
       type: 'string',
-      resolve: (post) => `/${post._raw.flattenedPath}`,
+      resolve: (post) => `/posts/${post._raw.flattenedPath}`,
     },
     description: {
       type: 'json',
@@ -110,8 +110,8 @@ export default makeSource({
   mdx: {
     rehypePlugins: [
       [rehypeExternalLinks, { rel: ['nofollow'] }],
-      [rehypePrettyCode, { theme: 'github-dark' }],
       [rehypeImageSizes, { root: 'public' }],
+      [rehypePrettyCode, { theme: 'material-theme-lighter' }],
     ],
     remarkPlugins: [remarkGfm],
   },
