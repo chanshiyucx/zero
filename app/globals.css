@@ -126,17 +126,21 @@
     border-bottom: 2px solid currentColor;
   }
 
-  .prose img {
-    @apply mx-auto mb-4 rounded shadow-md;
-  }
-
   .prose code::before,
   .prose code::after {
     @apply hidden;
   }
 
+  .prose img {
+    @apply mx-auto mb-4 rounded shadow-md;
+  }
+
   .prose p,
   .prose li {
     @apply text-justify;
+  }
+
+  .prose p:has(img) {
+    @apply relative;
   }
 }

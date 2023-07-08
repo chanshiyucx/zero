@@ -10,7 +10,7 @@ const MDX: FC<MDXProps> = ({ code }) => {
   const Component = useMDXComponent(code)
 
   return (
-    <div className="prose max-w-none">
+    <div className="prose max-w-full">
       <Component
         components={{
           img: Image,
