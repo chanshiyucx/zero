@@ -1,13 +1,11 @@
 import { Metadata } from 'next'
 import { Noto_Serif_SC } from 'next/font/google'
 import { ReactNode } from 'react'
+import 'aos/dist/aos.css'
 import Cloud from '@/components/Cloud'
 import { PhotoProvider } from '@/components/PhotoView'
 import Side from '@/components/Side'
 import './globals.css'
-import { Nya } from '@/utils'
-
-Nya()
 
 const serif = Noto_Serif_SC({
   subsets: ['latin'],

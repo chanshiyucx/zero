@@ -1,3 +1,7 @@
+.side {
+  @apply z-10;
+}
+
 .nav > a {
   @apply relative transform cursor-pointer p-2 duration-300;
 }

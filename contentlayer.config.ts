@@ -14,18 +14,31 @@ export const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: `${POST_PATH}/**/*.md`,
   contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      required: true,
+    },
+    date: {
+      type: 'string',
+      required: true,
+    },
+    category: {
+      type: 'string',
+      required: true,
+    },
+    tags: {
+      type: 'list',
+      of: {
+        type: 'string',
+      },
+      required: true,
+    },
+  },
   computedFields: {
     url: {
       type: 'string',
       resolve: (post) => `/${post._raw.flattenedPath}`,
-    },
-    no: {
-      type: 'number',
-      resolve: (post) => Number(post._raw.sourceFilePath.match(/\d{4}\/\d{2}/)[0].replace(/\//g, '')),
-    },
-    title: {
-      type: 'string',
-      resolve: (post) => post._raw.sourceFileName.replace(/^\d+-/g, '').replace(/.md/g, '').replace(/-/g, ' '),
     },
     description: {
       type: 'json',

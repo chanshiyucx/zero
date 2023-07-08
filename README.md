@@ -30,9 +30,12 @@
    - 图片尺寸计算 [image-size](https://github.com/image-size/image-size)
    - SVG 图标 [svgr](https://github.com/gregberge/svgr)
    - 样式管理 [clsx](https://github.com/lukeed/clsx)
+   - 日期处理 [date-fns](https://github.com/date-fns/date-fns)
 
 7. 效果增强
+
    - 图片预览 [react-photo-view](https://github.com/MinJieLiu/react-photo-view)
+   - 滚动动画 [aos](https://github.com/michalsnik/aos)
    - 颜色转换 [color](https://github.com/Qix-/color)
    - 打字机 [Typed.js](https://github.com/mattboldt/typed.js)
 

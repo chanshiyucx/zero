@@ -1,7 +1,5 @@
 .shooting_star {
   position: absolute;
-  top: 40%;
-  left: 40%;
   height: 0.125rem;
   background: linear-gradient(-45deg, var(--theme-color), rgba(0, 0, 255, 0));
   border-radius: 62rem;
@@ -12,7 +10,6 @@
 .shooting_star::after {
   content: '';
   position: absolute;
-  top: calc(40% - 1px);
   right: 0;
   height: 0.125rem;
   background: linear-gradient(-45deg, rgba(0, 0, 255, 0), var(--theme-color), rgba(0, 0, 255, 0));

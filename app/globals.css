@@ -81,4 +81,31 @@
     transform: translateY(-3rem);
     transition: all 0.6s ease-in-out;
   }
+
+  /* custom page */
+  .page {
+    @apply relative flex min-h-screen w-full max-w-screen-lg items-center pb-8 pt-8 lg:pb-12 lg:pt-12;
+  }
+  .mask {
+    @apply shadow-inner;
+    will-change: height;
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+  .mask:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.16rem;
+    width: 0.32rem;
+    height: 70%;
+    border-radius: 0.1rem;
+    background-color: var(--theme-color);
+    transform: translateY(-50%);
+  }
+  .meta {
+    word-break: keep-all;
+  }
+  .meta svg {
+    @apply w-5;
+  }
 }

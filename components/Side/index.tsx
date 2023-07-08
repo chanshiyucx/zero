@@ -48,9 +48,7 @@ const Side: FC = () => {
     loadImage(t.image.src).then(() => {
       document.documentElement.style.setProperty('--theme-color', t.color.primary)
       document.documentElement.style.setProperty('--background-color', t.color.background)
-      // document.documentElement.style.setProperty('--background-color', color(t.color.primary).alpha(0.2).string())
       document.documentElement.style.setProperty('--background-image', `url('${t.image.src}')`)
-
       const element = document.getElementsByTagName('body')[0]
       const classList = themeList.map((e) => e.type)
       element.classList.remove(...classList)
