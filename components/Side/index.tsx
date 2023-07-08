@@ -2,7 +2,6 @@
 
 import type { ThemeType } from '@/type'
 import clsx from 'clsx'
-import color from 'color'
 import {
   BookMarked,
   BookOpen,
@@ -25,7 +24,7 @@ import { Butterfly } from '@/components/Icons'
 import Panel from '@/components/Panel'
 import Poetry from '@/components/Poetry'
 import ShootingStar from '@/components/ShootingStar'
-import { loadImage, random } from '@/utils'
+import { random } from '@/utils'
 import config from '@/utils/config'
 import { useLocalStorage } from '@/utils/hook'
 import themeList from '@/utils/theme'
@@ -44,16 +43,15 @@ const Side: FC = () => {
   const togglePanle = () => setShowPanel((c) => !c)
 
   useLayoutEffect(() => {
-    const t = themeList.find((e) => e.type === theme)!
-    loadImage(t.image.src).then(() => {
-      document.documentElement.style.setProperty('--theme-color', t.color.primary)
-      document.documentElement.style.setProperty('--background-color', t.color.background)
-      document.documentElement.style.setProperty('--background-image', `url('${t.image.src}')`)
-      const element = document.getElementsByTagName('body')[0]
-      const classList = themeList.map((e) => e.type)
-      element.classList.remove(...classList)
-      element.classList.add(theme)
-    })
+    const t = themeList.find((e) => e.type === theme)
+    if (!t) return
+    document.documentElement.style.setProperty('--theme-color', t.color.primary)
+    document.documentElement.style.setProperty('--background-color', t.color.background)
+    document.documentElement.style.setProperty('--background-image', `url('${t.image.src}')`)
+    const element = document.getElementsByTagName('body')[0]
+    const classList = themeList.map((e) => e.type)
+    element.classList.remove(...classList)
+    element.classList.add(theme)
   }, [theme])
 
   return (

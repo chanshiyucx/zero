@@ -1,3 +1,4 @@
+import type { PhotoProviderBase } from 'react-photo-view/dist/types'
 import { Metadata } from 'next'
 import { Noto_Serif_SC } from 'next/font/google'
 import { ReactNode } from 'react'
@@ -6,7 +7,6 @@ import Cloud from '@/components/Cloud'
 import { PhotoProvider } from '@/components/PhotoView'
 import Side from '@/components/Side'
 import './globals.css'
-import { PhotoProviderBase } from 'react-photo-view/dist/types'
 
 const serif = Noto_Serif_SC({
   subsets: ['latin'],

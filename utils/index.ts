@@ -25,10 +25,13 @@ export const shuffle = <T>(arr: T[]): T[] => {
  * 加载图片
  */
 export const loadImage = (src: string) =>
-  new Promise<void>((resolve) => {
+  new Promise<boolean>((resolve) => {
     const img = new Image()
-    img.src = src
-    img.onload = img.onerror = () => {
-      resolve()
+    img.onload = () => {
+      resolve(true)
     }
+    img.onerror = () => {
+      resolve(false)
+    }
+    img.src = src
   })

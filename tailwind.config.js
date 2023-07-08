@@ -14,21 +14,7 @@ module.exports = {
             '--tw-prose-headings': 'var(--font-color)',
             '--tw-prose-links': 'var(--theme-color)',
             '--tw-prose-code': 'var(--theme-color)',
-            '--tw-prose-pre-bg': 'rgba(0, 0, 0, .04)',
-            img: {
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginBottom: '1rem',
-            },
-            'code::before': {
-              display: 'none',
-            },
-            'code::after': {
-              display: 'none',
-            },
-            'p, li': {
-              textAlign: 'justify',
-            },
+            '--tw-prose-pre-bg': 'rgba(0, 0, 0, 0.04)',
           },
         },
       }),

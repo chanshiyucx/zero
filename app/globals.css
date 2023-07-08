@@ -103,7 +103,7 @@
     transform: translateY(-50%);
   }
   .meta {
-    word-break: keep-all;
+    @apply break-keep;
   }
   .meta svg {
     @apply w-5;
@@ -114,15 +114,29 @@
     background-color: var(--background-color) !important;
   }
 
-  /* code */
-  pre {
-    position: relative;
+  /* prose custom */
+  .prose pre {
+    @apply relative;
   }
 
-  pre[data-language]::before {
+  .prose pre[data-language]::before {
     @apply absolute right-2 top-2 text-base uppercase leading-4;
     content: attr(data-language);
     color: var(--font-color);
     border-bottom: 2px solid currentColor;
+  }
+
+  .prose img {
+    @apply mx-auto mb-4 rounded shadow-md;
+  }
+
+  .prose code::before,
+  .prose code::after {
+    @apply hidden;
+  }
+
+  .prose p,
+  .prose li {
+    @apply text-justify;
   }
 }
