@@ -84,7 +84,7 @@
 
   /* custom page */
   .page {
-    @apply relative flex min-h-screen w-full max-w-screen-lg items-center py-8 lg:py-12;
+    @apply relative flex min-h-screen items-center py-8 lg:py-12;
   }
   .mask {
     @apply shadow-inner;
