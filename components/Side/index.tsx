@@ -16,21 +16,19 @@ import {
   Sparkles,
   Twitter,
 } from 'lucide-react'
-import localFont from 'next/font/local'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FC, useLayoutEffect, useState } from 'react'
 import { Butterfly } from '@/components/Icons'
 import Panel from '@/components/Panel'
-import Poetry from '@/components/Poetry'
 import ShootingStar from '@/components/ShootingStar'
+import Site from '@/components/Site'
 import { random } from '@/utils'
 import config from '@/utils/config'
 import { useLocalStorage } from '@/utils/hook'
 import themeList from '@/utils/theme'
 import './index.css'
 
-const siteFont = localFont({ src: '../../assets/font/GuDianMingChaoTi.ttf', display: 'swap' })
 const { github, twitter, telegram, email, music, blog } = config.contact
 const randomTheme = themeList[random(0, themeList.length)]
 
@@ -82,14 +80,7 @@ const Side: FC = () => {
           </Link>
         </nav>
 
-        <div className="flex flex-1 flex-col justify-end pb-3 pl-3">
-          <div className={clsx(siteFont.className, 'pb-12')}>
-            <h3 className="text-6xl tracking-wider">蟬時雨</h3>
-            <span className="inline-block pl-1 pt-2 text-xl tracking-wider">蝉鸣如雨 花宵道中</span>
-          </div>
-
-          <Poetry />
-        </div>
+        <Site />
       </div>
 
       {/* footer menu */}

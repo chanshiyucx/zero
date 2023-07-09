@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { FC, MouseEvent, useEffect, useRef, useState } from 'react'
 import MDX from '@/components/MDX'
 
-const Home: FC = () => {
+const Page: FC = () => {
   const postList: Post[] = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
   const router = useRouter()
   const [page, setPage] = useState(1)
@@ -134,4 +134,4 @@ const Home: FC = () => {
   )
 }
 
-export default Home
+export default Page

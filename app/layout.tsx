@@ -1,10 +1,8 @@
-import type { PhotoProviderBase } from 'react-photo-view/dist/types'
+import type { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { Noto_Serif_SC } from 'next/font/google'
-import { ReactNode } from 'react'
 import 'aos/dist/aos.css'
 import Cloud from '@/components/Cloud'
-import { PhotoProvider } from '@/components/PhotoView'
 import Side from '@/components/Side'
 import './globals.css'
 
@@ -14,12 +12,6 @@ const serif = Noto_Serif_SC({
   display: 'swap',
   variable: '--font-serif',
 })
-
-const photoViewConfig: PhotoProviderBase = {
-  maskOpacity: 1,
-  maskClassName: 'photo-view-mask',
-  bannerVisible: false,
-}
 
 export const metadata: Metadata = {
   title: '蝉時雨',
@@ -42,7 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex justify-center">
         <Cloud />
         <Side />
-        <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
+        {children}
       </body>
     </html>
   )
