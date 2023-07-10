@@ -9,6 +9,8 @@ const photoViewConfig: PhotoProviderBase = {
   maskOpacity: 1,
   maskClassName: 'photo-view-mask',
   bannerVisible: false,
+  photoClosable: true,
+  pullClosable: true,
 }
 
 export default function Template({ children }: { children: React.ReactNode }) {

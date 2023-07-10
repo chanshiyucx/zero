@@ -1,4 +1,5 @@
 import { allPosts } from 'contentlayer/generated'
+import { format } from 'date-fns'
 import { Bookmark, Calendar, Tag } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import MDX from '@/components/MDX'
@@ -14,7 +15,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
   }
 }
 
-const PostLayout = ({ params }: { params: { slug: string } }) => {
+export default function PostLayout({ params }: { params: { slug: string } }) {
   const post = allPosts.find((post) => post.title === decodeURIComponent(params.slug))
   if (!post) {
     return notFound()
@@ -25,7 +26,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
       <h2 className="mb-6 text-4xl italic">{post.title}</h2>
       <div className="meta mb-12 flex justify-start">
         <Calendar className="mr-1" />
-        {post.date}
+        {format(new Date(post.date), 'yyyy-MM-dd')}
         <Bookmark className="ml-4 mr-1" />
         {post.category}
         <Tag className="ml-4 mr-1" />
@@ -39,5 +40,3 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
     </article>
   )
 }
-
-export default PostLayout

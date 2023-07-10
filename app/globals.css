@@ -82,33 +82,6 @@
     transition: all 0.6s ease-in-out;
   }
 
-  /* custom page */
-  .page {
-    @apply relative flex min-h-screen items-center py-8 lg:py-12;
-  }
-  .mask {
-    @apply shadow-inner;
-    will-change: height;
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-  .mask:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -0.16rem;
-    width: 0.32rem;
-    height: 70%;
-    border-radius: 0.1rem;
-    background-color: var(--theme-color);
-    transform: translateY(-50%);
-  }
-  .meta {
-    @apply break-keep;
-  }
-  .meta svg {
-    @apply w-5;
-  }
-
   /* photo */
   .photo-view-mask {
     background-color: var(--background-color) !important;
@@ -142,5 +115,112 @@
 
   .prose p:has(img) {
     @apply relative;
+  }
+
+  /* custom page */
+  .page {
+    @apply relative flex min-h-screen items-center py-8 lg:py-12;
+  }
+  .mask {
+    @apply shadow-inner;
+    will-change: height;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  .mask:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.16rem;
+    width: 0.32rem;
+    height: 70%;
+    border-radius: 0.1rem;
+    background-color: var(--theme-color);
+    transform: translateY(-50%);
+  }
+  .meta {
+    @apply break-keep;
+  }
+  .meta svg {
+    @apply w-5;
+  }
+
+  /* friend page */
+  .friend .avatar {
+    color: var(--theme-color);
+  }
+
+  .friend li {
+    will-change: transform;
+    border: 2px solid var(--font-color);
+  }
+
+  .friend li img {
+    transform: translateX(40%);
+    opacity: 0.2;
+  }
+
+  .friend li:hover {
+    @apply shadow-xl;
+    color: var(--theme-color);
+    border-color: var(--theme-color);
+  }
+
+  .friend li:hover img {
+    opacity: 0.5;
+  }
+
+  /* book page */
+  .book li {
+    @apply list-none;
+    will-change: transform;
+    border: 2px solid var(--font-color);
+  }
+  .book li:hover {
+    @apply shadow-xl;
+    border-color: var(--theme-color);
+  }
+
+  .book li:hover .cover {
+    transform: rotateY(0deg);
+  }
+
+  .book li:hover h3 {
+    color: var(--theme-color);
+  }
+
+  .book .cover {
+    min-width: 6.25rem;
+    width: 6.25rem;
+    height: 8.325rem;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform: rotateY(-30deg);
+    transition: 1s ease;
+    perspective: 37.5rem;
+  }
+
+  .book .cover > img {
+    @apply absolute left-0 top-0 h-full w-full;
+    transform: translateZ(0.75rem);
+    border-radius: 0 2px 2px 0;
+    box-shadow: 3px 3px 16px var(--font-color);
+    background-color: var(--font-color);
+  }
+
+  .book .cover::before {
+    @apply absolute left-0 top-0 h-full w-full;
+    content: '';
+    transform: translateZ(-0.75rem);
+    border-radius: 0 2px 2px 0;
+    background-color: var(--font-color);
+  }
+
+  .book .cover::after {
+    @apply absolute left-0 top-0.5;
+    content: '';
+    width: 1.5rem;
+    height: 8.1rem;
+    transform: translateX(5.25rem) rotateY(90deg);
+    background-color: var(--background-color);
   }
 }

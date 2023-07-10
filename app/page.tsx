@@ -5,13 +5,13 @@
 import type { Post } from 'contentlayer/generated'
 import AOS from 'aos'
 import { allPosts } from 'contentlayer/generated'
-import { compareDesc } from 'date-fns'
+import { compareDesc, format } from 'date-fns'
 import { Bookmark, Calendar, Tag } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { FC, MouseEvent, useEffect, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import MDX from '@/components/MDX'
 
-const Page: FC = () => {
+export default function Page() {
   const postList: Post[] = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
   const router = useRouter()
   const [page, setPage] = useState(1)
@@ -115,7 +115,7 @@ const Page: FC = () => {
                 <MDX key={post._id} code={post.description.code} />
                 <div className="meta mt-2 flex justify-start">
                   <Calendar className="mr-1" />
-                  {post.date}
+                  {format(new Date(post.date), 'yyyy-MM-dd')}
                   <Bookmark className="ml-4 mr-1" />
                   {post.category}
                   <Tag className="ml-4 mr-1" />
@@ -133,5 +133,3 @@ const Page: FC = () => {
     </div>
   )
 }
-
-export default Page
