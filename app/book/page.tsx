@@ -2,8 +2,8 @@ import data from './index.json'
 
 export default function FriendLayout() {
   return (
-    <div className="page book flex-col items-start py-16">
-      <div className="grid grid-cols-1 xl:grid-cols-2">
+    <div className="page book">
+      <ul className="grid grid-cols-1 xl:grid-cols-2">
         {data.map((item) => {
           return (
             <li key={item.name} className="m-2 transform p-3 duration-300 hover:-translate-y-1">
@@ -36,7 +36,7 @@ export default function FriendLayout() {
             </li>
           )
         })}
-      </div>
+      </ul>
     </div>
   )
 }

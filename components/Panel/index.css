@@ -1,5 +1,5 @@
 .panel {
-  @apply fixed inset-0;
+  @apply fixed inset-0 tracking-wider;
 }
 
 .panel .mask,
@@ -76,7 +76,7 @@
 }
 
 .panel .head {
-  @apply w-full text-lg tracking-wider;
+  @apply w-full text-lg;
   height: 3.125rem;
   line-height: 3.125rem;
   box-sizing: border-box;
@@ -90,7 +90,7 @@
 }
 
 .panel .body li {
-  @apply flex w-1/2 items-center justify-center tracking-wider;
+  @apply flex w-1/2 items-center justify-center;
 }
 
 .panel .body li span {

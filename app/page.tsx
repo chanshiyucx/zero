@@ -46,7 +46,7 @@ export default function Page() {
 
   const calcMaskPos = (target: any) => {
     const { clientHeight, offsetTop } = target
-    const paddingTop = document.documentElement.clientWidth > 1024 ? 3 * 16 : 2 * 16
+    const paddingTop = 3 * 16
     const realTop = offsetTop + paddingTop
     if (maskHeight === clientHeight && maskTop === realTop) return
     setMaskHeight(clientHeight)
@@ -90,7 +90,7 @@ export default function Page() {
   }, [])
 
   return (
-    <div className="page">
+    <div className="page py-12">
       <div className="fade">
         <div
           ref={maskRef}
@@ -105,7 +105,7 @@ export default function Page() {
             return (
               <article
                 key={post._id}
-                className="cursor-pointer overflow-x-hidden py-4 tracking-wide sm:px-4"
+                className="cursor-pointer overflow-x-hidden py-4 sm:px-4"
                 data-aos="fade-left"
                 onClick={() => router.push(`/posts/${post.title}`)}
                 onMouseOver={handleMask}

@@ -2,8 +2,8 @@ import data from './index.json'
 
 export default function FriendLayout() {
   return (
-    <div className="page friend flex-col items-start py-16">
-      <div className="mx-4 mb-4 block leading-7 tracking-wide">
+    <div className="page friend">
+      <div className="mx-4 mb-4 block leading-7">
         <p>不如来我这儿喝杯茶？嘿~</p>
         <p>★ Bio：蝉時雨</p>
         <p>★ Motto：蝉鸣如雨，花宵道中</p>

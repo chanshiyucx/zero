@@ -119,7 +119,7 @@
 
   /* custom page */
   .page {
-    @apply relative flex min-h-screen items-center py-8 lg:py-12;
+    @apply relative min-h-screen py-16 tracking-wide;
   }
   .mask {
     @apply shadow-inner;
@@ -142,6 +142,11 @@
   }
   .meta svg {
     @apply w-5;
+  }
+
+  /* project page */
+  .project a {
+    color: var(--theme-color);
   }
 
   /* friend page */
