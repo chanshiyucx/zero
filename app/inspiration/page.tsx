@@ -99,7 +99,7 @@ export default function InspirationLayout() {
   }, [])
 
   return (
-    <div className="page py-16">
+    <div className="page py-12">
       <div
         ref={maskRef}
         className="mask pointer-events-none absolute left-0 top-0 w-full transform rounded transition-all duration-300 ease-in-out"
