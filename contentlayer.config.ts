@@ -34,6 +34,10 @@ export const Post = defineDocumentType(() => ({
       },
       required: true,
     },
+    description: {
+      type: 'string',
+      required: false,
+    },
   },
   computedFields: {
     url: {
@@ -43,9 +47,12 @@ export const Post = defineDocumentType(() => ({
     description: {
       type: 'json',
       resolve: async (post) => {
-        const regex = /^(.+)?\r?\n\s*(.+)?(\r?\n)?/
-        const result = regex.exec(post.body.raw)
-        const raw = result ? result[2] : ''
+        let raw = post.description
+        if (!raw) {
+          const regex = /^(.+)?\r?\n\s*(.+)?(\r?\n)?/
+          const result = regex.exec(post.body.raw)
+          raw = result ? result[2] : ''
+        }
         const { code } = await bundleMDX({ source: raw })
         return { code, raw }
       },
