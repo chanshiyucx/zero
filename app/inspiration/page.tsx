@@ -1,23 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use client'
 
+import type { Inspiration } from '@/type'
 import type { Post } from 'contentlayer/generated'
 import AOS from 'aos'
 import { allPosts } from 'contentlayer/generated'
-import { compareDesc, format } from 'date-fns'
-import { Bookmark, Calendar, Tag } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { compareDesc } from 'date-fns'
+import { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
 import MDX from '@/components/MDX'
 
-export default function Page() {
+export default function InspirationLayout() {
   const postList: Post[] = allPosts
-    .filter((post) => post.category !== '一心净土')
+    .filter((post) => post.category === '一心净土')
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-  const router = useRouter()
   const [page, setPage] = useState(1)
-  const [posts, setPosts] = useState<Post[]>([])
+  const [inspirations, setInspirations] = useState<Inspiration[]>([])
   const maskRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
   const hoverRef = useRef<any>(null)
@@ -27,10 +24,19 @@ export default function Page() {
   const [maskHeight, setMaskHeight] = useState(0)
   const [maskTop, setMaskTop] = useState(0)
 
+  const list = useMemo(() => {
+    const result: Inspiration[] = []
+    postList.forEach((post) => {
+      result.push(...post.inspiration.reverse())
+    })
+    return result
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
-    const data = postList.slice((page - 1) * 10, page * 10)
+    const data = list.slice((page - 1) * 10, page * 10)
     if (data.length) {
-      setPosts([...posts, ...data])
+      setInspirations([...inspirations, ...data])
     } else {
       finishedRef.current = true
     }
@@ -102,30 +108,17 @@ export default function Page() {
         }}
       ></div>
       <div ref={listRef} className="relative space-y-4">
-        {posts.map((post) => {
+        {inspirations.map((inspiration) => {
           return (
             <article
-              key={post._id}
+              key={inspiration.title}
               className="cursor-pointer overflow-x-hidden py-4 sm:px-4"
               data-aos="fade-left"
-              onClick={() => router.push(`/posts/${post.title}`)}
               onMouseOver={handleMask}
               onMouseEnter={handleMask}
             >
-              <h2 className="mb-2 text-xl italic">{post.title}</h2>
-              <MDX code={post.summary.code} />
-              <div className="meta mt-2 flex justify-start">
-                <Calendar className="mr-1" />
-                {format(new Date(post.date), 'yyyy-MM-dd')}
-                <Bookmark className="ml-4 mr-1" />
-                {post.category}
-                <Tag className="ml-4 mr-1" />
-                {post.tags.map((tag) => (
-                  <span className="mr-2" key={tag}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <h2 className="mb-2 text-xl italic">{inspiration.title}</h2>
+              <MDX code={inspiration.code} />
             </article>
           )
         })}
