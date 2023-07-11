@@ -112,7 +112,7 @@ export default function Page() {
                 onMouseEnter={handleMask}
               >
                 <h2 className="mb-2 text-xl italic">{post.title}</h2>
-                <MDX key={post._id} code={post.description.code} />
+                <MDX key={post._id} code={post.summary.code} />
                 <div className="meta mt-2 flex justify-start">
                   <Calendar className="mr-1" />
                   {format(new Date(post.date), 'yyyy-MM-dd')}

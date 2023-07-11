@@ -44,7 +44,7 @@ export const Post = defineDocumentType(() => ({
       type: 'string',
       resolve: (post) => `/posts/${post.title}`,
     },
-    description: {
+    summary: {
       type: 'json',
       resolve: async (post) => {
         let raw = post.description
