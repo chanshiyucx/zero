@@ -73,7 +73,7 @@ export const Post = defineDocumentType(() => ({
             list.push({ title, raw, code })
           }
         }
-        return list
+        return list.reverse()
       },
     },
   },

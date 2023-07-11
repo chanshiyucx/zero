@@ -27,14 +27,15 @@ export default function InspirationLayout() {
   const list = useMemo(() => {
     const result: Inspiration[] = []
     postList.forEach((post) => {
-      result.push(...post.inspiration.reverse())
+      result.push(...post.inspiration)
     })
     return result
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [postList.length])
 
   useEffect(() => {
-    const data = list.slice((page - 1) * 10, page * 10)
+    const data = list.slice((page - 1) * 20, page * 20)
+
     if (data.length) {
       setInspirations([...inspirations, ...data])
     } else {
@@ -98,7 +99,7 @@ export default function InspirationLayout() {
   }, [])
 
   return (
-    <div className="page py-12">
+    <div className="page py-16">
       <div
         ref={maskRef}
         className="mask pointer-events-none absolute left-0 top-0 w-full transform rounded transition-all duration-300 ease-in-out"
