@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import localFont from 'next/font/local'
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import Poetry from '@/components/Poetry'
 
 const siteFont = localFont({ src: '../../assets/font/GuDianMingChaoTi.ttf', display: 'swap' })
@@ -15,4 +15,4 @@ const Site: FC = () => (
   </div>
 )
 
-export default memo(Site)
+export default Site

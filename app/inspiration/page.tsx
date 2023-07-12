@@ -55,7 +55,7 @@ export default function InspirationLayout() {
 
   const calcMaskPos = (target: any) => {
     const { clientHeight, offsetTop } = target
-    const paddingTop = 3 * 16
+    const paddingTop = document.documentElement.clientWidth > 1024 ? 4 * 16 : 6 * 16
     const realTop = offsetTop + paddingTop
     if (maskHeight === clientHeight && maskTop === realTop) return
     setMaskHeight(clientHeight)
@@ -99,7 +99,7 @@ export default function InspirationLayout() {
   }, [])
 
   return (
-    <div className="page py-12">
+    <div className="page">
       <div
         ref={maskRef}
         className="mask pointer-events-none absolute left-0 top-0 w-full transform rounded transition-all duration-300 ease-in-out"

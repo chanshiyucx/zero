@@ -53,7 +53,7 @@ const Side: FC = () => {
   }, [theme])
 
   return (
-    <div className="side sticky top-0 flex h-screen min-w-[24rem] flex-col items-start justify-between">
+    <div className="side sticky top-0 hidden h-screen min-w-[24rem] flex-col items-start justify-between lg:flex">
       <ShootingStar />
       {showPanel && <Panel list={themeList} theme={theme} toggleTheme={toggleTheme} togglePanle={togglePanle} />}
 

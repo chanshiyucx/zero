@@ -119,7 +119,7 @@
 
   /* custom page */
   .page {
-    @apply relative min-h-screen py-16 tracking-wide;
+    @apply relative min-h-screen py-24 tracking-wide lg:py-16;
   }
   .mask {
     @apply shadow-inner;
