@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN" className={serif.variable}>
-      <body className="container mx-auto flex justify-center">
+      <body>
         <Cloud />
         <Header />
         <Side />

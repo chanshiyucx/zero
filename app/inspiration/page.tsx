@@ -21,7 +21,6 @@ export default function InspirationLayout() {
   const hoverRef = useRef<any>(null)
   const timerRef = useRef<number>()
   const finishedRef = useRef<boolean>(false)
-  const unactiveRef = useRef<boolean>(false)
   const [maskHeight, setMaskHeight] = useState(0)
   const [maskTop, setMaskTop] = useState(0)
 
@@ -70,19 +69,18 @@ export default function InspirationLayout() {
   }
 
   const handleScroll = () => {
-    if (unactiveRef.current) return
     clearTimeout(timerRef.current)
     timerRef.current = window.setTimeout(() => {
       if (hoverRef.current) {
         calcMaskPos(hoverRef.current)
       }
+      // load more
+      if (finishedRef.current) return
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+      if (scrollTop + clientHeight > scrollHeight - 100) {
+        setPage((page) => page + 1)
+      }
     }, 100)
-    // load more
-    if (finishedRef.current) return
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
-    if (scrollTop + clientHeight > scrollHeight - 100) {
-      setPage((page) => page + 1)
-    }
   }
 
   useEffect(() => {
