@@ -1,3 +1,4 @@
+import Comment from '@/components/Comment'
 import data from './index.json'
 
 export default function FriendLayout() {
@@ -35,6 +36,7 @@ export default function FriendLayout() {
           )
         })}
       </ul>
+      <Comment term="友邻" />
     </div>
   )
 }

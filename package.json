@@ -34,6 +34,7 @@
   "dependencies": {
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
+    "@giscus/react": "^2.3.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
     "@svgr/webpack": "^8.0.1",
     "@tailwindcss/typography": "^0.5.9",

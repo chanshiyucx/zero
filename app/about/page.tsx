@@ -1,3 +1,5 @@
+import Comment from '@/components/Comment'
+
 export default function AboutLayout() {
   return (
     <div className="page prose max-w-full">
@@ -8,6 +10,7 @@ export default function AboutLayout() {
         正如蝉儿一般，生命短暂即逝，却仍一无反顾奏出生命的最强音，而我的青春岁月又何尝不期望如此，在最美的年华绽放最璀璨的人间烟火。
         蝉鸣如雨，花宵道中，一如少年。
       </p>
+      <Comment term="关于" />
     </div>
   )
 }

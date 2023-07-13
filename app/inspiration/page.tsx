@@ -7,6 +7,7 @@ import AOS from 'aos'
 import { allPosts } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
 import { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
+import Comment from '@/components/Comment'
 import MDX from '@/components/MDX'
 
 export default function InspirationLayout() {
@@ -124,6 +125,7 @@ export default function InspirationLayout() {
           )
         })}
       </div>
+      <Comment term="灵感" />
     </div>
   )
 }

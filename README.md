@@ -20,6 +20,7 @@
 
    - MarkDown 文件读取 [contentlayer](https://www.contentlayer.dev/)
    - Sitemap 生成 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap/)
+   - 访客评论 [giscus](https://giscus.app/zh-CN)
 
 6. 内容解析
 
