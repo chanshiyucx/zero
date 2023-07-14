@@ -5,6 +5,7 @@ import 'aos/dist/aos.css'
 import Cloud from '@/components/Cloud'
 import Header from '@/components/Header'
 import Side from '@/components/Side'
+import ThemeProvider from './context'
 import './globals.css'
 
 const serif = Noto_Serif_SC({
@@ -33,10 +34,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN" className={serif.variable}>
       <body>
-        <Cloud />
-        <Header />
-        <Side />
-        {children}
+        <ThemeProvider>
+          <Cloud />
+          <Header />
+          <Side />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

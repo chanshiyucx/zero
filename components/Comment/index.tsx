@@ -1,28 +1,15 @@
 'use client'
 
 import Giscus from '@giscus/react'
-import { FC, useLayoutEffect, useRef, useState } from 'react'
+import { FC, useContext } from 'react'
+import { ThemeContext } from '@/app/context'
 
 interface CommentProps {
   term: string
 }
 
-const themes = ['hutao', 'keqing', 'ganyu']
-
 const Comment: FC<CommentProps> = ({ term }) => {
-  const timerRef = useRef<number>()
-  const countRef = useRef<number>(0)
-  const [theme, setTheme] = useState('hutao')
-
-  // useLayoutEffect(() => {
-  //   clearInterval(timerRef.current)
-  //   timerRef.current = window.setInterval(() => {
-  //     const newTheme = themes[countRef.current % 3]
-  //     console.log('change theme------', newTheme, countRef.current)
-  //     setTheme(newTheme)
-  //     countRef.current += 1
-  //   }, 5000)
-  // }, [])
+  const { theme } = useContext(ThemeContext)
 
   return (
     <Giscus
@@ -36,7 +23,7 @@ const Comment: FC<CommentProps> = ({ term }) => {
       reactionsEnabled="0"
       emitMetadata="0"
       inputPosition="top"
-      theme={`https://zzz-peach.vercel.app/assets/styles/${theme}.css`}
+      theme={`https://zzz-peach.vercel.app/assets/styles/${theme.toLowerCase()}.css`}
       lang="zh-CN"
       loading="lazy"
     />

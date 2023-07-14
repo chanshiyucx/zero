@@ -1,6 +1,5 @@
 'use client'
 
-import type { ThemeType } from '@/type'
 import clsx from 'clsx'
 import {
   BookMarked,
@@ -18,44 +17,26 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FC, useLayoutEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { Butterfly } from '@/components/Icons'
 import Panel from '@/components/Panel'
 import ShootingStar from '@/components/ShootingStar'
 import Site from '@/components/Site'
-import { random } from '@/utils'
 import config from '@/utils/config'
-import { useLocalStorage } from '@/utils/hook'
-import themeList from '@/utils/theme'
 import './index.css'
 
 const { github, twitter, telegram, email, music, blog } = config.contact
-const randomTheme = themeList[random(0, themeList.length)]
 
 const Side: FC = () => {
   const pathname = usePathname()
   const [showPanel, setShowPanel] = useState(false)
-  const [theme, setTheme] = useLocalStorage<ThemeType>('theme', randomTheme.type, 24 * 60 * 60 * 1000)
 
-  const toggleTheme = (theme: ThemeType) => setTheme(theme)
   const togglePanle = () => setShowPanel((c) => !c)
-
-  useLayoutEffect(() => {
-    const t = themeList.find((e) => e.type === theme)
-    if (!t) return
-    document.documentElement.style.setProperty('--theme-color', t.color.primary)
-    document.documentElement.style.setProperty('--background-color', t.color.background)
-    document.documentElement.style.setProperty('--background-image', `url('${t.image.src}')`)
-    const element = document.getElementsByTagName('body')[0]
-    const classList = themeList.map((e) => e.type)
-    element.classList.remove(...classList)
-    element.classList.add(theme)
-  }, [theme])
 
   return (
     <div className="side sticky top-0 hidden h-screen min-w-[24rem] flex-col items-start justify-between lg:flex">
       <ShootingStar />
-      {showPanel && <Panel list={themeList} theme={theme} toggleTheme={toggleTheme} togglePanle={togglePanle} />}
+      {showPanel && <Panel togglePanle={togglePanle} />}
 
       {/* side menu */}
       <div className="z-20 flex h-3/5 w-full justify-end">

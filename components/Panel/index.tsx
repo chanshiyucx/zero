@@ -1,18 +1,17 @@
-import type { Theme, ThemeType } from '@/type'
 import clsx from 'clsx'
 import color from 'color'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
+import { ThemeContext } from '@/app/context'
+import themeList from '@/utils/theme'
 import './index.css'
 
 interface PanelProps {
-  list: Theme[]
-  theme: ThemeType
   togglePanle: () => void
-  toggleTheme: (theme: ThemeType) => void
 }
 
-const Panel: FC<PanelProps> = ({ list, theme, togglePanle, toggleTheme }) => {
-  const currentTheme = list.find((e) => e.type === theme)
+const Panel: FC<PanelProps> = ({ togglePanle }) => {
+  const currentTheme = themeList.find((e) => e.type === theme)
+  const { theme, setTheme } = useContext(ThemeContext)
 
   return (
     <div className="panel">
@@ -26,12 +25,12 @@ const Panel: FC<PanelProps> = ({ list, theme, togglePanle, toggleTheme }) => {
           <div className="content">
             <div className="head">霞彩焕花火，花火知我愿</div>
             <ul className="body">
-              {list.map((t) => {
+              {themeList.map((t) => {
                 return (
                   <li
                     key={t.name}
                     className={clsx('cursor-pointer', theme === t.type && 'active')}
-                    onClick={() => toggleTheme(t.type)}
+                    onClick={() => setTheme(t.type)}
                   >
                     <span
                       style={{
