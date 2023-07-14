@@ -16,7 +16,7 @@ const Panel: FC<PanelProps> = ({ list, theme, togglePanle, toggleTheme }) => {
 
   return (
     <div className="panel">
-      <div className="mask" onClick={togglePanle}></div>
+      <div className="overlay" onClick={togglePanle}></div>
       <div className="main">
         <div className="wrapper">
           <div className="short-line">

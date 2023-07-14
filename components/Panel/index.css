@@ -2,7 +2,7 @@
   @apply fixed inset-0 tracking-wider;
 }
 
-.panel .mask,
+.panel .overlay,
 .panel .main {
   @apply absolute inset-0;
 }
