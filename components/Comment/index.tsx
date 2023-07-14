@@ -33,7 +33,7 @@ const Comment: FC<CommentProps> = ({ term }) => {
       categoryId="DIC_kwDOCP7jMc4CX150"
       mapping="specific"
       term={term}
-      reactionsEnabled="1"
+      reactionsEnabled="0"
       emitMetadata="0"
       inputPosition="top"
       theme={`https://zzz-peach.vercel.app/assets/styles/${theme}.css`}

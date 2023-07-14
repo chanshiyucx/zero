@@ -7,6 +7,7 @@
 
 main {
   font-family: 'Noto Serif SC', sans-serif;
+  margin-top: 4rem;
   --color-prettylights-syntax-comment: #6e7781;
   --color-prettylights-syntax-constant: #0550ae;
   --color-prettylights-syntax-entity: #8250df;
@@ -63,7 +64,7 @@ main {
   --color-segmented-control-bg: rgb(0 0 0 / 4%);
   --color-segmented-control-button-bg: #fcfaf2;
   --color-segmented-control-button-selected-border: #d0d7de;
-  --color-fg-default: #1f2328;
+  --color-fg-default: #374151;
   --color-fg-muted: #656d76;
   --color-fg-subtle: #6e7781;
   --color-canvas-default: transparent;
@@ -75,7 +76,7 @@ main {
   --color-neutral-muted: rgb(175 184 193 / 20%);
   --color-accent-fg: #e06458;
   --color-accent-emphasis: #e06458;
-  --color-accent-muted: rgb(84 174 255 / 40%);
+  --color-accent-muted: #d0d7de;
   --color-accent-subtle: transparent;
   --color-success-fg: #1a7f37;
   --color-attention-fg: #9a6700;
@@ -99,4 +100,9 @@ main .pagination-loader-container {
 
 main .gsc-loading-image {
   background-image: url('https://github.githubassets.com/images/mona-loading-default.gif');
+}
+
+main .gsc-pagination-button,
+main .gsc-reactions-popover {
+  background-color: #fcfaf2;
 }
