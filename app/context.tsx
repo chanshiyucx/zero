@@ -3,9 +3,11 @@
 import type { ThemeType } from '@/type'
 import type { ReactNode } from 'react'
 import { createContext, useLayoutEffect } from 'react'
-import { random } from '@/utils'
+import { Nya, random } from '@/utils'
 import { useLocalStorage } from '@/utils/hook'
 import themeList from '@/utils/theme'
+
+Nya()
 
 const randomTheme = themeList[random(0, themeList.length)]
 
