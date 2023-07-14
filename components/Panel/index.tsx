@@ -10,8 +10,8 @@ interface PanelProps {
 }
 
 const Panel: FC<PanelProps> = ({ togglePanle }) => {
-  const currentTheme = themeList.find((e) => e.type === theme)
   const { theme, setTheme } = useContext(ThemeContext)
+  const currentTheme = themeList.find((e) => e.type === theme)
 
   return (
     <div className="panel">
