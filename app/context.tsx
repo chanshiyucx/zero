@@ -3,14 +3,17 @@
 import type { ThemeType } from '@/type'
 import type { ReactNode } from 'react'
 import { createContext, useLayoutEffect } from 'react'
-import { Nya, random } from '@/utils'
+import { localRead, localSave, Nya } from '@/utils'
 import { useLocalStorage } from '@/utils/hook'
 import themeList from '@/utils/theme'
 
 Nya()
 
-const randomTheme = themeList[random(0, themeList.length)]
-
+// 默认第一次访问是胡桃主题
+const viewCount = Number(localRead('viewCount', '0'))
+const randomIndex = viewCount % themeList.length
+const randomTheme = themeList[randomIndex]
+localSave('viewCount', `${viewCount + 1}`)
 interface ThemeProps {
   theme: ThemeType
   setTheme: (theme: ThemeType) => void

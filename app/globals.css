@@ -31,7 +31,7 @@
     @apply fixed left-0 top-0 h-screen w-screen bg-cover bg-center bg-no-repeat;
     content: '';
     z-index: -1;
-    opacity: 0.1;
+    opacity: 0.08;
     background-image: var(--background-image);
     transition: background-image 0.8s;
   }

@@ -26,10 +26,21 @@ const themeList: Theme[] = [
     description: '千帆齐聚之城',
     color: {
       primary: '#827595',
-      background: '#BFBCCF',
+      background: '#E6E3F6',
     },
     image: Keqing,
     url: 'https://www.bilibili.com/video/BV14K4y1Q7PH/',
+  },
+  {
+    type: 'Nahida',
+    name: '白草净华',
+    description: '如风如露之思',
+    color: {
+      primary: '#7EA08A',
+      background: '#F3F7F2',
+    },
+    image: Nahida,
+    url: 'https://www.bilibili.com/video/BV1wm4y1m7DC/',
   },
   {
     type: 'Ganyu',
@@ -43,16 +54,17 @@ const themeList: Theme[] = [
     url: 'https://www.bilibili.com/video/BV1ZL4y147cB/',
   },
   {
-    type: 'Beelzebul',
-    name: '一心净土',
-    description: '天光澄寂之景',
+    type: 'Kokomi',
+    name: '真珠之智',
+    description: '浮岳映虹之波',
     color: {
-      primary: '#8C78B0',
-      background: '#E3DBED',
+      primary: '#BF9997',
+      background: '#F2DFD9',
     },
-    image: Beelzebul,
-    url: 'https://www.bilibili.com/video/BV1UY411g7RU/',
+    image: Kokomi,
+    url: 'https://www.bilibili.com/video/BV1ML411N7hm/',
   },
+
   {
     type: 'Ayaka',
     name: '白鹭霜华',
@@ -76,26 +88,15 @@ const themeList: Theme[] = [
     url: 'https://www.bilibili.com/video/BV1Zd4y1K76h/',
   },
   {
-    type: 'Kokomi',
-    name: '真珠之智',
-    description: '浮岳映虹之波',
+    type: 'Beelzebul',
+    name: '一心净土',
+    description: '天光澄寂之景',
     color: {
-      primary: '#BF9997',
-      background: '#F2DFD9',
+      primary: '#8C78B0',
+      background: '#E3DBED',
     },
-    image: Kokomi,
-    url: 'https://www.bilibili.com/video/BV1ML411N7hm/',
-  },
-  {
-    type: 'Nahida',
-    name: '白草净华',
-    description: '如风如露之思',
-    color: {
-      primary: '#7EA08A',
-      background: '#F3F7F2',
-    },
-    image: Nahida,
-    url: 'https://www.bilibili.com/video/BV1wm4y1m7DC/',
+    image: Beelzebul,
+    url: 'https://www.bilibili.com/video/BV1UY411g7RU/',
   },
 ]
 
