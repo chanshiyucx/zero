@@ -37,20 +37,6 @@ export const loadImage = (src: string) =>
   })
 
 /**
- * 写入缓存
- */
-export const localSave = (key: string, value: string) => {
-  localStorage.setItem(key, value)
-}
-
-/**
- * 读取缓存
- */
-export const localRead = (key: string, defaultValue = ''): string => {
-  return localStorage.getItem(key) ?? defaultValue
-}
-
-/**
  * Nya
  */
 export const Nya = () => {

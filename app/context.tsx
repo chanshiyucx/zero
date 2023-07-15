@@ -2,18 +2,13 @@
 
 import type { ThemeType } from '@/type'
 import type { ReactNode } from 'react'
-import { createContext, useLayoutEffect } from 'react'
-import { localRead, localSave, Nya } from '@/utils'
+import { createContext, useEffect, useLayoutEffect } from 'react'
+import { Nya } from '@/utils'
 import { useLocalStorage } from '@/utils/hook'
 import themeList from '@/utils/theme'
 
 Nya()
 
-// 默认第一次访问是胡桃主题
-const viewCount = Number(localRead('viewCount', '0'))
-const randomIndex = viewCount % themeList.length
-const randomTheme = themeList[randomIndex]
-localSave('viewCount', `${viewCount + 1}`)
 interface ThemeProps {
   theme: ThemeType
   setTheme: (theme: ThemeType) => void
@@ -22,6 +17,15 @@ interface ThemeProps {
 export const ThemeContext = createContext({} as ThemeProps)
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
+  const [count, setCount] = useLocalStorage<number>('viewCount', 0)
+  // 默认第一次访问是胡桃主题
+  const randomIndex = count % themeList.length
+  const randomTheme = themeList[randomIndex]
+  useEffect(() => {
+    setCount(count + 1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const [theme, setTheme] = useLocalStorage<ThemeType>('theme', randomTheme.type, 24 * 60 * 60 * 1000)
 
   useLayoutEffect(() => {
