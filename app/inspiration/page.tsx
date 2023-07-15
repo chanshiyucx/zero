@@ -96,6 +96,8 @@ export default function InspirationLayout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const fadeAnime = document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up'
+
   return (
     <div className="page px-0">
       <div
@@ -112,7 +114,7 @@ export default function InspirationLayout() {
             <article
               key={inspiration.title}
               className="cursor-pointer p-4"
-              data-aos="fade-left"
+              data-aos={fadeAnime}
               onMouseOver={handleMask}
               onMouseEnter={handleMask}
             >

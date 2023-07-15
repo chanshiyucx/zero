@@ -90,6 +90,8 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const fadeAnime = document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up'
+
   return (
     <div className="page px-0">
       <div
@@ -106,7 +108,7 @@ export default function Page() {
             <article
               key={post._id}
               className="cursor-pointer p-4"
-              data-aos="fade-left"
+              data-aos={fadeAnime}
               onClick={() => router.push(`/posts/${post.title}`)}
               onMouseOver={handleMask}
               onMouseEnter={handleMask}
