@@ -7,31 +7,31 @@
 
 main {
   font-family: 'Noto Serif SC', sans-serif;
-  --color-text: var(--theme-color);
+  margin-top: 4rem;
   --color-prettylights-syntax-comment: #6e7781;
   --color-prettylights-syntax-constant: #0550ae;
   --color-prettylights-syntax-entity: #8250df;
   --color-prettylights-syntax-storage-modifier-import: #24292f;
-  --color-prettylights-syntax-entity-tag: #0550ae;
-  --color-prettylights-syntax-keyword: #b35900;
+  --color-prettylights-syntax-entity-tag: #116329;
+  --color-prettylights-syntax-keyword: #cf222e;
   --color-prettylights-syntax-string: #0a3069;
-  --color-prettylights-syntax-variable: #8a4600;
-  --color-prettylights-syntax-brackethighlighter-unmatched: #6f3800;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
   --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
-  --color-prettylights-syntax-invalid-illegal-bg: #6f3800;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
   --color-prettylights-syntax-carriage-return-text: #f6f8fa;
-  --color-prettylights-syntax-carriage-return-bg: #b35900;
-  --color-prettylights-syntax-string-regexp: #0550ae;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
   --color-prettylights-syntax-markup-list: #3b2300;
   --color-prettylights-syntax-markup-heading: #0550ae;
   --color-prettylights-syntax-markup-italic: #24292f;
   --color-prettylights-syntax-markup-bold: #24292f;
-  --color-prettylights-syntax-markup-deleted-text: #6f3800;
-  --color-prettylights-syntax-markup-deleted-bg: #fff5e8;
-  --color-prettylights-syntax-markup-inserted-text: #0550ae;
-  --color-prettylights-syntax-markup-inserted-bg: #ddf4ff;
-  --color-prettylights-syntax-markup-changed-text: #8a4600;
-  --color-prettylights-syntax-markup-changed-bg: #ffddb0;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
   --color-prettylights-syntax-markup-ignored-text: #eaeef2;
   --color-prettylights-syntax-markup-ignored-bg: #0550ae;
   --color-prettylights-syntax-meta-diff-range: #8250df;
@@ -40,54 +40,53 @@ main {
   --color-prettylights-syntax-constant-other-reference-link: #0a3069;
   --color-btn-text: #24292f;
   --color-btn-bg: #f6f8fa;
-  --color-btn-border: rgb(27 31 36 / 15%);
-  --color-btn-shadow: 0 1px 0 rgb(27 31 36 / 4%);
+  --color-btn-border: rgb(31 35 40 / 15%);
+  --color-btn-shadow: 0 1px 0 rgb(31 35 40 / 4%);
   --color-btn-inset-shadow: inset 0 1px 0 rgb(255 255 255 / 25%);
   --color-btn-hover-bg: #f3f4f6;
-  --color-btn-hover-border: rgb(27 31 36 / 15%);
+  --color-btn-hover-border: rgb(31 35 40 / 15%);
   --color-btn-active-bg: hsl(220deg 14% 93% / 100%);
-  --color-btn-active-border: rgb(27 31 36 / 15%);
+  --color-btn-active-border: rgb(31 35 40 / 15%);
   --color-btn-selected-bg: hsl(220deg 14% 94% / 100%);
   --color-btn-primary-text: #fff;
-  --color-btn-primary-bg: #374151;
-  --color-btn-primary-border: rgb(27 31 36 / 15%);
-  --color-btn-primary-shadow: 0 1px 0 rgb(27 31 36 / 10%);
+  --color-btn-primary-bg: #827595;
+  --color-btn-primary-border: rgb(31 35 40 / 15%);
+  --color-btn-primary-shadow: 0 1px 0 rgb(31 35 40 / 10%);
   --color-btn-primary-inset-shadow: inset 0 1px 0 rgb(255 255 255 / 3%);
-  --color-btn-primary-hover-bg: #374151;
-  --color-btn-primary-hover-border: rgb(27 31 36 / 15%);
-  --color-btn-primary-selected-bg: hsl(212deg 92% 43% / 100%);
-  --color-btn-primary-selected-shadow: inset 0 1px 0 rgb(0 33 85 / 20%);
+  --color-btn-primary-hover-bg: #1a7f37;
+  --color-btn-primary-hover-border: rgb(31 35 40 / 15%);
+  --color-btn-primary-selected-bg: hsl(137deg 66% 28% / 100%);
+  --color-btn-primary-selected-shadow: inset 0 1px 0 rgb(0 45 17 / 20%);
   --color-btn-primary-disabled-text: rgb(255 255 255 / 80%);
-  --color-btn-primary-disabled-bg: #80ccff;
-  --color-btn-primary-disabled-border: rgb(27 31 36 / 15%);
+  --color-btn-primary-disabled-bg: #827595;
+  --color-btn-primary-disabled-border: rgb(31 35 40 / 15%);
   --color-action-list-item-default-hover-bg: rgb(208 215 222 / 32%);
   --color-segmented-control-bg: rgb(0 0 0 / 4%);
-  --color-segmented-control-button-bg: #fff;
-  --color-segmented-control-button-selected-border: #8c959f;
-  --color-fg-default: #24292f;
-  --color-fg-muted: #57606a;
+  --color-segmented-control-button-bg: #bfbccf;
+  --color-segmented-control-button-selected-border: #d0d7de;
+  --color-fg-default: #374151;
+  --color-fg-muted: #656d76;
   --color-fg-subtle: #6e7781;
-  --color-canvas-default: #8d83a3;
-  /* --color-canvas-default: transparent; */
+  --color-canvas-default: transparent;
   --color-canvas-overlay: transparent;
   --color-canvas-inset: transparent;
   --color-canvas-subtle: transparent;
   --color-border-default: #d0d7de;
-  --color-border-muted: hsl(210deg 18% 87% / 100%);
+  --color-border-muted: #d0d7de;
   --color-neutral-muted: rgb(175 184 193 / 20%);
-  --color-accent-fg: #0969da;
-  --color-accent-emphasis: #0969da;
-  --color-accent-muted: rgb(84 174 255 / 40%);
-  --color-accent-subtle: #ddf4ff;
-  --color-success-fg: #0969da;
+  --color-accent-fg: #827595;
+  --color-accent-emphasis: #827595;
+  --color-accent-muted: #d0d7de;
+  --color-accent-subtle: transparent;
+  --color-success-fg: #1a7f37;
   --color-attention-fg: #9a6700;
   --color-attention-muted: rgb(212 167 44 / 40%);
   --color-attention-subtle: #fff8c5;
-  --color-danger-fg: #b35900;
-  --color-danger-muted: rgb(247 153 57 / 40%);
-  --color-danger-subtle: #fff5e8;
+  --color-danger-fg: #d1242f;
+  --color-danger-muted: rgb(255 129 130 / 40%);
+  --color-danger-subtle: #ffebe9;
   --color-primer-shadow-inset: inset 0 1px 0 rgb(208 215 222 / 20%);
-  --color-scale-gray-1: #eaeef2;
+  --color-scale-gray-1: rgb(0 0 0 / 4%);
   --color-scale-blue-1: #b6e3ff;
 
   /*! Extensions from @primer/css/alerts/flash.scss */
@@ -101,4 +100,9 @@ main .pagination-loader-container {
 
 main .gsc-loading-image {
   background-image: url('https://github.githubassets.com/images/mona-loading-default.gif');
+}
+
+main .gsc-pagination-button,
+main .gsc-reactions-popover {
+  background-color: #bfbccf;
 }

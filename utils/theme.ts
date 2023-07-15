@@ -25,8 +25,8 @@ const themeList: Theme[] = [
     name: '霆霓快雨',
     description: '千帆齐聚之城',
     color: {
-      primary: '#8D83A3',
-      background: '#8D83A3',
+      primary: '#827595',
+      background: '#BFBCCF',
     },
     image: Keqing,
     url: 'https://www.bilibili.com/video/BV14K4y1Q7PH/',
@@ -37,7 +37,7 @@ const themeList: Theme[] = [
     description: '仙泽麟行之迹',
     color: {
       primary: '#5260A6',
-      background: '#5260A6',
+      background: '#E2E5F5',
     },
     image: Ganyu,
     url: 'https://www.bilibili.com/video/BV1ZL4y147cB/',
@@ -47,8 +47,8 @@ const themeList: Theme[] = [
     name: '一心净土',
     description: '天光澄寂之景',
     color: {
-      primary: '#9F87C2',
-      background: '#9F87C2',
+      primary: '#8C78B0',
+      background: '#E3DBED',
     },
     image: Beelzebul,
     url: 'https://www.bilibili.com/video/BV1UY411g7RU/',
@@ -58,8 +58,8 @@ const themeList: Theme[] = [
     name: '白鹭霜华',
     description: '白鹭儃伫之思',
     color: {
-      primary: '#7A8FB7',
-      background: '#7A8FB7',
+      primary: '#8996B2',
+      background: '#D8E2EC',
     },
     image: Ayaka,
     url: 'https://www.bilibili.com/video/BV1nY4y1a76M/',
@@ -69,8 +69,8 @@ const themeList: Theme[] = [
     name: '琉焰华舞',
     description: '硝彩盛放之光',
     color: {
-      primary: '#BC5039',
-      background: '#BC5039',
+      primary: '#C15C42',
+      background: '#F3E8DB',
     },
     image: Yoimiya,
     url: 'https://www.bilibili.com/video/BV1Zd4y1K76h/',
@@ -81,7 +81,7 @@ const themeList: Theme[] = [
     description: '浮岳映虹之波',
     color: {
       primary: '#BF9997',
-      background: '#BF9997',
+      background: '#F2DFD9',
     },
     image: Kokomi,
     url: 'https://www.bilibili.com/video/BV1ML411N7hm/',
@@ -91,8 +91,8 @@ const themeList: Theme[] = [
     name: '白草净华',
     description: '如风如露之思',
     color: {
-      primary: '#9DBB92',
-      background: '#9DBB92',
+      primary: '#7EA08A',
+      background: '#F3F7F2',
     },
     image: Nahida,
     url: 'https://www.bilibili.com/video/BV1wm4y1m7DC/',

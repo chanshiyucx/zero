@@ -49,7 +49,7 @@ main {
   --color-btn-active-border: rgb(31 35 40 / 15%);
   --color-btn-selected-bg: hsl(220deg 14% 94% / 100%);
   --color-btn-primary-text: #fff;
-  --color-btn-primary-bg: #5260a6;
+  --color-btn-primary-bg: #bf9997;
   --color-btn-primary-border: rgb(31 35 40 / 15%);
   --color-btn-primary-shadow: 0 1px 0 rgb(31 35 40 / 10%);
   --color-btn-primary-inset-shadow: inset 0 1px 0 rgb(255 255 255 / 3%);
@@ -58,11 +58,11 @@ main {
   --color-btn-primary-selected-bg: hsl(137deg 66% 28% / 100%);
   --color-btn-primary-selected-shadow: inset 0 1px 0 rgb(0 45 17 / 20%);
   --color-btn-primary-disabled-text: rgb(255 255 255 / 80%);
-  --color-btn-primary-disabled-bg: #5260a6;
+  --color-btn-primary-disabled-bg: #bf9997;
   --color-btn-primary-disabled-border: rgb(31 35 40 / 15%);
   --color-action-list-item-default-hover-bg: rgb(208 215 222 / 32%);
   --color-segmented-control-bg: rgb(0 0 0 / 4%);
-  --color-segmented-control-button-bg: #e2e5f5;
+  --color-segmented-control-button-bg: #f2dfd9;
   --color-segmented-control-button-selected-border: #d0d7de;
   --color-fg-default: #374151;
   --color-fg-muted: #656d76;
@@ -74,8 +74,8 @@ main {
   --color-border-default: #d0d7de;
   --color-border-muted: #d0d7de;
   --color-neutral-muted: rgb(175 184 193 / 20%);
-  --color-accent-fg: #5260a6;
-  --color-accent-emphasis: #5260a6;
+  --color-accent-fg: #bf9997;
+  --color-accent-emphasis: #bf9997;
   --color-accent-muted: #d0d7de;
   --color-accent-subtle: transparent;
   --color-success-fg: #1a7f37;
@@ -104,5 +104,5 @@ main .gsc-loading-image {
 
 main .gsc-pagination-button,
 main .gsc-reactions-popover {
-  background-color: #e2e5f5;
+  background-color: #f2dfd9;
 }

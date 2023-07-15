@@ -22,6 +22,9 @@
     -ms-text-size-adjust: 100%;
     color: var(--font-color);
     background-color: var(--background-color);
+    background-image: url('../assets/images/texture.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
   }
 
   body::before {
