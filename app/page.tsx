@@ -122,7 +122,7 @@ export default function Page() {
                 {post.category}
                 <Tag className="ml-4 mr-1" />
                 {post.tags.map((tag, index) => (
-                  <span className={clsx('mr-2', index >= 1 && 'hidden sm:inline-block')} key={tag}>
+                  <span key={tag} className={clsx('mr-2', index >= 1 && 'hidden sm:inline-block')}>
                     {tag}
                   </span>
                 ))}

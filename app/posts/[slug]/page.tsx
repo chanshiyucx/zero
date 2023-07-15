@@ -12,7 +12,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
   return {
     title: `${post?.title} - 蝉時雨`,
     description: post?.description,
-    keywords: post?.tags.join(', '),
+    keywords: post?.tags.join(','),
   }
 }
 
@@ -33,8 +33,8 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
           {post.category}
           <Tag className="ml-4 mr-1" />
           {post.tags.map((tag) => (
-            <span className="mr-2" key={tag}>
-              {tag}
+            <span key={tag} className="mr-2">
+              {tag.trim()}
             </span>
           ))}
         </div>
