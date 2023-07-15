@@ -127,12 +127,7 @@
 
   /* custom page */
   .page {
-    @apply relative min-h-screen py-24 tracking-wide lg:py-16;
-  }
-  .project,
-  .about,
-  .post {
-    @apply px-4 sm:px-0;
+    @apply relative min-h-screen px-4 py-24 tracking-wide sm:px-0 lg:py-16;
   }
   .mask {
     @apply shadow-inner;

@@ -106,7 +106,7 @@ export default function Page() {
             <article
               key={post._id}
               className="cursor-pointer p-4"
-              data-aos="fade-up"
+              data-aos="fade-left"
               onClick={() => router.push(`/posts/${post.title}`)}
               onMouseOver={handleMask}
               onMouseEnter={handleMask}
