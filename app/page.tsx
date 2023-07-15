@@ -4,6 +4,7 @@
 
 import type { Post } from 'contentlayer/generated'
 import AOS from 'aos'
+import clsx from 'clsx'
 import { allPosts } from 'contentlayer/generated'
 import { compareDesc, format } from 'date-fns'
 import { Bookmark, Calendar, Tag } from 'lucide-react'
@@ -118,8 +119,8 @@ export default function Page() {
                 <Bookmark className="ml-4 mr-1" />
                 {post.category}
                 <Tag className="ml-4 mr-1" />
-                {post.tags.map((tag) => (
-                  <span className="mr-2" key={tag}>
+                {post.tags.map((tag, index) => (
+                  <span className={clsx('mr-2', index >= 1 && 'hidden sm:inline-block')} key={tag}>
                     {tag}
                   </span>
                 ))}
