@@ -112,7 +112,7 @@ export default function InspirationLayout() {
           return (
             <article
               key={inspiration.title}
-              className="cursor-pointer overflow-x-hidden py-4 sm:px-4"
+              className="cursor-pointer p-4"
               data-aos="fade-left"
               onMouseOver={handleMask}
               onMouseEnter={handleMask}

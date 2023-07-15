@@ -14,20 +14,20 @@
   color: var(--theme-color);
 }
 
-.nav-over {
+.nav.over {
   @apply absolute right-4 top-20 z-10 flex flex-col rounded p-3 shadow-sm;
   background-color: var(--background-color);
-}
-
-.nav-over a {
-  @apply py-3;
 }
 
 .nav svg {
   @apply mr-1;
 }
 
-.nav-over svg {
+.over a {
+  @apply py-3;
+}
+
+.over svg {
   @apply mr-2;
 }
 

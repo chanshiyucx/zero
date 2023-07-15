@@ -22,7 +22,7 @@ const Header: FC = () => {
     <div className="header fixed z-10 flex h-16 w-screen items-center justify-between px-6 shadow-sm lg:hidden">
       <h3 className={clsx(siteFont.className, 'title text-4xl tracking-wider')}>蟬時雨</h3>
 
-      <nav className={clsx('nav hidden items-center sm:flex', open && 'nav-over')}>
+      <nav className={clsx('nav hidden items-center sm:flex', open && 'over')}>
         <Link className={clsx(pathname === '/' && 'active')} href="/">
           <ScrollText /> 创作
         </Link>
