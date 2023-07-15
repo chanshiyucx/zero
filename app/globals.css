@@ -129,6 +129,11 @@
   .page {
     @apply relative min-h-screen py-24 tracking-wide lg:py-16;
   }
+  .project,
+  .about,
+  .post {
+    @apply px-4 sm:px-0;
+  }
   .mask {
     @apply shadow-inner;
     will-change: height;
