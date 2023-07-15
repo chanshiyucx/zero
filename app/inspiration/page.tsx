@@ -22,6 +22,7 @@ export default function InspirationLayout() {
   const finishedRef = useRef<boolean>(false)
   const [maskHeight, setMaskHeight] = useState(0)
   const [maskTop, setMaskTop] = useState(0)
+  const [anime, setAnime] = useState('fade-left')
 
   const list = useMemo(() => {
     const result: Inspiration[] = []
@@ -90,13 +91,12 @@ export default function InspirationLayout() {
       throttleDelay: 100,
       offset: 0,
     })
+    setAnime(document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up')
 
     window.addEventListener('scroll', handleScroll, false)
     return () => window.removeEventListener('scroll', handleScroll, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const fadeAnime = document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up'
 
   return (
     <div className="page px-0">
@@ -114,7 +114,7 @@ export default function InspirationLayout() {
             <article
               key={inspiration.title}
               className="cursor-pointer p-4"
-              data-aos={fadeAnime}
+              data-aos={anime}
               onMouseOver={handleMask}
               onMouseEnter={handleMask}
             >

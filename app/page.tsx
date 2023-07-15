@@ -26,6 +26,7 @@ export default function Page() {
   const finishedRef = useRef<boolean>(false)
   const [maskHeight, setMaskHeight] = useState(0)
   const [maskTop, setMaskTop] = useState(0)
+  const [anime, setAnime] = useState('fade-left')
 
   useEffect(() => {
     const data = postList.slice((page - 1) * 10, page * 10)
@@ -84,13 +85,12 @@ export default function Page() {
       throttleDelay: 100,
       offset: 0,
     })
+    setAnime(document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up')
 
     window.addEventListener('scroll', handleScroll, false)
     return () => window.removeEventListener('scroll', handleScroll, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const fadeAnime = document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up'
 
   return (
     <div className="page px-0">
@@ -108,7 +108,7 @@ export default function Page() {
             <article
               key={post._id}
               className="cursor-pointer p-4"
-              data-aos={fadeAnime}
+              data-aos={anime}
               onClick={() => router.push(`/posts/${post.title}`)}
               onMouseOver={handleMask}
               onMouseEnter={handleMask}
