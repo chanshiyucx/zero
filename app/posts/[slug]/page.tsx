@@ -1,5 +1,3 @@
-'use client'
-
 import { allPosts } from 'contentlayer/generated'
 import { format } from 'date-fns'
 import { Bookmark, Calendar, Tag } from 'lucide-react'
