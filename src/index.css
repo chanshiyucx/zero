@@ -1,0 +1,51 @@
+@font-face {
+  font-family: GuDianMingChaoTi;
+  font-weight: bold;
+  src: url('./assets/font/GuDianMingChaoTi.ttf');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  :root {
+    --font-family: 'Fira Mono', 'Noto Serif SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Helvetica Neue', sans-serif;
+    --font-color: #444;
+    scrollbar-gutter: stable;
+    overflow-y: overlay;
+  }
+
+  * {
+    font-family: var(--font-family);
+  }
+
+  body {
+    color: var(--font-color);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+
+  /* custom scrollBar */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: var(--theme-color);
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  /* custom selection */
+  ::selection {
+    color: var(--theme-color);
+    background-color: var(--background-color);
+  }
+}

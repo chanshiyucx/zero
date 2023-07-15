@@ -1,0 +1,38 @@
+.spinner {
+  position: relative;
+  width: 320px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.prospect {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  filter: drop-shadow(0 -100px 0 transparent);
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: width;
+  overflow: hidden;
+  animation: loading 4s cubic-bezier(0.28, 0.11, 0.32, 1) infinite forwards;
+}
+
+.background img {
+  min-width: 320px;
+  min-height: 40px;
+}
+
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}

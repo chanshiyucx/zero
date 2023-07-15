@@ -1,0 +1,64 @@
+.book {
+  will-change: transform;
+  border: 2px solid var(--font-color);
+}
+
+.book:hover {
+  box-shadow: 0 10px 15px -3px var(--background-color), 0 4px 6px -4px var(--background-color);
+}
+
+.book:hover .cover {
+  transform: rotateY(0deg);
+}
+
+.book:hover h3 {
+  color: var(--theme-color);
+}
+
+.book h3,
+.info p {
+  @apply overflow-hidden text-ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.info p {
+  @apply leading-7;
+}
+
+.cover {
+  min-width: 6.25rem;
+  width: 6.25rem;
+  height: 8.325rem;
+  will-change: transform;
+  transform-style: preserve-3d;
+  transform: rotateY(-30deg);
+  transition: 1s ease;
+  perspective: 600px;
+}
+
+.cover > img {
+  @apply absolute top-0 left-0 w-full h-full;
+  transform: translateZ(0.75rem);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 3px 3px 16px var(--font-color);
+  background-color: var(--font-color);
+}
+
+.cover::before {
+  @apply absolute top-0 left-0 w-full h-full;
+  content: ' ';
+  transform: translateZ(-0.75rem);
+  border-radius: 0 2px 2px 0;
+  background-color: var(--font-color);
+}
+
+.cover::after {
+  @apply absolute top-0.5 left-0;
+  content: ' ';
+  width: 1.5rem;
+  height: 8.1rem;
+  transform: translateX(5.25rem) rotateY(90deg);
+  background-color: var(--background-color);
+}

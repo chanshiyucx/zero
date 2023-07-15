@@ -1,0 +1,24 @@
+.mask {
+  @apply shadow-inner;
+  will-change: height;
+  background-color: var(--background-color);
+}
+.mask:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -0.16rem;
+  width: 0.32rem;
+  height: 70%;
+  border-radius: 0.1rem;
+  background-color: var(--theme-color);
+  transform: translateY(-50%);
+}
+
+.home-md p {
+  @apply mb-2;
+}
+
+.meta {
+  word-break: keep-all;
+}

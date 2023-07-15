@@ -1,0 +1,58 @@
+.side {
+  @apply z-10;
+  width: 33.333333vw;
+}
+
+.head {
+  width: 70%;
+}
+
+.title,
+.subtitle {
+  font-family: GuDianMingChaoTi;
+}
+
+.nav > a {
+  @apply relative cursor-pointer p-2 transform duration-300;
+}
+
+.nav-y > a {
+  @apply hover:translate-x-1;
+}
+
+.nav-x > a {
+  @apply hover:-translate-y-1;
+}
+
+side .nav svg {
+  @apply transform duration-300 hover:scale-110;
+}
+
+.nav > a.active {
+  color: var(--theme-color);
+}
+
+.nav a::after,
+.nya::after {
+  @apply hidden absolute w-fit text-sm;
+  content: attr(data-name);
+  animation: fade 0.6s ease-out;
+}
+
+.nav a::after {
+  @apply top-2.5 -left-6;
+}
+
+.nav-y > a:hover::after,
+.nya:hover::after {
+  @apply block;
+}
+
+.nya {
+  @apply relative translate-y-3;
+  color: var(--theme-color);
+}
+
+.nya::after {
+  @apply -top-5 left-1 right-0 mx-auto whitespace-nowrap;
+}

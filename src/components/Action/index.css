@@ -1,0 +1,4 @@
+.action {
+  @apply cursor-pointer p-2 box-content transform duration-300 hover:scale-110 hover:-translate-y-1;
+  animation: fade 0.3s ease-out 0s forwards;
+}

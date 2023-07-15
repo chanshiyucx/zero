@@ -1,0 +1,67 @@
+.butterfly {
+  position: relative;
+  width: 1.875rem;
+  height: 1.875rem;
+  perspective: 31.25rem;
+  transform-style: preserve-3d;
+  transform: rotate3d(2, 1, -1, 90deg);
+}
+.butterfly::before,
+.butterfly::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  top: calc(50% - 0.5rem);
+  border-radius: 50%;
+  background: var(--theme-color);
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.butterfly::before {
+  left: 0;
+  opacity: 0.7;
+  border-top-right-radius: 0;
+  transform-origin: right top;
+  animation-name: flapL;
+}
+.butterfly::after {
+  left: 50%;
+  opacity: 0.5;
+  border-top-left-radius: 0;
+  transform-origin: left top;
+  animation-name: flapR;
+}
+
+@keyframes flapL {
+  25%,
+  50% {
+    transform: rotateY(-45deg);
+  }
+  12.5%,
+  37.5%,
+  65% {
+    transform: rotateY(45deg);
+  }
+  0%,
+  100% {
+    transform: rotateY(-30deg);
+  }
+}
+
+@keyframes flapR {
+  25%,
+  50% {
+    transform: rotateY(45deg);
+  }
+  12.5%,
+  37.5%,
+  65% {
+    transform: rotateY(-45deg);
+  }
+  0%,
+  100% {
+    transform: rotateY(30deg);
+  }
+}

@@ -1,0 +1,99 @@
+.markdown p {
+  @apply mb-6;
+}
+
+.heading {
+  @apply mt-6 mb-4 leading-tight tracking-wider align-baseline;
+}
+
+.heading span {
+  @apply mr-2 text-base font-black;
+  color: var(--theme-color);
+}
+
+h1.heading {
+  @apply text-3xl;
+}
+
+h2.heading {
+  @apply text-2xl;
+}
+
+h3.heading {
+  @apply text-xl;
+}
+
+h4.heading {
+  @apply text-lg;
+}
+
+h5.heading,
+h6.heading {
+  @apply text-base;
+}
+
+.inline-code {
+  color: var(--theme-color);
+}
+
+code pre::before {
+  @apply absolute top-0 right-0 uppercase text-base leading-4;
+  content: attr(data-language);
+  font-family: var(--font-family);
+  border-bottom: 2px solid currentColor;
+}
+
+table {
+  @apply block my-6 max-w-full overflow-x-auto;
+}
+
+td,
+th {
+  @apply px-4 py-2;
+  white-space: nowrap;
+  border: 1px solid var(--font-color);
+}
+
+blockquote {
+  @apply relative mb-4 py-6 italic;
+}
+
+blockquote > p,
+blockquote > div {
+  @apply px-10;
+}
+
+blockquote::before,
+blockquote::after {
+  @apply absolute w-6 h-6;
+  content: '';
+  position: absolute;
+  background-color: var(--font-color);
+}
+
+blockquote::before {
+  @apply top-2 left-1;
+  mask: url('@/assets/icons/quote-left.svg') no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+blockquote::after {
+  @apply bottom-2 right-1;
+  mask: url('@/assets/icons/quote-right.svg') no-repeat 100% 100%;
+  mask-size: cover;
+}
+
+ul,
+ol {
+  @apply mb-6;
+}
+
+ul {
+  @apply ml-8;
+  list-style-type: disc;
+}
+
+ol {
+  @apply ml-11;
+  list-style-type: decimal;
+}

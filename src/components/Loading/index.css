@@ -1,0 +1,22 @@
+.xp {
+  color: var(--theme-color);
+}
+.box {
+  display: inline-block;
+  margin-right: 2px;
+  width: 0.625rem;
+  height: 80%;
+  background: linear-gradient(to bottom, #2838c7 0%, #5979ef 17%, #869ef3 32%, #869ef3 45%, #5979ef 59%, #2838c7 100%);
+  animation: loader 3s linear infinite;
+}
+.progress {
+  border-color: var(--font-color);
+}
+@keyframes loader {
+  0% {
+    transform: translate(-2rem);
+  }
+  100% {
+    transform: translate(13rem);
+  }
+}
