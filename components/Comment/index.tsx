@@ -23,7 +23,7 @@ const Comment: FC<CommentProps> = ({ term }) => {
       reactionsEnabled="0"
       emitMetadata="0"
       inputPosition="top"
-      theme={`https://zzz-peach.vercel.app/assets/styles/${theme.toLowerCase()}.css`}
+      theme={`https://www.chanshiyu.com/assets/styles/${theme.toLowerCase()}.css`}
       lang="zh-CN"
       loading="lazy"
     />
