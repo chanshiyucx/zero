@@ -17,12 +17,12 @@ export default function FriendLayout() {
         </p>
         <p>※ 以下友链按博主互访频率排序，并根据个人对博客内容喜好加权，博主将不定期更新排序并过滤阵亡名单。</p>
       </div>
-      <ul className="grid w-full grid-cols-3 sm:grid-cols-4 xl:grid-cols-5">
+      <ul className="grid w-full grid-cols-3 gap-4 sm:grid-cols-4 xl:grid-cols-5">
         {data.map((item) => {
           return (
             <li
               key={item.name}
-              className="relative m-2 inline-block transform overflow-hidden text-center duration-300 hover:-translate-y-1"
+              className="relative  inline-block transform overflow-hidden text-center duration-300 hover:-translate-y-1"
             >
               <a href={item.link} className="block h-full w-full py-4" target="_blank" rel="noopener noreferrer">
                 {item.name}

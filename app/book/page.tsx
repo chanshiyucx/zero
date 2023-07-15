@@ -4,10 +4,10 @@ import data from './index.json'
 export default function FriendLayout() {
   return (
     <div className="page book">
-      <ul className="grid grid-cols-1 xl:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         {data.map((item) => {
           return (
-            <li key={item.name} className="m-2 transform p-3 duration-300 hover:-translate-y-1">
+            <li key={item.name} className="transform p-3 duration-300 hover:-translate-y-1">
               <div className="flex">
                 <div className="cover relative mb-4 mr-3">
                   <img src={item.cover} alt={item.name} />

@@ -23,8 +23,8 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <>
-      <article className="page">
+    <div className="page">
+      <article>
         <h2 className="mb-6 text-4xl italic">{post.title}</h2>
         <div className="meta mb-12 flex justify-start">
           <Calendar className="mr-1" />
@@ -41,6 +41,6 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
         <MDX code={post.body.code} />
       </article>
       <Comment term={post.title} />
-    </>
+    </div>
   )
 }
