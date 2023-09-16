@@ -67,9 +67,9 @@
 
 问题详情：[Error when building with contentlayer 0.3.4 and Next.js 13 App Router](https://github.com/contentlayerdev/contentlayer/issues/506)
 
-临时解决：在 `package.json` 中覆盖版本。
+~~临时解决：在 `package.json` 中覆盖版本。~~
 
-```json
+<!-- ```json
   "overrides": {
     "@opentelemetry/api": "1.4.1",
     "@opentelemetry/core": "1.13.0",
@@ -79,7 +79,7 @@
     "@opentelemetry/sdk-trace-node": "1.13.0",
     "@opentelemetry/semantic-conventions": "1.13.0"
   },
-```
+``` -->
 
 ## TODO
 
