@@ -1,17 +1,17 @@
 @import url('https://www.chanshiyu.com/assets/styles/comment.css');
 
 main {
-  --color-btn-primary-bg: #8996b2;
-  --color-btn-primary-hover-bg: #8996b2;
-  --color-btn-primary-selected-bg: #8996b2;
-  --color-btn-primary-disabled-bg: #8996b2;
-  --color-segmented-control-button-bg: #d8e2ec;
-  --color-accent-fg: #8996b2;
-  --color-accent-emphasis: #8996b2;
-  --color-success-fg: #8996b2;
+  --color-btn-primary-bg: var(--ayaka-primary);
+  --color-btn-primary-hover-bg: var(--ayaka-primary);
+  --color-btn-primary-selected-bg: var(--ayaka-primary);
+  --color-btn-primary-disabled-bg: var(--ayaka-primary);
+  --color-segmented-control-button-bg: var(--ayaka-background);
+  --color-accent-fg: var(--ayaka-primary);
+  --color-accent-emphasis: var(--ayaka-primary);
+  --color-success-fg: var(--ayaka-primary);
 }
 
 main .gsc-pagination-button,
 main .gsc-reactions-popover {
-  background-color: #d8e2ec;
+  background-color: var(--ayaka-background);
 }

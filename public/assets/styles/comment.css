@@ -6,6 +6,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC&family=Noto+Serif+SC&display=swap');
 
 main {
+  font-family: 'Noto Serif SC', sans-serif;
+
+  /* theme color */
   --hutao-primary: #e06458;
   --hutao-background: #fcfaf2;
   --keqing-primary: #827595;
@@ -23,7 +26,7 @@ main {
   --beelzebul-primary: #8c78b0;
   --beelzebul-background: #e3dbed;
 
-  font-family: 'Noto Serif SC', sans-serif;
+  /* default color */
   --color-prettylights-syntax-comment: #6e7781;
   --color-prettylights-syntax-constant: #0550ae;
   --color-prettylights-syntax-entity: #8250df;
