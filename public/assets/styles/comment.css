@@ -132,3 +132,20 @@ main .gsc-reactions-popover {
 main .gsc-comment:last-child {
   transform: translateY(-1px);
 }
+
+/* custom style */
+main .gsc-tl-line {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: var(--color-border-default);
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
