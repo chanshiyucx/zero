@@ -18,13 +18,15 @@ main {
   --ganyu-primary: #5260a6;
   --ganyu-background: #e2e5f5;
   --kokomi-primary: #bf9997;
-  --kokomi-background: #f2dfd9;
+  --kokomi-background: #f2e1dc;
   --ayaka-primary: #8996b2;
   --ayaka-background: #d8e2ec;
   --yoimiya-primary: #c15c42;
   --yoimiya-background: #f3e8db;
   --beelzebul-primary: #8c78b0;
   --beelzebul-background: #e3dbed;
+  --nilou-primary: #74b5db;
+  --nilou-background: #dbeaf1;
 
   /* default color */
   --color-prettylights-syntax-comment: #6e7781;

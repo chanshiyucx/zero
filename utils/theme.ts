@@ -3,9 +3,10 @@ import Ayaka from '@/assets/images/ayaka.jpg'
 import Beelzebul from '@/assets/images/beelzebul.jpg'
 import Ganyu from '@/assets/images/ganyu.jpg'
 import Hutao from '@/assets/images/hutao.jpg'
-import Keqing from '@/assets/images/keqing.jpg'
+// import Keqing from '@/assets/images/keqing.jpg'
 import Kokomi from '@/assets/images/kokomi.jpg'
 import Nahida from '@/assets/images/nahida.jpg'
+import Nilou from '@/assets/images/nilou.jpg'
 import Yoimiya from '@/assets/images/yoimiya.jpg'
 
 const themeList: Theme[] = [
@@ -21,17 +22,6 @@ const themeList: Theme[] = [
     url: 'https://www.bilibili.com/video/av591337987/',
   },
   {
-    type: 'Keqing',
-    name: '霆霓快雨',
-    description: '千帆齐聚之城',
-    color: {
-      primary: '#827595',
-      background: '#E6E3F6',
-    },
-    image: Keqing,
-    url: 'https://www.bilibili.com/video/BV14K4y1Q7PH/',
-  },
-  {
     type: 'Nahida',
     name: '白草净华',
     description: '如风如露之思',
@@ -42,6 +32,29 @@ const themeList: Theme[] = [
     image: Nahida,
     url: 'https://www.bilibili.com/video/BV1wm4y1m7DC/',
   },
+  // {
+  //   type: 'Keqing',
+  //   name: '霆霓快雨',
+  //   description: '千帆齐聚之城',
+  //   color: {
+  //     primary: '#827595',
+  //     background: '#E6E3F6',
+  //   },
+  //   image: Keqing,
+  //   url: 'https://www.bilibili.com/video/BV14K4y1Q7PH/',
+  // },
+  {
+    type: 'Nilou',
+    name: '浮莲舞步',
+    description: '四时旋舞之熙',
+    color: {
+      primary: '#74B5DB',
+      background: '#DBEAF1',
+    },
+    image: Nilou,
+    url: 'https://www.bilibili.com/video/BV1dh411g7a9/',
+  },
+
   {
     type: 'Ganyu',
     name: '循循守月',
@@ -59,7 +72,7 @@ const themeList: Theme[] = [
     description: '浮岳映虹之波',
     color: {
       primary: '#BF9997',
-      background: '#F2DFD9',
+      background: '#F2E1DC',
     },
     image: Kokomi,
     url: 'https://www.bilibili.com/video/BV1ML411N7hm/',

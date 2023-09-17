@@ -22,7 +22,7 @@ export interface Cloud {
   humidity: string
 }
 
-export type ThemeType = 'Hutao' | 'Keqing' | 'Ganyu' | 'Beelzebul' | 'Ayaka' | 'Yoimiya' | 'Kokomi' | 'Nahida'
+export type ThemeType = 'Hutao' | 'Keqing' | 'Ganyu' | 'Beelzebul' | 'Ayaka' | 'Yoimiya' | 'Kokomi' | 'Nahida' | 'Nilou'
 
 export interface Theme {
   type: ThemeType
