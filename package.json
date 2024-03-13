@@ -63,8 +63,8 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
     "rehype-external-links": "^3.0.0",
-    "rehype-pretty-code": "^0.13.0",
-    "remark-gfm": "^4.0.0",
+    "rehype-pretty-code": "^0.10.1",
+    "remark-gfm": "^3.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2"
   },
