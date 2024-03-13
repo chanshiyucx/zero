@@ -63,24 +63,6 @@
 [Ability to add width and height to the image](https://github.com/remcohaszing/remark-mdx-images/issues/3)
 [rehype-img-size](https://github.com/ksoichiro/rehype-img-size/blob/master/index.js)
 
-### 2. contentlayer 升级到 0.3.4 报错
-
-问题详情：[Error when building with contentlayer 0.3.4 and Next.js 13 App Router](https://github.com/contentlayerdev/contentlayer/issues/506)
-
-~~临时解决：在 `package.json` 中覆盖版本。~~
-
-<!-- ```json
-  "overrides": {
-    "@opentelemetry/api": "1.4.1",
-    "@opentelemetry/core": "1.13.0",
-    "@opentelemetry/exporter-trace-otlp-grpc": "0.39.1",
-    "@opentelemetry/resources": "1.13.0",
-    "@opentelemetry/sdk-trace-base": "1.13.0",
-    "@opentelemetry/sdk-trace-node": "1.13.0",
-    "@opentelemetry/semantic-conventions": "1.13.0"
-  },
-``` -->
-
 ## TODO
 
 1. Giscus 的文字选中效果改动
