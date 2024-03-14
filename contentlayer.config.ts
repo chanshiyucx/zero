@@ -1,6 +1,5 @@
 import fs from 'fs'
 import { spawn } from 'node:child_process'
-import type { Inspiration } from './type'
 import { defineDocumentType } from '@contentlayer/source-files'
 import { makeSource } from 'contentlayer/source-remote-files'
 import { bundleMDX } from 'mdx-bundler'
@@ -56,26 +55,6 @@ export const Post = defineDocumentType(() => ({
         }
         const { code } = await bundleMDX({ source: raw })
         return { code, raw }
-      },
-    },
-    inspiration: {
-      type: 'json',
-      resolve: async (post) => {
-        const list: Inspiration[] = []
-        if (post.category === '一心净土') {
-          const regex = /^(.+)(\r?\n)?/
-          const section = post.body.raw
-            .split('## ')
-            .filter((e: string) => e.replace(/[\r\n]/g, '').length)
-          for (const e of section) {
-            const result = regex.exec(e)
-            const title = result ? result[0] : ''
-            const raw = e.slice(title.length)
-            const { code } = await bundleMDX({ source: raw })
-            list.push({ title, raw, code })
-          }
-        }
-        return list.reverse()
       },
     },
   },

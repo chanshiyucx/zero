@@ -44,9 +44,3 @@ export interface Theme {
   image: StaticImageData
   url: string
 }
-
-export interface Inspiration {
-  title: string
-  raw: string
-  code: string
-}
