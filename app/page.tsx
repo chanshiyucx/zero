@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use client'
 
 import type { Post } from 'contentlayer/generated'
@@ -23,7 +21,7 @@ export default function Page() {
   const [posts, setPosts] = useState<Post[]>([])
   const maskRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
-  const hoverRef = useRef<any>(null)
+  const hoverRef = useRef<HTMLElement | null>(null)
   const timerRef = useRef<number>()
   const finishedRef = useRef<boolean>(false)
   const [maskHeight, setMaskHeight] = useState(0)
@@ -42,14 +40,14 @@ export default function Page() {
       setTimeout(() => {
         const target = listRef.current?.firstChild
         if (target) {
-          calcMaskPos(target)
+          calcMaskPos(target as HTMLElement)
         }
       }, 100)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
-  const calcMaskPos = (target: any) => {
+  const calcMaskPos = (target: HTMLElement) => {
     const { clientHeight, offsetTop } = target
     const paddingTop =
       document.documentElement.clientWidth > 1024 ? 4 * 16 : 6 * 16
