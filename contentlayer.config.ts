@@ -8,11 +8,11 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import rehypeImageSizes from './utils/rehypeImageSizes'
 
-const POST_PATH = '時雨'
+const REPO_URL = 'https://github.com/chanshiyucx/zen.git'
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `${POST_PATH}/**/*.md`,
+  filePathPattern: `./posts/**/*.md`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -62,15 +62,14 @@ export const Post = defineDocumentType(() => ({
 
 const syncContentFromGit = async (contentDir: string) => {
   const syncRun = async () => {
-    const gitUrl = 'https://github.com/chanshiyucx/zen.git'
     if (fs.existsSync(contentDir)) {
       await runBashCommand(`cd ${contentDir} && git pull`)
     } else {
       await runBashCommand(
-        `git clone --depth 1 --single-branch ${gitUrl} ${contentDir}`,
+        `git clone --depth 1 --single-branch ${REPO_URL} ${contentDir}`,
       )
     }
-    await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
+    await runBashCommand(`cp -f ${contentDir}/IMAGES public/`)
   }
 
   let wasCancelled = false
@@ -114,7 +113,6 @@ const runBashCommand = (command: string) =>
 export default makeSource({
   syncFiles: syncContentFromGit,
   contentDirPath: 'content',
-  contentDirInclude: [POST_PATH],
   documentTypes: [Post],
   disableImportAliasWarning: true,
   mdx: {
