@@ -20,7 +20,11 @@ export const useLoading = (duration = 1000) => {
 /**
  * 本地缓存
  */
-export const useLocalStorage = <T>(key: string, initialValue: T, expire?: number): [T, (value: T) => void] => {
+export const useLocalStorage = <T>(
+  key: string,
+  initialValue: T,
+  expire?: number,
+): [T, (value: T) => void] => {
   const expireKey = `${key}-expire`
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {

@@ -14,7 +14,9 @@ import MDX from '@/components/MDX'
 
 export default function Page() {
   const postList: Post[] = allPosts
-    .filter((post) => post.category !== '一心净土' && post.category !== '真我之名')
+    .filter(
+      (post) => post.category !== '一心净土' && post.category !== '真我之名',
+    )
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
   const router = useRouter()
   const [page, setPage] = useState(1)
@@ -49,7 +51,8 @@ export default function Page() {
 
   const calcMaskPos = (target: any) => {
     const { clientHeight, offsetTop } = target
-    const paddingTop = document.documentElement.clientWidth > 1024 ? 4 * 16 : 6 * 16
+    const paddingTop =
+      document.documentElement.clientWidth > 1024 ? 4 * 16 : 6 * 16
     const realTop = offsetTop + paddingTop
     if (maskHeight === clientHeight && maskTop === realTop) return
     setMaskHeight(clientHeight)
@@ -85,7 +88,9 @@ export default function Page() {
       throttleDelay: 100,
       offset: 0,
     })
-    setAnime(document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up')
+    setAnime(
+      document.documentElement.clientWidth > 640 ? 'fade-left' : 'fade-up',
+    )
 
     window.addEventListener('scroll', handleScroll, false)
     return () => window.removeEventListener('scroll', handleScroll, false)
@@ -122,7 +127,13 @@ export default function Page() {
                 {post.category}
                 <Tag className="ml-4 mr-1" />
                 {post.tags.map((tag, index) => (
-                  <span key={tag} className={clsx('mr-2', index >= 1 && 'hidden sm:inline-block')}>
+                  <span
+                    key={tag}
+                    className={clsx(
+                      'mr-2',
+                      index >= 1 && 'hidden sm:inline-block',
+                    )}
+                  >
                     {tag}
                   </span>
                 ))}

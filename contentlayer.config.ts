@@ -64,7 +64,9 @@ export const Post = defineDocumentType(() => ({
         const list: Inspiration[] = []
         if (post.category === '一心净土') {
           const regex = /^(.+)(\r?\n)?/
-          const section = post.body.raw.split('## ').filter((e) => e.replace(/[\r\n]/g, '').length)
+          const section = post.body.raw
+            .split('## ')
+            .filter((e: string) => e.replace(/[\r\n]/g, '').length)
           for (const e of section) {
             const result = regex.exec(e)
             const title = result ? result[0] : ''
@@ -85,7 +87,9 @@ const syncContentFromGit = async (contentDir: string) => {
     if (fs.existsSync(contentDir)) {
       await runBashCommand(`cd ${contentDir} && git pull`)
     } else {
-      await runBashCommand(`git clone --depth 1 --single-branch ${gitUrl} ${contentDir}`)
+      await runBashCommand(
+        `git clone --depth 1 --single-branch ${gitUrl} ${contentDir}`,
+      )
     }
     await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
   }
@@ -113,6 +117,7 @@ const syncContentFromGit = async (contentDir: string) => {
 
 const runBashCommand = (command: string) =>
   new Promise((resolve, reject) => {
+    console.log(`Run bash command: ${command}`)
     const child = spawn(command, [], { shell: true })
     child.stdout.setEncoding('utf8')
     child.stdout.on('data', (data) => process.stdout.write(data))

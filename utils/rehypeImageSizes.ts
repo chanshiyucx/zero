@@ -15,7 +15,9 @@ const rehypeImageSizes: Plugin<[Options?], Root> = (options) => {
         return
       }
 
-      const imagePath = decodeURI(`${options?.root ?? ''}${node.properties.src}`)
+      const imagePath = decodeURI(
+        `${options?.root ?? ''}${node.properties.src}`,
+      )
       const imageSize = getImageSize(imagePath)
       node.properties.width = imageSize.width
       node.properties.height = imageSize.height

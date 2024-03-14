@@ -1,12 +1,14 @@
 /**
  *  延时函数
  */
-export const delay = <T>(time: number): Promise<T> => new Promise((r) => setTimeout(r, time))
+export const delay = <T>(time: number): Promise<T> =>
+  new Promise((r) => setTimeout(r, time))
 
 /**
  * 生成范围内随机整数
  */
-export const random = (a: number, b: number) => Math.floor(Math.random() * (b - a) + a)
+export const random = (a: number, b: number) =>
+  Math.floor(Math.random() * (b - a) + a)
 
 /**
  * 洗牌算法
@@ -40,7 +42,8 @@ export const loadImage = (src: string) =>
  * Nya
  */
 export const Nya = () => {
-  const labelStyle = 'line-height:22px;color:#FFF;background:#DB493C;border-radius:3px;'
+  const labelStyle =
+    'line-height:22px;color:#FFF;background:#DB493C;border-radius:3px;'
   const site = 'https://chanshiyu.com'
   const themeRepo = 'https://github.com/chanshiyucx/zero'
   console.info(`%c 蝉時雨 %c`, labelStyle, '', site)

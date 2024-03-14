@@ -3,7 +3,6 @@ import Ayaka from '@/assets/images/ayaka.jpg'
 import Beelzebul from '@/assets/images/beelzebul.jpg'
 import Ganyu from '@/assets/images/ganyu.jpg'
 import Hutao from '@/assets/images/hutao.jpg'
-// import Keqing from '@/assets/images/keqing.jpg'
 import Kokomi from '@/assets/images/kokomi.jpg'
 import Nahida from '@/assets/images/nahida.jpg'
 import Nilou from '@/assets/images/nilou.jpg'
@@ -32,17 +31,6 @@ const themeList: Theme[] = [
     image: Nahida,
     url: 'https://www.bilibili.com/video/BV1wm4y1m7DC/',
   },
-  // {
-  //   type: 'Keqing',
-  //   name: '霆霓快雨',
-  //   description: '千帆齐聚之城',
-  //   color: {
-  //     primary: '#827595',
-  //     background: '#E6E3F6',
-  //   },
-  //   image: Keqing,
-  //   url: 'https://www.bilibili.com/video/BV14K4y1Q7PH/',
-  // },
   {
     type: 'Nilou',
     name: '浮莲舞步',

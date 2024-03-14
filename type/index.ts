@@ -1,6 +1,15 @@
 import { StaticImageData } from 'next/image'
 
-export type Weather = 'qing' | 'yun' | 'yin' | 'wu' | 'lei' | 'yu' | 'xue' | 'shachen' | 'bingbao'
+export type Weather =
+  | 'qing'
+  | 'yun'
+  | 'yin'
+  | 'wu'
+  | 'lei'
+  | 'yu'
+  | 'xue'
+  | 'shachen'
+  | 'bingbao'
 
 export interface Cloud {
   nums: number
@@ -22,7 +31,16 @@ export interface Cloud {
   humidity: string
 }
 
-export type ThemeType = 'Hutao' | 'Keqing' | 'Ganyu' | 'Beelzebul' | 'Ayaka' | 'Yoimiya' | 'Kokomi' | 'Nahida' | 'Nilou'
+export type ThemeType =
+  | 'Hutao'
+  | 'Keqing'
+  | 'Ganyu'
+  | 'Beelzebul'
+  | 'Ayaka'
+  | 'Yoimiya'
+  | 'Kokomi'
+  | 'Nahida'
+  | 'Nilou'
 
 export interface Theme {
   type: ThemeType
