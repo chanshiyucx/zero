@@ -1,6 +1,5 @@
 import type { Post } from 'contentlayer/generated'
 import { allPosts } from 'contentlayer/generated'
-import Comment from '@/components/Comment'
 import MDX from '@/components/MDX'
 
 export default function AboutLayout() {
@@ -11,7 +10,6 @@ export default function AboutLayout() {
       <article>
         <MDX code={post.body.code} />
       </article>
-      <Comment term="关于" />
     </div>
   )
 }

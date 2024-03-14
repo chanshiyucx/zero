@@ -17,9 +17,8 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Butterfly } from '@/components/Icons'
-import Panel from '@/components/Panel'
 import ShootingStar from '@/components/ShootingStar'
 import Site from '@/components/Site'
 import config from '@/utils/config'
@@ -29,34 +28,54 @@ const { github, twitter, telegram, email, music, blog } = config.contact
 
 const Side: FC = () => {
   const pathname = usePathname()
-  const [showPanel, setShowPanel] = useState(false)
-
-  const togglePanle = () => setShowPanel((c) => !c)
 
   return (
     <div className="side sticky top-0 hidden h-screen min-w-[24rem] flex-col items-start justify-between lg:flex">
       <ShootingStar />
-      {showPanel && <Panel togglePanle={togglePanle} />}
 
       {/* side menu */}
       <div className="z-20 flex h-3/5 w-full justify-end">
         <nav className="nav nav-y flex w-12 flex-col items-center justify-end">
-          <Link className={clsx(pathname === '/' && 'active')} href="/" data-name="创作">
+          <Link
+            className={clsx(pathname === '/' && 'active')}
+            href="/"
+            data-name="创作"
+          >
             <ScrollText />
           </Link>
-          <Link className={clsx(pathname === '/inspiration' && 'active')} href="/inspiration" data-name="灵感">
+          <Link
+            className={clsx(pathname === '/inspiration' && 'active')}
+            href="/inspiration"
+            data-name="灵感"
+          >
             <Sparkles />
           </Link>
-          <Link className={clsx(pathname === '/project' && 'active')} href="/project" data-name="项目">
+          <Link
+            className={clsx(pathname === '/project' && 'active')}
+            href="/project"
+            data-name="项目"
+          >
             <Codepen />
           </Link>
-          <Link className={clsx(pathname === '/book' && 'active')} href="/book" data-name="书单">
+          <Link
+            className={clsx(pathname === '/book' && 'active')}
+            href="/book"
+            data-name="书单"
+          >
             <BookOpen />
           </Link>
-          <Link className={clsx(pathname === '/friend' && 'active')} href="/friend" data-name="友邻">
+          <Link
+            className={clsx(pathname === '/friend' && 'active')}
+            href="/friend"
+            data-name="友邻"
+          >
             <HeartPulse />
           </Link>
-          <Link className={clsx(pathname === '/about' && 'active')} href="/about" data-name="自述">
+          <Link
+            className={clsx(pathname === '/about' && 'active')}
+            href="/about"
+            data-name="自述"
+          >
             <Ghost />
           </Link>
         </nav>
@@ -66,7 +85,7 @@ const Side: FC = () => {
 
       {/* footer menu */}
       <div className="flex justify-end py-12">
-        <div className="nya" data-name="時与风" onClick={togglePanle}>
+        <div className="nya" data-name="時与风">
           <Butterfly />
         </div>
         <div className="nav nav-x flex h-12 items-center ">

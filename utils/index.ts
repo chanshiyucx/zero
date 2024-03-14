@@ -37,16 +37,3 @@ export const loadImage = (src: string) =>
     }
     img.src = src
   })
-
-/**
- * Nya
- */
-export const Nya = () => {
-  const labelStyle =
-    'line-height:22px;color:#FFF;background:#DB493C;border-radius:3px;'
-  const site = 'https://chanshiyu.com'
-  const themeRepo = 'https://github.com/chanshiyucx/zero'
-  console.info(`%c 蝉時雨 %c`, labelStyle, '', site)
-  console.info('%c 主题 %c', labelStyle, '', themeRepo)
-  console.info('~❀~ 发现控制台报错请务必联系博主 ~❀~')
-}

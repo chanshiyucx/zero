@@ -2,13 +2,19 @@ import { allPosts } from 'contentlayer/generated'
 import { format } from 'date-fns'
 import { Bookmark, Calendar, Tag } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import Comment from '@/components/Comment'
 import MDX from '@/components/MDX'
 
-export const generateStaticParams = async () => allPosts.map((post) => ({ slug: post.title }))
+export const generateStaticParams = async () =>
+  allPosts.map((post) => ({ slug: post.title }))
 
-export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
-  const post = allPosts.find((post) => post.title === decodeURIComponent(params.slug))
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string }
+}) => {
+  const post = allPosts.find(
+    (post) => post.title === decodeURIComponent(params.slug),
+  )
   return {
     title: `${post?.title} - 蝉時雨`,
     description: post?.description,
@@ -17,7 +23,9 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 }
 
 export default function PostLayout({ params }: { params: { slug: string } }) {
-  const post = allPosts.find((post) => post.title === decodeURIComponent(params.slug))
+  const post = allPosts.find(
+    (post) => post.title === decodeURIComponent(params.slug),
+  )
   if (!post) {
     return notFound()
   }
@@ -40,7 +48,6 @@ export default function PostLayout({ params }: { params: { slug: string } }) {
         </div>
         <MDX code={post.body.code} />
       </article>
-      <Comment term={post.title} />
     </div>
   )
 }
