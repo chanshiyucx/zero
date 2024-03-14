@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import type { Theme } from '@/type'
+import { useEffect, useState } from 'react'
 
 /**
  * Page Loading
@@ -18,7 +19,7 @@ export const useLoading = (duration = 1000) => {
 }
 
 /**
- * 本地缓存
+ * LocalStorage
  */
 export const useLocalStorage = <T>(
   key: string,
@@ -57,4 +58,26 @@ export const useLocalStorage = <T>(
   }
 
   return [storedValue, setValue]
+}
+
+/**
+ * Toggle theme
+ */
+export const useTheme = () => {
+  const [cacheTheme, setCacheTheme] = useLocalStorage<Theme | null>(
+    'theme',
+    null,
+  )
+
+  const initTheme =
+    cacheTheme ?? window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  const [theme, setTheme] = useState<Theme>(initTheme)
+
+  useEffect(() => {
+    setCacheTheme(theme)
+  }, [theme, setCacheTheme])
+
+  return [theme, setTheme]
 }

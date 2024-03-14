@@ -1,4 +1,4 @@
-import { StaticImageData } from 'next/image'
+export type Theme = 'light' | 'dark'
 
 export type Weather =
   | 'qing'
@@ -29,18 +29,4 @@ export interface Cloud {
   air: string
   pressure: string
   humidity: string
-}
-
-export type ThemeType = 'Hutao'
-
-export interface Theme {
-  type: ThemeType
-  name: string
-  description: string
-  color: {
-    primary: string
-    background: string
-  }
-  image: StaticImageData
-  url: string
 }

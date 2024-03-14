@@ -1,11 +1,17 @@
+import defaultTheme from 'tailwindcss/defaultTheme'
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'selector',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-serif)', ...defaultTheme.fontFamily.sans],
+      },
       typography: () => ({
         DEFAULT: {
           css: {
@@ -17,6 +23,13 @@ module.exports = {
           },
         },
       }),
+      container: {
+        screens: {
+          sm: '640px',
+          md: '768px',
+          lg: '1024px',
+        },
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

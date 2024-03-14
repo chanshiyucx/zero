@@ -1,70 +1,29 @@
 'use client'
 
-import clsx from 'clsx'
-import './index.css'
-import {
-  BookOpen,
-  Codepen,
-  Ghost,
-  HeartPulse,
-  ScrollText,
-  Sparkles,
-} from 'lucide-react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { FC, useState } from 'react'
+import Image from 'next/image'
+import { FC } from 'react'
+import Banner from '@/assets/images/banner.png'
 
 const Header: FC = () => {
-  const [open, setOpen] = useState(false)
-  const pathname = usePathname()
-
-  const handleToggle = () => {
-    setOpen((c) => !c)
-  }
-
   return (
-    <div className="header fixed z-10 flex h-16 w-screen items-center justify-between px-6 shadow-sm lg:hidden">
-      <h3 className="title text-4xl tracking-wider">蟬時雨</h3>
-
-      <nav className={clsx('nav hidden items-center sm:flex', open && 'over')}>
-        <Link className={clsx(pathname === '/' && 'active')} href="/">
-          <ScrollText /> 创作
-        </Link>
-        <Link
-          className={clsx(pathname === '/inspiration' && 'active')}
-          href="/inspiration"
-        >
-          <Sparkles /> 灵感
-        </Link>
-        <Link
-          className={clsx(pathname === '/project' && 'active')}
-          href="/project"
-        >
-          <Codepen /> 项目
-        </Link>
-        <Link className={clsx(pathname === '/book' && 'active')} href="/book">
-          <BookOpen /> 书单
-        </Link>
-        <Link
-          className={clsx(pathname === '/friend' && 'active')}
-          href="/friend"
-        >
-          <HeartPulse /> 友邻
-        </Link>
-        <Link className={clsx(pathname === '/about' && 'active')} href="/about">
-          <Ghost /> 自述
-        </Link>
-      </nav>
-
-      <div
-        className={clsx('toggle flex w-7 flex-col sm:hidden', open && 'active')}
-        onClick={handleToggle}
+    <header className="relative px-2 py-6 md:px-16 md:py-12">
+      <a
+        href="/"
+        className="z-10 md:absolute md:bottom-5 md:right-5 md:bg-lime-800 md:p-5 md:text-white"
       >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+        <h1 className="text-2xl font-bold tracking-wider drop-shadow-md md:text-4xl ">
+          人类绿洲。
+        </h1>
+        <p className="max-md:text-right max-md:text-sm max-md:italic">
+          For shame and pride.
+        </p>
+      </a>
+      <Image
+        src={Banner}
+        className="h-80 cursor-pointer object-cover object-bottom"
+        alt="Banner of the page"
+      />
+    </header>
   )
 }
 

@@ -14,26 +14,14 @@
   }
 
   body {
-    @apply container mx-auto flex justify-center;
+    @apply container mx-auto my-6;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     color: var(--font-color);
-    background-color: var(--background-color);
-    background-image: url('../assets/images/texture.png');
-    background-repeat: repeat;
-    background-attachment: fixed;
-  }
-
-  body::before {
-    @apply fixed left-0 top-0 h-screen w-screen bg-cover bg-center bg-no-repeat;
-    content: '';
-    z-index: -1;
-    opacity: 0.08;
-    background-image: var(--background-image);
-    transition: background-image 0.8s;
+    background: url('../assets/images/texture.svg') repeat;
   }
 
   /* custom scrollBar */
@@ -55,39 +43,9 @@
     background-color: var(--background-color);
   }
 
-  /* page fade animation */
-  .fade {
-    @apply w-full self-start;
-    animation: fade 0.8s ease-out;
-  }
-  @keyframes fade {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .fade-in-appear,
-  .fade-in-enter {
-    opacity: 0;
-    transform: translateY(-3rem);
-  }
-  .fade-in-appear-active,
-  .fade-in-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.6s ease-in-out;
-  }
-  .fade-in-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .fade-in-exit-active {
-    opacity: 0;
-    transform: translateY(-3rem);
-    transition: all 0.6s ease-in-out;
+  /* custom page */
+  .page {
+    @apply relative min-h-screen;
   }
 
   /* photo */
@@ -95,7 +53,7 @@
     background-color: var(--background-color) !important;
   }
 
-  /* prose custom */
+  /* custom prose */
   .prose pre {
     @apply relative;
   }
@@ -123,117 +81,5 @@
 
   .prose p:has(img) {
     @apply relative;
-  }
-
-  /* custom page */
-  .page {
-    @apply relative min-h-screen px-4 py-24 tracking-wide sm:px-0 lg:py-16;
-  }
-  .mask {
-    @apply shadow-inner;
-    will-change: height;
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-  .mask:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -0.16rem;
-    width: 0.32rem;
-    height: 70%;
-    border-radius: 0.1rem;
-    background-color: var(--theme-color);
-    transform: translateY(-50%);
-  }
-  .meta {
-    @apply break-keep;
-  }
-  .meta svg {
-    @apply w-5;
-  }
-
-  /* project page */
-  .project a {
-    color: var(--theme-color);
-  }
-
-  /* friend page */
-  .friend .avatar {
-    color: var(--theme-color);
-  }
-
-  .friend li {
-    will-change: transform;
-    border: 2px solid var(--font-color);
-  }
-
-  .friend li img {
-    transform: translateX(40%);
-    opacity: 0.2;
-  }
-
-  .friend li:hover {
-    @apply shadow-xl;
-    color: var(--theme-color);
-    border-color: var(--theme-color);
-  }
-
-  .friend li:hover img {
-    opacity: 0.5;
-  }
-
-  /* book page */
-  .book li {
-    @apply list-none;
-    will-change: transform;
-    border: 2px solid var(--font-color);
-  }
-  .book li:hover {
-    @apply shadow-xl;
-    border-color: var(--theme-color);
-  }
-
-  .book li:hover .cover {
-    transform: rotateY(0deg);
-  }
-
-  .book li:hover h3 {
-    color: var(--theme-color);
-  }
-
-  .book .cover {
-    min-width: 6.25rem;
-    width: 6.25rem;
-    height: 8.325rem;
-    will-change: transform;
-    transform-style: preserve-3d;
-    transform: rotateY(-30deg);
-    transition: 1s ease;
-    perspective: 37.5rem;
-  }
-
-  .book .cover > img {
-    @apply absolute left-0 top-0 h-full w-full;
-    transform: translateZ(0.75rem);
-    border-radius: 0 2px 2px 0;
-    box-shadow: 3px 3px 16px var(--font-color);
-    background-color: var(--font-color);
-  }
-
-  .book .cover::before {
-    @apply absolute left-0 top-0 h-full w-full;
-    content: '';
-    transform: translateZ(-0.75rem);
-    border-radius: 0 2px 2px 0;
-    background-color: var(--font-color);
-  }
-
-  .book .cover::after {
-    @apply absolute left-0 top-0.5;
-    content: '';
-    width: 1.5rem;
-    height: 8.1rem;
-    transform: translateX(5.25rem) rotateY(90deg);
-    background-color: var(--background-color);
   }
 }

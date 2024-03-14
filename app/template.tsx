@@ -1,8 +1,6 @@
 'use client'
 
 import type { PhotoProviderBase } from 'react-photo-view/dist/types'
-import clsx from 'clsx'
-import { useEffect, useState } from 'react'
 import { PhotoProvider } from '@/components/PhotoView'
 
 const photoViewConfig: PhotoProviderBase = {
@@ -14,22 +12,17 @@ const photoViewConfig: PhotoProviderBase = {
 }
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [fade, setFade] = useState(false)
-  useEffect(() => {
-    setFade(true)
-    return () => setFade(false)
-  }, [])
+  // if (
+  //   localStorage.theme === 'dark' ||
+  //   (!('theme' in localStorage) &&
+  //     window.matchMedia('(prefers-color-scheme: dark)').matches)
+  // ) {
+  //   console.log('dark')
+  //   document.documentElement.classList.add('dark')
+  // } else {
+  //   console.log('light')
+  //   document.documentElement.classList.remove('dark')
+  // }
 
-  return (
-    <PhotoProvider {...photoViewConfig}>
-      <div
-        className={clsx(
-          fade ? 'translate-x-0 opacity-100' : 'translate-x-6 opacity-0',
-          'max-w-screen-lg flex-1 transition duration-500 ease-out',
-        )}
-      >
-        {children}
-      </div>
-    </PhotoProvider>
-  )
+  return <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
 }

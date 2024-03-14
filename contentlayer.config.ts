@@ -69,7 +69,7 @@ const syncContentFromGit = async (contentDir: string) => {
         `git clone --depth 1 --single-branch ${REPO_URL} ${contentDir}`,
       )
     }
-    await runBashCommand(`cp -f ${contentDir}/IMAGES public/`)
+    await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
   }
 
   let wasCancelled = false

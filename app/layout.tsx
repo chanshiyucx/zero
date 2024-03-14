@@ -2,15 +2,12 @@ import type { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { Noto_Serif_SC } from 'next/font/google'
 import 'aos/dist/aos.css'
-import Cloud from '@/components/Cloud'
 import Header from '@/components/Header'
-import Side from '@/components/Side'
-import ThemeProvider from './context'
 import './globals.css'
 
 const serif = Noto_Serif_SC({
   subsets: ['latin'],
-  weight: '500',
+  weight: ['500', '700'],
   display: 'swap',
   variable: '--font-serif',
 })
@@ -34,12 +31,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN" className={serif.variable}>
       <body>
-        <ThemeProvider>
-          <Cloud />
-          <Header />
-          <Side />
-          {children}
-        </ThemeProvider>
+        <Header />
+        {children}
       </body>
     </html>
   )
