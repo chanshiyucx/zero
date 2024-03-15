@@ -64,7 +64,6 @@ export const useLocalStorage = <T>(
  * Toggle theme
  */
 export const useTheme = () => {
-  console.log('111')
   const [cacheTheme, setCacheTheme] = useLocalStorage<Theme | null>(
     'theme',
     null,
@@ -77,18 +76,16 @@ export const useTheme = () => {
   const [theme, setTheme] = useState<Theme>(initTheme)
 
   const toggleTheme = () => {
-    console.log('toggleTheme')
     setTheme(theme === 'dark' ? 'light' : 'dark')
+    setCacheTheme(theme)
   }
 
   useEffect(() => {
-    console.log(theme)
     if (theme === 'dark') {
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.classList.remove('dark')
     }
-    setCacheTheme(theme)
   }, [theme])
 
   return [theme, setTheme, toggleTheme] as const
