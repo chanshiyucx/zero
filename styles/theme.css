@@ -1,0 +1,29 @@
+::view-transition-new(root) {
+  animation: turnOff 800ms ease-in-out;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+[data-theme='dark']::view-transition-new(root) {
+  animation: turnOn 800ms ease-in-out;
+}
+
+@keyframes turnOn {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0, 100% 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes turnOff {
+  0% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+  }
+}
