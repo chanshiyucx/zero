@@ -4,7 +4,7 @@ import { Noto_Serif_SC } from 'next/font/google'
 import 'aos/dist/aos.css'
 // import Header from '@/components/Header'
 import Nya from '@/components/Nya'
-import './globals.css'
+import '@/styles/index.css'
 
 const serif = Noto_Serif_SC({
   subsets: ['latin'],

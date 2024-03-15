@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-color: #374151;
+    scrollbar-gutter: stable both-edges;
+    overflow-y: overlay;
+  }
+
+  body {
+    @apply container mx-auto my-6;
+    color: var(--font-color);
+    background: url('../assets/images/texture.svg') repeat;
+  }
+}
