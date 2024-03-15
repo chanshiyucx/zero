@@ -9,7 +9,15 @@
 // import { useRouter } from 'next/navigation'
 // import { MouseEvent, useEffect, useRef, useState } from 'react'
 // import MDX from '@/components/MDX'
+import { useTheme } from '@/utils/hook'
 
 export default function Page() {
-  return <div>{}</div>
+  const [theme, , toggleTheme] = useTheme()
+
+  return (
+    <div>
+      <span>{theme}</span>
+      <button onClick={toggleTheme}>切换</button>
+    </div>
+  )
 }
