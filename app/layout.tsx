@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { Noto_Serif_SC } from 'next/font/google'
 import 'aos/dist/aos.css'
-import Header from '@/components/Header'
+// import Header from '@/components/Header'
+import Nya from '@/components/Nya'
 import './globals.css'
 
 const serif = Noto_Serif_SC({
@@ -30,8 +31,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN" className={serif.variable}>
+      <head>
+        <Nya />
+      </head>
       <body>
-        <Header />
+        {/* <Header /> */}
         {children}
       </body>
     </html>

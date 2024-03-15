@@ -13,10 +13,9 @@ import { useTheme } from '@/utils/hook'
 
 export default function Page() {
   const [theme, , toggleTheme] = useTheme()
-
+  console.log('theme', theme)
   return (
     <div>
-      <span>{theme}</span>
       <button onClick={toggleTheme}>切换</button>
     </div>
   )

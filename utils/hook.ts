@@ -1,9 +1,7 @@
 import type { Theme } from '@/type'
 import { useEffect, useState } from 'react'
+import { isBrowser } from './index'
 
-/**
- * Page Loading
- */
 export const useLoading = (duration = 1000) => {
   const [startTime] = useState(new Date().getTime())
   const loading = () =>
@@ -18,9 +16,6 @@ export const useLoading = (duration = 1000) => {
   return loading
 }
 
-/**
- * LocalStorage
- */
 export const useLocalStorage = <T>(
   key: string,
   initialValue: T,
@@ -29,7 +24,7 @@ export const useLocalStorage = <T>(
   const expireKey = `${key}-expire`
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      if (typeof window === 'undefined') {
+      if (!isBrowser()) {
         return initialValue
       }
       const expireDate = window.localStorage.getItem(expireKey)
@@ -60,20 +55,18 @@ export const useLocalStorage = <T>(
   return [storedValue, setValue]
 }
 
-/**
- * Toggle theme
- */
 export const useTheme = () => {
   const [cacheTheme, setCacheTheme] = useLocalStorage<Theme | null>(
     'theme',
     null,
   )
 
-  const initTheme =
-    cacheTheme ?? window.matchMedia('(prefers-color-scheme: dark)').matches
+  const schemeTheme =
+    isBrowser() && window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light'
-  const [theme, setTheme] = useState<Theme>(initTheme)
+
+  const [theme, setTheme] = useState<Theme>(cacheTheme ?? schemeTheme)
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
