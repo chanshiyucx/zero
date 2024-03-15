@@ -3,7 +3,7 @@
 import type { Weather } from '@/type'
 import { FC, useEffect, useState } from 'react'
 import { Rain, Snow, Sun, Sunshine, Thunder, Windy } from '@/components/Icons'
-import { queryCloud } from '@/utils/service'
+import queryCloud from '@/lib/cloud'
 
 const weatherComponents: Record<Weather, React.ReactElement> = {
   qing: <Sunshine />,

@@ -6,7 +6,7 @@ import { bundleMDX } from 'mdx-bundler'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
-import rehypeImageSizes from './utils/rehypeImageSizes'
+import rehypeImageSizes from '@/lib/rehype-image-sizes'
 
 const REPO_URL = 'https://github.com/chanshiyucx/zen.git'
 
