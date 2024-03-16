@@ -1,3 +1,17 @@
+@layer base {
+  :root {
+    /* --foreground: 222.2 84% 4.9%; */
+  }
+
+  [data-theme='dark'] {
+    /* --foreground: 210 40% 98%; */
+  }
+
+  body {
+    @apply bg-light bg-fixed bg-repeat text-slate-800 dark:bg-dark dark:text-slate-200;
+  }
+}
+
 ::view-transition-new(root) {
   animation: turnOff 800ms ease-in-out;
 }

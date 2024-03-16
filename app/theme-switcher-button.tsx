@@ -6,6 +6,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { transitionViewIfSupported } from '@/lib/dom'
 
+const THEME = {
+  LIGHT: 'light',
+  DARK: 'dark',
+}
+
 export function useIsMounted() {
   const [mounted, setMounted] = useState(false)
 
@@ -18,13 +23,12 @@ export function useIsMounted() {
 
 function useThemeTransition() {
   const { setTheme, theme } = useTheme()
-  const isDark = theme === 'dark'
 
   const toggleTheme = useCallback(() => {
     transitionViewIfSupported(() => {
-      flushSync(() => setTheme(isDark ? 'light' : 'dark'))
+      flushSync(() => setTheme(theme === THEME.DARK ? THEME.LIGHT : THEME.DARK))
     })
-  }, [setTheme, isDark])
+  }, [theme, setTheme])
 
   return {
     theme,

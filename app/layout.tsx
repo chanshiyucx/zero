@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { Noto_Serif_SC } from 'next/font/google'
 import 'aos/dist/aos.css'
-// import Header from '@/components/Header'
+import Header from '@/components/Header'
 import Nya from '@/components/Nya'
 import '@/styles/index.css'
 
 const serif = Noto_Serif_SC({
   subsets: ['latin'],
-  weight: ['500', '700'],
+  weight: ['500', '700', '900'],
   display: 'swap',
   variable: '--font-serif',
 })
@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Nya />
       </head>
       <body>
-        {/* <Header /> */}
+        <Header />
         {children}
       </body>
     </html>

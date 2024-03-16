@@ -3,7 +3,7 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['selector', '[data-mode="dark"]'],
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,14 +11,19 @@ module.exports = {
   theme: {
     container: {
       screens: {
-        sm: '640px',
-        md: '768px',
         lg: '1024px',
       },
     },
     extend: {
       fontFamily: {
         sans: ['var(--font-serif)', ...defaultTheme.fontFamily.sans],
+      },
+      backgroundImage: {
+        light: "url('../assets/images/bg-light.svg')",
+        dark: "url('../assets/images/bg-dark.svg')",
+      },
+      colors: {
+        foreground: 'hsl(var(--foreground))',
       },
     },
   },
