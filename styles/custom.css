@@ -1,0 +1,7 @@
+.highlighter span::before {
+  @apply absolute -left-0.5 bottom-0 z-0 h-3/5 content-[''];
+  background-color: rgba(63, 98, 18, 0.25);
+  width: calc(100% + 4px);
+  transform: rotate(-2deg);
+  border-radius: 20%30%;
+}

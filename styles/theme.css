@@ -1,14 +1,12 @@
 @layer base {
   :root {
-    /* --foreground: 222.2 84% 4.9%; */
   }
 
   [data-theme='dark'] {
-    /* --foreground: 210 40% 98%; */
   }
 
   body {
-    @apply bg-light bg-fixed bg-repeat text-slate-800 dark:bg-dark dark:text-slate-200;
+    @apply bg-zinc-50 bg-light bg-fixed bg-repeat text-zinc-800 dark:bg-zinc-900 dark:bg-dark  dark:text-zinc-200;
   }
 }
 

@@ -17,10 +17,14 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-serif)', ...defaultTheme.fontFamily.sans],
+        anton: 'var(--font-anton)',
       },
       backgroundImage: {
         light: "url('../assets/images/bg-light.svg')",
         dark: "url('../assets/images/bg-dark.svg')",
+      },
+      listStyleType: {
+        square: 'square',
       },
       colors: {
         foreground: 'hsl(var(--foreground))',

@@ -1,14 +1,15 @@
-import type { Post } from 'contentlayer/generated'
-import { allPosts } from 'contentlayer/generated'
-import MDX from '@/components/MDX'
+// import type { Post } from 'contentlayer/generated'
+// import { allPosts } from 'contentlayer/generated'
+// import MDX from '@/components/MDX'
 
 export default function AboutLayout() {
-  const post: Post = allPosts.filter((post) => post.category === '真我之名')[0]
+  // const post: Post = allPosts.filter((post) => post.category === '真我之名')[0]
 
   return (
     <div className="page prose max-w-full">
       <article>
-        <MDX code={post.body.code} />
+        6666666
+        {/* <MDX code={post.body.code} /> */}
       </article>
     </div>
   )
