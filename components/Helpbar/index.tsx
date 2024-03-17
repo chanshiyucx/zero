@@ -2,8 +2,8 @@ import ThemeSwitcher from './theme-switcher'
 
 export default function Helpbar() {
   return (
-    <div>
+    <section className="z-20 md:fixed md:bottom-8 md:right-8">
       <ThemeSwitcher />
-    </div>
+    </section>
   )
 }

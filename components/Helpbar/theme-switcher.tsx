@@ -35,11 +35,11 @@ export default function ThemeSwitcher() {
 
   return (
     <button
-      className="rounded-xl bg-neutral-200 p-4 dark:bg-neutral-800"
+      className="rounded-full border bg-zinc-50 p-3 shadow dark:border-zinc-800 dark:bg-zinc-800"
       type="button"
       onClick={toggleTheme}
     >
-      {theme === 'light' ? <Moon /> : <SunDim />}
+      {theme === 'light' ? <Moon size={20} /> : <SunDim />}
     </button>
   )
 }

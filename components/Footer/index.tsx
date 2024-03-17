@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="jsx-6abdde91a0274a44 relative">Eltrac’s</span>
             </div>
           </a>
-          <p className="text-xs text-zinc-500 max-md:hidden">
+          <p className="text-zinc-1000 text-xs max-md:hidden">
             Eltrac 的个人分享
           </p>
         </section>
