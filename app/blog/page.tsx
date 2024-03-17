@@ -21,31 +21,31 @@ export default function BlogLayout() {
           <h2 className="hidden text-gray-500 md:block">Categories: </h2>
           <ul className="flex flex-grow gap-2">
             <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-white dark:bg-zinc-800 dark:hover:bg-lime-700"
+              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
               href="/category/pieces"
             >
               无心文字
             </a>
             <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-white dark:bg-zinc-800 dark:hover:bg-lime-700"
+              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
               href="/category/essays"
             >
               话题深潜
             </a>
             <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-white dark:bg-zinc-800 dark:hover:bg-lime-700"
+              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
               href="/category/logs"
             >
               非我他物
             </a>
             <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-white dark:bg-zinc-800 dark:hover:bg-lime-700"
+              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
               href="/category/fictions"
             >
               算是小说
             </a>
             <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-white dark:bg-zinc-800 dark:hover:bg-lime-700"
+              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
               href="/category/poetry"
             >
               像是诗歌

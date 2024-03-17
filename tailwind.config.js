@@ -26,9 +26,6 @@ module.exports = {
       listStyleType: {
         square: 'square',
       },
-      colors: {
-        foreground: 'hsl(var(--foreground))',
-      },
     },
   },
   plugins: [typography],

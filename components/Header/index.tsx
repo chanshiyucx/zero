@@ -22,19 +22,19 @@ const contact: Contact[] = [
   },
   {
     icon: Linkedin,
-    href: 'Linkedin',
+    href: 'https://www.linkedin.com/in/chen-xin-7a6b452a2',
     target: '_blank',
     rel: 'noopener noreferrer',
   },
   {
     icon: Github,
-    href: 'Github',
+    href: 'https://github.com/chanshiyucx',
     target: '_blank',
     rel: '`noopener noreferr`er',
   },
   {
     icon: Twitter,
-    href: 'Twitter',
+    href: 'https://twitter.com/chanshiyucx',
     target: '_blank',
     rel: 'noopener noreferrer',
   },
@@ -55,7 +55,7 @@ export default function Header() {
     <header className="relative px-2 py-6 md:px-16 md:py-12">
       <a
         href="/"
-        className="z-10 max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-5 md:text-white md:hover:text-white dark:md:bg-zinc-700 "
+        className="z-10 max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-5 md:text-zinc-100 md:hover:text-zinc-100 "
       >
         <h1 className="text-2xl font-bold tracking-wider drop-shadow-md md:text-4xl">
           人类绿洲。
@@ -64,8 +64,21 @@ export default function Header() {
           For shame and pride.
         </p>
       </a>
-      <div className="relative w-full border-4 border-l-8 border-zinc-800 dark:border-zinc-700">
-        <div className="border-l-8 border-zinc-300 p-6 pb-16 dark:border-zinc-800">
+      <div className="flex w-full border-4 border-zinc-800 max-md:flex-col-reverse">
+        <div className="flex h-full flex-col items-center justify-around bg-zinc-800 max-md:flex-row">
+          {contact.map(({ icon: Icon, href, target, rel }) => (
+            <a
+              key={href}
+              href={href}
+              target={target}
+              rel={rel}
+              className="inline-flex h-11 flex-1 items-center  justify-center px-3 text-zinc-100 hover:bg-zinc-300 hover:text-zinc-800 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+            >
+              <Icon size={20} />
+            </a>
+          ))}
+        </div>
+        <div className=" border-zinc-300 p-6  dark:border-zinc-700">
           <h1 className="h-[90px] font-anton text-3xl leading-normal tracking-wider">
             <span ref={el}></span>
           </h1>
@@ -86,19 +99,20 @@ export default function Header() {
               电子科技大学 / UESTC
             </p>
           </div>
-          <div className="absolute -bottom-1 left-0 flex gap-4 bg-zinc-800 py-1 pl-6 pr-4 text-white dark:bg-zinc-700">
+
+          {/* <div className="absolute -bottom-1 left-0 flex bg-zinc-800 ">
             {contact.map(({ icon: Icon, href, target, rel }) => (
               <a
                 key={href}
                 href={href}
                 target={target}
                 rel={rel}
-                className="inline-flex aspect-square h-9 items-center justify-center "
+                className="inline-flex h-11 items-center justify-center px-5 text-zinc-100 first:pl-8 hover:bg-zinc-300 hover:text-zinc-800 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
               >
                 <Icon size={20} />
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </header>

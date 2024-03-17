@@ -11,8 +11,4 @@
   body {
     @apply container mx-auto p-3 md:my-6 md:p-0;
   }
-
-  a {
-    @apply hover:text-lime-700;
-  }
 }
