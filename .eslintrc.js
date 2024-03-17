@@ -12,6 +12,5 @@ module.exports = {
   rules: {
     '@next/next/no-img-element': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    'react/no-unescaped-entities': 'off',
   },
 }

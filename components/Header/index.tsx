@@ -1,3 +1,6 @@
+'use client'
+
+import type { Contact } from '@/type'
 import {
   Code,
   Github,
@@ -7,9 +10,47 @@ import {
   Mail,
   Twitter,
 } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useEffect, useRef } from 'react'
+import Typed from 'typed.js'
+
+const contact: Contact[] = [
+  {
+    icon: Mail,
+    href: 'mailto:me@chanshiyu.com',
+    target: '_self',
+    rel: '',
+  },
+  {
+    icon: Linkedin,
+    href: '',
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  },
+  {
+    icon: Github,
+    href: 'mailto:me@chanshiyu.com',
+    target: '_blank',
+    rel: '`noopener noreferr`er',
+  },
+  {
+    icon: Twitter,
+    href: 'mailto:me@chanshiyu.com',
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  },
+]
 
 const Header: FC = () => {
+  const el = useRef(null)
+  useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [`Hallo,<br>I'm Chanshiyu`],
+      typeSpeed: 60,
+      showCursor: true,
+    })
+    return () => typed.destroy()
+  }, [])
+
   return (
     <header className="relative px-2 py-6 md:px-16 md:py-12">
       <a
@@ -25,14 +66,13 @@ const Header: FC = () => {
       </a>
       <div className="w-full border-4 border-l-8 border-zinc-800 dark:border-zinc-600">
         <div className="border-l-8 border-zinc-300 p-6 dark:border-zinc-800 ">
-          <h1 className="flex flex-col font-anton text-3xl leading-normal tracking-wider">
-            <span>Hallo,</span>
-            <span>I'm Chanshiyu</span>
+          <h1 className="h-[90px] font-anton text-3xl leading-normal tracking-wider">
+            <span ref={el}></span>
           </h1>
-          <div className="mt-4 space-y-1.5">
+          <div className="mt-4 space-y-2">
             <p>
               <Laptop className="mr-1.5 inline-block align-sub" size={20} />
-              前端开发者 /Front-end Developer
+              前端开发者 / Front-end Developer
             </p>
             <p>
               <Code className="mr-1.5 inline-block align-sub" size={20} />
@@ -47,40 +87,17 @@ const Header: FC = () => {
             </p>
           </div>
           <div className="mt-4 flex gap-2">
-            <a
-              href="mailto:me@chanshiyu.com"
-              className="inline-flex aspect-square h-9 items-center justify-center rounded-xl border bg-transparent shadow transition-colors"
-              aria-label="me@chanshiyu.com email"
-            >
-              <Mail size={20} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/milhamm/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex aspect-square h-9 items-center justify-center rounded-xl border bg-transparent shadow transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="https://github.com/milhamm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex aspect-square h-9 items-center justify-center rounded-xl border bg-transparent shadow transition-colors"
-              aria-label="Github"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="https://twitter.com/gluekol"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex aspect-square h-9 items-center justify-center rounded-xl border bg-transparent shadow transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter size={20} />
-            </a>
+            {contact.map(({ icon: Icon, href, target, rel }) => (
+              <a
+                key={href}
+                href={href}
+                target={target}
+                rel={rel}
+                className="inline-flex aspect-square h-9 items-center justify-center rounded-xl border bg-transparent shadow transition-colors"
+              >
+                <Icon size={20} />
+              </a>
+            ))}
           </div>
         </div>
       </div>
