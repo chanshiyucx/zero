@@ -9,7 +9,6 @@
 // import { useRouter } from 'next/navigation'
 // import { MouseEvent, useEffect, useRef, useState } from 'react'
 // import MDX from '@/components/MDX'
-import { ThemeSwitcherButton } from './theme-switcher-button'
 
 export default function Page() {
   return (
@@ -411,7 +410,6 @@ dark:bg-zinc-900  dark:hover:border-lime-700"
           </p>
         </div>
       </section>
-      <ThemeSwitcherButton />
     </main>
   )
 }

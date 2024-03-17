@@ -12,7 +12,7 @@ const photoViewConfig: PhotoProviderBase = {
   pullClosable: true,
 }
 
-export default function Template({ children }: { children: React.ReactNode }) {
+export default function Providers({ children }: React.PropsWithChildren) {
   return (
     <ThemeProvider>
       <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>

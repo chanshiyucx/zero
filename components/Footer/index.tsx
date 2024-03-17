@@ -1,6 +1,6 @@
-import { FC } from 'react'
+'use client'
 
-const Footer: FC = () => {
+export default function Footer() {
   return (
     <footer
       id="footer"
@@ -36,5 +36,3 @@ const Footer: FC = () => {
     </footer>
   )
 }
-
-export default Footer

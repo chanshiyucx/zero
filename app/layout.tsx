@@ -4,7 +4,9 @@ import { Anton, Noto_Serif_SC } from 'next/font/google'
 import 'aos/dist/aos.css'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import Helpbar from '@/components/Helpbar'
 import Nya from '@/components/Nya'
+import Providers from './providers'
 import '@/styles/index.css'
 
 const serif = Noto_Serif_SC({
@@ -50,7 +52,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <Header />
-        {children}
+        <Providers>
+          {children}
+          <Helpbar />
+        </Providers>
         <Footer />
       </body>
     </html>

@@ -2,23 +2,14 @@
 
 import { Moon, SunDim } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
+import useIsMounted from '@/hook/use-is-mounted'
 import { transitionViewIfSupported } from '@/lib/dom'
 
 const THEME = {
   LIGHT: 'light',
   DARK: 'dark',
-}
-
-export function useIsMounted() {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  return mounted
 }
 
 function useThemeTransition() {
@@ -36,7 +27,7 @@ function useThemeTransition() {
   }
 }
 
-export function ThemeSwitcherButton() {
+export default function ThemeSwitcher() {
   const { toggleTheme, theme } = useThemeTransition()
   const mounted = useIsMounted()
 
