@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { Anton, Noto_Serif_SC } from 'next/font/google'
+import { Anton, Noto_Serif } from 'next/font/google'
 import 'aos/dist/aos.css'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Helpbar from '@/components/Helpbar'
 import Nya from '@/components/Nya'
 import Providers from './providers'
 import '@/styles/index.css'
 
-const serif = Noto_Serif_SC({
+const serif = Noto_Serif({
   subsets: ['latin'],
   weight: ['500', '600', '700', '900'],
   display: 'swap',
@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
           <Helpbar />
         </Providers>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   )

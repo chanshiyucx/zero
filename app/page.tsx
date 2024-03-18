@@ -13,24 +13,31 @@
 export default function Page() {
   return (
     <main>
-      <section className="px-2 md:flex md:gap-14">
+      <section className="px-2 md:flex md:gap-4">
         <article className="md:w-2/3">
           <header className="px-2 md:flex md:items-end md:gap-6">
-            <h1 className="text-2xl font-extrabold md:text-5xl">
-              <a className="" href="/blog/meeting-manjaro">
-                Manjaro 桌面折腾记
+            <h1 className="text-2xl font-extrabold md:text-4xl">
+              <a className="link" href="/blog/meeting-manjaro">
+                Disruption Comes to Google
               </a>
             </h1>
           </header>
           <section className="px-2">
-            <p className="my-5 text-lg">
-              我的本科导师在大一刚开学，还未正式行课的时候，给我们发了一份二十多页的Word文档，要求我们在两周内按照文档的指导自行安装Windows和Manjaro的双系统，原因是程序设计作业需要在Linux系统上编写、调试和运行。我向来不喜欢未经思考就接受别人交给我的任务，所以当我面对这一个多少有些强人所难的......
+            <p className="my-5 text-justify text-lg">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+              ipsam quis cupiditate velit delectus quos, voluptatum incidunt,
+              harum nulla temporibus adipisci in qui ullam hic nobis nisi quidem
+              magni necessitatibus! Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit. Blanditiis laborum, numquam placeat aperiam
+              earum repellat rem dolorum odit saepe officiis dignissimos
+              inventore.
+              {/* 我的本科导师在大一刚开学，还未正式行课的时候，给我们发了一份二十多页的Word文档，要求我们在两周内按照文档的指导自行安装Windows和Manjaro的双系统，原因是程序设计作业需要在Linux系统上编写、调试和运行。我向来不喜欢未经思考就接受别人交给我的任务，所以当我面对这一个多少有些强人所难的...... */}
             </p>
             <div className="flex justify-between text-justify text-zinc-400">
               <p>2024-02-14</p>
               <p>
                 <a className="" href="/category/logs">
-                  非我他物
+                  Code Library
                 </a>
               </p>
             </div>
@@ -39,39 +46,39 @@ export default function Page() {
         <div className="mt-6 md:w-1/3">
           <h2 className="md:text-md flex items-center justify-between gap-3 text-center text-lg md:text-left">
             <span className="block h-0.5 flex-grow bg-zinc-200 md:hidden dark:bg-zinc-800"></span>
-            <span>历史文章</span>
+            <span>HISTORY BLOG</span>
             <span className="block h-0.5 flex-grow bg-zinc-200 md:hidden dark:bg-zinc-800"></span>
           </h2>
-          <ul className="mb-8 mt-5 list-square space-y-5 text-lg font-semibold md:text-xl">
-            <li className="ml-5 md:ml-10">
+          <ul className="mb-8 mt-5 list-square space-y-5 text-lg font-semibold">
+            <li className="ml-5 md:ml-8">
               <a
                 className="transition hover:text-lime-700"
                 href="/blog/i-think-like-a-river"
               >
-                我的思绪像河流
+                The Origins Of Dune
               </a>
             </li>
-            <li className="ml-5 md:ml-10">
+            <li className="ml-5 md:ml-8">
               <a
                 className="transition hover:text-lime-700"
                 href="/blog/simplicity-the-ultimate-answer"
               >
-                剔除每一寸多余的杂质
+                The View From Here
               </a>
             </li>
-            <li className="ml-5 md:ml-10">
+            <li className="ml-5 md:ml-8">
               <a
                 className="transition hover:text-lime-700"
                 href="/blog/no-need-for-passion"
               >
-                毫无必要的热情
+                The Villanelle: A Poetry Workshop
               </a>
             </li>
           </ul>
           <p className="flex items-center justify-between gap-3 text-right md:block md:text-left">
             <span className="block h-0.5 flex-grow bg-gray-200 md:hidden dark:bg-zinc-700"></span>
             <a className="bg-zinc-800 px-4 py-2 text-zinc-100" href="/blog">
-              查看更多
+              READ MORE
             </a>
           </p>
         </div>

@@ -65,4 +65,5 @@
 
 ## TODO
 
-1. Giscus 的文字选中效果改动
+1. Header Concat Hover 滑块
+2.

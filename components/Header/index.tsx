@@ -55,14 +55,11 @@ export default function Header() {
     <header className="relative px-2 py-6 md:px-16 md:py-12">
       <a
         href="/"
-        className="z-10 max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-5 md:text-zinc-100"
+        className="z-10 max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-4 md:text-zinc-100"
       >
-        <h1 className="text-2xl font-bold tracking-wider drop-shadow-md md:text-4xl">
-          人类绿洲。
+        <h1 className="text-2xl font-bold tracking-wider drop-shadow-md md:text-3xl">
+          PER ASPERA <br /> AD ASTRA.
         </h1>
-        <p className="max-md:text-right max-md:text-sm max-md:italic">
-          For shame and pride.
-        </p>
       </a>
       <div className="flex border-4 border-zinc-800 max-md:flex-col-reverse">
         <div className="flex flex-col items-center justify-around bg-zinc-800 max-md:flex-row">
@@ -72,7 +69,7 @@ export default function Header() {
               href={href}
               target={target}
               rel={rel}
-              className="inline-flex flex-1  items-center justify-center p-3 text-zinc-100 hover:bg-zinc-400 dark:hover:bg-zinc-600 "
+              className="inline-flex flex-1  items-center justify-center p-3 text-zinc-100 hover:bg-zinc-600"
             >
               <Icon size={18} />
             </a>
@@ -85,18 +82,18 @@ export default function Header() {
           <div className="mt-5 space-y-2">
             <p>
               <Laptop className="mr-1.5 inline-block align-sub" size={20} />
-              前端开发者 / Front-end Developer
+              Front-end Developer
             </p>
             <p>
               <Code className="mr-1.5 inline-block align-sub" size={20} />
-              正在做一些有趣的事 / Working on something interesting
+              Working on something interesting
             </p>
             <p>
               <GraduationCap
                 className="mr-1.5 inline-block align-sub"
                 size={20}
               />
-              电子科技大学 / UESTC
+              University of Electronic Science and Technology of China
             </p>
           </div>
         </div>
