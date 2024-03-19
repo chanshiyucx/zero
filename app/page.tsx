@@ -17,8 +17,12 @@ export default function Page() {
         <article className="md:w-2/3">
           <header className="px-2 md:flex md:items-end md:gap-6">
             <h1 className="text-2xl font-extrabold md:text-4xl">
-              <a className="link" href="/blog/meeting-manjaro">
-                Disruption Comes to Google
+              <a
+                className="link"
+                href="/blog/meeting-manjaro"
+                data-content="Bisruption Comes to Google"
+              >
+                Bisruption Comes to Google
               </a>
             </h1>
           </header>
