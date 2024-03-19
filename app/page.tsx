@@ -81,7 +81,7 @@ export default function Page() {
           </ul>
           <p className="flex items-center justify-between gap-3 text-right md:block md:text-left">
             <span className="block h-0.5 flex-grow bg-gray-200 md:hidden dark:bg-zinc-700"></span>
-            <a className="bg-zinc-800 px-4 py-2 text-zinc-100" href="/blog">
+            <a className="bg-zinc-800 px-4 py-2 text-zinc-200" href="/blog">
               READ MORE
             </a>
           </p>
