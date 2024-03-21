@@ -10,9 +10,9 @@ import rehypeImageSizes from './lib/rehype-image-sizes'
 
 const REPO_URL = 'https://github.com/chanshiyucx/zen.git'
 
-export const Post = defineDocumentType(() => ({
-  name: 'Post',
-  filePathPattern: `./posts/**/*.md`,
+export const Blog = defineDocumentType(() => ({
+  name: 'Blog',
+  filePathPattern: `./blog/**/*.md`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -42,15 +42,25 @@ export const Post = defineDocumentType(() => ({
   computedFields: {
     url: {
       type: 'string',
-      resolve: (post) => `/posts/${post.title}`,
+      resolve: (blog) => {
+        const { sourceFileDir, sourceFileName } = blog._raw
+        return `/${sourceFileDir}/${sourceFileName.replace(/^(\d+-)|(.md)$/g, '')}`
+      },
+    },
+    slug: {
+      type: 'string',
+      resolve: (blog) => {
+        const { sourceFileName } = blog._raw
+        return `${sourceFileName.replace(/^(\d+-)|(.md)$/g, '')}`
+      },
     },
     summary: {
       type: 'json',
-      resolve: async (post) => {
-        let raw = post.description
+      resolve: async (blog) => {
+        let raw = blog.description
         if (!raw) {
           const regex = /^(.+)?\r?\n\s*(.+)?(\r?\n)?/
-          const result = regex.exec(post.body.raw)
+          const result = regex.exec(blog.body.raw)
           raw = result ? result[2] : ''
         }
         const { code } = await bundleMDX({ source: raw })
@@ -69,7 +79,9 @@ const syncContentFromGit = async (contentDir: string) => {
         `git clone --depth 1 --single-branch ${REPO_URL} ${contentDir}`,
       )
     }
-    await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
+    if (fs.existsSync(`${contentDir}/IMAGES`)) {
+      await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
+    }
   }
 
   let wasCancelled = false
@@ -113,7 +125,7 @@ const runBashCommand = (command: string) =>
 export default makeSource({
   syncFiles: syncContentFromGit,
   contentDirPath: 'content',
-  documentTypes: [Post],
+  documentTypes: [Blog],
   disableImportAliasWarning: true,
   mdx: {
     rehypePlugins: [

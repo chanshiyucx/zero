@@ -1,16 +1,15 @@
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import { FC } from 'react'
 import Image from './Image'
 
 interface MDXProps {
   code: string
 }
 
-const MDX: FC<MDXProps> = ({ code }) => {
+export default function MDX({ code }: MDXProps) {
   const Component = useMDXComponent(code)
 
   return (
-    <div className="prose max-w-full">
+    <div className="prose-lg max-w-full">
       <Component
         components={{
           img: Image,
@@ -19,5 +18,3 @@ const MDX: FC<MDXProps> = ({ code }) => {
     </div>
   )
 }
-
-export default MDX

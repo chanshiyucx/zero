@@ -52,7 +52,7 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="relative px-2 py-6 md:px-16 md:py-12">
+    <header className="relative p-2 md:px-16 md:py-12">
       <a
         href="/"
         className="z-10 max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-4 md:text-zinc-100"

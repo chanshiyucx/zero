@@ -1,9 +1,12 @@
 // import type { Post } from 'contentlayer/generated'
 // import { allPosts } from 'contentlayer/generated'
 // import MDX from '@/components/MDX'
+import { allBlogs } from 'contentlayer/generated'
 
 export default function BlogLayout() {
   // const post: Post = allPosts.filter((post) => post.category === '真我之名')[0]
+
+  console.log('page: ', allBlogs)
 
   return (
     <article>

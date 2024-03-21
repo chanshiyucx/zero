@@ -1,8 +1,4 @@
-'use client'
-
-import { FC } from 'react'
-
-const Nya: FC = () => {
+export default function Nya() {
   return (
     <script
       dangerouslySetInnerHTML={{
@@ -24,5 +20,3 @@ const Nya: FC = () => {
     />
   )
 }
-
-export default Nya

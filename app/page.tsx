@@ -1,44 +1,37 @@
-'use client'
-
-// import type { Post } from 'contentlayer/generated'
-// import AOS from 'aos'
-// import clsx from 'clsx'
-// import { allPosts } from 'contentlayer/generated'
-// import { compareDesc, format } from 'date-fns'
-// import { Bookmark, Calendar, Tag } from 'lucide-react'
-// import { useRouter } from 'next/navigation'
-// import { MouseEvent, useEffect, useRef, useState } from 'react'
-// import MDX from '@/components/MDX'
+import type { Blog } from 'contentlayer/generated'
+import { allBlogs } from 'contentlayer/generated'
+import { compareDesc, format } from 'date-fns'
+import Link from 'next/link'
+import MDX from '@/components/MDX'
 
 export default function Page() {
+  const blogList: Blog[] = allBlogs.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date)),
+  )
+  const hotBlog = blogList[0]
+
   return (
     <main>
-      <section className="px-2 md:flex md:gap-4">
-        <article className="md:w-2/3">
-          <header className="px-2 md:flex md:items-end md:gap-6">
+      <section className="px-2 py-6 md:px-14 md:py-12">
+        <article>
+          <header className="px-2">
+            <div className="section-head">BLOG</div>
             <h1 className="text-2xl font-extrabold md:text-4xl">
-              <a
+              <Link
                 className="link"
-                href="/blog/meeting-manjaro"
-                data-content="Bisruption Comes to Google"
+                href={hotBlog.url}
+                data-content={hotBlog.title}
               >
-                Bisruption Comes to Google
-              </a>
+                {hotBlog.title}
+              </Link>
             </h1>
           </header>
           <section className="px-2">
-            <p className="my-5 text-justify text-lg">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-              ipsam quis cupiditate velit delectus quos, voluptatum incidunt,
-              harum nulla temporibus adipisci in qui ullam hic nobis nisi quidem
-              magni necessitatibus! Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Blanditiis laborum, numquam placeat aperiam
-              earum repellat rem dolorum odit saepe officiis dignissimos
-              inventore.
-              {/* 我的本科导师在大一刚开学，还未正式行课的时候，给我们发了一份二十多页的Word文档，要求我们在两周内按照文档的指导自行安装Windows和Manjaro的双系统，原因是程序设计作业需要在Linux系统上编写、调试和运行。我向来不喜欢未经思考就接受别人交给我的任务，所以当我面对这一个多少有些强人所难的...... */}
-            </p>
+            <div className="mb-3 mt-6 text-justify">
+              <MDX code={hotBlog.summary.code} />
+            </div>
             <div className="flex justify-between text-justify text-zinc-400">
-              <p>2024-02-14</p>
+              <p> {format(new Date(hotBlog.date), 'yyyy-MM-dd')}</p>
               <p>
                 <a className="" href="/category/logs">
                   Code Library
@@ -47,7 +40,7 @@ export default function Page() {
             </div>
           </section>
         </article>
-        <div className="mt-6 md:w-1/3">
+        <div className="mt-10">
           <h2 className="md:text-md flex items-center justify-between gap-3 text-center text-lg md:text-left">
             <span className="block h-0.5 flex-grow bg-zinc-200 md:hidden dark:bg-zinc-800"></span>
             <span>HISTORY BLOG</span>
@@ -55,26 +48,17 @@ export default function Page() {
           </h2>
           <ul className="mb-8 mt-5 list-square space-y-5 text-lg font-semibold">
             <li className="ml-5 md:ml-8">
-              <a
-                className="transition hover:text-lime-700"
-                href="/blog/i-think-like-a-river"
-              >
+              <a className="link" href="/blog/i-think-like-a-river">
                 The Origins Of Dune
               </a>
             </li>
             <li className="ml-5 md:ml-8">
-              <a
-                className="transition hover:text-lime-700"
-                href="/blog/simplicity-the-ultimate-answer"
-              >
+              <a className="link" href="/blog/simplicity-the-ultimate-answer">
                 The View From Here
               </a>
             </li>
             <li className="ml-5 md:ml-8">
-              <a
-                className="transition hover:text-lime-700"
-                href="/blog/no-need-for-passion"
-              >
+              <a className="link" href="/blog/no-need-for-passion">
                 The Villanelle: A Poetry Workshop
               </a>
             </li>

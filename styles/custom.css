@@ -1,6 +1,10 @@
 @layer components {
+  .section-head {
+    @apply mb-6 inline-block bg-zinc-800 px-4 py-3 text-3xl font-bold tracking-wider text-zinc-100;
+  }
+
   .link {
-    @apply relative px-3;
+    @apply relative whitespace-nowrap px-3;
 
     &::before,
     &::after {
@@ -15,12 +19,12 @@
     &::after {
       @apply w-0 overflow-hidden whitespace-nowrap pl-3 text-zinc-100;
       content: attr(data-content);
-      transition: width 0.6s ease;
+      transition: width 0.6s ease-in-out;
       line-height: normal;
     }
 
     &:hover:after {
-      width: 100%;
+      @apply w-full;
     }
   }
 }
