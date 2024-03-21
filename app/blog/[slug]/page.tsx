@@ -1,4 +1,5 @@
 import { allBlogs } from 'contentlayer/generated'
+import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
 import MDX from '@/components/MDX'
 
@@ -6,15 +7,11 @@ type Params = {
   slug: string
 }
 
-export const generateStaticParams = async () => {
-  const rr = allBlogs.map((blog) => ({ slug: blog.slug }))
-  console.log('rr', rr)
-  return rr
-}
+export const generateStaticParams = async () =>
+  allBlogs.map((blog) => ({ slug: blog.slug }))
 
 export const generateMetadata = async ({ params }: { params: Params }) => {
   const blog = allBlogs.find((blog) => blog.slug === params.slug)
-
   return {
     title: `${blog?.title} - 蝉時雨`,
     description: blog?.description,
@@ -30,9 +27,16 @@ export default function PostLayout({ params }: { params: Params }) {
   }
 
   return (
-    <article>
-      <h1 className=" text-2xl font-extrabold md:text-4xl">{blog.title}</h1>
-      <div className="mb-3 mt-6 text-justify">
+    <article className="py-2 md:py-4">
+      <header className="px-2">
+        <h1 className=" text-2xl font-extrabold md:text-5xl">{blog.title}</h1>
+        <div className="my-3 flex gap-2 px-2 text-lg">
+          <span> {format(new Date(blog.date), 'yyyy-MM-dd')}</span>
+          <span>·</span>
+          <span>Code Library</span>
+        </div>
+      </header>
+      <div className="px-2 py-5 text-justify md:px-16 md:text-xl ">
         <MDX code={blog.body.code} />
       </div>
     </article>

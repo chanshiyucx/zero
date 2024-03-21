@@ -130,7 +130,12 @@ export default makeSource({
   mdx: {
     rehypePlugins: [
       [rehypeExternalLinks, { rel: ['nofollow'] }],
-      [rehypePrettyCode, { theme: 'material-theme-lighter' }],
+      [
+        rehypePrettyCode,
+        {
+          theme: 'github-dark-dimmed',
+        },
+      ],
       [rehypeImageSizes, { root: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
