@@ -1,10 +1,4 @@
 @layer base {
-  :root {
-  }
-
-  [data-theme='dark'] {
-  }
-
   body {
     @apply bg-zinc-50 bg-light bg-fixed bg-repeat text-zinc-800 dark:bg-zinc-900 dark:bg-dark  dark:text-zinc-200;
   }

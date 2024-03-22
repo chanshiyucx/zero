@@ -27,4 +27,23 @@
       @apply w-full;
     }
   }
+
+  /* rehype-pretty-code */
+  code {
+    counter-reset: line;
+  }
+
+  code > [data-line]::before {
+    @apply mr-8 inline-block w-4 text-right text-zinc-400;
+    counter-increment: line;
+    content: counter(line);
+  }
+
+  code[data-line-numbers-max-digits='2'] > [data-line]::before {
+    @apply w-8;
+  }
+
+  code[data-line-numbers-max-digits='3'] > [data-line]::before {
+    @apply w-12;
+  }
 }

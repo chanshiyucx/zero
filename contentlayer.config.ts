@@ -130,7 +130,7 @@ export default makeSource({
   mdx: {
     rehypePlugins: [
       [rehypeExternalLinks, { rel: ['nofollow'] }],
-      [rehypePrettyCode, { theme: 'one-dark-pro' }],
+      [rehypePrettyCode, { theme: 'one-dark-pro', showLineNumbers: true }],
       [rehypeImageSizes, { root: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
