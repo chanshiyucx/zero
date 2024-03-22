@@ -1,25 +1,19 @@
 'use client'
 
 import type { ImageProps } from 'next/image'
-import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import clsx from 'clsx'
 import NextImage from 'next/image'
 import { useState } from 'react'
 import { PhotoView } from '@/components/PhotoView'
 
-export default function Image(
-  props: DetailedHTMLProps<
-    ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-  >,
-) {
+export default function Image(props: ImageProps) {
   const [isReady, setIsReady] = useState(false)
 
   return (
     <>
-      <PhotoView src={props.src}>
+      <PhotoView src={props.src as string}>
         <NextImage
-          {...(props as ImageProps)}
+          {...props}
           priority
           alt={props.alt ?? ''}
           onLoadingComplete={() => setIsReady(true)}
