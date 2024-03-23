@@ -1,4 +1,3 @@
-/* ::selection {
-  color: var(--theme-color);
-  background-color: var(--background-color);
-} */
+::selection {
+  @apply bg-zinc-300 dark:bg-zinc-700;
+}
