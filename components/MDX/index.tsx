@@ -2,7 +2,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks'
 import Image from './Image'
 
 const components = {
-  Image,
+  img: Image,
 }
 
 interface MDXProps {
