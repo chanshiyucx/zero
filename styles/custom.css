@@ -1,40 +1,11 @@
 @layer components {
-  .section-head {
-    @apply mb-6 inline-block bg-zinc-800 px-4 py-3 text-3xl font-bold tracking-wider text-zinc-100;
-  }
-
-  .link {
-    @apply relative whitespace-nowrap px-3;
-
-    &::before,
-    &::after {
-      @apply absolute left-0 top-0 h-full bg-zinc-800;
-    }
-
-    &::before {
-      @apply w-3;
-      content: '';
-    }
-
-    &::after {
-      @apply w-0 overflow-hidden whitespace-nowrap pl-3 text-zinc-100;
-      content: attr(data-content);
-      transition: width 0.6s ease-in-out;
-      line-height: normal;
-    }
-
-    &:hover:after {
-      @apply w-full;
-    }
-  }
-
   /* rehype-pretty-code */
   code {
     counter-reset: line;
   }
 
   code > [data-line]::before {
-    @apply mr-8 inline-block w-4 text-right text-zinc-400;
+    @apply mr-8 inline-block w-4 text-right text-zinc-300;
     counter-increment: line;
     content: counter(line);
   }
@@ -45,5 +16,10 @@
 
   code[data-line-numbers-max-digits='3'] > [data-line]::before {
     @apply w-12;
+  }
+
+  /* image viwer background */
+  .photo-view-mask {
+    @apply !bg-zinc-50 dark:!bg-zinc-800;
   }
 }

@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    scrollbar-gutter: stable both-edges;
-    overflow-y: overlay;
-  }
-
   body {
     @apply container mx-auto overflow-x-hidden p-3 md:my-6 md:p-0;
   }
