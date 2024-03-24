@@ -1,207 +1,71 @@
-// import type { Post } from 'contentlayer/generated'
-// import { allPosts } from 'contentlayer/generated'
-// import MDX from '@/components/MDX'
+import type { Blog } from 'contentlayer/generated'
 import { allBlogs } from 'contentlayer/generated'
+import { compareDesc } from 'date-fns'
+
+interface BlogWithTime extends Blog {
+  time: string
+}
+interface BlogGroup {
+  year: number
+  list: BlogWithTime[]
+}
 
 export default function BlogLayout() {
-  // const post: Post = allPosts.filter((post) => post.category === '真我之名')[0]
-
-  console.log('page: ', allBlogs)
+  const blogList: Blog[] = allBlogs.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date)),
+  )
+  const categories = [...new Set(blogList.map((e) => e.category))]
+  const blogGroupList: BlogGroup[] = []
+  blogList.forEach((blog) => {
+    const date = new Date(blog.date)
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    const lastGroup = blogGroupList.at(-1)
+    if (!lastGroup || lastGroup.year !== year) {
+      blogGroupList.push({ year, list: [] })
+    }
+    blogGroupList.at(-1)?.list.push({ ...blog, time: `${month}.${day}` })
+  })
 
   return (
     <article>
-      <header className="px-2 md:flex md:items-end md:gap-6">
-        <h1 className="text-2xl font-extrabold md:text-5xl">被陈列的想法</h1>
-        <p className="font-semibold text-zinc-600 md:text-xl">
-          就这样存在于此。
-        </p>
+      <header className="mb:4 px-2 md:mb-8">
+        <h1 className="text-2xl font-extrabold md:text-4xl">
+          Life is a burning chaos.
+        </h1>
       </header>
-      <div className="undefined px-2 py-5 md:px-16">
-        <section
-          id="blogCategoryList"
-          className="undefined mb-8 md:mb-0 md:mt-8 md:flex md:gap-4"
-        >
-          <h2 className="hidden text-gray-500 md:block">Categories: </h2>
+      <div className="px-2 py-4 md:px-16">
+        <section className="mb-4 flex gap-4">
+          <h2>Categories: </h2>
           <ul className="flex flex-grow gap-2">
-            <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
-              href="/category/pieces"
-            >
-              无心文字
-            </a>
-            <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
-              href="/category/essays"
-            >
-              话题深潜
-            </a>
-            <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
-              href="/category/logs"
-            >
-              非我他物
-            </a>
-            <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
-              href="/category/fictions"
-            >
-              算是小说
-            </a>
-            <a
-              className="rounded-sm bg-gray-200 px-2 text-center transition hover:bg-lime-700 hover:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-lime-700"
-              href="/category/poetry"
-            >
-              像是诗歌
-            </a>
+            {categories.map((category) => (
+              <li
+                key={category}
+                className="rounded bg-zinc-200 px-2 text-center text-zinc-700 transition"
+              >
+                {category}
+              </li>
+            ))}
           </ul>
         </section>
-        <section id="blogArchiveList">
-          <ul>
-            <li className="-my-2 font-mono text-xl text-gray-500 md:text-right md:text-2xl">
-              <div className="jsx-6abdde91a0274a44 highlighter undefined">
-                <span className="jsx-6abdde91a0274a44 relative">2024</span>
-              </div>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a className="flex gap-3 md:gap-8" href="/blog/meeting-manjaro">
-                <span className="font-mono text-gray-600">02.14</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  Manjaro 桌面折腾记
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/i-think-like-a-river"
-              >
-                <span className="font-mono text-gray-600">02.09</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  我的思绪像河流
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/simplicity-the-ultimate-answer"
-              >
-                <span className="font-mono text-gray-600">01.23</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  剔除每一寸多余的杂质
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/no-need-for-passion"
-              >
-                <span className="font-mono text-gray-600">01.07</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  毫无必要的热情
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/2024-new-year-greetings"
-              >
-                <span className="font-mono text-gray-600">01.01</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  写在 2024 的开头
-                </span>
-              </a>
-            </li>
-            <li className="-my-2  font-mono text-xl text-gray-500 md:text-right md:text-2xl">
-              <div className="jsx-6abdde91a0274a44 highlighter undefined">
-                <span className="jsx-6abdde91a0274a44 relative">2023</span>
-              </div>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/bizzare-practice-of-indie-blog"
-              >
-                <span className="font-mono text-gray-600">12.08</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  新时代独立博客走弯路式搭建的最佳实践
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/just-a-faceless-dream"
-              >
-                <span className="font-mono text-gray-600">08.01</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  只是一段无面的梦境
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a className="flex gap-3 md:gap-8" href="/blog/the-suitcase">
-                <span className="font-mono text-gray-600">07.08</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  手提箱
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a className="flex gap-3 md:gap-8" href="/blog/golden">
-                <span className="font-mono text-gray-600">01.16</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  溶于水的金黄
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/2023-new-year-greetings"
-              >
-                <span className="font-mono text-gray-600">01.01</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  写在 2023 的开头
-                </span>
-              </a>
-            </li>
-            <li className="-my-2  font-mono text-xl text-gray-500 md:text-right md:text-2xl">
-              <div className="jsx-6abdde91a0274a44 highlighter undefined">
-                <span className="jsx-6abdde91a0274a44 relative">2022</span>
-              </div>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a
-                className="flex gap-3 md:gap-8"
-                href="/blog/words-repeated-are-words-lost"
-              >
-                <span className="font-mono text-gray-600">12.09</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  重复在剥离意义
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a className="flex gap-3 md:gap-8" href="/blog/past-sight">
-                <span className="font-mono text-gray-600">11.14</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  从角落里走过的人
-                </span>
-              </a>
-            </li>
-            <li className="mx-2 my-5 md:mx-0 md:text-xl">
-              <a className="flex gap-3 md:gap-8" href="/blog/midnight-kiss">
-                <span className="font-mono text-gray-600">09.09</span>
-                <span className="font-bold transition hover:text-lime-700">
-                  午夜吻我
-                </span>
-              </a>
-            </li>
-          </ul>
-        </section>
+        <ul>
+          {blogGroupList.map((blogGroup) => (
+            <>
+              <li className="-my-2 font-mono text-xl md:text-right md:text-2xl">
+                {blogGroup.year}
+              </li>
+              {blogGroup.list.map((blog) => (
+                <li key={blog.title} className="mx-2 my-4 md:mx-0 md:text-xl">
+                  <a className="flex gap-3 md:gap-8" href={blog.url}>
+                    <span className="font-mono">{blog.time}</span>
+                    <span className="font-bold">{blog.title}</span>
+                  </a>
+                </li>
+              ))}
+            </>
+          ))}
+        </ul>
       </div>
     </article>
   )

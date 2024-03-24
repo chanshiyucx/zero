@@ -27,18 +27,18 @@ export default function PostLayout({ params }: { params: Params }) {
   }
 
   return (
-    <article className="py-2 md:py-4">
+    <article>
       <header className="px-2">
-        <h1 className=" text-2xl font-extrabold md:text-5xl">{blog.title}</h1>
+        <h1 className="text-2xl font-extrabold md:text-5xl">{blog.title}</h1>
         <div className="my-3 flex gap-2 px-2 text-lg">
           <span> {format(new Date(blog.date), 'yyyy-MM-dd')}</span>
           <span>·</span>
-          <span>Code Library</span>
+          <span>{blog.category}</span>
         </div>
       </header>
-      <div className="px-2 py-5 text-justify md:px-16 md:text-xl ">
+      <section className="px-2 py-5 md:px-16">
         <MDX code={blog.body.code} />
-      </div>
+      </section>
     </article>
   )
 }

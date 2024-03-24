@@ -52,10 +52,15 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="relative p-2 md:px-16 md:py-12">
+    <header className="relative mb-4 p-2 md:mb-8 md:px-16 md:py-12">
       <a
         href="/"
-        className="z-10 max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-4 md:text-zinc-100"
+        className="
+          z-10 
+          max-md:mb-5 max-md:flex max-md:items-end max-md:justify-between max-md:border-b-2 max-md:border-b-gray-200 max-md:pb-2 
+          md:absolute md:bottom-5 md:right-5 md:bg-zinc-800 md:p-4 md:text-zinc-100 
+          dark:md:text-zinc-200
+        "
       >
         <h1 className="text-2xl font-bold tracking-wider drop-shadow-md md:text-3xl">
           PER ASPERA <br /> AD ASTRA.
@@ -69,7 +74,7 @@ export default function Header() {
               href={href}
               target={target}
               rel={rel}
-              className="inline-flex flex-1  items-center justify-center p-3 text-zinc-100 hover:bg-zinc-600"
+              className="inline-flex flex-1  items-center justify-center p-3 text-zinc-200 hover:bg-zinc-600"
             >
               <Icon size={18} />
             </a>
