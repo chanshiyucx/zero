@@ -48,12 +48,12 @@ export default function ScrollTop() {
     <button
       className={clsx(
         !showBackTop && 'hidden',
-        'rounded-full border bg-zinc-50 p-3 shadow dark:border-zinc-800 dark:bg-zinc-800',
+        'rounded bg-zinc-50 p-2 shadow-sm md:border dark:border-zinc-800 dark:bg-zinc-800',
       )}
       type="button"
       onClick={backToTop}
     >
-      <ArrowUpToLine size={20} />
+      <ArrowUpToLine size={18} />
     </button>
   )
 }
