@@ -14,13 +14,12 @@ const rehypeImageSizes: Plugin<[Options?], Root> = (options) => {
       if (!node.properties || typeof node.properties.src !== 'string') {
         return
       }
-
-      const imagePath = decodeURI(
-        `${options?.root ?? ''}${node.properties.src}`,
-      )
+      const imageSrc = `/zen${node.properties.src}`
+      const imagePath = decodeURI(`${options?.root ?? ''}${imageSrc}`)
       const imageSize = getImageSize(imagePath)
       node.properties.width = imageSize.width
       node.properties.height = imageSize.height
+      node.properties.src = imageSrc
     })
   }
 }

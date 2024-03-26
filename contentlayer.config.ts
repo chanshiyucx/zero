@@ -70,17 +70,14 @@ export const Blog = defineDocumentType(() => ({
   },
 }))
 
-const syncContentFromGit = async (contentDir: string) => {
+const syncContentFromGit = async (contentDirPath: string) => {
   const syncRun = async () => {
-    if (fs.existsSync(contentDir)) {
-      await runBashCommand(`cd ${contentDir} && git pull`)
+    if (fs.existsSync(contentDirPath)) {
+      await runBashCommand(`cd ${contentDirPath} && git pull`)
     } else {
       await runBashCommand(
-        `git clone --depth 1 --single-branch ${REPO_URL} ${contentDir}`,
+        `git clone --depth 1 --single-branch ${REPO_URL} ${contentDirPath}`,
       )
-    }
-    if (fs.existsSync(`${contentDir}/IMAGES`)) {
-      await runBashCommand(`cp -r ${contentDir}/IMAGES public/`)
     }
   }
 
@@ -124,7 +121,7 @@ const runBashCommand = (command: string) =>
 
 export default makeSource({
   syncFiles: syncContentFromGit,
-  contentDirPath: 'content',
+  contentDirPath: 'public/zen',
   documentTypes: [Blog],
   disableImportAliasWarning: true,
   mdx: {
