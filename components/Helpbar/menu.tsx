@@ -1,9 +1,6 @@
 'use client'
 
-// import clsx from 'clsx'
-// import { ArrowUpToLine } from 'lucide-react'
-// import { useEffect, useState } from 'react'
-// import { throttle } from '@/lib/lodash'
+import { AlignJustify } from 'lucide-react'
 
 interface MenuProps {
   toggleMenu: () => void
@@ -17,21 +14,7 @@ export default function Menu({ toggleMenu }: MenuProps) {
             max-md:fixed max-md:right-0 max-md:top-0 md:hidden"
       onClick={toggleMenu}
     >
-      <svg
-        stroke="currentColor"
-        fill="none"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        height="1em"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <line x1="4" x2="20" y1="12" y2="12"></line>
-        <line x1="4" x2="20" y1="6" y2="6"></line>
-        <line x1="4" x2="20" y1="18" y2="18"></line>
-      </svg>
+      <AlignJustify size={18} />
     </button>
   )
 }
