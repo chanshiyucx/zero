@@ -8,11 +8,11 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import rehypeImageSizes from './lib/rehype-image-sizes'
 
-const REPO_URL = 'https://github.com/chanshiyucx/zen.git'
+const REPO_URL = 'https://github.com/chanshiyucx/blog.git'
 
-export const Blog = defineDocumentType(() => ({
-  name: 'Blog',
-  filePathPattern: `./blog/**/*.md`,
+export const Post = defineDocumentType(() => ({
+  name: 'Post',
+  filePathPattern: `posts/**/*.md`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -42,25 +42,25 @@ export const Blog = defineDocumentType(() => ({
   computedFields: {
     url: {
       type: 'string',
-      resolve: (blog) => {
-        const { sourceFileDir, sourceFileName } = blog._raw
+      resolve: (post) => {
+        const { sourceFileDir, sourceFileName } = post._raw
         return `/${sourceFileDir}/${sourceFileName.replace(/^(\d+-)|(.md)$/g, '')}`
       },
     },
     slug: {
       type: 'string',
-      resolve: (blog) => {
-        const { sourceFileName } = blog._raw
+      resolve: (post) => {
+        const { sourceFileName } = post._raw
         return `${sourceFileName.replace(/^(\d+-)|(.md)$/g, '')}`
       },
     },
     summary: {
       type: 'json',
-      resolve: async (blog) => {
-        let raw = blog.description
+      resolve: async (post) => {
+        let raw = post.description
         if (!raw) {
           const regex = /^(.+)?\r?\n\s*(.+)?(\r?\n)?/
-          const result = regex.exec(blog.body.raw)
+          const result = regex.exec(post.body.raw)
           raw = result ? result[2] : ''
         }
         const { code } = await bundleMDX({ source: raw })
@@ -121,8 +121,8 @@ const runBashCommand = (command: string) =>
 
 export default makeSource({
   syncFiles: syncContentFromGit,
-  contentDirPath: 'public/zen',
-  documentTypes: [Blog],
+  contentDirPath: 'public/blog',
+  documentTypes: [Post],
   disableImportAliasWarning: true,
   mdx: {
     rehypePlugins: [

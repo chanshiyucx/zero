@@ -62,7 +62,3 @@
 
 [Ability to add width and height to the image](https://github.com/remcohaszing/remark-mdx-images/issues/3)
 [rehype-img-size](https://github.com/ksoichiro/rehype-img-size/blob/master/index.js)
-
-## TODO
-
-1. Header Concat Hover 滑块

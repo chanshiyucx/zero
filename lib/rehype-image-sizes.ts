@@ -14,7 +14,7 @@ const rehypeImageSizes: Plugin<[Options?], Root> = (options) => {
       if (!node.properties || typeof node.properties.src !== 'string') {
         return
       }
-      const imageSrc = `/zen${node.properties.src}`
+      const imageSrc = `/blog${node.properties.src}`
       const imagePath = decodeURI(`${options?.root ?? ''}${imageSrc}`)
       const imageSize = getImageSize(imagePath)
       node.properties.width = imageSize.width

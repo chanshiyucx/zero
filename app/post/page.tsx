@@ -1,31 +1,31 @@
-import type { Blog } from 'contentlayer/generated'
-import { allBlogs } from 'contentlayer/generated'
+import type { Post } from 'contentlayer/generated'
+import { allPosts } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
 
-interface BlogWithTime extends Blog {
+interface PostWithTime extends Post {
   time: string
 }
-interface BlogGroup {
+interface PostGroup {
   year: number
-  list: BlogWithTime[]
+  list: PostWithTime[]
 }
 
-export default function BlogLayout() {
-  const blogList: Blog[] = allBlogs.sort((a, b) =>
+export default function PostLayout() {
+  const postList: Post[] = allPosts.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date)),
   )
-  const categories = [...new Set(blogList.map((e) => e.category))]
-  const blogGroupList: BlogGroup[] = []
-  blogList.forEach((blog) => {
-    const date = new Date(blog.date)
+  const categories = [...new Set(postList.map((e) => e.category))]
+  const postGroupList: PostGroup[] = []
+  postList.forEach((post) => {
+    const date = new Date(post.date)
     const year = date.getFullYear()
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
     const day = date.getDate().toString().padStart(2, '0')
-    const lastGroup = blogGroupList.at(-1)
+    const lastGroup = postGroupList.at(-1)
     if (!lastGroup || lastGroup.year !== year) {
-      blogGroupList.push({ year, list: [] })
+      postGroupList.push({ year, list: [] })
     }
-    blogGroupList.at(-1)?.list.push({ ...blog, time: `${month}.${day}` })
+    postGroupList.at(-1)?.list.push({ ...post, time: `${month}.${day}` })
   })
 
   return (
@@ -50,16 +50,16 @@ export default function BlogLayout() {
           </ul>
         </section>
         <ul>
-          {blogGroupList.map((blogGroup) => (
+          {postGroupList.map((postGroup) => (
             <>
               <li className="-my-2 font-mono text-xl md:text-right md:text-2xl">
-                {blogGroup.year}
+                {postGroup.year}
               </li>
-              {blogGroup.list.map((blog) => (
-                <li key={blog.title} className="mx-2 my-4 md:mx-0 md:text-xl">
-                  <a className="flex gap-3 md:gap-8" href={blog.url}>
-                    <span className="font-mono">{blog.time}</span>
-                    <span className="font-bold">{blog.title}</span>
+              {postGroup.list.map((post) => (
+                <li key={post.title} className="mx-2 my-4 md:mx-0 md:text-xl">
+                  <a className="flex gap-3 md:gap-8" href={post.url}>
+                    <span className="font-mono">{post.time}</span>
+                    <span className="font-bold">{post.title}</span>
                   </a>
                 </li>
               ))}
