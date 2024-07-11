@@ -1,11 +1,11 @@
 @layer base {
   body {
-    @apply bg-zinc-50 bg-light bg-fixed bg-repeat text-zinc-700 dark:bg-zinc-900 dark:bg-dark  dark:text-zinc-300;
+    @apply bg-zinc-50 bg-light bg-fixed bg-repeat text-zinc-700 dark:bg-zinc-900 dark:bg-dark dark:text-zinc-300;
   }
 }
 
 ::view-transition-new(root) {
-  animation: turnOff 800ms ease-in-out;
+  animation: turnOff 600ms ease-in-out;
 }
 
 ::view-transition-old(root) {
@@ -13,7 +13,7 @@
 }
 
 [data-theme='dark']::view-transition-new(root) {
-  animation: turnOn 800ms ease-in-out;
+  animation: turnOn 600ms ease-in-out;
 }
 
 @keyframes turnOn {

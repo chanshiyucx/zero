@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import useIsMounted from '@/hook/use-is-mounted'
 import { transitionViewIfSupported } from '@/lib/dom'
+import TinyButton from './tiny-button'
 
 const THEME = {
   LIGHT: 'light',
@@ -34,12 +35,8 @@ export default function ThemeSwitcher() {
   if (!mounted) return null
 
   return (
-    <button
-      className="rounded bg-zinc-50 p-2 shadow-sm md:border dark:border-zinc-800 dark:bg-zinc-800"
-      type="button"
-      onClick={toggleTheme}
-    >
+    <TinyButton onClick={toggleTheme}>
       {theme === 'light' ? <Moon size={18} /> : <SunDim size={20} />}
-    </button>
+    </TinyButton>
   )
 }

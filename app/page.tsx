@@ -9,6 +9,7 @@ export default function Page() {
     compareDesc(new Date(a.date), new Date(b.date)),
   )
   const hotPost = postList[0]
+  const lastPostList = postList.slice(1, 3)
 
   return (
     <main>
@@ -35,30 +36,32 @@ export default function Page() {
             </div>
           </section>
         </article>
-        <div className="mt-10">
+        <div className="relative mt-10">
           <h2 className="md:text-md flex items-center justify-between gap-3 text-center text-lg md:text-left">
             <span className="block h-0.5 flex-grow bg-zinc-200 md:hidden dark:bg-zinc-800"></span>
-            <span>HISTORY BLOG</span>
+            <span>LATEST BLOG</span>
             <span className="block h-0.5 flex-grow bg-zinc-200 md:hidden dark:bg-zinc-800"></span>
           </h2>
           <ul className="mb-8 mt-5 list-square space-y-5 text-lg font-semibold">
-            <li className="ml-5 md:ml-8">
-              <a href="/post/i-think-like-a-river">The Origins Of Dune</a>
-            </li>
-            <li className="ml-5 md:ml-8">
-              <a href="/post/simplicity-the-ultimate-answer">
-                The View From Here
-              </a>
-            </li>
-            <li className="ml-5 md:ml-8">
-              <a href="/post/no-need-for-passion">
-                The Villanelle: A Poetry Workshop
-              </a>
-            </li>
+            {lastPostList.map((post) => (
+              <li key={post.title} className="ml-5 md:ml-8">
+                <a href={post.url}>{post.title}</a>
+              </li>
+            ))}
+            {lastPostList.map((post) => (
+              <li key={post.title + 'a'} className="ml-5 md:ml-8">
+                <a href={post.url}>{post.title}</a>
+              </li>
+            ))}
+            {lastPostList.map((post) => (
+              <li key={post.title + 'b'} className="ml-5 md:ml-8">
+                <a href={post.url}>{post.title}</a>
+              </li>
+            ))}
           </ul>
-          <p className="flex items-center justify-between gap-3 text-right md:block md:text-left">
-            <span className="block h-0.5 flex-grow bg-gray-200 md:hidden dark:bg-zinc-700"></span>
-            <a className="bg-zinc-800 px-4 py-2 text-zinc-300" href="/post">
+          <p className="absolute bottom-0 right-0 flex items-center justify-between gap-3 text-right md:block md:text-left">
+            <span className="block h-0.5 flex-grow md:hidden"></span>
+            <a className="px-4 py-2" href="/posts">
               READ MORE
             </a>
           </p>

@@ -29,7 +29,7 @@ export default function PostLayout({ params }: { params: Params }) {
   return (
     <article>
       <header className="px-2">
-        <h1 className="text-2xl font-extrabold md:text-5xl">{post.title}</h1>
+        <h1 className="text-2xl font-extrabold md:text-4xl">{post.title}</h1>
         <div className="my-3 flex gap-2 px-2 text-lg">
           <span> {format(new Date(post.date), 'yyyy-MM-dd')}</span>
           <span>·</span>

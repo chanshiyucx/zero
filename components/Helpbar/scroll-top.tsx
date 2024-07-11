@@ -1,9 +1,9 @@
 'use client'
 
-import clsx from 'clsx'
 import { ArrowUpToLine } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { throttle } from '@/lib/lodash'
+import TinyButton from './tiny-button'
 
 export default function ScrollTop() {
   const [showBackTop, setShowBackTop] = useState(false)
@@ -45,15 +45,8 @@ export default function ScrollTop() {
   }, [])
 
   return (
-    <button
-      className={clsx(
-        !showBackTop && 'hidden',
-        'rounded bg-zinc-50 p-2 shadow-sm md:border dark:border-zinc-800 dark:bg-zinc-800',
-      )}
-      type="button"
-      onClick={backToTop}
-    >
+    <TinyButton className={!showBackTop ? 'hidden' : ''} onClick={backToTop}>
       <ArrowUpToLine size={18} />
-    </button>
+    </TinyButton>
   )
 }

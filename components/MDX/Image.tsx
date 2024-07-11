@@ -22,7 +22,7 @@ export default function Image(
           {...(props as ImageProps)}
           priority
           alt={props.alt ?? ''}
-          onLoadingComplete={() => setIsReady(true)}
+          onLoad={() => setIsReady(true)}
           onError={() => setIsReady(false)}
           className={clsx(
             'opacity-0 transition-opacity duration-500',
