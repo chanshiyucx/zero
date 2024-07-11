@@ -1,6 +1,7 @@
 import type { Post } from 'contentlayer/generated'
 import { allPosts } from 'contentlayer/generated'
 import { compareDesc, format } from 'date-fns'
+import { ChevronsRight } from 'lucide-react'
 import Link from 'next/link'
 import MDX from '@/components/MDX'
 
@@ -14,19 +15,19 @@ export default function Page() {
     <main>
       <section className="p-2 md:px-14 md:py-4">
         <article>
-          <header className="px-2">
-            <h1 className="-ml-8 text-2xl font-extrabold md:text-4xl">
-              <Link
-                className="link"
-                href={hotPost.url}
-                data-content={hotPost.title}
-              >
+          <header className="group flex items-end justify-between duration-300 hover:-ml-0.5 md:-ml-8">
+            <h1 className="text-2xl font-extrabold md:text-4xl">
+              <Link href={hotPost.url} data-content={hotPost.title}>
                 {hotPost.title}
               </Link>
             </h1>
+            <div className="flex items-center opacity-0 duration-200 group-hover:opacity-100">
+              <span className="italic">Read Post</span>
+              <ChevronsRight className="ml-1" size={16} />
+            </div>
           </header>
-          <section className="px-2">
-            <div className="mb-3 mt-6">
+          <section>
+            <div className="mb-3 mt-5">
               <MDX code={hotPost.summary.code} />
             </div>
             <div className="flex justify-between text-zinc-400">
