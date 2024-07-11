@@ -1,7 +1,6 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { Anton, Noto_Serif } from 'next/font/google'
-import 'aos/dist/aos.css'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Helpbar from '@/components/Helpbar'
@@ -23,6 +22,14 @@ const anton = Anton({
   variable: '--font-anton',
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export const metadata: Metadata = {
   title: '蝉時雨',
   description: '蝉鸣如雨 花宵道中',
@@ -36,8 +43,6 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: '/apple-touch-icon.png' }],
   },
-  viewport:
-    'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
