@@ -1,4 +1,4 @@
-import { useMDXComponent } from 'next-contentlayer/hooks'
+import { useMDXComponent } from 'next-contentlayer2/hooks'
 import Image from './Image'
 
 const components = {

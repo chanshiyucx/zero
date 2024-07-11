@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { spawn } from 'node:child_process'
-import { defineDocumentType } from '@contentlayer/source-files'
-import { makeSource } from 'contentlayer/source-remote-files'
+import { defineDocumentType } from '@contentlayer2/source-files'
+import { makeSource } from 'contentlayer2/source-remote-files'
 import { bundleMDX } from 'mdx-bundler'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
@@ -122,6 +122,7 @@ const runBashCommand = (command: string) =>
 export default makeSource({
   syncFiles: syncContentFromGit,
   contentDirPath: 'public/blog',
+  contentDirInclude: ['posts'],
   documentTypes: [Post],
   disableImportAliasWarning: true,
   mdx: {
