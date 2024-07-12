@@ -13,8 +13,8 @@ export default function Page() {
   const lastPostList = postList.slice(1, 3)
 
   return (
-    <main>
-      <section className="p-2 md:px-14 md:py-4">
+    <main className="flex-1">
+      <section className="p-2 md:px-16 md:py-4">
         <article>
           <header className="group flex items-end justify-between duration-300 hover:-ml-0.5 md:-ml-8">
             <h1 className="text-2xl font-extrabold md:text-4xl">
@@ -31,9 +31,16 @@ export default function Page() {
             <div className="mb-3 mt-5">
               <MDX code={hotPost.summary.code} />
             </div>
-            <div className="flex justify-between text-zinc-400">
-              <span> {format(new Date(hotPost.date), 'yyyy-MM-dd')}</span>
+            <div className="space-x-2 text-zinc-400">
+              <span>{format(new Date(hotPost.date), 'yyyy-MM-dd')}</span>
+              <span>/</span>
               <span>{hotPost.category}</span>
+              <span>/</span>
+              <span>
+                {hotPost.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </span>
             </div>
           </section>
         </article>
@@ -49,21 +56,12 @@ export default function Page() {
                 <a href={post.url}>{post.title}</a>
               </li>
             ))}
-            {lastPostList.map((post) => (
-              <li key={post.title + 'a'} className="ml-5 md:ml-8">
-                <a href={post.url}>{post.title}</a>
-              </li>
-            ))}
-            {lastPostList.map((post) => (
-              <li key={post.title + 'b'} className="ml-5 md:ml-8">
-                <a href={post.url}>{post.title}</a>
-              </li>
-            ))}
           </ul>
           <p className="absolute bottom-0 right-0 flex items-center justify-between gap-3 text-right md:block md:text-left">
             <span className="block h-0.5 flex-grow md:hidden"></span>
-            <a className="px-4 py-2" href="/posts">
-              READ MORE
+            <a className="flex items-center px-4 py-2" href="/posts">
+              <span className="italic">READ MORE</span>
+              <ChevronsRight className="ml-1" size={16} />
             </a>
           </p>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import { Anton, Noto_Serif } from 'next/font/google'
+import { Anton, Courier_Prime, Noto_Serif } from 'next/font/google'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Helpbar from '@/components/Helpbar'
@@ -13,6 +13,13 @@ const serif = Noto_Serif({
   weight: ['500', '600', '700', '900'],
   display: 'swap',
   variable: '--font-serif',
+})
+
+const courier = Courier_Prime({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+  variable: '--font-courier',
 })
 
 const anton = Anton({
@@ -50,7 +57,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="zh-CN"
       suppressHydrationWarning
-      className={`${serif.variable} ${anton.variable}`}
+      className={`${serif.variable} ${courier.variable} ${anton.variable}`}
     >
       <head>
         <Nya />

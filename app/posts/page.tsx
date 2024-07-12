@@ -30,7 +30,7 @@ export default function PostLayout() {
 
   return (
     <article>
-      <header className="mb:4 px-2 md:mb-8">
+      <header className="mb:4 px-2 md:mb-6">
         <h1 className="text-2xl font-extrabold md:text-4xl">
           Life is a burning chaos.
         </h1>
@@ -52,13 +52,13 @@ export default function PostLayout() {
         <ul>
           {postGroupList.map((postGroup) => (
             <>
-              <li className="-my-2 font-mono text-xl md:text-right md:text-2xl">
+              <li className="-my-2 font-courier text-xl md:text-right md:text-2xl">
                 {postGroup.year}
               </li>
               {postGroup.list.map((post) => (
                 <li key={post.title} className="mx-2 my-4 md:mx-0 md:text-xl">
                   <a className="flex gap-3 md:gap-8" href={post.url}>
-                    <span className="font-mono">{post.time}</span>
+                    <span className="font-courier">{post.time}</span>
                     <span className="font-bold">{post.title}</span>
                   </a>
                 </li>

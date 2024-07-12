@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="p-2 md:px-14">
+    <footer className="p-2 md:px-16">
       <div className="mt-6 flex items-center justify-center space-x-2 text-sm text-zinc-500">
         <p>Chanshiyu </p>
         <span className="font-bold">·</span>

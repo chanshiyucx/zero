@@ -17,6 +17,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-serif)', ...defaultTheme.fontFamily.sans],
+        courier: 'var(--font-courier)',
         anton: 'var(--font-anton)',
       },
       backgroundImage: {
