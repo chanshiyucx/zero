@@ -18,6 +18,19 @@
     @apply w-12;
   }
 
+  /* TODO: 优化主题设置 */
+  html[data-theme='dark'] figure pre,
+  html[data-theme='dark'] figure pre span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+
+  html[data-theme='light'] figure pre,
+  html[data-theme='light'] figure pre span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+
   /* image viwer background */
   .photo-view-mask {
     @apply !bg-zinc-50 dark:!bg-zinc-800;

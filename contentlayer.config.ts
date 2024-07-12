@@ -128,7 +128,15 @@ export default makeSource({
   mdx: {
     rehypePlugins: [
       [rehypeExternalLinks, { rel: ['nofollow'] }],
-      [rehypePrettyCode, { theme: 'one-dark-pro', showLineNumbers: true }],
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            light: 'material-theme-lighter',
+            dark: 'one-dark-pro',
+          },
+        },
+      ],
       [rehypeImageSizes, { root: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
