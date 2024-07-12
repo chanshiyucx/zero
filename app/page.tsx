@@ -16,15 +16,15 @@ export default function Page() {
     <main className="flex-1">
       <section className="p-2 md:px-16 md:py-4">
         <article>
-          <header className="group flex items-end justify-between duration-300 hover:-ml-0.5 md:-ml-8">
+          <header className="group relative pr-24 duration-300 hover:-ml-0.5 md:-ml-8">
             <h1 className="text-2xl font-extrabold md:text-4xl">
               <Link href={hotPost.url} data-content={hotPost.title}>
                 {hotPost.title}
               </Link>
             </h1>
-            <div className="flex items-center opacity-0 duration-200 group-hover:opacity-100">
+            <div className="absolute bottom-0 right-0 flex items-center opacity-0 duration-200 group-hover:opacity-100">
               <span className="italic">Read Post</span>
-              <ChevronsRight className="ml-1" size={16} />
+              <ChevronsRight className="bounce-right ml-1" size={16} />
             </div>
           </header>
           <section>
@@ -61,7 +61,7 @@ export default function Page() {
             <span className="block h-0.5 flex-grow md:hidden"></span>
             <a className="flex items-center px-4 py-2" href="/posts">
               <span className="italic">READ MORE</span>
-              <ChevronsRight className="ml-1" size={16} />
+              <ChevronsRight className="bounce-right ml-1" size={16} />
             </a>
           </p>
         </div>

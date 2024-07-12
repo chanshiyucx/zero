@@ -36,7 +36,7 @@ export default function PostLayout() {
         </h1>
       </header>
       <div className="px-2 py-4 md:px-16">
-        <section className="mb-4 flex gap-4">
+        <section className="flex gap-4">
           <h2>Categories: </h2>
           <ul className="flex flex-grow gap-2">
             {categories.map((category) => (

@@ -22,4 +22,21 @@
   .photo-view-mask {
     @apply !bg-zinc-50 dark:!bg-zinc-800;
   }
+
+  /* bounce right animation */
+  .bounce-right {
+    animation: bounce-right 1s infinite;
+  }
+}
+
+@keyframes bounce-right {
+  0%,
+  100% {
+    transform: translateX(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(20%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
 }
