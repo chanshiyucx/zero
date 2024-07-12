@@ -4,6 +4,7 @@
 
 @layer base {
   body {
-    @apply container mx-auto overflow-x-hidden p-3 md:my-6 md:p-0;
+    @apply container mx-auto grid min-h-screen overflow-x-hidden p-3 md:p-0;
+    grid-template-rows: auto 1fr auto;
   }
 }
