@@ -18,7 +18,6 @@
     @apply w-12;
   }
 
-  /* TODO: 优化主题设置 */
   html[data-theme='dark'] figure pre,
   html[data-theme='dark'] figure pre span {
     color: var(--shiki-dark);

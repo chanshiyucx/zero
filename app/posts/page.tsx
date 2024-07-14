@@ -49,12 +49,12 @@ export default function PostLayout() {
             ))}
           </ul>
         </section>
-        <ul>
-          {postGroupList.map((postGroup) => (
-            <>
-              <li className="-my-2 font-courier text-xl md:text-right md:text-2xl">
-                {postGroup.year}
-              </li>
+        {postGroupList.map((postGroup) => (
+          <div key={postGroup.year}>
+            <p className="-my-2 font-courier text-xl md:text-right md:text-2xl">
+              {postGroup.year}
+            </p>
+            <ul>
               {postGroup.list.map((post) => (
                 <li key={post.title} className="mx-2 my-4 md:mx-0 md:text-xl">
                   <a className="flex gap-3 md:gap-8" href={post.url}>
@@ -63,9 +63,9 @@ export default function PostLayout() {
                   </a>
                 </li>
               ))}
-            </>
-          ))}
-        </ul>
+            </ul>
+          </div>
+        ))}
       </div>
     </article>
   )
