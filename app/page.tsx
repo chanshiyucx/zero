@@ -34,7 +34,6 @@ export default function Page() {
             <div className="space-x-2 text-zinc-400">
               <span>{format(new Date(hotPost.date), 'yyyy-MM-dd')}</span>
               <span>/</span>
-              <span>{hotPost.category}</span>
               <span>/</span>
               <span>
                 {hotPost.tags.map((tag) => (

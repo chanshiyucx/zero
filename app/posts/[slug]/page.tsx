@@ -35,7 +35,6 @@ export default function PostLayout({ params }: { params: Params }) {
         <div className="mt-3 flex gap-2 space-x-2 text-zinc-400">
           <span>{format(new Date(post.date), 'yyyy-MM-dd')}</span>
           <span>/</span>
-          <span>{post.category}</span>
           <span>/</span>
           <span>
             {post.tags.map((tag) => (

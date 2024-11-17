@@ -14,7 +14,6 @@ export default function PostLayout() {
   const postList: Post[] = allPosts.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date)),
   )
-  const categories = [...new Set(postList.map((e) => e.category))]
   const postGroupList: PostGroup[] = []
   postList.forEach((post) => {
     const date = new Date(post.date)
@@ -36,19 +35,6 @@ export default function PostLayout() {
         </h1>
       </header>
       <div className="px-2 py-4 md:px-16">
-        <section className="flex gap-4">
-          <h2>Categories: </h2>
-          <ul className="flex flex-grow gap-2">
-            {categories.map((category) => (
-              <li
-                key={category}
-                className="rounded bg-zinc-200 px-2 text-center text-zinc-700 transition"
-              >
-                {category}
-              </li>
-            ))}
-          </ul>
-        </section>
         {postGroupList.map((postGroup) => (
           <div key={postGroup.year}>
             <p className="-my-2 font-courier text-xl md:text-right md:text-2xl">
