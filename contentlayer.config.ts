@@ -6,7 +6,7 @@ import { bundleMDX } from 'mdx-bundler'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
-import rehypeImageSizes from './lib/rehype-image-sizes'
+import rehypeImage from './lib/rehype-image'
 
 const REPO_URL = 'https://github.com/chanshiyucx/blog.git'
 
@@ -133,7 +133,7 @@ export default makeSource({
           },
         },
       ],
-      [rehypeImageSizes, { root: 'public' }],
+      [rehypeImage, { root: 'public' }],
     ],
     remarkPlugins: [remarkGfm],
   },
