@@ -1,5 +1,5 @@
-import type { Post } from 'contentlayer/generated'
-import { allPosts } from 'contentlayer/generated'
+import type { Post } from 'content-collections'
+import { allPosts } from 'content-collections'
 import { compareDesc } from 'date-fns'
 
 interface PostWithTime extends Post {
