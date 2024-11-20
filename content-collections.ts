@@ -7,8 +7,6 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import rehypeImage from './lib/rehype-image'
 
-const descriptionRegex = /^[\s\n]*(.+?)\r?\n[\s\n]*(.+?)(?:\r?\n|$)/
-
 const options: Options = {
   rehypePlugins: [
     [rehypeExternalLinks, { rel: ['nofollow'] }],
@@ -47,8 +45,8 @@ const posts = defineCollection({
   transform: async (document, context) => {
     let description = document.description
     if (!description) {
-      const result = descriptionRegex.exec(document.content)
-      description = result ? result[2] : ''
+      const result = /^[^\n]*/.exec(document.content)
+      description = result ? result[0] : ''
     }
 
     const slug = document._meta.fileName.replace(/^(\d+-)|(.md)$/g, '')

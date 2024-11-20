@@ -1,6 +1,6 @@
 {
-  "name": "zzz",
-  "version": "1.0.0",
+  "name": "zero",
+  "version": "2.0.0",
   "private": true,
   "description": "文心雕龙",
   "author": "蝉時雨 <chanshiyucx@gmail.com>",
@@ -10,6 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "predev": "node syncBlog.mjs",
+    "prebuild": "node syncBlog.mjs",
     "postbuild": "next-sitemap",
     "prepare": "husky"
   },
