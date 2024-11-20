@@ -1,5 +1,5 @@
-import type { Post } from 'contentlayer/generated'
-import { allPosts } from 'contentlayer/generated'
+import type { Post } from 'content-collections'
+import { allPosts } from 'content-collections'
 import { compareDesc, format } from 'date-fns'
 import { ChevronsRight } from 'lucide-react'
 import Link from 'next/link'
@@ -29,7 +29,7 @@ export default function Page() {
           </header>
           <section>
             <div className="mb-3 mt-5">
-              <MDX code={hotPost.summary.code} />
+              <MDX code={hotPost.descriptionCode} />
             </div>
             <div className="space-x-2 text-zinc-400">
               <span>{format(new Date(hotPost.date), 'yyyy-MM-dd')}</span>
@@ -52,16 +52,16 @@ export default function Page() {
           <ul className="mb-8 mt-5 list-square space-y-5 text-lg font-semibold">
             {lastPostList.map((post) => (
               <li key={post.title} className="ml-5 md:ml-8">
-                <a href={post.url}>{post.title}</a>
+                <Link href={post.url}>{post.title}</Link>
               </li>
             ))}
           </ul>
           <p className="absolute bottom-0 right-0 flex items-center justify-between gap-3 text-right md:block md:text-left">
             <span className="block h-0.5 flex-grow md:hidden"></span>
-            <a className="flex items-center px-4 py-2" href="/posts">
+            <Link className="flex items-center px-4 py-2" href="/posts">
               <span className="italic">READ MORE</span>
               <ChevronsRight className="bounce-right ml-1" size={16} />
-            </a>
+            </Link>
           </p>
         </div>
       </section>

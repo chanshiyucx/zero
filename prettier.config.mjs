@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   printWidth: 80,
   useTabs: false,
   tabWidth: 2,
@@ -28,3 +28,5 @@ module.exports = {
   importOrderTypeScriptVersion: '5.0.0',
   tailwindFunctions: ['clsx'],
 }
+
+export default config

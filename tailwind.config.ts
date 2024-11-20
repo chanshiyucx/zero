@@ -1,8 +1,8 @@
+import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ['selector', '[data-theme="dark"]'],
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -30,4 +30,4 @@ module.exports = {
     },
   },
   plugins: [typography],
-}
+} satisfies Config

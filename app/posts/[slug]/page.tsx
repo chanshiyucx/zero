@@ -1,4 +1,4 @@
-import { allPosts } from 'contentlayer/generated'
+import { allPosts } from 'content-collections'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
 import MDX from '@/components/MDX'
@@ -44,7 +44,7 @@ export default function PostLayout({ params }: { params: Params }) {
         </div>
       </header>
       <section className="py-5">
-        <MDX code={post.body.code} />
+        <MDX code={post.contentCode} />
       </section>
     </article>
   )
