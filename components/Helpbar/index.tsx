@@ -5,7 +5,6 @@ import { useState } from 'react'
 import BackToHome from './back-to-home'
 import Menu from './menu'
 import ScrollTop from './scroll-top'
-import ThemeSwitcher from './theme-switcher'
 
 export default function Helpbar() {
   const [open, setOpen] = useState(false)
@@ -23,7 +22,6 @@ export default function Helpbar() {
       >
         <ScrollTop />
         <BackToHome />
-        <ThemeSwitcher />
       </ul>
     </section>
   )

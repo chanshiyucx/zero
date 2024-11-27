@@ -37,11 +37,28 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
+export const config = {
+  metadata: {
+    title: "Reverie's Hideout",
+    description:
+      'My internet hideout, here you will find some topics that I am learning and building, thoughts and tech blog posts, and know more about who I am...',
+  },
+  webserver: {
+    host: process.env.HOST ?? 'http://localhost:3000',
+  },
+}
+
 export const metadata: Metadata = {
-  title: '蝉時雨',
-  description: '蝉鸣如雨 花宵道中',
-  authors: [{ name: '蝉時雨', url: 'https://chanshiyu.com' }],
-  keywords: 'Code, ACG, Zero, 蝉時雨',
+  ...config.metadata,
+  metadataBase: new URL(config.webserver.host),
+  title: {
+    default: config.metadata.title,
+    template: `%s • ${config.metadata.title}`,
+  },
+  applicationName: config.metadata.title,
+  authors: [{ name: 'Reverie', url: 'https://github.com/chanshiyucx' }],
+  category: 'Personal Website',
+  keywords: 'Blog, Code, ACG, Web, Zero, Programming, Knowledge',
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -50,12 +67,27 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: '/apple-touch-icon.png' }],
   },
+  robots: {
+    follow: true,
+    index: true,
+  },
+  openGraph: {
+    ...config.metadata,
+    siteName: config.metadata.title,
+    type: 'website',
+    url: new URL('/', config.webserver.host).toString(),
+    emails: ['chanshiyucx@gmail.com'],
+  },
+  twitter: {
+    ...config.metadata,
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang="zh-CN"
+      lang="en"
       suppressHydrationWarning
       className={`${serif.variable} ${courier.variable} ${anton.variable}`}
     >
@@ -63,12 +95,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Nya />
       </head>
       <body>
-        <Header />
         <Providers>
+          <Header />
           {children}
           <Helpbar />
+          <Footer />
         </Providers>
-        <Footer />
       </body>
     </html>
   )

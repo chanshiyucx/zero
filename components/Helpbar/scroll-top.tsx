@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowUpToLine } from 'lucide-react'
+// import { ArrowUpToLine } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { throttle } from '@/lib/lodash'
 import TinyButton from './tiny-button'
@@ -46,7 +46,7 @@ export default function ScrollTop() {
 
   return (
     <TinyButton className={!showBackTop ? 'hidden' : ''} onClick={backToTop}>
-      <ArrowUpToLine size={18} />
+      {/* <ArrowUpToLine size={18} /> */}
     </TinyButton>
   )
 }
