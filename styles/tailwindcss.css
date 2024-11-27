@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply container mx-auto flex min-h-screen flex-col overflow-x-hidden p-3 md:p-0;
+    @apply container mx-auto min-h-screen;
   }
 }

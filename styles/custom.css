@@ -1,6 +1,10 @@
 @layer components {
+  kbd {
+    @apply rounded-lg border border-zinc-200 bg-zinc-100 p-1 leading-none text-zinc-500;
+  }
+
   /* rehype-pretty-code */
-  code {
+  /* code {
     counter-reset: line;
   }
 
@@ -28,19 +32,19 @@
   html[data-theme='light'] figure pre span {
     color: var(--shiki-light);
     background-color: var(--shiki-light-bg);
-  }
+  } */
 
   /* image viwer background */
-  .photo-view-mask {
+  /* .photo-view-mask {
     @apply !bg-zinc-50 dark:!bg-zinc-800;
-  }
+  } */
 
   /* bounce right animation */
-  .bounce-right {
+  /* .bounce-right {
     animation: bounce-right 1s infinite;
-  }
+  } */
 }
-
+/* 
 @keyframes bounce-right {
   0%,
   100% {
@@ -51,4 +55,4 @@
     transform: translateX(20%);
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
-}
+} */

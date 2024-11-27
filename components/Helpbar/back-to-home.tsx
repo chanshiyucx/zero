@@ -1,6 +1,6 @@
 'use client'
 
-import { House } from 'lucide-react'
+// import { House } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import TinyButton from './tiny-button'
 
@@ -13,7 +13,7 @@ export default function BackToHome() {
 
   return (
     <TinyButton className={isHomePage ? 'hidden' : ''} onClick={backToHome}>
-      <House size={18} />
+      {/* <House size={18} /> */}
     </TinyButton>
   )
 }

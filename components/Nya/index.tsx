@@ -5,7 +5,7 @@ export default function Nya() {
         __html: `
           (${function () {
             console.log(
-              '%c 蝉時雨 %c https://chanshiyu.com ',
+              '%c Reverie %c https://github.com/chanshiyucx ',
               'color: #FFF; margin: 1em 0; padding: 5px 0; background: #2980b9;',
               'margin: 1em 0; padding: 5px 0; background: #EFEFEF;',
             )
