@@ -1,5 +1,6 @@
 'use client'
 
+import type { PropsWithChildren } from 'react'
 import type { PhotoProviderBase } from 'react-photo-view/dist/types'
 import { ThemeProvider } from 'next-themes'
 import { PhotoProvider } from '@/components/photo-view'
@@ -12,7 +13,7 @@ const photoViewConfig: PhotoProviderBase = {
   pullClosable: true,
 }
 
-export default function Providers({ children }: React.PropsWithChildren) {
+export default function Providers({ children }: PropsWithChildren) {
   return (
     <ThemeProvider>
       <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>

@@ -4,20 +4,14 @@
 // import { ChevronsRight } from 'lucide-react'
 // import Link from 'next/link'
 // import { MDX } from '@/components/mdx'
+import { Grid } from '@/components/grid'
 import { Title } from '@/components/main'
 
 export default function Page() {
   return (
-    <main className="page">
+    <main className="page space-y-24">
       <Title />
-      <div className="h-60">test</div>
-      <div className="h-60">test</div>
-      <div className="h-60">test</div>
-      <div className="h-60">test</div>
-      <div className="h-60">test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
+      <Grid />
     </main>
   )
 }

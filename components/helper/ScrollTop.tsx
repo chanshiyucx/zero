@@ -39,9 +39,7 @@ export function ScrollTop() {
     scrollHandler()
 
     window.addEventListener('scroll', scrollHandler)
-    return () => {
-      window.removeEventListener('scroll', scrollHandler)
-    }
+    return () => window.removeEventListener('scroll', scrollHandler)
   }, [])
 
   return (

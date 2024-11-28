@@ -1,4 +1,3 @@
-import type { Theme } from '@/type'
 import type { Icon } from '@phosphor-icons/react'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
@@ -12,6 +11,8 @@ import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import { useIsMounted } from '@/hook'
 import { transitionViewIfSupported } from '@/lib/dom'
+
+type Theme = 'light' | 'dark' | 'system'
 
 const ThemeList: Theme[] = ['light', 'dark', 'system'] as const
 
@@ -48,9 +49,8 @@ function useThemeTransition() {
   }
 }
 
-const SelectTheme: React.FC<{ theme: Theme }> = ({ theme }) => {
+function SelectTheme({ theme }: { theme: Theme }) {
   const { toggleTheme, currTheme } = useThemeTransition()
-
   const { icon: Icon, label } = ThemeRecord[theme]
   const isActive = currTheme === theme
 
