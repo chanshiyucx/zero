@@ -1,9 +1,9 @@
 'use client'
 
 import clsx from 'clsx'
-import ScrollTop from './scroll-top'
+import { ScrollTop } from './ScrollTop'
 
-export default function Helpbar() {
+export function Helper() {
   return (
     <section>
       <ul

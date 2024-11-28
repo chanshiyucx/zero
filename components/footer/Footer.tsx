@@ -1,4 +1,4 @@
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="p-2 md:px-16">
       <div className="mt-6 flex items-center justify-center space-x-2 text-sm text-zinc-500">

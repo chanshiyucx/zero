@@ -9,11 +9,7 @@ interface TinyButtonProps {
   onClick: () => void
 }
 
-export default function TinyButton({
-  className,
-  children,
-  onClick,
-}: TinyButtonProps) {
+export function TinyButton({ className, children, onClick }: TinyButtonProps) {
   return (
     <button
       className={clsx(

@@ -3,7 +3,7 @@
 // import { Search as SearchIcon } from 'lucide-react'
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 
-export default function Search() {
+export function Search() {
   //   const {
   // query: { toggle },
   //   } = useKBar()

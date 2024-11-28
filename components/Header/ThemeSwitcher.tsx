@@ -69,7 +69,7 @@ const SelectTheme: React.FC<{ theme: Theme }> = ({ theme }) => {
   )
 }
 
-export default function ThemeSwitcher() {
+export function ThemeSwitcher() {
   const mounted = useIsMounted()
 
   return (

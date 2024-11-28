@@ -3,7 +3,7 @@
 // import { compareDesc, format } from 'date-fns'
 // import { ChevronsRight } from 'lucide-react'
 // import Link from 'next/link'
-// import MDX from '@/components/MDX'
+// import { MDX } from '@/components/mdx'
 
 export default function Page() {
   return (
