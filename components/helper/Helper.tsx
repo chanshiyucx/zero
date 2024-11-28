@@ -1,5 +1,3 @@
-'use client'
-
 import { ScrollTop } from './ScrollTop'
 
 export function Helper() {
