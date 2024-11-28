@@ -1,6 +1,11 @@
 @tailwind components;
 
 @layer components {
+  /* page */
+  .page {
+    @apply w-full pb-28 pt-36;
+  }
+
   /* card */
   .card {
     @apply border border-zinc-200/50 bg-zinc-50/80 dark:border-zinc-800/50 dark:bg-zinc-950/80;
