@@ -61,7 +61,7 @@ const SelectTheme: React.FC<{ theme: Theme }> = ({ theme }) => {
       as="button"
       onClick={() => toggleTheme(theme)}
       data-isactive={isActive}
-      className="menuitem flex w-full items-center justify-start gap-5 rounded p-2 data-[isactive='true']:font-bold"
+      className="menuitem flex w-full items-center justify-start gap-5 rounded-lg p-2 data-[isactive='true']:font-bold"
     >
       <Icon size="1em" weight={isActive ? 'duotone' : 'regular'} />
       <span>{label}</span>
@@ -78,7 +78,7 @@ export default function ThemeSwitcher() {
         <PaintBrushBroad className="text-xl" />
       </MenuButton>
       {mounted && (
-        <MenuItems className="card absolute right-0 top-14 origin-top-right animate-fade-down rounded p-2 outline-none animate-duration-300">
+        <MenuItems className="card absolute right-0 top-14 origin-top-right animate-fade-down rounded-lg p-2 outline-none animate-duration-300">
           {ThemeList.map((theme) => (
             <SelectTheme key={theme} theme={theme} />
           ))}

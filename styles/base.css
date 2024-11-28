@@ -2,7 +2,7 @@
 
 @layer base {
   html {
-    @apply scrollbar-track-transparent scrollbar-thumb-zinc-700 scrollbar-thumb-rounded;
+    @apply scrollbar-track-transparent scrollbar-thumb-zinc-700 scrollbar-thumb-rounded-lg;
   }
 
   * {
@@ -16,7 +16,7 @@
   }
 
   kbd {
-    @apply rounded border border-zinc-200/50 bg-zinc-200/50 p-1 leading-none dark:border-zinc-800/50 dark:bg-zinc-800/50;
+    @apply rounded-lg border border-zinc-200/50 bg-zinc-200/50 p-1 leading-none dark:border-zinc-800/50 dark:bg-zinc-800/50;
   }
 }
 
