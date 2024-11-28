@@ -5,7 +5,12 @@ import { usePathname } from 'next/navigation'
 import { Search } from './Search'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
-const MenuItem: React.FC<{ name: string; path: string }> = ({ name, path }) => {
+interface MenuItemProps {
+  name: string
+  path: string
+}
+
+function MenuItem({ name, path }: MenuItemProps) {
   const pathname = usePathname()
   const isHome = path === '/'
   const isActive = isHome ? path === pathname : pathname.startsWith(path)
