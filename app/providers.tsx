@@ -2,7 +2,7 @@
 
 import type { PhotoProviderBase } from 'react-photo-view/dist/types'
 import { ThemeProvider } from 'next-themes'
-import { PhotoProvider } from '@/components/PhotoView'
+import { PhotoProvider } from '@/components/photo-view'
 
 const photoViewConfig: PhotoProviderBase = {
   maskOpacity: 1,

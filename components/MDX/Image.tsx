@@ -5,9 +5,9 @@ import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import clsx from 'clsx'
 import NextImage from 'next/image'
 import { useState } from 'react'
-import { PhotoView } from '@/components/PhotoView'
+import { PhotoView } from '@/components/photo-view'
 
-export default function Image(
+export function Image(
   props: DetailedHTMLProps<
     ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement

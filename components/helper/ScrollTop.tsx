@@ -3,9 +3,9 @@
 import { CaretDoubleUp } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
 import { throttle } from '@/lib/lodash'
-import TinyButton from './tiny-button'
+import { TinyButton } from './TinyButton'
 
-export default function ScrollTop() {
+export function ScrollTop() {
   const [showBackTop, setShowBackTop] = useState(false)
 
   const backToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })

@@ -1,5 +1,5 @@
 import { useMDXComponent } from '@content-collections/mdx/react'
-import Image from './Image'
+import { Image } from './Image'
 
 const components = {
   img: Image,
@@ -9,7 +9,7 @@ interface MDXProps {
   code: string
 }
 
-export default function MDX({ code }: MDXProps) {
+export function MDX({ code }: MDXProps) {
   const Component = useMDXComponent(code)
 
   return (

@@ -1,7 +1,7 @@
 import { allPosts } from 'content-collections'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
-import MDX from '@/components/MDX'
+import { MDX } from '@/components/mdx'
 
 type Params = {
   slug: string

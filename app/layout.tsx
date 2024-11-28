@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { Anton, Courier_Prime, Noto_Serif } from 'next/font/google'
-// import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import Helpbar from '@/components/Helpbar'
-import Nya from '@/components/Nya'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { Helper } from '@/components/helper'
+import { Nya } from '@/components/nya'
 import Providers from './providers'
 import '@/styles/main.css'
 
@@ -98,8 +98,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           <Header />
           {children}
-          <Helpbar />
-          {/* <Footer /> */}
+          <Helper />
+          <Footer />
         </Providers>
       </body>
     </html>

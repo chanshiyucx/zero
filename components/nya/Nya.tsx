@@ -1,4 +1,4 @@
-export default function Nya() {
+export function Nya() {
   return (
     <script
       dangerouslySetInnerHTML={{

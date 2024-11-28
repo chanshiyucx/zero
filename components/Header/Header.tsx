@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Search from './search'
-import ThemeSwitcher from './theme-switcher'
+import { Search } from './Search'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 const MenuItem: React.FC<{ name: string; path: string }> = ({ name, path }) => {
   const pathname = usePathname()
@@ -21,7 +21,7 @@ const MenuItem: React.FC<{ name: string; path: string }> = ({ name, path }) => {
   )
 }
 
-export default function Header() {
+export function Header() {
   return (
     <header className="fixed top-0 z-10 w-full max-w-screen-md">
       <div className="card my-3 flex items-center justify-between rounded-lg px-4 backdrop-blur">
