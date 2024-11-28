@@ -1,14 +1,12 @@
-'use client'
-
 import type { Theme } from '@/type'
+import type { Icon } from '@phosphor-icons/react'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   Desktop,
-  Icon,
   Moon,
   PaintBrushBroad,
   Sun,
-} from '@phosphor-icons/react'
+} from '@phosphor-icons/react/dist/ssr'
 import { useTheme } from 'next-themes'
 import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
@@ -78,10 +76,12 @@ export function ThemeSwitcher() {
         <PaintBrushBroad className="text-xl" />
       </MenuButton>
       {mounted && (
-        <MenuItems className="card absolute right-0 top-14 origin-top-right animate-fade-down rounded-lg p-2 outline-none animate-duration-300">
-          {ThemeList.map((theme) => (
-            <SelectTheme key={theme} theme={theme} />
-          ))}
+        <MenuItems className="card absolute right-0 top-14 origin-top-right animate-fade-down rounded-lg outline-none animate-duration-300">
+          <div className="p-2 backdrop-blur">
+            {ThemeList.map((theme) => (
+              <SelectTheme key={theme} theme={theme} />
+            ))}
+          </div>
         </MenuItems>
       )}
     </Menu>

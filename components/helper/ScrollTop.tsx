@@ -1,6 +1,6 @@
 'use client'
 
-import { CaretDoubleUp } from '@phosphor-icons/react'
+import { CaretDoubleUp } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { throttle } from '@/lib/lodash'
 import { TinyButton } from './TinyButton'

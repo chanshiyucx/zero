@@ -26,9 +26,7 @@ export function TypedWriter() {
       loop: true,
     })
 
-    return () => {
-      typed.destroy()
-    }
+    return () => typed.destroy()
   }, [])
 
   return <span ref={TypedElement}></span>

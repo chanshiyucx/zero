@@ -1,5 +1,3 @@
-'use client'
-
 import type { ImageProps } from 'next/image'
 import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import clsx from 'clsx'
