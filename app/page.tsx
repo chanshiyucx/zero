@@ -4,10 +4,12 @@
 // import { ChevronsRight } from 'lucide-react'
 // import Link from 'next/link'
 // import { MDX } from '@/components/mdx'
+import { Title } from '@/components/main'
 
 export default function Page() {
   return (
-    <main>
+    <main className="page">
+      <Title />
       <div className="h-60">test</div>
       <div className="h-60">test</div>
       <div className="h-60">test</div>

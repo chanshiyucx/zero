@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function useLoading(duration = 1000) {
+export function useLoading(duration = 1000) {
   const [startTime] = useState(new Date().getTime())
   const loading = () =>
     new Promise<void>((resolve) => {

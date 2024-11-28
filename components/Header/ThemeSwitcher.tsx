@@ -12,7 +12,7 @@ import {
 import { useTheme } from 'next-themes'
 import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
-import useIsMounted from '@/hook/use-is-mounted'
+import { useIsMounted } from '@/hook'
 import { transitionViewIfSupported } from '@/lib/dom'
 
 const ThemeList: Theme[] = ['light', 'dark', 'system'] as const

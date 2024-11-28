@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { isClientSide } from '@/lib/env'
 
-export default function useLocalStorage<T>(
+export function useLocalStorage<T>(
   key: string,
   initialValue: T,
   expire?: number,

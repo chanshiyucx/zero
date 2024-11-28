@@ -1,45 +1,21 @@
 import Image from 'next/image'
-import deconstructedRobotBroDark from './deconstructed-robot-bro-dark.svg'
-import deconstructedRobotBroLight from './deconstructed-robot-bro-light.svg'
-import { Typewriter } from './typewriter'
+import deconstructedRobotBroDark from '@/assets/images/deconstructed-robot-bro-dark.svg'
+import deconstructedRobotBroLight from '@/assets/images/deconstructed-robot-bro-light.svg'
+import { TypedWriter } from './TypedWriter'
 
-export default function Title() {
+export function Title() {
   return (
-    <div className="relative flex h-fit w-full flex-col items-center justify-between">
-      <div className="absolute -z-50 h-64 w-64 bg-[conic-gradient(transparent,rgb(0,0,0))] opacity-15 blur-2xl md:left-36 dark:bg-[conic-gradient(transparent,rgb(255,255,255))]" />
-
-      <div className="absolute left-1/2 top-1/2 w-max -translate-x-1/2 -translate-y-1/2 opacity-10 md:hidden dark:opacity-5">
-        <Image
-          src={deconstructedRobotBroLight}
-          alt="Deconstructed Robot Light"
-          className="w-96 object-cover dark:hidden"
-        />
-        <Image
-          src={deconstructedRobotBroDark}
-          alt="Deconstructed Robot Dark"
-          className="hidden w-96 dark:block"
-        />
-      </div>
-
-      <div className="flex w-full items-center gap-12 md:justify-between">
-        <div className="flex w-full flex-col items-center gap-4 md:w-fit md:items-start">
-          <span className="w-min text-7xl font-bold text-black drop-shadow-2xl md:w-max dark:text-neutral-50">
-            Mateus Felipe,
+    <div className="h-fit w-full">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col items-start gap-4">
+          <span className="text-6xl font-bold text-zinc-950 drop-shadow-lg dark:text-zinc-50">
+            Reverie,
           </span>
-          <span className="flex w-full items-center justify-center text-center text-2xl text-neutral-400 md:min-h-fit md:justify-start md:text-left md:text-3xl">
-            <Typewriter
-              words={[
-                'Tech stuff enthusiast',
-                'Nature admirer',
-                'Enjoyer of good books',
-                'Full stack developer',
-              ]}
-              cursor
-              loop
-            />
+          <span className="min-h-9 text-2xl text-zinc-500">
+            <TypedWriter />
           </span>
         </div>
-        <div className="hidden flex-1 items-center justify-end md:flex">
+        <div>
           <Image
             src={deconstructedRobotBroLight}
             alt="Deconstructed Robot Light"
