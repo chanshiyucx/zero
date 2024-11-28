@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
+import scrollbar from 'tailwind-scrollbar'
+import animated from 'tailwindcss-animated'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
 export default {
@@ -31,5 +33,12 @@ export default {
       },
     },
   },
-  plugins: [typography],
+  plugins: [
+    scrollbar({
+      nocompatible: true,
+      preferredStrategy: 'pseudoelements',
+    }),
+    animated,
+    typography,
+  ],
 } satisfies Config

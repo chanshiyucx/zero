@@ -1,19 +1,11 @@
 'use client'
 
 import clsx from 'clsx'
-import { useState } from 'react'
-import BackToHome from './back-to-home'
-import Menu from './menu'
 import ScrollTop from './scroll-top'
 
 export default function Helpbar() {
-  const [open, setOpen] = useState(false)
-
-  const toggleMenu = () => setOpen((c) => !c)
-
   return (
     <section>
-      <Menu toggleMenu={toggleMenu} />
       <ul
         className={clsx(
           !open && 'max-md:-translate-y-full',
@@ -21,7 +13,6 @@ export default function Helpbar() {
         )}
       >
         <ScrollTop />
-        <BackToHome />
       </ul>
     </section>
   )
