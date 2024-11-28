@@ -11,7 +11,11 @@ const MenuItem: React.FC<{ name: string; path: string }> = ({ name, path }) => {
   const isActive = isHome ? path === pathname : pathname.startsWith(path)
 
   return (
-    <Link href={path} data-isactive={isActive} className="menuitem rounded p-2">
+    <Link
+      href={path}
+      data-isactive={isActive}
+      className="menuitem rounded-lg p-2"
+    >
       {name}
     </Link>
   )
@@ -20,7 +24,7 @@ const MenuItem: React.FC<{ name: string; path: string }> = ({ name, path }) => {
 export default function Header() {
   return (
     <header className="fixed top-0 z-10 w-full max-w-screen-md">
-      <div className="card my-3 flex items-center justify-between rounded px-4 backdrop-blur">
+      <div className="card my-3 flex items-center justify-between rounded-lg px-4 backdrop-blur">
         <Link href="/" className="py-3 text-xl font-bold drop-shadow">
           Reverie
         </Link>
