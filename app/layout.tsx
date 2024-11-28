@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { Anton, Courier_Prime, Noto_Serif } from 'next/font/google'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Helpbar from '@/components/Helpbar'
 import Nya from '@/components/Nya'
 import Providers from './providers'
-import '@/styles/index.css'
+import '@/styles/main.css'
 
 const serif = Noto_Serif({
   subsets: ['latin'],
@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Header />
           {children}
           <Helpbar />
-          <Footer />
+          {/* <Footer /> */}
         </Providers>
       </body>
     </html>

@@ -1,9 +1,0 @@
-::-webkit-scrollbar {
-  @apply h-1.5 w-1.5;
-}
-::-webkit-scrollbar-thumb {
-  @apply rounded-sm bg-zinc-700;
-}
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}

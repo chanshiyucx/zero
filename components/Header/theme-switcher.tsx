@@ -30,7 +30,7 @@ const ThemeRecord: Record<Theme, { icon: Icon; label: string }> = {
     icon: Desktop,
     label: 'System',
   },
-} as const
+}
 
 function useThemeTransition() {
   const { setTheme, theme: currTheme } = useTheme()
@@ -60,8 +60,8 @@ const SelectTheme: React.FC<{ theme: Theme }> = ({ theme }) => {
     <MenuItem
       as="button"
       onClick={() => toggleTheme(theme)}
-      data-active={currTheme === theme}
-      className="hover:dark:bg-zinc-1000 flex w-full items-center justify-start gap-4 rounded-xl p-2 text-lg leading-none hover:bg-zinc-100 data-[active='true']:font-bold"
+      data-isactive={isActive}
+      className="menuitem flex w-full items-center justify-start gap-5 rounded p-2 data-[isactive='true']:font-bold"
     >
       <Icon size="1em" weight={isActive ? 'duotone' : 'regular'} />
       <span>{label}</span>
@@ -73,15 +73,12 @@ export default function ThemeSwitcher() {
   const mounted = useIsMounted()
 
   return (
-    <Menu as="div" className="relative inline-flex items-center">
+    <Menu>
       <MenuButton aria-label="Change color theme" title="Change color theme">
-        <PaintBrushBroad size="1em" className="text-xl" />
+        <PaintBrushBroad className="text-xl" />
       </MenuButton>
       {mounted && (
-        <MenuItems
-          as="div"
-          className="animate-fade-down animate-duration-300 absolute right-0 top-10 origin-top-right rounded-xl bg-zinc-50 p-1 outline-none dark:bg-zinc-950"
-        >
+        <MenuItems className="card absolute right-0 top-14 origin-top-right animate-fade-down rounded p-2 outline-none animate-duration-300">
           {ThemeList.map((theme) => (
             <SelectTheme key={theme} theme={theme} />
           ))}

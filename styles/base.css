@@ -1,6 +1,22 @@
+@tailwind base;
+
 @layer base {
+  html {
+    @apply scrollbar-track-transparent scrollbar-thumb-zinc-700 scrollbar-thumb-rounded;
+  }
+
+  * {
+    @apply scrollbar-thin;
+  }
+
   body {
-    @apply bg-white bg-light bg-fixed bg-repeat text-zinc-700 dark:bg-zinc-900 dark:bg-dark dark:text-zinc-300;
+    @apply container mx-auto min-h-screen;
+    @apply bg-zinc-50 bg-light bg-fixed bg-repeat text-zinc-700 dark:bg-zinc-950 dark:bg-dark dark:text-zinc-300;
+    @apply selection:bg-zinc-950 selection:text-zinc-300 dark:selection:bg-zinc-50 dark:selection:text-zinc-700;
+  }
+
+  kbd {
+    @apply rounded border border-zinc-200/50 bg-zinc-200/50 p-1 leading-none dark:border-zinc-800/50 dark:bg-zinc-800/50;
   }
 }
 

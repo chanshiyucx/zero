@@ -6,5 +6,16 @@
 // import MDX from '@/components/MDX'
 
 export default function Page() {
-  return <main>test</main>
+  return (
+    <main>
+      <div className="h-60">test</div>
+      <div className="h-60">test</div>
+      <div className="h-60">test</div>
+      <div className="h-60">test</div>
+      <div className="h-60">test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+    </main>
+  )
 }
