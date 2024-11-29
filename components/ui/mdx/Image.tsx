@@ -3,7 +3,7 @@ import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import clsx from 'clsx'
 import NextImage from 'next/image'
 import { useState } from 'react'
-import { PhotoView } from '@/components/photo-view'
+import { PhotoView } from '@/components/ui/photo-view'
 
 export function Image(
   props: DetailedHTMLProps<

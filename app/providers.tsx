@@ -3,7 +3,7 @@
 import type { PropsWithChildren } from 'react'
 import type { PhotoProviderBase } from 'react-photo-view/dist/types'
 import { ThemeProvider } from 'next-themes'
-import { PhotoProvider } from '@/components/photo-view'
+import { PhotoProvider } from '@/components/ui/photo-view'
 
 const photoViewConfig: PhotoProviderBase = {
   maskOpacity: 1,

@@ -27,6 +27,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@phosphor-icons/react": "^2.1.7",
+    "@t3-oss/env-nextjs": "^0.11.1",
     "clsx": "^2.1.1",
     "color": "^4.2.3",
     "date-fns": "^4.1.0",
@@ -36,7 +37,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-photo-view": "^1.2.6",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
