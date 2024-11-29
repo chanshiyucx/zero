@@ -24,10 +24,6 @@ export default {
         courier: 'var(--font-courier)',
         anton: 'var(--font-anton)',
       },
-      backgroundImage: {
-        light: "url('../assets/images/bg-light.svg')",
-        dark: "url('../assets/images/bg-dark.svg')",
-      },
       listStyleType: {
         square: 'square',
       },
