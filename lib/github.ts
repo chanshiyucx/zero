@@ -7,13 +7,17 @@ import type {
   Week,
 } from '@/type/github'
 import { add, sub } from 'date-fns'
+import { env } from '@/env'
 
 const GITHUB_API = 'https://api.github.com'
 const USERNAME = 'chanshiyucx'
-const TOKEN = process.env.GITHUB_TOKEN
+
+const headers = new Headers({
+  Authorization: `token ${env.GITHUB_TOKEN}`,
+})
 
 export async function getGithubUserData() {
-  const response = await fetch(`${GITHUB_API}/users/${USERNAME}`)
+  const response = await fetch(`${GITHUB_API}/users/${USERNAME}`, { headers })
   if (!response.ok) {
     throw new Error(response.statusText)
   }
@@ -24,6 +28,7 @@ export async function getGithubUserData() {
 export async function getGithubCommits() {
   const response = await fetch(
     `${GITHUB_API}/search/commits?q=author:${USERNAME}`,
+    { headers },
   )
   if (!response.ok) {
     throw new Error(response.statusText)
@@ -40,6 +45,7 @@ export async function getGithubFollowers() {
   for (let index = 1; index <= numberOfPages; index++) {
     const response = await fetch(
       `${GITHUB_API}/users/${USERNAME}/followers?per_page=100&page=${index}`,
+      { headers },
     )
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -57,6 +63,7 @@ export async function getGithubRepositories() {
   for (let index = 1; index <= numberOfPages; index++) {
     const response = await fetch(
       `${GITHUB_API}/users/${USERNAME}/repos?per_page=100&page=${index}`,
+      { headers },
     )
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -140,10 +147,6 @@ export async function getGithubContribution() {
       TO: to.toISOString(),
     },
   }
-
-  const headers = new Headers({
-    Authorization: `token ${TOKEN}`,
-  })
 
   const response = await fetch(`${GITHUB_API}/graphql`, {
     method: 'POST',

@@ -14,6 +14,7 @@ export function GithubLink() {
           src={catImg}
           alt="cat img"
           className="absolute inset-0 h-full w-full rounded-lg object-cover object-center brightness-75"
+          priority
         />
         <span className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-zinc-950/20 dark:bg-zinc-950/50"></span>
       </span>

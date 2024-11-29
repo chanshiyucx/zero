@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { Anton, Courier_Prime, Noto_Serif } from 'next/font/google'
-import { Footer } from '@/components/footer'
-import { Header } from '@/components/header'
-import { Helper } from '@/components/helper'
-import { Nya } from '@/components/nya'
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
+import { Helper } from '@/components/modules/helper'
+import { Nya } from '@/components/modules/nya'
+import { env } from '@/env'
 import Providers from './providers'
 import '@/styles/main.css'
 
@@ -44,7 +45,7 @@ export const config = {
       'My internet hideout, here you will find some topics that I am learning and building, thoughts and tech blog posts, and know more about who I am...',
   },
   webserver: {
-    host: process.env.HOST ?? 'http://localhost:3000',
+    host: env.HOST ?? 'http://localhost:3000',
   },
 }
 
@@ -75,7 +76,7 @@ export const metadata: Metadata = {
     ...config.metadata,
     siteName: config.metadata.title,
     type: 'website',
-    url: new URL('/', config.webserver.host).toString(),
+    url: '/',
     emails: ['chanshiyucx@gmail.com'],
   },
   twitter: {

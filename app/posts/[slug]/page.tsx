@@ -1,7 +1,7 @@
 import { allPosts } from 'content-collections'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
-import { MDX } from '@/components/mdx'
+import { MDX } from '@/components/ui/mdx'
 
 type Params = {
   slug: string
@@ -13,7 +13,7 @@ export const generateStaticParams = async () =>
 export const generateMetadata = async ({ params }: { params: Params }) => {
   const post = allPosts.find((post) => post.slug === params.slug)
   return {
-    title: `${post?.title} - 蝉時雨`,
+    title: `${post?.title} - Reverie`,
     description: post?.description,
     keywords: post?.tags.join(','),
   }
