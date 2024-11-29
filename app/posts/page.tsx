@@ -37,14 +37,14 @@ export default function PostLayout() {
       <div className="px-2 py-4 md:px-16">
         {postGroupList.map((postGroup) => (
           <div key={postGroup.year}>
-            <p className="-my-2 font-courier text-xl md:text-right md:text-2xl">
+            <p className="-my-2 text-xl md:text-right md:text-2xl">
               {postGroup.year}
             </p>
             <ul>
               {postGroup.list.map((post) => (
                 <li key={post.title} className="mx-2 my-4 md:mx-0 md:text-xl">
                   <a className="flex gap-3 md:gap-8" href={post.url}>
-                    <span className="font-courier">{post.time}</span>
+                    <span>{post.time}</span>
                     <span className="font-bold">{post.title}</span>
                   </a>
                 </li>

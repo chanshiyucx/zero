@@ -1,89 +1,46 @@
-import type { Icon } from '@phosphor-icons/react'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import {
-  Desktop,
-  Moon,
-  PaintBrushBroad,
-  Sun,
-} from '@phosphor-icons/react/dist/ssr'
+import { Moon, Sun } from '@phosphor-icons/react/dist/ssr'
 import { useTheme } from 'next-themes'
 import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import { useIsMounted } from '@/hook'
 import { transitionViewIfSupported } from '@/lib/dom'
 
-type Theme = 'light' | 'dark' | 'system'
-
-const ThemeList: Theme[] = ['light', 'dark', 'system'] as const
-
-const ThemeRecord: Record<Theme, { icon: Icon; label: string }> = {
-  light: {
-    icon: Sun,
-    label: 'Light',
-  },
-  dark: {
-    icon: Moon,
-    label: 'Dark',
-  },
-  system: {
-    icon: Desktop,
-    label: 'System',
-  },
+const Theme = {
+  Light: 'light',
+  Dard: 'dark',
 }
 
 function useThemeTransition() {
-  const { setTheme, theme: currTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
 
-  const toggleTheme = useCallback(
-    (nextTheme: Theme) => {
-      transitionViewIfSupported(() => {
-        flushSync(() => setTheme(nextTheme))
-      })
-    },
-    [setTheme],
-  )
+  const toggleTheme = useCallback(() => {
+    transitionViewIfSupported(() => {
+      flushSync(() =>
+        setTheme(theme === Theme.Light ? Theme.Dard : Theme.Light),
+      )
+    })
+  }, [theme, setTheme])
 
   return {
-    currTheme,
+    theme,
     toggleTheme,
   }
 }
 
-function SelectTheme({ theme }: { theme: Theme }) {
-  const { toggleTheme, currTheme } = useThemeTransition()
-  const { icon: Icon, label } = ThemeRecord[theme]
-  const isActive = currTheme === theme
-
+export function TinyButton() {
+  const { toggleTheme, theme } = useThemeTransition()
+  const Icon = theme === Theme.Light ? Sun : Moon
   return (
-    <MenuItem
-      as="button"
-      onClick={() => toggleTheme(theme)}
-      data-isactive={isActive}
-      className="menuitem flex w-full items-center justify-start gap-5 rounded-lg p-2 data-[isactive='true']:font-bold"
-    >
-      <Icon size="1em" weight={isActive ? 'duotone' : 'regular'} />
-      <span>{label}</span>
-    </MenuItem>
+    <button onClick={toggleTheme}>
+      <Icon
+        className="animate-fade text-xl animate-duration-300"
+        weight="duotone"
+      />
+    </button>
   )
 }
 
 export function ThemeSwitcher() {
   const mounted = useIsMounted()
-
-  return (
-    <Menu>
-      <MenuButton aria-label="Change color theme" title="Change color theme">
-        <PaintBrushBroad className="text-xl" />
-      </MenuButton>
-      {mounted && (
-        <MenuItems className="card absolute right-0 top-14 origin-top-right animate-fade-down rounded-lg outline-none animate-duration-300">
-          <div className="p-2 backdrop-blur">
-            {ThemeList.map((theme) => (
-              <SelectTheme key={theme} theme={theme} />
-            ))}
-          </div>
-        </MenuItems>
-      )}
-    </Menu>
-  )
+  return <div className="flex w-5">{mounted && <TinyButton />}</div>
 }

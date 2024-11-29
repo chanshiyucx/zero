@@ -25,7 +25,6 @@
     ]
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
     "@phosphor-icons/react": "^2.1.7",
     "@t3-oss/env-nextjs": "^0.11.1",
     "clsx": "^2.1.1",

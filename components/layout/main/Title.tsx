@@ -9,10 +9,8 @@ export function Title() {
     <div className="flex h-fit w-full flex-col gap-24">
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-start gap-4">
-          <span className="text-6xl font-bold text-zinc-950 drop-shadow-lg dark:text-zinc-50">
-            Reverie,
-          </span>
-          <span className="min-h-9 text-2xl text-zinc-500">
+          <span className="text-6xl font-bold drop-shadow-lg">Reverie,</span>
+          <span className="min-h-9 text-2xl text-subtle">
             <TypedWriter />
           </span>
         </div>
@@ -34,7 +32,7 @@ export function Title() {
 
       <button className="group flex w-full items-center justify-center gap-1 text-sm tracking-widest opacity-60 hover:opacity-100 active:opacity-100">
         <span>Press</span>
-        <kbd className="tracking-normal">Ctrl K</kbd>
+        <kbd className="tracking-normal">⌘ K</kbd>
         <span>Click</span>
         <span>to explore</span>
         <ArrowRight
