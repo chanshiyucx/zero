@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import { Anton, Courier_Prime, Noto_Serif } from 'next/font/google'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/modules/helper'
@@ -8,27 +7,6 @@ import { Nya } from '@/components/modules/nya'
 import { env } from '@/env'
 import Providers from './providers'
 import '@/styles/main.css'
-
-const serif = Noto_Serif({
-  subsets: ['latin'],
-  weight: ['500', '600', '700', '900'],
-  display: 'swap',
-  variable: '--font-serif',
-})
-
-const courier = Courier_Prime({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-  variable: '--font-courier',
-})
-
-const anton = Anton({
-  subsets: ['latin'],
-  weight: ['400'],
-  display: 'swap',
-  variable: '--font-anton',
-})
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -87,11 +65,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${serif.variable} ${courier.variable} ${anton.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Nya />
       </head>

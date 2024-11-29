@@ -13,7 +13,7 @@ export async function GithubStats() {
     0,
   )
   return (
-    <div className="group relative h-full w-full transform-gpu overflow-hidden rounded-lg bg-[#f7f2f2] duration-500 hover:scale-[.97] dark:bg-[#0d1117]">
+    <div className="group relative h-full w-full transform-gpu overflow-hidden rounded-lg bg-surface duration-500 hover:scale-[.97]">
       <a
         href="http://github.com/chanshiyucx"
         target="_blank"
@@ -33,9 +33,7 @@ export async function GithubStats() {
 export function GitHubStatsData({ label, value }: GitHubStatsDataProps) {
   return (
     <div>
-      <span className="mr-1 text-sm text-zinc-600 dark:text-zinc-400">
-        {label}:
-      </span>
+      <span className="mr-1 text-sm text-subtle">{label}:</span>
       {value}
     </div>
   )

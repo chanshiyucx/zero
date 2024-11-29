@@ -6,7 +6,7 @@ import beach from '@/assets/ablum/beach.jpg'
 export function AlbumCard() {
   return (
     <Link href={'/album'}>
-      <div className="relative h-36 transform-gpu rounded-lg text-zinc-50 duration-500 hover:scale-95">
+      <div className="relative h-36 transform-gpu rounded-lg text-base duration-500 hover:scale-95">
         <Image
           className="absolute inset-0 h-full w-full rounded-lg object-cover object-center brightness-75"
           src={beach}

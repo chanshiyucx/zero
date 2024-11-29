@@ -11,13 +11,13 @@ export function Search() {
   return (
     <button
       //   onClick={toggle}
-      className="flex cursor-text items-center gap-3 rounded-lg bg-zinc-200/20 p-2 text-sm text-zinc-500 dark:bg-zinc-800/20"
+      className="flex cursor-text items-center gap-3 rounded-lg bg-surface p-2 text-sm"
     >
       <span className="flex items-center gap-3">
         <MagnifyingGlass size="1em" weight="bold" />
         Search...
       </span>
-      <kbd>Ctrl K</kbd>
+      <kbd>⌘ K</kbd>
     </button>
   )
 }

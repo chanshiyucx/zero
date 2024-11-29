@@ -1,23 +1,62 @@
+@font-face {
+  font-family: 'Pier Sans';
+  font-display: fallback;
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/fonts/PierSans-Bold.otf') format('opentype');
+}
+
 @tailwind base;
 
 @layer base {
   html {
-    @apply scrollbar-track-transparent scrollbar-thumb-zinc-700 scrollbar-thumb-rounded-lg;
+    @apply scrollbar-track-transparent scrollbar-thumb-muted scrollbar-thumb-rounded-lg;
   }
 
   * {
-    @apply scrollbar-thin;
+    @apply scrollbar-w-1.5;
   }
 
   body {
-    @apply container mx-auto min-h-screen;
-    @apply bg-zinc-50 bg-fixed bg-repeat text-zinc-700 dark:bg-zinc-950 dark:text-zinc-300;
-    @apply selection:bg-zinc-950 selection:text-zinc-300 dark:selection:bg-zinc-50 dark:selection:text-zinc-700;
+    @apply container mx-auto min-h-screen bg-base font-sans text-text;
+    @apply selection:bg-muted/20;
   }
 
   kbd {
-    @apply rounded-lg border border-zinc-200/50 bg-zinc-200/50 p-1 leading-none dark:border-zinc-800/50 dark:bg-zinc-800/50;
+    @apply rounded-lg border border-muted/20 bg-muted/10 px-1.5 py-1 font-semibold uppercase leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
   }
+}
+
+:root {
+  color-scheme: light dark;
+
+  --color-base: 32deg 57% 95%;
+  --color-surface: 35deg 100% 98%;
+  --color-overlay: 33deg 43% 91%;
+  --color-muted: 257deg 9% 61%;
+  --color-subtle: 248deg 12% 52%;
+  --color-text: 248deg 19% 40%;
+  --color-love: 343deg 35% 55%;
+  --color-gold: 35deg 81% 56%;
+  --color-rose: 3deg 53% 67%;
+  --color-pine: 197deg 53% 34%;
+  --color-foam: 189deg 30% 48%;
+  --color-iris: 268deg 21% 57%;
+}
+
+[data-theme='dark'] {
+  --color-base: 249deg 22% 12%;
+  --color-surface: 247deg 23% 15%;
+  --color-overlay: 248deg 25% 18%;
+  --color-muted: 249deg 12% 47%;
+  --color-subtle: 248deg 15% 61%;
+  --color-text: 245deg 50% 91%;
+  --color-love: 343deg 76% 68%;
+  --color-gold: 35deg 88% 72%;
+  --color-rose: 2deg 55% 83%;
+  --color-pine: 197deg 49% 38%;
+  --color-foam: 189deg 43% 73%;
+  --color-iris: 267deg 57% 78%;
 }
 
 ::view-transition-new(root) {

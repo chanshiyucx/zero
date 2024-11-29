@@ -1,7 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import logo from '@/public/apple-touch-icon.png'
 import { Search } from './Search'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
@@ -19,7 +21,7 @@ function MenuItem({ name, path }: MenuItemProps) {
     <Link
       href={path}
       data-isactive={isActive}
-      className="menuitem rounded-lg p-2"
+      className="menuitem rounded-lg p-2 font-semibold"
     >
       {name}
     </Link>
@@ -28,22 +30,21 @@ function MenuItem({ name, path }: MenuItemProps) {
 
 export function Header() {
   return (
-    <header className="fixed top-0 z-10 w-full max-w-screen-md">
-      <div className="card my-3 flex items-center justify-between rounded-lg px-4 backdrop-blur">
-        <Link href="/" className="py-3 text-xl font-bold drop-shadow">
-          Reverie
-        </Link>
-        <div className="flex items-center gap-3">
-          <nav className="flex items-center justify-center">
-            <MenuItem name="Home" path="/" />
-            <MenuItem name="Blog" path="/blog" />
-            <MenuItem name="Projects" path="/projects" />
-            <MenuItem name="Leetcode" path="/leetcode" />
-            <MenuItem name="About" path="/about" />
-          </nav>
-          <Search />
-          <ThemeSwitcher />
-        </div>
+    <header className="my-3 flex items-center justify-between rounded-lg px-4">
+      <Link href="/" className="flex items-center py-3 text-xl font-bold">
+        <Image src={logo} alt="Site Logo" className="mr-1 w-6" priority />
+        Reverie
+      </Link>
+      <div className="flex items-center gap-3">
+        <nav className="flex items-center justify-center">
+          <MenuItem name="Home" path="/" />
+          <MenuItem name="Blog" path="/blog" />
+          <MenuItem name="Projects" path="/projects" />
+          <MenuItem name="Leetcode" path="/leetcode" />
+          <MenuItem name="Album" path="/album" />
+        </nav>
+        <Search />
+        <ThemeSwitcher />
       </div>
     </header>
   )

@@ -3,70 +3,17 @@
 @layer components {
   /* page */
   .page {
-    @apply w-full pb-28 pt-36;
+    @apply w-full py-16;
   }
 
   /* card */
   .card {
-    @apply border border-zinc-200/50 bg-zinc-50/80 dark:border-zinc-800/50 dark:bg-zinc-950/80;
+    @apply border border-muted/20 bg-surface;
   }
 
   /* menu item */
   .menuitem {
     @apply transition-all duration-300;
-    @apply leading-none text-zinc-500 data-[isactive='true']:text-zinc-700 hover:bg-zinc-200/50 data-[isactive='true']:dark:text-zinc-300 hover:dark:bg-zinc-800/50;
+    @apply leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
   }
-
-  /* rehype-pretty-code */
-  /* code {
-    counter-reset: line;
-  }
-
-  code > [data-line]::before {
-    @apply mr-8 inline-block w-4 text-right text-zinc-300;
-    counter-increment: line;
-    content: counter(line);
-  }
-
-  code[data-line-numbers-max-digits='2'] > [data-line]::before {
-    @apply w-8;
-  }
-
-  code[data-line-numbers-max-digits='3'] > [data-line]::before {
-    @apply w-12;
-  }
-
-  html[data-theme='dark'] figure pre,
-  html[data-theme='dark'] figure pre span {
-    color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
-  }
-
-  html[data-theme='light'] figure pre,
-  html[data-theme='light'] figure pre span {
-    color: var(--shiki-light);
-    background-color: var(--shiki-light-bg);
-  } */
-
-  /* image viwer background */
-  /* .photo-view-mask {
-    @apply !bg-zinc-50 dark:!bg-zinc-800;
-  } */
-
-  /* bounce right animation */
-  /* .bounce-right {
-    animation: bounce-right 1s infinite;
-  } */
 }
-/* 
-@keyframes bounce-right {
-  0%,
-  100% {
-    transform: translateX(0);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateX(20%);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-} */
