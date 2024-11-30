@@ -2,6 +2,7 @@ import type {
   Commit,
   ContributionDay,
   Follower,
+  Repo,
   Repository,
   User,
   Week,
@@ -11,6 +12,7 @@ import { env } from '@/env'
 
 const GITHUB_API = 'https://api.github.com'
 const USERNAME = 'chanshiyucx'
+const REPO = 'zero'
 
 const headers = new Headers({
   Authorization: `token ${env.GITHUB_TOKEN}`,
@@ -72,6 +74,17 @@ export async function getGithubRepositories() {
     repositories.push(...list)
   }
   return repositories
+}
+
+export async function getGithubRepo() {
+  const response = await fetch(`${GITHUB_API}/repos/${USERNAME}/${REPO}`, {
+    headers,
+  })
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+  const result: Repo = await response.json()
+  return result
 }
 
 // Function to calculate the productive data by days

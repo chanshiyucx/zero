@@ -68,7 +68,7 @@ export function Introduction() {
       <h2 className="text-xs text-subtle">Full-Stack Developer</h2>
 
       <p>
-        <Hand />
+        <Hand width="1.3rem" height="1.3rem" />
         <span>Hello, welcome to my little corner on the web!</span>
       </p>
 
