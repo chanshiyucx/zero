@@ -1,9 +1,11 @@
 import { AlbumCard } from './AlbumCard'
+import { BookCard } from './BookCard'
 import { DiscordStatus } from './DiscordStatus'
 import { GithubLink } from './GithubLink'
 import { GithubStats } from './GithubStats'
 import { LatestPost } from './LatestPost'
 import { SocialCard } from './SocialCard'
+import { StacksCard } from './StacksCard'
 import { WakatimeStats } from './WakatimeStats'
 
 export function Grid() {
@@ -18,7 +20,7 @@ export function Grid() {
         </div>
       </div>
 
-      <div className="mt-3 grid grid-cols-3 md:grid-cols-6">
+      <div className="mt-3 grid grid-cols-6">
         <div className="col-span-3 flex flex-col gap-3">
           <div className="flex gap-3">
             <div className="w-24">
@@ -29,15 +31,15 @@ export function Grid() {
               <WakatimeStats />
             </div>
           </div>
-          <div className="cols-span-3">{/* <StacksCard /> */}</div>
+          <StacksCard />
         </div>
 
-        <div className="col-span-3 space-y-3 md:ml-3">
+        <div className="col-span-3 ml-3 space-y-3">
           <div className="flex gap-3">
             <DiscordStatus />
             <LatestPost />
           </div>
-          {/* <BooksCard /> */}
+          <BookCard />
         </div>
       </div>
     </div>

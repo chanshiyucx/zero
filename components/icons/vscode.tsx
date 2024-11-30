@@ -1,54 +1,125 @@
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 export function VStudioCode(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1.01em"
-      height="1em"
-      viewBox="0 0 256 254"
-      {...props}
-    >
-      <defs>
-        <linearGradient
-          id="logosVisualStudioCode0"
-          x1="50%"
-          x2="50%"
-          y1="0%"
-          y2="100%"
-        >
-          <stop offset="0%" stopColor="#FFF"></stop>
-          <stop offset="100%" stopColor="#FFF" stopOpacity="0"></stop>
-        </linearGradient>
+    <svg width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+      <mask
+        id="a"
+        width="128"
+        height="128"
+        x="0"
+        y="0"
+        maskUnits="userSpaceOnUse"
+        style={{
+          maskType: 'alpha',
+        }}
+      >
         <path
-          id="logosVisualStudioCode1"
-          d="M180.828 252.605a15.872 15.872 0 0 0 12.65-.486l52.501-25.262a15.94 15.94 0 0 0 9.025-14.364V41.197a15.939 15.939 0 0 0-9.025-14.363l-52.5-25.263a15.877 15.877 0 0 0-18.115 3.084L74.857 96.35l-43.78-33.232a10.614 10.614 0 0 0-13.56.603L3.476 76.494c-4.63 4.211-4.635 11.495-.012 15.713l37.967 34.638l-37.967 34.637c-4.623 4.219-4.618 11.502.012 15.714l14.041 12.772a10.614 10.614 0 0 0 13.56.604l43.78-33.233l100.507 91.695a15.853 15.853 0 0 0 5.464 3.571m10.464-183.649l-76.262 57.889l76.262 57.888z"
+          fill="#fff"
+          fillRule="evenodd"
+          d="M90.767 127.126a7.968 7.968 0 0 0 6.35-.244l26.353-12.681a8 8 0 0 0 4.53-7.209V21.009a8 8 0 0 0-4.53-7.21L97.117 1.12a7.97 7.97 0 0 0-9.093 1.548l-50.45 46.026L15.6 32.013a5.328 5.328 0 0 0-6.807.302l-7.048 6.411a5.335 5.335 0 0 0-.006 7.888L20.796 64 1.74 81.387a5.336 5.336 0 0 0 .006 7.887l7.048 6.411a5.327 5.327 0 0 0 6.807.303l21.974-16.68 50.45 46.025a7.96 7.96 0 0 0 2.743 1.793Zm5.252-92.183L57.74 64l38.28 29.058V34.943Z"
+          clipRule="evenodd"
         ></path>
-      </defs>
-      <mask id="logosVisualStudioCode2" fill="#fff">
-        <use href="#logosVisualStudioCode1"></use>
       </mask>
-      <path
-        fill="#0065A9"
-        d="M246.135 26.873L193.593 1.575a15.885 15.885 0 0 0-18.123 3.08L3.466 161.482c-4.626 4.219-4.62 11.502.012 15.714l14.05 12.772a10.625 10.625 0 0 0 13.569.604L238.229 33.436c6.949-5.271 16.93-.315 16.93 8.407v-.61a15.938 15.938 0 0 0-9.024-14.36"
-        mask="url(#logosVisualStudioCode2)"
-      ></path>
-      <path
-        fill="#007ACC"
-        d="m246.135 226.816l-52.542 25.298a15.887 15.887 0 0 1-18.123-3.08L3.466 92.207c-4.626-4.218-4.62-11.502.012-15.713l14.05-12.773a10.625 10.625 0 0 1 13.569-.603l207.132 157.135c6.949 5.271 16.93.315 16.93-8.408v.611a15.939 15.939 0 0 1-9.024 14.36"
-        mask="url(#logosVisualStudioCode2)"
-      ></path>
-      <path
-        fill="#1F9CF0"
-        d="M193.428 252.134a15.892 15.892 0 0 1-18.125-3.083c5.881 5.88 15.938 1.715 15.938-6.603V11.273c0-8.318-10.057-12.483-15.938-6.602a15.892 15.892 0 0 1 18.125-3.084l52.533 25.263a15.937 15.937 0 0 1 9.03 14.363V212.51c0 6.125-3.51 11.709-9.03 14.363z"
-        mask="url(#logosVisualStudioCode2)"
-      ></path>
-      <path
-        fill="url(#logosVisualStudioCode0)"
-        fillOpacity=".25"
-        d="M180.828 252.605a15.874 15.874 0 0 0 12.65-.486l52.5-25.263a15.938 15.938 0 0 0 9.026-14.363V41.197a15.939 15.939 0 0 0-9.025-14.363L193.477 1.57a15.877 15.877 0 0 0-18.114 3.084L74.857 96.35l-43.78-33.232a10.614 10.614 0 0 0-13.56.603L3.476 76.494c-4.63 4.211-4.635 11.495-.012 15.713l37.967 34.638l-37.967 34.637c-4.623 4.219-4.618 11.502.012 15.714l14.041 12.772a10.614 10.614 0 0 0 13.56.604l43.78-33.233l100.506 91.695a15.857 15.857 0 0 0 5.465 3.571m10.464-183.65l-76.262 57.89l76.262 57.888z"
-        mask="url(#logosVisualStudioCode2)"
-      ></path>
+      <g mask="url(#a)">
+        <path
+          fill="#0065A9"
+          d="M123.471 13.82 97.097 1.12A7.973 7.973 0 0 0 88 2.668L1.662 81.387a5.333 5.333 0 0 0 .006 7.887l7.052 6.411a5.333 5.333 0 0 0 6.811.303l103.971-78.875c3.488-2.646 8.498-.158 8.498 4.22v-.306a8.001 8.001 0 0 0-4.529-7.208Z"
+        ></path>
+        <g filter="url(#b)">
+          <path
+            fill="#007ACC"
+            d="m123.471 114.181-26.374 12.698A7.973 7.973 0 0 1 88 125.333L1.662 46.613a5.333 5.333 0 0 1 .006-7.887l7.052-6.411a5.333 5.333 0 0 1 6.811-.303l103.971 78.874c3.488 2.647 8.498.159 8.498-4.219v.306a8.001 8.001 0 0 1-4.529 7.208Z"
+          ></path>
+        </g>
+        <g filter="url(#c)">
+          <path
+            fill="#1F9CF0"
+            d="M97.098 126.882A7.977 7.977 0 0 1 88 125.333c2.952 2.952 8 .861 8-3.314V5.98c0-4.175-5.048-6.266-8-3.313a7.977 7.977 0 0 1 9.098-1.549L123.467 13.8A8 8 0 0 1 128 21.01v85.982a8 8 0 0 1-4.533 7.21l-26.369 12.681Z"
+          ></path>
+        </g>
+        <path
+          fill="url(#d)"
+          fillRule="evenodd"
+          d="M90.69 127.126a7.968 7.968 0 0 0 6.349-.244l26.353-12.681a8 8 0 0 0 4.53-7.21V21.009a8 8 0 0 0-4.53-7.21L97.039 1.12a7.97 7.97 0 0 0-9.093 1.548l-50.45 46.026-21.974-16.68a5.328 5.328 0 0 0-6.807.302l-7.048 6.411a5.336 5.336 0 0 0-.006 7.888L20.718 64 1.662 81.386a5.335 5.335 0 0 0 .006 7.888l7.048 6.411a5.328 5.328 0 0 0 6.807.303l21.975-16.681 50.45 46.026a7.959 7.959 0 0 0 2.742 1.793Zm5.252-92.184L57.662 64l38.28 29.057V34.943Z"
+          clipRule="evenodd"
+          opacity="0.25"
+          style={{
+            mixBlendMode: 'overlay',
+          }}
+        ></path>
+      </g>
+      <defs>
+        <filter
+          id="b"
+          width="144.744"
+          height="113.408"
+          x="-8.41115"
+          y="22.5944"
+          colorInterpolationFilters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          ></feColorMatrix>
+          <feOffset></feOffset>
+          <feGaussianBlur stdDeviation="4.16667"></feGaussianBlur>
+          <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+          <feBlend
+            in2="BackgroundImageFix"
+            mode="overlay"
+            result="effect1_dropShadow_1_36"
+          ></feBlend>
+          <feBlend
+            in="SourceGraphic"
+            in2="effect1_dropShadow_1_36"
+            result="shape"
+          ></feBlend>
+        </filter>
+        <filter
+          id="c"
+          width="56.6667"
+          height="144.007"
+          x="79.6667"
+          y="-8.0035"
+          colorInterpolationFilters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          ></feColorMatrix>
+          <feOffset></feOffset>
+          <feGaussianBlur stdDeviation="4.16667"></feGaussianBlur>
+          <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+          <feBlend
+            in2="BackgroundImageFix"
+            mode="overlay"
+            result="effect1_dropShadow_1_36"
+          ></feBlend>
+          <feBlend
+            in="SourceGraphic"
+            in2="effect1_dropShadow_1_36"
+            result="shape"
+          ></feBlend>
+        </filter>
+        <linearGradient
+          id="d"
+          x1="63.9222"
+          x2="63.9222"
+          y1="0.329902"
+          y2="127.67"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff"></stop>
+          <stop offset="1" stopColor="#fff" stopOpacity="0"></stop>
+        </linearGradient>
+      </defs>
     </svg>
   )
 }
