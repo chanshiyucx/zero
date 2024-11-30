@@ -24,9 +24,10 @@
 
   /* link */
   .link {
-    @apply after:ml-0.5 after:content-['→'];
+    @apply inline font-medium text-iris underline-offset-2 hover:underline;
+    @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['→'];
   }
   .link[href^='http'] {
-    @apply after:content-['_↗'];
+    @apply after:content-['↗'];
   }
 }

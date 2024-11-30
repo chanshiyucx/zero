@@ -1,6 +1,5 @@
-import { Introduction } from './introduction'
-
-// import { MakingCard } from './making-card'
+import { Github } from './Github'
+import { Introduction } from './Introduction'
 
 export function About() {
   return (
@@ -8,7 +7,7 @@ export function About() {
       <Introduction />
       <div className="relative">
         <div className="sticky top-24 h-fit w-[23rem]">
-          {/* <MakingCard /> */}
+          <Github />
         </div>
       </div>
     </div>
