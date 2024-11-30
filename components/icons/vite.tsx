@@ -1,49 +1,43 @@
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 export function Vite(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="256"
-      height="256"
-      viewBox="0 0 256 256"
-      fill="none"
-      {...props}
-    >
-      <rect width="256" height="256" rx="60" fill="#242938" />
-      <path
-        d="M227.088 57.6016L133.256 225.389C131.318 228.854 126.341 228.874 124.375 225.427L28.6823 57.6177C26.54 53.861 29.7524 49.3105 34.0096 50.0715L127.942 66.8613C128.541 66.9684 129.155 66.9674 129.754 66.8582L221.722 50.0955C225.965 49.3222 229.192 53.8374 227.088 57.6016Z"
-        fill="url(#vite_icon_gradient_1)"
-      />
-      <path
-        d="M172.687 28.0492L103.249 41.6554C102.107 41.879 101.262 42.8462 101.194 44.007L96.9221 116.148C96.8216 117.847 98.3821 119.166 100.04 118.783L119.373 114.322C121.182 113.905 122.816 115.498 122.445 117.317L116.701 145.443C116.314 147.336 118.092 148.954 119.94 148.393L131.881 144.765C133.732 144.203 135.511 145.826 135.119 147.721L125.991 191.9C125.42 194.664 129.096 196.171 130.629 193.801L131.653 192.219L188.235 79.2992C189.183 77.4085 187.549 75.2526 185.472 75.6534L165.573 79.494C163.703 79.8545 162.112 78.113 162.639 76.2834L175.628 31.2582C176.156 29.4255 174.559 27.6825 172.687 28.0492Z"
-        fill="url(#vite_icon_gradient_0)"
-      />
+    <svg width="1em" height="1em" viewBox="0 0 128 128" {...props}>
       <defs>
         <linearGradient
-          id="vite_icon_gradient_1"
-          x1="26.3459"
-          y1="44.075"
-          x2="143.127"
-          y2="202.673"
+          id="v-back"
+          x1="6"
+          x2="235"
+          y1="33"
+          y2="344"
+          gradientTransform="translate(0 .937) scale(.3122)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#41D1FF" />
-          <stop offset="1" stopColor="#BD34FE" />
+          <stop offset="0" stopColor="#41d1ff"></stop>
+          <stop offset="1" stopColor="#bd34fe"></stop>
         </linearGradient>
         <linearGradient
-          id="vite_icon_gradient_0"
-          x1="122.551"
-          y1="31.7433"
-          x2="143.676"
-          y2="176.66"
+          id="yellow-ray"
+          x1="194.651"
+          x2="236.076"
+          y1="8.818"
+          y2="292.989"
+          gradientTransform="translate(0 .937) scale(.3122)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FFEA83" />
-          <stop offset="0.0833333" stopColor="#FFDD35" />
-          <stop offset="1" stopColor="#FFA800" />
+          <stop offset="0" stopColor="#ffea83"></stop>
+          <stop offset=".083" stopColor="#ffdd35"></stop>
+          <stop offset="1" stopColor="#ffa800"></stop>
         </linearGradient>
       </defs>
+      <path
+        fill="url(#v-back)"
+        d="M124.766 19.52 67.324 122.238c-1.187 2.121-4.234 2.133-5.437.024L3.305 19.532c-1.313-2.302.652-5.087 3.261-4.622L64.07 25.187a3.09 3.09 0 0 0 1.11 0l56.3-10.261c2.598-.473 4.575 2.289 3.286 4.594Zm0 0"
+      ></path>
+      <path
+        fill="url(#yellow-ray)"
+        d="M91.46 1.43 48.954 9.758a1.56 1.56 0 0 0-1.258 1.437l-2.617 44.168a1.563 1.563 0 0 0 1.91 1.614l11.836-2.735a1.562 1.562 0 0 1 1.88 1.836l-3.517 17.219a1.562 1.562 0 0 0 1.985 1.805l7.308-2.223c1.133-.344 2.223.652 1.985 1.812l-5.59 27.047c-.348 1.692 1.902 2.614 2.84 1.164l.625-.968 34.64-69.13c.582-1.16-.421-2.48-1.69-2.234l-12.185 2.352a1.558 1.558 0 0 1-1.793-1.965l7.95-27.562A1.56 1.56 0 0 0 91.46 1.43Zm0 0"
+      ></path>
     </svg>
   )
 }

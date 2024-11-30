@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 import scrollbar from 'tailwind-scrollbar'
+import animate from 'tailwindcss-animate'
 import animated from 'tailwindcss-animated'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
@@ -45,6 +46,20 @@ export default {
       ringColor: {
         DEFAULT: 'hsl(var(--color-foam) / 0.2)',
       },
+      animation: {
+        'marquee-left': 'marquee-left var(--duration, 30s) linear infinite',
+        'marquee-up': 'marquee-up var(--duration, 30s) linear infinite',
+      },
+      keyframes: {
+        'marquee-left': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-up': {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+        },
+      },
     },
   },
   plugins: [
@@ -52,6 +67,7 @@ export default {
       nocompatible: true,
       preferredStrategy: 'pseudoelements',
     }),
+    animate,
     animated,
     typography,
   ],
