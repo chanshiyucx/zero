@@ -5,7 +5,7 @@ import catImg from '@/assets/images/cat.jpg'
 export function GithubLink() {
   return (
     <a
-      className="group relative flex h-full w-full transform-gpu flex-col justify-between gap-5 overflow-hidden rounded-lg text-base transition-all duration-500 will-change-[outline,_transform] group-hover:scale-[.97] hover:scale-[.97] active:scale-100"
+      className="group relative flex h-full w-full transform-gpu flex-col justify-between gap-5 overflow-hidden rounded-lg text-base transition-all duration-500 group-hover:scale-[.97] hover:scale-[.97] active:scale-100"
       href="http://github.com/chanshiyucx"
       target="_blank"
     >

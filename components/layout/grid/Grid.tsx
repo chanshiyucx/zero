@@ -2,6 +2,7 @@ import { AlbumCard } from './AlbumCard'
 import { DiscordStatus } from './DiscordStatus'
 import { GithubLink } from './GithubLink'
 import { GithubStats } from './GithubStats'
+import { LatestPost } from './LatestPost'
 import { SocialCard } from './SocialCard'
 import { WakatimeStats } from './WakatimeStats'
 
@@ -34,8 +35,7 @@ export function Grid() {
         <div className="col-span-3 space-y-3 md:ml-3">
           <div className="flex gap-3">
             <DiscordStatus />
-
-            {/* <LatestPost /> */}
+            <LatestPost />
           </div>
           {/* <BooksCard /> */}
         </div>
