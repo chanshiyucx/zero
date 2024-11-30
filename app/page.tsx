@@ -1,3 +1,4 @@
+import { About } from '@/components/layout/about'
 import { Grid } from '@/components/layout/grid'
 import { Title } from '@/components/layout/main'
 
@@ -6,6 +7,7 @@ export default function Page() {
     <main className="page space-y-24">
       <Title />
       <Grid />
+      <About />
     </main>
   )
 }

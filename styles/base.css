@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply container mx-auto min-h-screen bg-base font-sans text-text;
+    @apply container mx-auto min-h-screen bg-base font-sans text-text antialiased;
     @apply selection:bg-muted/20;
   }
 
