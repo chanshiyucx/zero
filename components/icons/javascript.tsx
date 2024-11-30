@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react'
 
-export function Javascript(props: SVGProps<SVGSVGElement>) {
+export function JavaScript(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="1em" height="1em" viewBox="0 0 128 128" {...props}>
       <path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z"></path>

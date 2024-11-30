@@ -9,7 +9,7 @@ import {
   Git,
   HTML5,
   Java,
-  Javascript,
+  JavaScript,
   Linux,
   MySQL,
   NextJS,
@@ -44,7 +44,7 @@ interface MarqueeProps {
 const stackLines: StackLine = {
   top: [
     { title: 'Typescript', icon: TypeScript },
-    { title: 'Javascript', icon: Javascript },
+    { title: 'JavaScript', icon: JavaScript },
     { title: 'HTML5', icon: HTML5 },
     { title: 'CSS3', icon: CSS3 },
     { title: 'React', icon: ReactJS },

@@ -16,4 +16,8 @@
     @apply transition-all duration-300;
     @apply leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
   }
+  /* tiny thumb */
+  .tinyThumb {
+    /* @apply text-subtle hover:bg-muted/20 rounded-lg px-1 transition focus:outline-none focus:ring; */
+  }
 }
