@@ -1,5 +1,4 @@
 import type { SVGProps } from 'react'
-import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import NextLink, { LinkProps } from 'next/link'
 import {
   Hand,
@@ -19,7 +18,7 @@ const LinkElement = ({ icon: Icon, href, title }: LinkElementProps) => (
   <a
     href={href}
     target="_blank"
-    className="tinyThumb inline-flex items-center gap-px"
+    className="tinyThumb inline-flex translate-y-0.5 items-center gap-px"
   >
     <Icon />
     <span className="text-sm">{title}</span>
@@ -57,10 +56,9 @@ const ReactJSLink = () => (
 const Link = ({ label, ...props }: { label: string } & LinkProps) => (
   <NextLink
     {...props}
-    className="inline-flex items-center rounded-md px-1 font-medium text-black transition hover:bg-neutral-200/50"
+    className="link inline-flex items-center rounded-md px-1 font-medium transition"
   >
     <span>{label}</span>
-    <ArrowUpRight size="1em" className="text-xs" />
   </NextLink>
 )
 

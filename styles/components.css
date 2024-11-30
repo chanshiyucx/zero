@@ -16,8 +16,17 @@
     @apply transition-all duration-300;
     @apply leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
   }
+
   /* tiny thumb */
   .tinyThumb {
-    /* @apply text-subtle hover:bg-muted/20 rounded-lg px-1 transition focus:outline-none focus:ring; */
+    @apply rounded-lg border border-muted/20 bg-muted/10 px-1 py-0.5 font-semibold leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
+  }
+
+  /* link */
+  .link {
+    @apply after:ml-0.5 after:content-['→'];
+  }
+  .link[href^='http'] {
+    @apply after:content-['_↗'];
   }
 }
