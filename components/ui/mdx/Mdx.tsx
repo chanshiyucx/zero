@@ -1,10 +1,12 @@
 import { useMDXComponent } from '@content-collections/mdx/react'
+import { Figure } from './Figure'
 import { Image } from './Image'
 import { Link } from './Link'
 
 const components = {
   img: Image,
   a: Link,
+  figure: Figure,
 }
 
 interface MDXProps {

@@ -19,7 +19,7 @@ const calcImageSize = (imageSrc: string, options?: Options) => {
   }
 }
 
-const rehypeImage: Plugin<[Options?], Root> = (options) => {
+export const rehypeImage: Plugin<[Options?], Root> = (options) => {
   return (tree) => {
     visit(tree, { type: 'element', tagName: 'img' }, (node: Element) => {
       if (!node.properties || typeof node.properties.src !== 'string') return
@@ -52,5 +52,3 @@ const rehypeImage: Plugin<[Options?], Root> = (options) => {
     })
   }
 }
-
-export default rehypeImage

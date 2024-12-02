@@ -5,17 +5,20 @@ import { isValid, parse } from 'date-fns'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
-import rehypeImage from './lib/rehype-image'
+import { rehypeCodeSave, rehypeImage } from './lib/mdx'
 
 const options: Options = {
   rehypePlugins: [
     [rehypeExternalLinks, { rel: ['nofollow'] }],
+    [rehypeCodeSave],
     [
       rehypePrettyCode,
       {
         theme: {
           light: 'material-theme-lighter',
           dark: 'one-dark-pro',
+          // dark: 'github-dark',
+          // light: 'github-light',
         },
       },
     ],
