@@ -38,21 +38,14 @@
 
   code[data-theme*=' '],
   code[data-theme*=' '] span {
+    @apply font-bold;
     color: var(--shiki-light);
-  }
-
-  .on-dark {
-    @apply hidden;
   }
 
   [data-theme='dark'] {
     code[data-theme*=' '],
     code[data-theme*=' '] span {
       color: var(--shiki-dark);
-    }
-
-    .on-light {
-      @apply hidden;
     }
   }
 }
