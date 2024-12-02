@@ -1,33 +1,58 @@
 @tailwind components;
 
 @layer components {
-  /* page */
+  /* Page */
   .page {
     @apply w-full py-24;
   }
 
-  /* card */
+  /* Card */
   .card {
     @apply border border-muted/20 bg-surface;
   }
 
-  /* menu item */
+  /* Menu Item */
   .menuitem {
     @apply transition-all duration-300;
     @apply leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
   }
 
-  /* tiny thumb */
+  /* Tiny Thumb */
   .tinyThumb {
     @apply rounded-lg border border-muted/20 bg-muted/10 px-1 py-0.5 font-semibold leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
   }
 
-  /* link */
+  /* Link */
   .link {
     @apply inline font-medium text-iris no-underline underline-offset-2 transition-all duration-500 hover:underline;
     @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['→'];
   }
   .link[href^='http'] {
     @apply after:content-['↗'];
+  }
+
+  /* Syntax Highlighting */
+  pre[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  code[data-theme*=' '],
+  code[data-theme*=' '] span {
+    color: var(--shiki-light);
+  }
+
+  .on-dark {
+    @apply hidden;
+  }
+
+  [data-theme='dark'] {
+    code[data-theme*=' '],
+    code[data-theme*=' '] span {
+      color: var(--shiki-dark);
+    }
+
+    .on-light {
+      @apply hidden;
+    }
   }
 }

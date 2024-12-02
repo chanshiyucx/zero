@@ -15,10 +15,8 @@ const options: Options = {
       rehypePrettyCode,
       {
         theme: {
-          light: 'material-theme-lighter',
-          dark: 'one-dark-pro',
-          // dark: 'github-dark',
-          // light: 'github-light',
+          light: 'rose-pine-dawn',
+          dark: 'rose-pine-moon',
         },
       },
     ],
