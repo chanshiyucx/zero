@@ -10,8 +10,9 @@ type Params = {
 export const generateStaticParams = () =>
   allPosts.map((post) => ({ slug: post.slug }))
 
-export const generateMetadata = ({ params }: { params: Params }) => {
-  const post = allPosts.find((post) => post.slug === params.slug)
+export const generateMetadata = async ({ params }: { params: Params }) => {
+  const { slug } = await params
+  const post = allPosts.find((post) => post.slug === slug)
   return {
     title: `${post?.title} - Reverie`,
     description: post?.description,
