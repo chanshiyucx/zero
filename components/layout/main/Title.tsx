@@ -6,7 +6,7 @@ import { TypedWriter } from './TypedWriter'
 
 export function Title() {
   return (
-    <div className="flex h-fit w-full flex-col gap-24">
+    <div className="flex h-fit w-full flex-col gap-20">
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-start gap-4">
           <span className="text-6xl font-bold drop-shadow-lg">Reverie,</span>

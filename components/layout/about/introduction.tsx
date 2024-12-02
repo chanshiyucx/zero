@@ -56,7 +56,7 @@ const ReactJSLink = () => (
 const Link = ({ label, ...props }: { label: string } & LinkProps) => (
   <NextLink
     {...props}
-    className="link inline-flex items-center rounded-md px-1 font-medium transition"
+    className="link inline-flex items-center rounded-md px-1 font-medium"
   >
     <span>{label}</span>
   </NextLink>
@@ -85,11 +85,6 @@ export function Introduction() {
         I&apos;ve completed and am working on, as well as details about my
         career and skills. I&apos;m always looking to improve, and you can
         follow my progress and what I&apos;m currently studying.
-      </p>
-
-      <p>
-        See more <Link label="about me" href="/about" /> or take a look into
-        <Link label="my projects" href="/projects" /> {';)'}
       </p>
 
       <p>

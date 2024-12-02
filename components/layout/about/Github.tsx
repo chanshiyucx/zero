@@ -76,7 +76,7 @@ export async function Github() {
           Download CV <DownloadSimple size="1em" weight="bold" />
         </a>
         <a
-          className="link flex items-end justify-center rounded-lg p-3 leading-none underline opacity-70 hover:opacity-100"
+          className="link flex items-end justify-center rounded-lg p-3 underline"
           target="_blank"
           href="https://chanshiyucx.github.io/CV/"
         >

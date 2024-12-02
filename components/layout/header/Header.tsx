@@ -38,7 +38,7 @@ export function Header() {
       <div className="flex items-center gap-3">
         <nav className="flex items-center justify-center">
           <MenuItem name="Home" path="/" />
-          <MenuItem name="Blog" path="/blog" />
+          <MenuItem name="Blog" path="/posts" />
           <MenuItem name="Projects" path="/projects" />
           <MenuItem name="Leetcode" path="/leetcode" />
           <MenuItem name="Album" path="/album" />
