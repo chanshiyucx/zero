@@ -11,7 +11,7 @@ import { WakatimeStats } from './WakatimeStats'
 export function Grid() {
   return (
     <div>
-      <div className="mt-8 grid grid-cols-6 gap-3">
+      <div className="grid grid-cols-6 gap-3">
         <div className="col-span-3">
           <GithubLink />
         </div>

@@ -1,6 +1,6 @@
 import { allPosts } from 'content-collections'
-import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
+import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
 
 type Params = {
@@ -27,15 +27,11 @@ export default function PostLayout({ params }: { params: Params }) {
   }
 
   return (
-    <article className="p-2 md:px-16 md:py-4">
+    <article className="page">
       <header className="mb-6">
-        <h1 className="mb-2 text-2xl font-extrabold md:-ml-8 md:text-4xl">
-          {post.title}
-        </h1>
-        <div className="mt-3 flex gap-2 space-x-2 text-zinc-400">
-          <span>{format(new Date(post.date), 'yyyy-MM-dd')}</span>
-          <span>/</span>
-          <span>/</span>
+        <h1 className="mb-2 text-2xl font-extrabold">{post.title}</h1>
+        <div className="mt-3 flex gap-2 space-x-2">
+          <Date dateString={post.date} />
           <span>
             {post.tags.map((tag) => (
               <span key={tag}>{tag}</span>

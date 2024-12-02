@@ -3,7 +3,7 @@
 @layer components {
   /* page */
   .page {
-    @apply w-full py-16;
+    @apply w-full py-24;
   }
 
   /* card */
@@ -24,7 +24,7 @@
 
   /* link */
   .link {
-    @apply inline font-medium text-iris underline-offset-2 hover:underline;
+    @apply inline font-medium text-iris no-underline underline-offset-2 transition-all duration-500 hover:underline;
     @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['→'];
   }
   .link[href^='http'] {
