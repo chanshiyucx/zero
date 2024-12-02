@@ -36,6 +36,10 @@
     color-scheme: dark;
   }
 
+  pre[data-language] {
+    @apply after:absolute after:right-3 after:top-2 after:uppercase after:content-[attr(data-language)];
+  }
+
   code[data-theme*=' '],
   code[data-theme*=' '] span {
     @apply font-bold;
