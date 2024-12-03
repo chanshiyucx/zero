@@ -18,7 +18,7 @@
   }
 
   /* Tiny Thumb */
-  .tinyThumb {
+  .tiny-thumb {
     @apply rounded-lg border border-muted/20 bg-muted/10 px-1 py-0.5 font-semibold leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
   }
 
