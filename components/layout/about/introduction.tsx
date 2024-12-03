@@ -18,7 +18,7 @@ const LinkElement = ({ icon: Icon, href, title }: LinkElementProps) => (
   <a
     href={href}
     target="_blank"
-    className="tinyThumb inline-flex translate-y-0.5 items-center gap-px"
+    className="tiny-thumb inline-flex translate-y-0.5 items-center gap-px"
   >
     <Icon />
     <span className="text-sm">{title}</span>

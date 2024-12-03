@@ -1,14 +1,14 @@
 import type { Post } from 'content-collections'
 import { getYear } from 'date-fns'
 import { Date } from '@/components/ui/date'
-import { sortedPosts } from '@/lib/sorted-posts'
+import { sortedPosts } from '@/lib/content'
 
 interface PostGroup {
   year: number
   list: Post[]
 }
 
-export default function PostLayout() {
+export default function Page() {
   const postList = sortedPosts()
   const postGroupList: PostGroup[] = []
   postList.forEach((post) => {
@@ -29,12 +29,15 @@ export default function PostLayout() {
         {postGroupList.map((postGroup) => (
           <div key={postGroup.year}>
             <p className="text-right text-2xl">{postGroup.year}</p>
-            <ul>
+            <ul className="space-y-2">
               {postGroup.list.map((post) => (
-                <li key={post.title} className="my-4 text-xl">
-                  <a className="flex gap-8" href={post.url}>
-                    <Date dateString={post.date} dateFormat="LLL d"></Date>
-                    <span className="font-bold">{post.title}</span>
+                <li key={post.title} className="text-lg">
+                  <a className="flex gap-6" href={post.url}>
+                    <Date
+                      dateString={post.date}
+                      className="w-16 text-subtle"
+                    ></Date>
+                    <span>{post.title}</span>
                   </a>
                 </li>
               ))}

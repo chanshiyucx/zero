@@ -1,4 +1,4 @@
-import { allPosts } from 'content-collections'
+import { allLeetcodes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
@@ -8,40 +8,40 @@ type Params = {
 }
 
 export const generateStaticParams = () =>
-  allPosts.map((post) => ({ slug: post.slug }))
+  allLeetcodes.map((leetcode) => ({ slug: leetcode.slug }))
 
 export const generateMetadata = async ({ params }: { params: Params }) => {
   const { slug } = await params
-  const post = allPosts.find((post) => post.slug === slug)
+  const leetcode = allLeetcodes.find((leetcode) => leetcode.slug === slug)
   return {
-    title: `${post?.title} - Reverie`,
-    keywords: post?.tags.join(','),
+    title: `${leetcode?.title} - Reverie`,
+    keywords: leetcode?.tags.join(','),
   }
 }
 
 export default async function Page({ params }: { params: Params }) {
   const { slug } = await params
-  const post = allPosts.find((post) => post.slug === slug)
+  const leetcode = allLeetcodes.find((leetcode) => leetcode.slug === slug)
 
-  if (!post) {
+  if (!leetcode) {
     return notFound()
   }
 
   return (
     <article className="page">
       <header className="mb-6">
-        <h1 className="mb-2 text-2xl font-extrabold">{post.title}</h1>
+        <h1 className="mb-2 text-2xl font-extrabold">{leetcode.title}</h1>
         <div className="mt-3 flex gap-2 space-x-2 text-subtle">
-          <Date dateString={post.date} />
+          <Date dateString={leetcode.date} />
           <span>
-            {post.tags.map((tag) => (
+            {leetcode.tags.map((tag) => (
               <span key={tag}>{tag}</span>
             ))}
           </span>
         </div>
       </header>
       <section className="py-5">
-        <MDX code={post.contentCode} />
+        <MDX code={leetcode.contentCode} />
       </section>
     </article>
   )
