@@ -71,7 +71,13 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
 const posts = getCollection({
   name: 'posts',
   directory: 'public/blog/posts',
-  prefixPath: '/posts',
+  prefixPath: '/blog/posts',
+})
+
+const notes = getCollection({
+  name: 'notes',
+  directory: 'public/blog/notes',
+  prefixPath: '/blog/notes',
 })
 
 const leetcode = getCollection({
@@ -87,5 +93,5 @@ const album = getCollection({
 })
 
 export default defineConfig({
-  collections: [posts, leetcode, album],
+  collections: [posts, notes, leetcode, album],
 })
