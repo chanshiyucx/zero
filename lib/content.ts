@@ -1,5 +1,5 @@
-import type { Leetcode, Post } from 'content-collections'
-import { allLeetcodes, allPosts } from 'content-collections'
+import type { Album, Leetcode, Post } from 'content-collections'
+import { allAlbums, allLeetcodes, allPosts } from 'content-collections'
 import { compareDesc } from 'date-fns'
 
 export function sortedPosts(): Post[] {
@@ -16,4 +16,10 @@ export function sortedLeetcodes(sortBy: 'id' | 'date' = 'id'): Leetcode[] {
       compareDesc(new Date(a.date), new Date(b.date)),
     )
   }
+}
+
+export function sortedAlbums(): Album[] {
+  return allAlbums.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date)),
+  )
 }
