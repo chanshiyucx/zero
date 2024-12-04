@@ -1,5 +1,17 @@
 import type { CSSProperties } from 'react'
+import clsx from 'clsx'
 import { range } from '@/lib/helper'
+
+type Size = 'small' | 'large'
+
+interface SpinnerProps {
+  size?: Size
+}
+
+interface LineProps {
+  order: number
+  size: Size
+}
 
 export const createAnimation = (
   loaderName: string,
@@ -30,26 +42,27 @@ const scale = createAnimation(
   'scale',
 )
 
-interface LineProps {
-  order: number
-}
-
-const Line = ({ order }: LineProps) => {
+const Line = ({ order, size }: LineProps) => {
   const style: CSSProperties = {
     animation: `${scale} 1s ${order * 0.1}s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08)`,
     animationFillMode: 'both',
   }
+  const h = size === 'small' ? 'h-6' : 'h-12'
 
   return (
-    <span style={style} className="inline-block h-6 w-1 rounded-lg bg-muted" />
+    <span
+      style={style}
+      className={clsx(h, 'inline-block w-1 rounded-lg bg-muted')}
+    />
   )
 }
 
-export function Spinner() {
+export function Spinner({ size = 'small' }: SpinnerProps) {
+  const gap = size === 'small' ? 'gap-0.5' : 'gap-2'
   return (
-    <span className="flex gap-0.5">
+    <span className={clsx(gap, 'flex')}>
       {range(0, 5).map((i) => (
-        <Line key={i} order={i} />
+        <Line key={i} order={i} size={size} />
       ))}
     </span>
   )
