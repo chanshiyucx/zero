@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react'
 // import type { PhotoProviderBase } from 'react-photo-view/dist/types'
 // import { MinusCircle, PlusCircle } from '@phosphor-icons/react'
 import { ThemeProvider } from 'next-themes'
+import { CustomKBarProvider } from '@/components/layout/kbar/provider'
 import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 
 // import { Spinner } from '@/components/ui/spinner'
@@ -30,7 +31,9 @@ import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 export default function Providers({ children }: PropsWithChildren) {
   return (
     <ThemeProvider>
-      <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
+      <CustomKBarProvider>
+        <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
+      </CustomKBarProvider>
     </ThemeProvider>
   )
 }
