@@ -36,13 +36,13 @@ export const createAnimation = (
   return animationName
 }
 
-const scale = createAnimation(
-  'ScaleLoader',
-  '0% {transform: scaley(1.0)} 50% {transform: scaley(0.4)} 100% {transform: scaley(1.0)}',
-  'scale',
-)
-
 const Line = ({ order, size }: LineProps) => {
+  const scale = createAnimation(
+    'ScaleLoader',
+    '0% {transform: scaley(1.0)} 50% {transform: scaley(0.4)} 100% {transform: scaley(1.0)}',
+    'scale',
+  )
+
   const style: CSSProperties = {
     animation: `${scale} 1s ${order * 0.1}s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08)`,
     animationFillMode: 'both',
