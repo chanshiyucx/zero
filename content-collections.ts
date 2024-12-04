@@ -80,6 +80,12 @@ const leetcode = getCollection({
   prefixPath: '/leetcode',
 })
 
+const album = getCollection({
+  name: 'album',
+  directory: 'public/blog/album',
+  prefixPath: '/album',
+})
+
 export default defineConfig({
-  collections: [posts, leetcode],
+  collections: [posts, leetcode, album],
 })

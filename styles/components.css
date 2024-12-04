@@ -6,6 +6,18 @@
     @apply w-full py-24;
   }
 
+  /* Album */
+  .album {
+    p,
+    img {
+      @apply m-0;
+    }
+
+    .alt {
+      @apply my-2;
+    }
+  }
+
   /* Card */
   .card {
     @apply border border-muted/20 bg-surface;

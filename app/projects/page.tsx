@@ -15,7 +15,9 @@ export default async function Page() {
   return (
     <article className="page space-y-20">
       <header>
-        <h1 className="text-4xl font-extrabold">Life is a burning chaos.</h1>
+        <h1 className="text-4xl font-extrabold">
+          Good software, like wine, takes time.
+        </h1>
       </header>
       <ul className="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-3">
         {repositories.map((repo) => (
