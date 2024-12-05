@@ -11,15 +11,7 @@ import { DataProvider } from './context'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  minimumScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-}
-
-export const defaultConfig = {
+const defaultConfig = {
   metadata: {
     title: "Reverie's Hideout",
     description:
@@ -28,6 +20,14 @@ export const defaultConfig = {
   webserver: {
     host: env.HOST ?? 'http://localhost:3000',
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export const metadata: Metadata = {

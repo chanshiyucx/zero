@@ -3,9 +3,7 @@ import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
 import { sortedPosts } from '@/lib/content'
 
-type Params = {
-  slug: string
-}
+type Params = Promise<{ slug: string }>
 
 export default async function Page({ params }: { params: Params }) {
   const { slug } = await params
