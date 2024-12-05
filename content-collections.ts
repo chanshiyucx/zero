@@ -5,6 +5,7 @@ import { compileMDX } from '@content-collections/mdx'
 import { isValid, parse } from 'date-fns'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import { rehypeCodeSave, rehypeImage } from './lib/mdx'
 
@@ -16,8 +17,12 @@ interface CollectionProps {
 
 const options: Options = {
   rehypePlugins: [
-    [rehypeExternalLinks, { rel: ['nofollow'] }],
-    [rehypeCodeSave],
+    rehypeSlug,
+    [
+      rehypeExternalLinks,
+      { target: '_blank', rel: ['nofollow', 'noopener', 'noreferrer'] },
+    ],
+    rehypeCodeSave,
     [
       rehypePrettyCode,
       {
