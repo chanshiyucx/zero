@@ -39,7 +39,8 @@
     @apply inline font-medium text-iris no-underline underline-offset-2 transition-all duration-500 hover:underline;
     @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['→'];
   }
-  .link[href^='http'] {
+  .link[href^='http'],
+  .link-out {
     @apply after:content-['↗'];
   }
 
