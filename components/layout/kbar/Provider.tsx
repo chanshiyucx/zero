@@ -2,6 +2,7 @@ import type { Action } from 'kbar'
 import type { ReactNode } from 'react'
 import {
   Camera,
+  GitFork,
   GithubLogo,
   House,
   Laptop,
@@ -108,9 +109,9 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   ]
 
   const projectsAsAction: Action[] = repositories.map((repo) => ({
-    id: repo.full_name,
+    id: `out-${repo.full_name}`,
     name: repo.full_name,
-    icon: <Notebook size="1em" weight="duotone" />,
+    icon: <GitFork size="1em" weight="duotone" />,
     keywords: repo.topics.toString().replaceAll(',', ' '),
     parent: 'search-projects',
     section: 'Project',

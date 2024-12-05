@@ -1,4 +1,3 @@
-import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import {
   ActionImpl,
@@ -44,10 +43,14 @@ const ResultItem = forwardRef<
         <span className="text-xl">{action.icon}</span>
         <div className="flex flex-col items-start justify-center">
           <div className="flex items-end gap-px">
-            <span className="leading-none">{action.name}</span>
-            {action.id.startsWith('out') && (
-              <ArrowUpRight size="1em" className="text-xs" />
-            )}
+            <span
+              className={clsx(
+                'leading-none',
+                action.id.startsWith('out') && 'link link-out',
+              )}
+            >
+              {action.name}
+            </span>
           </div>
           {action.subtitle && (
             <span className="text-xs text-subtle">{action.subtitle}</span>
