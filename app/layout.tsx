@@ -4,11 +4,12 @@ import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
 import { env } from '@/env'
-import Providers from './providers'
-import '@/styles/main.css'
 import { config } from '@/lib/config'
 import { getGithubRepositories } from '@/lib/github'
+import '@/styles/main.css'
 import { DataProvider } from './context'
+import PageTransitionEffect from './effect'
+import Providers from './providers'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -78,7 +79,7 @@ export default async function RootLayout({
         <DataProvider repositories={repositories}>
           <Providers>
             <Header />
-            {children}
+            <PageTransitionEffect>{children}</PageTransitionEffect>
             <Helper />
             <Footer />
           </Providers>
