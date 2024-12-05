@@ -22,9 +22,9 @@ function FrozenRouter(props: { children: ReactNode }) {
 }
 
 const variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 50 },
   enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -40 },
+  exit: { opacity: 0, y: -50 },
 }
 
 const PageTransitionEffect = ({ children }: { children: ReactNode }) => {
