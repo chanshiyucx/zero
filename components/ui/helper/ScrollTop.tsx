@@ -44,7 +44,7 @@ export function ScrollTop() {
 
   return (
     <TinyButton className={!showBackTop ? 'hidden' : ''} onClick={backToTop}>
-      <CaretDoubleUp className="text-xl" />
+      <CaretDoubleUp className="text-xl" weight="duotone" />
     </TinyButton>
   )
 }
