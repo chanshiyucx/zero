@@ -1,6 +1,11 @@
 import { env } from '@/env'
+import { fetchWithCache } from './fetch'
 
-interface WakatimeRes {
+const headers = new Headers({
+  Authorization: `Basic ${Buffer.from(env.WAKATIME_API_KEY).toString('base64')}`,
+})
+
+export interface Wakatime {
   data: {
     decimal: string
     digital: string
@@ -22,18 +27,6 @@ interface WakatimeRes {
 }
 
 export async function getCodingHrs() {
-  const headers = new Headers({
-    Authorization: `Basic ${Buffer.from(env.WAKATIME_API_KEY).toString('base64')}`,
-  })
-  const response = await fetch(
-    'https://wakatime.com/api/v1/users/current/all_time_since_today',
-    { headers },
-  )
-  if (!response.ok) {
-    throw new Error(response.statusText)
-  }
-  const result: WakatimeRes = await response.json()
-  return {
-    seconds: result.data.total_seconds,
-  }
+  const url = 'https://wakatime.com/api/v1/users/current/all_time_since_today'
+  return fetchWithCache<'wakatime'>(url, 'wakatime', headers)
 }
