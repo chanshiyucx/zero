@@ -8,6 +8,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
+import { config } from '@/lib/config'
 import { getGithubRepo } from '@/lib/github'
 
 export async function Github() {
@@ -69,14 +70,14 @@ export async function Github() {
         <a
           className="tiny-thumb flex flex-1 items-center justify-center gap-2 rounded-lg border-none"
           target="_blank"
-          href="https://chanshiyucx.github.io/CV/Xin%20Chen%20-%20FrontEnd%20Engineer%20Resume.pdf"
+          href={config.cvPdf}
         >
           Download CV <DownloadSimple size="1em" weight="bold" />
         </a>
         <a
           className="link flex items-end justify-center rounded-lg p-3 underline"
           target="_blank"
-          href="https://chanshiyucx.github.io/CV/"
+          href={config.cv}
         >
           <span>read.cv</span>
         </a>

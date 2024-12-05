@@ -1,42 +1,9 @@
+import { config } from '@/lib/config'
 import { getGithubRepositories, getGithubUserData } from '@/lib/github'
 
 interface GitHubStatsDataProps {
   label: string
   value: number
-}
-
-export async function GithubStats() {
-  const { followers, public_repos } = await getGithubUserData()
-  const repositories = await getGithubRepositories()
-  const stars = repositories.reduce(
-    (acc, repo) => acc + repo.stargazers_count,
-    0,
-  )
-  return (
-    <div className="group relative h-full w-full transform-gpu overflow-hidden rounded-lg bg-surface duration-500 hover:scale-[.97]">
-      <a
-        href="http://github.com/chanshiyucx"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <BackgroundPattern />
-        <div className="absolute bottom-1 flex flex-row flex-wrap gap-x-6 p-2 sm:gap-x-4 md:gap-x-6">
-          <GitHubStatsData label="Stars" value={stars} />
-          <GitHubStatsData label="Followers" value={followers} />
-          <GitHubStatsData label="Repos" value={public_repos} />
-        </div>
-      </a>
-    </div>
-  )
-}
-
-export function GitHubStatsData({ label, value }: GitHubStatsDataProps) {
-  return (
-    <div>
-      <span className="mr-1 text-sm text-subtle">{label}:</span>
-      {value}
-    </div>
-  )
 }
 
 export function BackgroundPattern() {
@@ -55,6 +22,36 @@ export function BackgroundPattern() {
       {days.map((c, i) => (
         <div key={i} className="size-3 rounded" style={{ background: c }} />
       ))}
+    </div>
+  )
+}
+
+export function GitHubStatsData({ label, value }: GitHubStatsDataProps) {
+  return (
+    <div>
+      <span className="mr-1 text-sm text-subtle">{label}:</span>
+      {value}
+    </div>
+  )
+}
+
+export async function GithubStats() {
+  const { followers, public_repos } = await getGithubUserData()
+  const repositories = await getGithubRepositories()
+  const stars = repositories.reduce(
+    (acc, repo) => acc + repo.stargazers_count,
+    0,
+  )
+  return (
+    <div className="group relative h-full w-full transform-gpu overflow-hidden rounded-lg bg-surface duration-500 hover:scale-[.97]">
+      <a href={config.github} target="_blank" rel="noopener noreferrer">
+        <BackgroundPattern />
+        <div className="absolute bottom-1 flex flex-row flex-wrap gap-x-6 p-2 sm:gap-x-4 md:gap-x-6">
+          <GitHubStatsData label="Stars" value={stars} />
+          <GitHubStatsData label="Followers" value={followers} />
+          <GitHubStatsData label="Repos" value={public_repos} />
+        </div>
+      </a>
     </div>
   )
 }

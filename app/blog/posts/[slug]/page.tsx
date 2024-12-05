@@ -1,27 +1,16 @@
-import { allPosts } from 'content-collections'
 import { notFound } from 'next/navigation'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
+import { sortedPosts } from '@/lib/content'
 
 type Params = {
   slug: string
 }
 
-export const generateStaticParams = () =>
-  allPosts.map((post) => ({ slug: post.slug }))
-
-export const generateMetadata = async ({ params }: { params: Params }) => {
-  const { slug } = await params
-  const post = allPosts.find((post) => post.slug === slug)
-  return {
-    title: `${post?.title} - Reverie`,
-    keywords: post?.tags.join(','),
-  }
-}
-
 export default async function Page({ params }: { params: Params }) {
   const { slug } = await params
-  const post = allPosts.find((post) => post.slug === slug)
+  const postList = sortedPosts()
+  const post = postList.find((post) => post.slug === slug)
 
   if (!post) {
     return notFound()

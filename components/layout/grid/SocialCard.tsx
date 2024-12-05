@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { LinkedinLogo, XLogo } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
+import { config } from '@/lib/config'
 
 interface SocialLinkProps {
   className: string
@@ -26,11 +27,11 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
 export function SocialCard() {
   return (
     <div className="grid grid-cols-2 gap-2">
-      <SocialLink href="https://linkedin.com/in/xinchen-cx" className="bg-pine">
+      <SocialLink href={config.linkedIn} className="bg-pine">
         <LinkedinLogo size="1em" className="text-2xl" />
         <p className="-rotate-3 text-xs">(serious stuff)</p>
       </SocialLink>
-      <SocialLink href="https://x.com/chanshiyucx" className="bg-text">
+      <SocialLink href={config.twitter} className="bg-text">
         <XLogo size="1em" className="text-2xl" />
         <p className="text-xs">(share memes ;)</p>
       </SocialLink>

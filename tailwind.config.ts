@@ -50,6 +50,8 @@ export default {
       animation: {
         'marquee-left': 'marquee-left var(--duration, 30s) linear infinite',
         'marquee-up': 'marquee-up var(--duration, 30s) linear infinite',
+        'spinner-scale':
+          'spinner-scale var(--duration, 30s) var(--delay, 30s) cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite',
       },
       keyframes: {
         'marquee-left': {
@@ -59,6 +61,11 @@ export default {
         'marquee-up': {
           from: { transform: 'translateY(0)' },
           to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+        },
+        'spinner-scale': {
+          '0%': { transform: 'scaley(1.0)' },
+          '50%': { transform: 'scaley(0.4)' },
+          '100%': { transform: 'scaley(1.0)' },
         },
       },
       typography: ({ theme }: PluginUtils) => ({
