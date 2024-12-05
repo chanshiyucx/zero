@@ -2,7 +2,7 @@ import { Date } from '@/components/ui/date'
 import { sortedLeetcodes } from '@/lib/content'
 
 export default function Page() {
-  const leetCodeList = sortedLeetcodes()
+  const leetcodeList = sortedLeetcodes()
 
   return (
     <article className="page space-y-20">
@@ -13,7 +13,7 @@ export default function Page() {
       </header>
       <div>
         <ul className="space-y-2">
-          {leetCodeList.map((leetcode) => (
+          {leetcodeList.map((leetcode) => (
             <li key={leetcode.title} className="text-lg">
               <a className="flex gap-6" href={leetcode.url}>
                 <Date

@@ -6,7 +6,7 @@ import books from '@/assets/images/books.jpg'
 export function BookCard() {
   return (
     <Link href="/books">
-      <div className="relative mt-3 h-[5.5rem] w-full transform-gpu overflow-hidden rounded-lg duration-500 hover:scale-95">
+      <div className="relative mt-3 h-[5.5rem] w-full transform-gpu overflow-hidden rounded-lg duration-500 hover:scale-[.97]">
         <Image
           src={books}
           alt="Books"

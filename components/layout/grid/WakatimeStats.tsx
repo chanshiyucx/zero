@@ -1,5 +1,6 @@
 import { Code } from '@phosphor-icons/react/dist/ssr'
 import { VStudioCode } from '@/components/icons'
+import { config } from '@/lib/config'
 import { getCodingHrs } from '@/lib/waka-time'
 
 export async function WakatimeStats() {
@@ -7,7 +8,7 @@ export async function WakatimeStats() {
 
   return (
     <a
-      href="https://wakatime.com/@Reverie"
+      href={config.wakatime}
       target="_blank"
       rel="noopener noreferrer"
       className="transform-gpu duration-500 hover:scale-95"

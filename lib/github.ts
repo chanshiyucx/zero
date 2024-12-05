@@ -18,7 +18,16 @@ export async function getGithubUserData() {
   return result
 }
 
+let cachedData: Repository[] | null = null
+let cacheTimestamp = 0
 export async function getGithubRepositories() {
+  // read cache first
+  const now = Date.now()
+  if (cachedData && now - cacheTimestamp < 60000) {
+    return cachedData
+  }
+  cacheTimestamp = now
+
   const { public_repos: reposNumber } = await getGithubUserData()
   const numberOfPages = Math.ceil(reposNumber / 100)
   const repositories: Repository[] = []
@@ -33,6 +42,7 @@ export async function getGithubRepositories() {
     const list: Repository[] = await response.json()
     repositories.push(...list)
   }
+  cachedData = repositories
   return repositories
 }
 

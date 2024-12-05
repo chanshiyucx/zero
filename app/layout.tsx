@@ -3,10 +3,12 @@ import type { ReactNode } from 'react'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/modules/helper'
-import { Nya } from '@/components/modules/nya'
 import { env } from '@/env'
 import Providers from './providers'
 import '@/styles/main.css'
+import { config } from '@/lib/config'
+import { getGithubRepositories } from '@/lib/github'
+import { DataProvider } from './context'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -16,7 +18,7 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
-export const config = {
+export const defaultConfig = {
   metadata: {
     title: "Reverie's Hideout",
     description:
@@ -28,14 +30,14 @@ export const config = {
 }
 
 export const metadata: Metadata = {
-  ...config.metadata,
-  metadataBase: new URL(config.webserver.host),
+  ...defaultConfig.metadata,
+  metadataBase: new URL(defaultConfig.webserver.host),
   title: {
-    default: config.metadata.title,
-    template: `%s • ${config.metadata.title}`,
+    default: defaultConfig.metadata.title,
+    template: `%s • ${defaultConfig.metadata.title}`,
   },
-  applicationName: config.metadata.title,
-  authors: [{ name: 'Reverie', url: 'https://github.com/chanshiyucx' }],
+  applicationName: defaultConfig.metadata.title,
+  authors: [{ name: 'Reverie', url: config.github }],
   category: 'Personal Website',
   keywords: 'Blog, Code, ACG, Web, Zero, Programming, Knowledge',
   icons: {
@@ -51,31 +53,36 @@ export const metadata: Metadata = {
     index: true,
   },
   openGraph: {
-    ...config.metadata,
-    siteName: config.metadata.title,
+    ...defaultConfig.metadata,
+    siteName: defaultConfig.metadata.title,
     type: 'website',
     url: '/',
     emails: ['chanshiyucx@gmail.com'],
   },
   twitter: {
-    ...config.metadata,
+    ...defaultConfig.metadata,
     card: 'summary_large_image',
   },
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const repositories = await getGithubRepositories()
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <Nya />
-      </head>
       <body>
-        <Providers>
-          <Header />
-          {children}
-          <Helper />
-          <Footer />
-        </Providers>
+        <DataProvider repositories={repositories}>
+          <Providers>
+            <Header />
+            {children}
+            <Helper />
+            <Footer />
+          </Providers>
+        </DataProvider>
       </body>
     </html>
   )
