@@ -1,10 +1,12 @@
+import { fetchWithCache } from './fetch'
+
 enum status {
   online,
   idle,
   dnd,
 }
 
-interface Lanyard {
+export interface Lanyard {
   data: {
     discord_user: {
       id: string
@@ -34,20 +36,12 @@ interface Lanyard {
   }
 }
 
-export async function getDiscordData() {
-  const response = await fetch(
-    'https://api.lanyard.rest/v1/users/746724670757142530',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'cache-control': 'public, s-maxage=60, stale-while-revalidate=30',
-      },
-    },
-  )
-  if (!response.ok) {
-    throw new Error(response.statusText)
-  }
+const headers = new Headers({
+  'Content-Type': 'application/json',
+  'cache-control': 'public, s-maxage=60, stale-while-revalidate=30',
+})
 
-  const result: Lanyard = await response.json()
-  return result
+export async function getDiscordData() {
+  const url = 'https://api.lanyard.rest/v1/users/746724670757142530'
+  return fetchWithCache<'discord'>(url, 'discord', headers, 10 * 1000)
 }

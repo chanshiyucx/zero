@@ -4,7 +4,8 @@ import { config } from '@/lib/config'
 import { getCodingHrs } from '@/lib/waka-time'
 
 export async function WakatimeStats() {
-  const { seconds } = await getCodingHrs()
+  const result = await getCodingHrs()
+  const { total_seconds } = result.data
 
   return (
     <a
@@ -20,7 +21,7 @@ export async function WakatimeStats() {
             className="-mt-[0.15rem] mr-2 inline-block text-xl"
             weight="bold"
           />
-          {Math.round(seconds / 3600)}h
+          {Math.round(total_seconds / 3600)}h
         </span>
         <span className="text-sm">(coding stats)</span>
       </div>
