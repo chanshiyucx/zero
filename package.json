@@ -30,6 +30,7 @@
     "clsx": "^2.1.1",
     "color": "^4.2.3",
     "date-fns": "^4.1.0",
+    "framer-motion": "^11.13.1",
     "image-size": "^1.1.1",
     "kbar": "^0.1.0-beta.45",
     "next-sitemap": "^4.2.3",
