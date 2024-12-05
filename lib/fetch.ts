@@ -50,12 +50,8 @@ export async function fetchWithCache<Key extends keyof CacheStructure>(
   ttl?: number,
 ): Promise<NonNullable<CacheStructure[Key]['data']>> {
   const cachedData = getCache(cacheKey, ttl)
-  if (cachedData) {
-    console.log('缓存命中+++++++++++++++++++++++++++++++', cacheKey)
-    return cachedData
-  }
+  if (cachedData) return cachedData
 
-  console.log('缓存失效===============================', cacheKey)
   const response = await fetch(url, { headers })
   if (!response.ok) {
     throw new Error(`Fetch error: ${response.statusText}`)
