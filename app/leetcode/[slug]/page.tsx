@@ -1,27 +1,14 @@
-import { allLeetcodes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
+import { sortedLeetcodes } from '@/lib/content'
 
-type Params = {
-  slug: string
-}
-
-export const generateStaticParams = () =>
-  allLeetcodes.map((leetcode) => ({ slug: leetcode.slug }))
-
-export const generateMetadata = async ({ params }: { params: Params }) => {
-  const { slug } = await params
-  const leetcode = allLeetcodes.find((leetcode) => leetcode.slug === slug)
-  return {
-    title: `${leetcode?.title} - Reverie`,
-    keywords: leetcode?.tags.join(','),
-  }
-}
+type Params = Promise<{ slug: string }>
 
 export default async function Page({ params }: { params: Params }) {
   const { slug } = await params
-  const leetcode = allLeetcodes.find((leetcode) => leetcode.slug === slug)
+  const leetcodeList = sortedLeetcodes()
+  const leetcode = leetcodeList.find((leetcode) => leetcode.slug === slug)
 
   if (!leetcode) {
     return notFound()
