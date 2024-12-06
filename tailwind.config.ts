@@ -22,7 +22,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Pier Sans', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--font-merriweather)', ...defaultTheme.fontFamily.sans],
+        mono: ['var(--font-fira)', ...defaultTheme.fontFamily.mono],
       },
       listStyleType: {
         square: 'square',

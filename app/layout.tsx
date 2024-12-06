@@ -7,6 +7,8 @@ import { env } from '@/env'
 import { config } from '@/lib/config'
 import { getGithubRepositories } from '@/lib/request'
 import '@/styles/main.css'
+import clsx from 'clsx'
+import { Fira_Code, Merriweather } from 'next/font/google'
 import { DataProvider } from './context'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
@@ -21,6 +23,20 @@ const defaultConfig = {
     host: env.HOST ?? 'http://localhost:3000',
   },
 }
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['300', '400', '700', '900'],
+  variable: '--font-merriweather',
+  display: 'swap',
+})
+
+const fira = Fira_Code({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-fira',
+  display: 'swap',
+})
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -75,7 +91,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={clsx(merriweather.variable, fira.variable)}>
         <DataProvider repositories={repositories}>
           <Providers>
             <Header />

@@ -18,7 +18,7 @@ const LinkElement = ({ icon: Icon, href, title }: LinkElementProps) => (
   <a
     href={href}
     target="_blank"
-    className="tiny-thumb inline-flex translate-y-0.5 items-center gap-px"
+    className="tiny-thumb inline-flex translate-y-0.5 items-center gap-px no-underline"
   >
     <Icon />
     <span className="text-sm">{title}</span>
@@ -64,7 +64,7 @@ const Link = ({ label, ...props }: { label: string } & LinkProps) => (
 
 export function Introduction() {
   return (
-    <div className="flex-1 space-y-4">
+    <div className="prose prose-rosepine flex-1 space-y-4">
       <h2 className="text-xs text-subtle">Full-Stack Developer</h2>
 
       <p>

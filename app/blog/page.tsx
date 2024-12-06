@@ -32,7 +32,7 @@ export default function Page() {
             <p className="text-right text-2xl">{postGroup.year}</p>
             <ul className="space-y-2">
               {postGroup.list.map((post) => (
-                <li key={post.title} className="text-lg">
+                <li key={post.title}>
                   <Link className="flex gap-6" href={post.url}>
                     <Date
                       dateString={post.date}
