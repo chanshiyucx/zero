@@ -70,14 +70,14 @@ export async function Github() {
         <a
           className="tiny-thumb flex flex-1 items-center justify-center gap-2 rounded-lg border-none"
           target="_blank"
-          href={config.cvPdf}
+          href={config.links.cvPdf}
         >
           Download CV <DownloadSimple size="1em" weight="bold" />
         </a>
         <a
           className="link flex items-end justify-center rounded-lg p-3 underline"
           target="_blank"
-          href={config.cv}
+          href={config.links.cv}
         >
           <span>read.cv</span>
         </a>

@@ -44,7 +44,7 @@ export async function GithubStats() {
   )
   return (
     <div className="group relative h-full w-full transform-gpu overflow-hidden rounded-lg bg-surface duration-500 hover:scale-[.97]">
-      <a href={config.github} target="_blank" rel="noopener noreferrer">
+      <a href={config.links.github} target="_blank" rel="noopener noreferrer">
         <BackgroundPattern />
         <div className="absolute bottom-1 flex flex-row flex-wrap gap-x-6 p-2 sm:gap-x-4 md:gap-x-6">
           <GitHubStatsData label="Stars" value={stars} />

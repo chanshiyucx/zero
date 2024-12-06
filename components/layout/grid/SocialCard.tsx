@@ -27,11 +27,11 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
 export function SocialCard() {
   return (
     <div className="grid grid-cols-2 gap-2">
-      <SocialLink href={config.linkedIn} className="bg-pine">
+      <SocialLink href={config.links.linkedIn} className="bg-pine">
         <LinkedinLogo size="1em" className="text-2xl" />
         <p className="-rotate-3 text-xs">(serious stuff)</p>
       </SocialLink>
-      <SocialLink href={config.twitter} className="bg-text">
+      <SocialLink href={config.links.twitter} className="bg-text">
         <XLogo size="1em" className="text-2xl" />
         <p className="text-xs">(share memes ;)</p>
       </SocialLink>
