@@ -55,7 +55,7 @@
 
   code[data-theme*=' '],
   code[data-theme*=' '] span {
-    @apply font-bold;
+    @apply font-medium;
     color: var(--shiki-light);
   }
 
