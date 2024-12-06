@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { sortedLeetcodes } from '@/lib/content'
 
@@ -15,7 +16,7 @@ export default function Page() {
         <ul className="space-y-2">
           {leetcodeList.map((leetcode) => (
             <li key={leetcode.title} className="text-lg">
-              <a className="flex gap-6" href={leetcode.url}>
+              <Link className="flex gap-6" href={leetcode.url}>
                 <Date
                   dateString={leetcode.date}
                   className="w-16 text-subtle"
@@ -24,7 +25,7 @@ export default function Page() {
                   {leetcode.id}
                 </span>
                 <span>{leetcode.title}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

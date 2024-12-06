@@ -1,5 +1,5 @@
 import { DiscordLogo } from '@phosphor-icons/react/dist/ssr'
-import { getDiscordData } from '@/lib/discord'
+import { getDiscordData } from '@/lib/request'
 
 export async function DiscordStatus() {
   const { data } = await getDiscordData()

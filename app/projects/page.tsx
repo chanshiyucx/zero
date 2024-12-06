@@ -5,7 +5,7 @@ import {
   Star,
 } from '@phosphor-icons/react/dist/ssr'
 import { Date } from '@/components/ui/date'
-import { getGithubRepositories } from '@/lib/github'
+import { getGithubRepositories } from '@/lib/request'
 
 export default async function Page() {
   let repositories = await getGithubRepositories()

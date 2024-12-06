@@ -3,6 +3,7 @@ import type { Options } from '@content-collections/mdx'
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
 import { isValid, parse } from 'date-fns'
+import GithubSlugger from 'github-slugger'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
@@ -14,6 +15,8 @@ interface CollectionProps {
   directory: string
   prefixPath: string
 }
+
+const slugger = new GithubSlugger()
 
 const options: Options = {
   rehypePlugins: [
@@ -59,7 +62,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     transform: async (document, context) => {
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const id = match[1]
-      const slug = match[2]
+      const slug = slugger.slug(match[2])
       const url = path.join(prefixPath, slug)
       const contentCode = await compileMDX(context, document, options)
 

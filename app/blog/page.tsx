@@ -1,5 +1,6 @@
 import type { Post } from 'content-collections'
 import { getYear } from 'date-fns'
+import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { sortedPosts } from '@/lib/content'
 
@@ -32,13 +33,13 @@ export default function Page() {
             <ul className="space-y-2">
               {postGroup.list.map((post) => (
                 <li key={post.title} className="text-lg">
-                  <a className="flex gap-6" href={post.url}>
+                  <Link className="flex gap-6" href={post.url}>
                     <Date
                       dateString={post.date}
                       className="w-16 text-subtle"
                     ></Date>
                     <span>{post.title}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
