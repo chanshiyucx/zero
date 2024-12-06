@@ -37,6 +37,7 @@ const PageTransitionEffect = ({ children }: { children: ReactNode }) => {
         initial="hidden"
         animate="enter"
         exit="exit"
+        className="flex flex-1"
         variants={variants}
         transition={{ ease: 'easeInOut', duration: 0.5 }}
       >
