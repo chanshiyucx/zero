@@ -15,7 +15,7 @@ export default function Page() {
       <div>
         <ul className="space-y-2">
           {leetcodeList.map((leetcode) => (
-            <li key={leetcode.title} className="text-lg">
+            <li key={leetcode.title}>
               <Link className="flex gap-6" href={leetcode.url}>
                 <Date
                   dateString={leetcode.date}
