@@ -1,6 +1,14 @@
+import type { Metadata } from 'next'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
 import { sortedAlbums } from '@/lib/content'
+
+export const metadata: Metadata = {
+  title: 'Album',
+  description:
+    'A collection of my photography and creative work, each image capturing a unique moment and emotion.',
+  keywords: ['album', 'photo', 'photography', 'travel'],
+}
 
 export default function Page() {
   const albumList = sortedAlbums()

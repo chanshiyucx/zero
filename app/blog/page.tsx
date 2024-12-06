@@ -1,4 +1,5 @@
 import type { Post } from 'content-collections'
+import type { Metadata } from 'next'
 import { getYear } from 'date-fns'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
@@ -7,6 +8,13 @@ import { sortedPosts } from '@/lib/content'
 interface PostGroup {
   year: number
   list: Post[]
+}
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description:
+    'A collection of my personal posts and thoughts on a variety of topics I enjoy, with a focus on technology.',
+  keywords: ['blog', 'notes', 'thoughts', 'technical', 'tutorials', 'posts'],
 }
 
 export default function Page() {
