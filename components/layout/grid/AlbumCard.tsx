@@ -1,7 +1,7 @@
 import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
-import beach from '@/assets/ablum/beach.jpg'
+import beach from '@/assets/images/beach.jpg'
 
 export function AlbumCard() {
   return (
