@@ -1,14 +1,11 @@
-import { allLeetcodes, allNotes, allPosts } from 'content-collections'
-import { compareDesc } from 'date-fns'
 import { MetadataRoute } from 'next'
+import { sortedContent } from '@/lib/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const list = [...allPosts, ...allNotes, ...allLeetcodes]
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-    .map((item) => ({
-      url: `https://chanshiyu.com${item.url}`,
-      lastModified: new Date(),
-    }))
+  const list = sortedContent().map((item) => ({
+    url: `https://chanshiyu.com${item.url}`,
+    lastModified: new Date(),
+  }))
 
   return [
     {

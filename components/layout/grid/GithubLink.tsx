@@ -7,7 +7,7 @@ export function GithubLink() {
   return (
     <a
       className="group relative flex h-full w-full transform-gpu flex-col justify-between gap-5 overflow-hidden rounded-lg text-base transition-all duration-500 group-hover:scale-[.97] hover:scale-[.97] active:scale-100"
-      href={config.github}
+      href={config.links.github}
       target="_blank"
     >
       <span className="pointer-events-none absolute inset-0 -z-20">

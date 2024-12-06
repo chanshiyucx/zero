@@ -24,7 +24,6 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const { push } = useRouter()
   const postList = sortedPosts()
   const leetcodeList = sortedLeetcodes()
-  // const repositories: Repository[] = []
   const repositories = useData()
 
   const navigationActions: Action[] = [
@@ -146,7 +145,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Website',
       keywords: 'repo source github zero',
       icon: <GithubLogo size="1em" weight="duotone" />,
-      perform: () => window.open(config.repo, '_blank'),
+      perform: () => window.open(config.links.repo, '_blank'),
     },
     {
       id: 'out-twitter',
@@ -154,7 +153,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Website',
       keywords: 'twitter personal homepage',
       icon: <XLogo size="1em" weight="duotone" />,
-      perform: () => window.open(config.twitter, '_blank'),
+      perform: () => window.open(config.links.twitter, '_blank'),
     },
     {
       id: 'out-linkedIn',
@@ -162,7 +161,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Website',
       keywords: 'linkedIn personal homepage',
       icon: <LinkedinLogo size="1em" weight="duotone" />,
-      perform: () => window.open(config.linkedIn, '_blank'),
+      perform: () => window.open(config.links.linkedIn, '_blank'),
     },
     {
       id: 'out-wakatime',
@@ -170,7 +169,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Website',
       keywords: 'coding time analysis',
       icon: <Laptop size="1em" weight="duotone" />,
-      perform: () => window.open(config.wakatime, '_blank'),
+      perform: () => window.open(config.links.wakatime, '_blank'),
     },
   ]
 

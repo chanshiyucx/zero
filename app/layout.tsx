@@ -1,28 +1,16 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
+import clsx from 'clsx'
+import { Fira_Code, Merriweather } from 'next/font/google'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
-import { env } from '@/env'
 import { config } from '@/lib/config'
 import { getGithubRepositories } from '@/lib/request'
 import '@/styles/main.css'
-import clsx from 'clsx'
-import { Fira_Code, Merriweather } from 'next/font/google'
 import { DataProvider } from './context'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
-
-const defaultConfig = {
-  metadata: {
-    title: "Reverie's Hideout",
-    description:
-      'My internet hideout, here you will find some topics that I am learning and building, thoughts and tech blog posts, and know more about who I am...',
-  },
-  webserver: {
-    host: env.HOST ?? 'http://localhost:3000',
-  },
-}
 
 const merriweather = Merriweather({
   subsets: ['latin'],
@@ -47,14 +35,14 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  ...defaultConfig.metadata,
-  metadataBase: new URL(defaultConfig.webserver.host),
+  ...config.metadata,
+  metadataBase: new URL(config.webserver.host),
   title: {
-    default: defaultConfig.metadata.title,
-    template: `%s • ${defaultConfig.metadata.title}`,
+    default: config.metadata.title,
+    template: `%s • ${config.metadata.title}`,
   },
-  applicationName: defaultConfig.metadata.title,
-  authors: [{ name: 'Reverie', url: config.github }],
+  applicationName: config.metadata.title,
+  authors: [{ name: config.author.name, url: config.author.link }],
   category: 'Personal Website',
   keywords: 'Blog, Code, ACG, Web, Zero, Programming, Knowledge',
   icons: {
@@ -70,14 +58,14 @@ export const metadata: Metadata = {
     index: true,
   },
   openGraph: {
-    ...defaultConfig.metadata,
-    siteName: defaultConfig.metadata.title,
+    ...config.metadata,
+    siteName: config.metadata.title,
     type: 'website',
     url: '/',
-    emails: ['chanshiyucx@gmail.com'],
+    emails: [config.author.email],
   },
   twitter: {
-    ...defaultConfig.metadata,
+    ...config.metadata,
     card: 'summary_large_image',
   },
 }

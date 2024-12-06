@@ -9,7 +9,7 @@ export async function WakatimeStats() {
 
   return (
     <a
-      href={config.wakatime}
+      href={config.links.wakatime}
       target="_blank"
       rel="noopener noreferrer"
       className="transform-gpu duration-500 hover:scale-95"

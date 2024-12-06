@@ -3,7 +3,6 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    HOST: z.string(),
     GITHUB_TOKEN: z.string().startsWith('ghp_'),
     WAKATIME_API_KEY: z.string().startsWith('waka_'),
     NODE_ENV: z.enum(['development', 'production']).default('development'),
