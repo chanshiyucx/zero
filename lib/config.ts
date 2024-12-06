@@ -5,7 +5,7 @@ export const config = {
   metadata: {
     title: "Reverie's Hideout",
     description:
-      'My internet hideout, here you will find some topics that I am learning and building, thoughts and tech blog posts, and know more about who I am...',
+      'My internet hideout, where you can explore topics I am learning, projects I am building, tech blog posts, and know more about who I am...',
   },
   author: {
     name: 'Reverie',

@@ -1,6 +1,14 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { sortedLeetcodes } from '@/lib/content'
+
+export const metadata: Metadata = {
+  title: 'Leetcode',
+  description:
+    'A collection of my LeetCode solutions with explanations and optimizations, showcasing my approach to coding challenges.',
+  keywords: ['leetcode', 'code', 'programming'],
+}
 
 export default function Page() {
   const leetcodeList = sortedLeetcodes()

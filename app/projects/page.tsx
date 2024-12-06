@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import {
   GitFork,
   GithubLogo,
@@ -6,6 +7,13 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { Date } from '@/components/ui/date'
 import { getGithubRepositories } from '@/lib/request'
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'A personal portfolio showcasing my active and past projects, websites, apps, and more.',
+  keywords: ['projects', 'portfolio', 'programming', 'softwares', 'apps'],
+}
 
 export default async function Page() {
   let repositories = await getGithubRepositories()

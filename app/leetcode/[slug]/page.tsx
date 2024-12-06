@@ -1,11 +1,42 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { allLeetcodes } from '@/.content-collections/generated'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
+import { config } from '@/lib/config'
 import { sortedLeetcodes } from '@/lib/content'
 
-type Params = Promise<{ slug: string }>
+interface PageProps {
+  params: { slug: string }
+}
 
-export default async function Page({ params }: { params: Params }) {
+export function generateMetadata({ params }: PageProps): Metadata {
+  const leetcode = allLeetcodes.find(
+    (leetcode) => leetcode.slug === params.slug,
+  )
+  if (!leetcode) return {}
+  const publisher = `${config.author.name} ${config.author.link}`
+
+  return {
+    ...config.metadata,
+    keywords: leetcode.tags,
+    publisher: publisher,
+    openGraph: {
+      ...config.metadata,
+      tags: leetcode.tags,
+      authors: publisher,
+      type: 'article',
+      url: leetcode.url,
+    },
+    twitter: {
+      ...config.metadata,
+      card: 'summary_large_image',
+      creator: publisher,
+    },
+  }
+}
+
+export default async function Page({ params }: PageProps) {
   const { slug } = await params
   const leetcodeList = sortedLeetcodes()
   const leetcode = leetcodeList.find((leetcode) => leetcode.slug === slug)
