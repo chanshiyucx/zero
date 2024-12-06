@@ -3,7 +3,7 @@
 @layer components {
   /* Page */
   .page {
-    @apply w-full py-24;
+    @apply w-full flex-1 py-24;
   }
 
   /* Album */

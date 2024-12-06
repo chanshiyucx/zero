@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply container mx-auto min-h-screen bg-base font-sans text-text antialiased;
+    @apply container mx-auto flex min-h-screen flex-col bg-base font-sans text-text antialiased;
     @apply selection:bg-muted/20;
   }
 

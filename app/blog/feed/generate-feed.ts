@@ -22,7 +22,7 @@ export function generateFeed() {
     author: config.author,
   })
 
-  list.forEach(async (item) => {
+  list.forEach((item) => {
     const link = `${config.webserver.host}${item.url}`
     feed.addItem({
       link,
