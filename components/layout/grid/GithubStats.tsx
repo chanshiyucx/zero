@@ -1,5 +1,5 @@
 import { config } from '@/lib/config'
-import { getGithubRepositories, getGithubUserData } from '@/lib/github'
+import { getGithubRepositories, getGithubUserData } from '@/lib/request'
 
 interface GitHubStatsDataProps {
   label: string

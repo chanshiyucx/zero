@@ -1,6 +1,6 @@
 'use client'
 
-import type { Repository } from '@/lib/github'
+import type { Repository } from '@/lib/request'
 import type { ReactNode } from 'react'
 import { createContext, useContext } from 'react'
 

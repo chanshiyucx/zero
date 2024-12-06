@@ -9,7 +9,7 @@ import {
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { config } from '@/lib/config'
-import { getGithubRepo } from '@/lib/github'
+import { getGithubRepo } from '@/lib/request'
 
 export async function Github() {
   const repo = await getGithubRepo()
