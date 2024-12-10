@@ -11,7 +11,7 @@ import { WakatimeStats } from './WakatimeStats'
 export function Grid() {
   return (
     <div>
-      <div className="grid grid-cols-6 gap-3">
+      <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <GithubLink />
         </div>
@@ -20,13 +20,13 @@ export function Grid() {
         </div>
       </div>
 
-      <div className="mt-3 grid grid-cols-6">
+      <div className="mt-3 grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3 flex flex-col gap-3">
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <div className="w-24">
               <AlbumCard />
             </div>
-            <div className="flex w-full flex-col gap-3">
+            <div className="flex w-full flex-col gap-2">
               <SocialCard />
               <WakatimeStats />
             </div>
@@ -34,8 +34,8 @@ export function Grid() {
           <StacksCard />
         </div>
 
-        <div className="col-span-3 ml-3 space-y-3">
-          <div className="flex gap-3">
+        <div className="col-span-3 flex flex-col gap-3">
+          <div className="flex gap-2">
             <DiscordStatus />
             <LatestPost />
           </div>

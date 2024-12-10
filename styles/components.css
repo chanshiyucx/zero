@@ -20,7 +20,10 @@
 
   /* Card */
   .card {
-    @apply border border-muted/20 bg-surface;
+    @apply transform-gpu overflow-hidden rounded-lg duration-500 hover:scale-[.97];
+  }
+  .card-sm {
+    @apply card hover:scale-95;
   }
 
   /* Menu Item */

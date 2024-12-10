@@ -9,17 +9,15 @@ export function LatestPost() {
   return (
     <Link
       href={latestPost.url}
-      className="relative flex w-full flex-1 transform-gpu flex-col gap-3 overflow-hidden rounded-lg bg-overlay p-3 transition-all duration-500 hover:scale-[.97]"
+      className="card flex flex-1 flex-col gap-3 bg-overlay p-3"
     >
       <span>Latest post</span>
       <Divider />
-      <span className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold">
+      <span className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
         {latestPost.title}
       </span>
       <Divider />
-      <span className="opacity-70">
-        <Date dateString={latestPost.date} />
-      </span>
+      <Date dateString={latestPost.date} className="text-subtle" />
     </Link>
   )
 }

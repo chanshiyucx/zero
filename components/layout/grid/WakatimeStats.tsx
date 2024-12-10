@@ -12,19 +12,14 @@ export async function WakatimeStats() {
       href={config.links.wakatime}
       target="_blank"
       rel="noopener noreferrer"
-      className="transform-gpu duration-500 hover:scale-95"
+      className="card-sm relative flex h-[4.125rem] flex-col items-center justify-center bg-surface"
     >
-      <div className="relative flex h-[4.125rem] flex-col items-center justify-center overflow-hidden rounded-lg bg-surface">
-        <VStudioCode className="absolute left-3 top-3 -rotate-45 text-[50px]" />
-        <span className="-rotate-2 items-center font-mono text-3xl font-semibold">
-          <Code
-            className="-mt-[0.15rem] mr-2 inline-block text-xl"
-            weight="bold"
-          />
-          {Math.round(total_seconds / 3600)}h
-        </span>
-        <span className="text-sm">(coding stats)</span>
-      </div>
+      <VStudioCode className="absolute left-3 top-3 -rotate-45 text-5xl" />
+      <span className="-rotate-2 items-center font-mono text-3xl font-semibold">
+        <Code className="mr-2 inline-block text-xl" weight="bold" />
+        {Math.round(total_seconds / 3600)}h
+      </span>
+      <span className="text-sm">(coding stats)</span>
     </a>
   )
 }

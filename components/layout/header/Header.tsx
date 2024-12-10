@@ -30,13 +30,13 @@ function MenuItem({ name, path }: MenuItemProps) {
 
 export function Header() {
   return (
-    <header className="my-3 flex items-center justify-between rounded-lg px-4">
+    <header className="my-3 flex items-center justify-between rounded-lg">
       <Link href="/" className="flex items-center py-3 text-xl font-bold">
         <Image src={logo} alt="Site Logo" className="mr-1 w-6" priority />
         Reverie
       </Link>
       <div className="flex items-center gap-3">
-        <nav className="flex items-center justify-center">
+        <nav className="flex items-center justify-center gap-1">
           <MenuItem name="Home" path="/" />
           <MenuItem name="Blog" path="/blog" />
           <MenuItem name="Projects" path="/projects" />
