@@ -5,23 +5,24 @@ import beach from '@/assets/images/beach.jpg'
 
 export function AlbumCard() {
   return (
-    <Link href={'/album'}>
-      <div className="relative h-36 transform-gpu rounded-lg text-base duration-500 hover:scale-95">
-        <Image
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-center brightness-75"
-          src={beach}
-          alt="album beach"
-          priority={false}
-        />
-        <p className="absolute -left-2 bottom-16 top-8 w-40 -rotate-90 font-bold">
-          たびのきおく
-        </p>
-        <ArrowUpRight
-          weight="bold"
-          size="1em"
-          className="absolute right-2 top-2"
-        />
-      </div>
+    <Link
+      href={'/album'}
+      className="card-sm relative block h-36 text-base font-bold"
+    >
+      <Image
+        className="absolute inset-0 h-full w-full rounded-lg object-cover object-center brightness-75"
+        src={beach}
+        alt="Album Beach"
+        priority={false}
+      />
+      <p className="absolute -left-2 bottom-16 top-8 w-40 -rotate-90">
+        たびのきおく
+      </p>
+      <ArrowUpRight
+        weight="bold"
+        size="1em"
+        className="absolute right-2 top-2"
+      />
     </Link>
   )
 }

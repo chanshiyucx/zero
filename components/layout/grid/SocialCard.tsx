@@ -16,7 +16,7 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
       target="_blank"
       className={clsx(
         className,
-        'flex h-[4.125rem] w-full transform-gpu flex-col items-center justify-center rounded-lg text-base duration-500 hover:scale-95',
+        'card-sm flex h-[4.125rem] w-full flex-col items-center justify-center text-base',
       )}
     >
       {children}
