@@ -12,7 +12,7 @@ import { forwardRef, ReactNode } from 'react'
 
 const Content = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="w-[45vw] space-y-4 rounded-lg bg-surface p-6 shadow-lg">
+    <div className="w-[45vw] space-y-4 rounded-lg bg-surface p-6 shadow-lg max-md:w-[96vw]">
       {children}
     </div>
   )

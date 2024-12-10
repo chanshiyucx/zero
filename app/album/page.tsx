@@ -14,7 +14,7 @@ export default function Page() {
   const albumList = sortedAlbums()
 
   return (
-    <article className="page space-y-20">
+    <article className="page">
       <header>
         <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
       </header>

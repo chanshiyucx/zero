@@ -30,7 +30,7 @@ export default function Page() {
   })
 
   return (
-    <article className="page space-y-20">
+    <article className="page">
       <header>
         <h1 className="text-4xl font-extrabold">Life is a burning chaos.</h1>
       </header>
@@ -46,7 +46,9 @@ export default function Page() {
                       dateString={post.date}
                       className="w-16 shrink-0 text-subtle"
                     ></Date>
-                    <span>{post.title}</span>
+                    <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                      {post.title}
+                    </span>
                   </Link>
                 </li>
               ))}

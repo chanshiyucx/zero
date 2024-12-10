@@ -15,7 +15,7 @@ export default function Page() {
   const leetcodeList = sortedLeetcodes()
 
   return (
-    <article className="page space-y-20">
+    <article className="page">
       <header>
         <h1 className="text-4xl font-extrabold">
           Simplicity is the soul of efficiency.
@@ -29,7 +29,7 @@ export default function Page() {
                 dateString={leetcode.date}
                 className="w-16 shrink-0 text-subtle"
               ></Date>
-              <span>
+              <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                 <MonoWord
                   label={leetcode.id}
                   mode="letter"

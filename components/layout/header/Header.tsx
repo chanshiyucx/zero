@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import logo from '@/public/apple-touch-icon.png'
+import { Map } from './Map'
 import { Search } from './Search'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
@@ -36,7 +37,7 @@ export function Header() {
         Reverie
       </Link>
       <div className="flex items-center gap-3">
-        <nav className="flex items-center justify-center gap-1">
+        <nav className="flex items-center justify-center gap-1 max-md:hidden">
           <MenuItem name="Home" path="/" />
           <MenuItem name="Blog" path="/blog" />
           <MenuItem name="Projects" path="/projects" />
@@ -44,6 +45,7 @@ export function Header() {
           <MenuItem name="Album" path="/album" />
         </nav>
         <Search />
+        <Map />
         <ThemeSwitcher />
       </div>
     </header>
