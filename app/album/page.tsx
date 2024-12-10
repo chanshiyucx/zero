@@ -21,7 +21,7 @@ export default function Page() {
       <div className="space-y-12">
         {albumList.map((album) => (
           <div key={album.title}>
-            <p className="mb-5 flex gap-5 text-xl">
+            <p className="mb-5 flex gap-5 text-xl font-bold">
               <Date
                 dateString={album.date}
                 dateFormat="LLL dd, yyyy"
@@ -31,7 +31,7 @@ export default function Page() {
             </p>
             <MDX
               code={album.contentCode}
-              classname="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-3 album grid-template-rows"
+              classname="grid grid-cols-[repeat(3,minmax(0,1fr))] max-md:grid-cols-[repeat(2,minmax(0,1fr))] gap-3 album grid-template-rows"
             />
           </div>
         ))}

@@ -44,7 +44,7 @@ export default function Page() {
                   <Link className="flex gap-6" href={post.url}>
                     <Date
                       dateString={post.date}
-                      className="w-16 text-subtle"
+                      className="w-16 shrink-0 text-subtle"
                     ></Date>
                     <span>{post.title}</span>
                   </Link>

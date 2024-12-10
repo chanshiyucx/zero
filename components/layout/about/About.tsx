@@ -7,7 +7,7 @@ import {
   ReactJS,
   TypeScript,
 } from '@/components/icons'
-import { Github } from './Github'
+import { CV } from './CV'
 
 interface LinkElementProps {
   href: string
@@ -62,7 +62,7 @@ const Link = ({ label, ...props }: { label: string } & LinkProps) => (
 
 export function About() {
   return (
-    <div className="prose prose-rosepine text-justify">
+    <div className="prose prose-rosepine w-full max-w-none text-justify">
       <h2 className="text-xs text-subtle">Full-Stack Developer</h2>
 
       <p>
@@ -97,7 +97,7 @@ export function About() {
             to hear your ideas and contribute whenever possible.
           </p>
         </div>
-        <Github />
+        <CV />
       </div>
     </div>
   )
