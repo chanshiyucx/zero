@@ -5,15 +5,22 @@ import {
   Globe,
   Star,
 } from '@phosphor-icons/react/dist/ssr'
+import clsx from 'clsx'
 import { Date } from '@/components/ui/date'
 
 interface GithubProps {
   repo: Repository
+  className?: string
 }
 
-export function Github({ repo }: GithubProps) {
+export function Github({ repo, className }: GithubProps) {
   return (
-    <div className="flex flex-col justify-between space-y-3 rounded-lg bg-muted/10 p-3 transition-all duration-300 hover:bg-muted/20">
+    <div
+      className={clsx(
+        'flex flex-col justify-between space-y-3 rounded-lg bg-muted/10 p-3 transition-all duration-300 hover:bg-muted/20',
+        className,
+      )}
+    >
       <div className="flex items-start justify-between gap-1">
         <div>
           <div className="text-lg font-bold">{repo.name}</div>
@@ -35,9 +42,7 @@ export function Github({ repo }: GithubProps) {
           <span>{repo.stargazers_count}</span>
         </div>
         <div className="flex items-center gap-1">
-          <span>
-            <GitFork size="1em" weight="bold" />
-          </span>
+          <GitFork size="1em" weight="bold" />
           <span>{repo.forks_count}</span>
         </div>
       </div>
