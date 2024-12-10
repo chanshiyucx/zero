@@ -1,11 +1,11 @@
 export function Footer() {
   return (
-    <footer className="p-2 md:px-16">
-      <div className="mt-6 flex items-center justify-center space-x-2 text-sm text-zinc-500">
-        <p>Chanshiyu </p>
-        <span className="font-bold">·</span>
-        <p>&copy; 2016-{new Date().getFullYear()}</p>
-      </div>
+    <footer className="my-3 flex items-center justify-center gap-3 text-sm">
+      <p>Chanshiyu </p>
+      <p>
+        <span className="inline-block translate-y-0.5">&copy; </span>
+        2016-{new Date().getFullYear()}
+      </p>
     </footer>
   )
 }

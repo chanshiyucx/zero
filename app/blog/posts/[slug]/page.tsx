@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { allPosts } from 'content-collections'
 import { notFound } from 'next/navigation'
-import { Date } from '@/components/ui/date'
-import { MDX } from '@/components/ui/mdx'
+import { Article } from '@/components/ui/article'
 import { config } from '@/lib/config'
 import { sortedPosts } from '@/lib/content'
 
@@ -10,8 +9,11 @@ interface PageProps {
   params: { slug: string }
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const post = allPosts.find((post) => post.slug === params.slug)
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const post = allPosts.find((post) => post.slug === slug)
   if (!post) return {}
   const publisher = `${config.author.name} ${config.author.link}`
 
@@ -44,21 +46,8 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <article className="page">
-      <header className="mb-6">
-        <h1 className="mb-2 text-2xl font-extrabold">{post.title}</h1>
-        <div className="mt-3 flex gap-2 space-x-2 text-subtle">
-          <Date dateString={post.date} />
-          <span>
-            {post.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
-          </span>
-        </div>
-      </header>
-      <section className="py-5">
-        <MDX code={post.contentCode} />
-      </section>
-    </article>
+    <div className="page">
+      <Article article={post} />
+    </div>
   )
 }
