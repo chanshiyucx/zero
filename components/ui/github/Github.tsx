@@ -27,10 +27,20 @@ export function Github({ repo, className }: GithubProps) {
           <Date dateString={repo.updated_at} className="text-xs text-subtle" />
         </div>
         <div className="inline-flex items-center text-lg">
-          <a href={repo.html_url} target="_blank" className="p-1">
+          <a
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1"
+          >
             <GithubLogo weight="duotone" />
           </a>
-          <a href={repo.homepage} target="_blank" className="p-1">
+          <a
+            href={repo.homepage}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1"
+          >
             <Globe weight="duotone" />
           </a>
         </div>

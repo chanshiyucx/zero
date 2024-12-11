@@ -21,16 +21,18 @@ export async function CV() {
       <Github repo={repo} />
       <div className="flex gap-4">
         <a
-          className="tiny-thumb flex flex-1 items-center justify-center gap-2 border-none"
-          target="_blank"
           href={config.links.cvPdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="tiny-thumb flex flex-1 items-center justify-center gap-2 border-none"
         >
           Download CV <DownloadSimple size="1em" weight="bold" />
         </a>
         <a
-          className="link p-3 underline"
-          target="_blank"
           href={config.links.cv}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link p-3 underline"
         >
           read.cv
         </a>

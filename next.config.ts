@@ -15,23 +15,27 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/rss',
-        destination: '/blog/feed',
+        destination: '/feed',
       },
       {
         source: '/atom',
-        destination: '/blog/feed',
+        destination: '/feed',
       },
       {
         source: '/rss.xml',
-        destination: '/blog/feed',
+        destination: '/feed',
       },
       {
         source: '/atom.xml',
-        destination: '/blog/feed',
+        destination: '/feed',
       },
       {
         source: '/feed.xml',
-        destination: '/blog/feed',
+        destination: '/feed',
+      },
+      {
+        source: '/sitemap',
+        destination: '/sitemap.xml',
       },
     ]
   },
