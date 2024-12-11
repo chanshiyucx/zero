@@ -56,7 +56,7 @@ const ReactJSLink = () => (
 )
 
 const Link = ({ label, ...props }: { label: string } & LinkProps) => (
-  <NextLink {...props} className="link-out px-1">
+  <NextLink {...props} className="link px-1">
     {label}
   </NextLink>
 )
