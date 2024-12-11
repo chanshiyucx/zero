@@ -22,7 +22,7 @@ export function MDX({ code, classname }: MDXProps) {
     <div
       className={clsx(
         classname,
-        'prose prose-rosepine max-w-none overflow-x-hidden text-justify prose-img:rounded-lg',
+        'prose prose-rosepine max-w-none text-justify prose-img:rounded-lg',
       )}
     >
       <Component components={components} />
