@@ -48,6 +48,11 @@
     @apply after:absolute after:-left-6 after:text-transparent after:transition-all after:duration-300 after:content-['#'] hover:after:text-muted;
   }
 
+  /* Photo View Mask */
+  .photo-view-mask {
+    @apply !bg-surface;
+  }
+
   /* Syntax Highlighting */
   pre[data-theme='dark'] {
     color-scheme: dark;
