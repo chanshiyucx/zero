@@ -6,7 +6,7 @@ import { config } from '@/lib/config'
 import { sortedLeetcodes } from '@/lib/content'
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({
