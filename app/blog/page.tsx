@@ -37,7 +37,9 @@ export default function Page() {
       <div>
         {postGroupList.map((postGroup) => (
           <div key={postGroup.year}>
-            <p className="text-right text-2xl">{postGroup.year}</p>
+            <p className="text-right text-3xl font-extrabold">
+              {postGroup.year}
+            </p>
             <ul className="space-y-2">
               {postGroup.list.map((post) => (
                 <li key={post.title}>
