@@ -54,7 +54,7 @@
   }
 
   pre[data-language] {
-    @apply after:absolute after:bottom-2 after:right-3 after:uppercase after:content-[attr(data-language)];
+    @apply after:absolute after:bottom-3 after:right-4 after:uppercase after:content-[attr(data-language)];
   }
 
   code[data-theme*=' '],

@@ -6,7 +6,7 @@ import Typed from 'typed.js'
 const sentences: string[] = [
   'Tech stuff enthusiast',
   'Nature admirer',
-  'Enjoyer of good books',
+  'Music aficionado',
   'Full stack developer',
 ]
 
