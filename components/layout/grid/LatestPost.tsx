@@ -13,7 +13,7 @@ export function LatestPost() {
     >
       <span>Latest post</span>
       <Divider />
-      <span className="overflow-hidden text-ellipsis whitespace-nowrap font-bold">
+      <span className="overflow-x-hidden text-ellipsis whitespace-nowrap font-bold">
         {latestPost.title}
       </span>
       <Divider />

@@ -1,5 +1,6 @@
 import type { Action } from 'kbar'
 import type { ReactNode } from 'react'
+import { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
   Camera,
   GitFork,
@@ -20,6 +21,12 @@ import { config } from '@/lib/config'
 import { sortedLeetcodes, sortedPosts } from '@/lib/content'
 import { KBar } from './Kbar'
 
+const iconProps: Partial<IconProps> = {
+  size: '1em',
+  weight: 'duotone',
+  className: 'inline-block text-xl mr-3',
+}
+
 export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const { push } = useRouter()
   const postList = sortedPosts()
@@ -32,7 +39,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       name: 'Home',
       shortcut: ['n', 'h'],
       keywords: 'homepage main',
-      icon: <House size="1em" weight="duotone" />,
+      icon: <House {...iconProps} />,
       perform: () => push('/'),
     },
     {
@@ -40,7 +47,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       name: 'Album',
       shortcut: ['n', 'a'],
       keywords: 'a collection of moments and memories',
-      icon: <Camera size="1em" weight="duotone" />,
+      icon: <Camera {...iconProps} />,
       perform: () => push('/album'),
     },
   ]
@@ -48,7 +55,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const postsAsAction: Action[] = postList.map((post) => ({
     id: post.slug,
     name: `${post.id}-${post.title}`,
-    icon: <Notebook size="1em" weight="duotone" />,
+    icon: <Notebook {...iconProps} />,
     keywords: post.tags.toString().replaceAll(',', ' '),
     parent: 'search-blog',
     section: 'Blog',
@@ -62,7 +69,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       shortcut: ['b'],
       section: 'Blog',
       keywords: 'posts writing',
-      icon: <Scroll size="1em" weight="duotone" />,
+      icon: <Scroll {...iconProps} />,
       perform: () => push('/blog'),
     },
     {
@@ -71,7 +78,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Blog',
       keywords: 'search blog write writing blog',
       shortcut: ['b', 's'],
-      icon: <MagnifyingGlass size="1em" weight="duotone" />,
+      icon: <MagnifyingGlass {...iconProps} />,
     },
     ...postsAsAction,
   ]
@@ -79,7 +86,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const leetcodeAsAction: Action[] = leetcodeList.map((leetcode) => ({
     id: leetcode.slug,
     name: `${leetcode.id}-${leetcode.title}`,
-    icon: <Notebook size="1em" weight="duotone" />,
+    icon: <Notebook {...iconProps} />,
     keywords: leetcode.tags.toString().replaceAll(',', ' '),
     parent: 'search-leetcode',
     section: 'Leetcode',
@@ -93,7 +100,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       shortcut: ['l'],
       section: 'Leetcode',
       keywords: 'leetcode writing',
-      icon: <TerminalWindow size="1em" weight="duotone" />,
+      icon: <TerminalWindow {...iconProps} />,
       perform: () => push('/leetcode'),
     },
     {
@@ -102,15 +109,15 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Leetcode',
       keywords: 'search leetcode write writing',
       shortcut: ['l', 's'],
-      icon: <MagnifyingGlass size="1em" weight="duotone" />,
+      icon: <MagnifyingGlass {...iconProps} />,
     },
     ...leetcodeAsAction,
   ]
 
   const projectsAsAction: Action[] = repositories.map((repo) => ({
-    id: `out-${repo.full_name}`,
+    id: `link-${repo.full_name}`,
     name: repo.full_name,
-    icon: <GitFork size="1em" weight="duotone" />,
+    icon: <GitFork {...iconProps} />,
     keywords: repo.topics.toString().replaceAll(',', ' '),
     parent: 'search-projects',
     section: 'Project',
@@ -124,7 +131,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       shortcut: ['p'],
       section: 'Project',
       keywords: 'projects writing',
-      icon: <TerminalWindow size="1em" weight="duotone" />,
+      icon: <TerminalWindow {...iconProps} />,
       perform: () => push('/projects'),
     },
     {
@@ -133,42 +140,42 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       section: 'Project',
       keywords: 'search projects write writing',
       shortcut: ['p', 's'],
-      icon: <MagnifyingGlass size="1em" weight="duotone" />,
+      icon: <MagnifyingGlass {...iconProps} />,
     },
     ...projectsAsAction,
   ]
 
   const websiteActions: Action[] = [
     {
-      id: 'out-repo',
+      id: 'link-repo',
       name: 'Github',
       section: 'Website',
       keywords: 'repo source github zero',
-      icon: <GithubLogo size="1em" weight="duotone" />,
+      icon: <GithubLogo {...iconProps} />,
       perform: () => window.open(config.links.repo, '_blank'),
     },
     {
-      id: 'out-twitter',
+      id: 'link-twitter',
       name: 'Twitter',
       section: 'Website',
       keywords: 'twitter personal homepage',
-      icon: <XLogo size="1em" weight="duotone" />,
+      icon: <XLogo {...iconProps} />,
       perform: () => window.open(config.links.twitter, '_blank'),
     },
     {
-      id: 'out-linkedIn',
+      id: 'link-linkedIn',
       name: 'LinkedIn',
       section: 'Website',
       keywords: 'linkedIn personal homepage',
-      icon: <LinkedinLogo size="1em" weight="duotone" />,
+      icon: <LinkedinLogo {...iconProps} />,
       perform: () => window.open(config.links.linkedIn, '_blank'),
     },
     {
-      id: 'out-wakatime',
+      id: 'link-wakatime',
       name: 'Wakatime',
       section: 'Website',
       keywords: 'coding time analysis',
-      icon: <Laptop size="1em" weight="duotone" />,
+      icon: <Laptop {...iconProps} />,
       perform: () => window.open(config.links.wakatime, '_blank'),
     },
   ]
