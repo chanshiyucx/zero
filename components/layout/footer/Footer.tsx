@@ -14,17 +14,17 @@ export function Footer() {
         </p>
       </div>
       <div className="flex gap-3">
-        <Link href="/sitemap" className="link-out">
+        <Link href="/sitemap" className="link">
           Sitemap
         </Link>
-        <Link href="/feed" className="link-out">
+        <Link href="/feed" className="link">
           RSS
         </Link>
         <a
           href={config.links.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="link-out"
+          className="link"
         >
           Github
         </a>

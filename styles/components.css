@@ -40,17 +40,12 @@
   /* Link */
   .link {
     @apply inline font-medium text-iris no-underline underline-offset-2 transition-all duration-300 hover:underline;
-    @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['→'];
+    @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['↗'];
   }
-  .link[href^='http'] {
-    @apply after:content-['↗'];
-  }
+
   .link[href^='#'] {
     @apply relative font-bold text-text no-underline;
     @apply after:absolute after:-left-6 after:text-transparent after:transition-all after:duration-300 after:content-['#'] hover:after:text-muted;
-  }
-  .link-out {
-    @apply link after:content-['↗'];
   }
 
   /* Syntax Highlighting */

@@ -46,7 +46,7 @@ const ResultItem = forwardRef<
             <span
               className={clsx(
                 'leading-none',
-                action.id.startsWith('out') && 'link-out',
+                action.id.startsWith('out') && 'link',
               )}
             >
               {action.name}
