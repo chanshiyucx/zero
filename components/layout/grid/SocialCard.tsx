@@ -14,6 +14,7 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
     <a
       href={href}
       target="_blank"
+      rel="noopener noreferrer"
       className={clsx(
         className,
         'card-sm flex h-[4.125rem] w-full flex-col items-center justify-center text-base',

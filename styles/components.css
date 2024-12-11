@@ -34,7 +34,7 @@
 
   /* Tiny Thumb */
   .tiny-thumb {
-    @apply rounded-lg border border-muted/20 bg-muted/10 px-1 py-0.5 font-semibold leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
+    @apply rounded-lg border border-muted/20 bg-muted/10 px-2 py-1 font-semibold leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
   }
 
   /* Link */
@@ -42,13 +42,15 @@
     @apply inline font-medium text-iris no-underline underline-offset-2 transition-all duration-300 hover:underline;
     @apply after:ml-0.5 after:inline-block after:whitespace-pre after:content-['→'];
   }
-  .link[href^='http'],
-  .link-out {
+  .link[href^='http'] {
     @apply after:content-['↗'];
   }
   .link[href^='#'] {
-    @apply relative no-underline;
+    @apply relative font-bold text-text no-underline;
     @apply after:absolute after:-left-6 after:text-transparent after:transition-all after:duration-300 after:content-['#'] hover:after:text-muted;
+  }
+  .link-out {
+    @apply link after:content-['↗'];
   }
 
   /* Syntax Highlighting */
@@ -57,7 +59,7 @@
   }
 
   pre[data-language] {
-    @apply after:absolute after:right-3 after:top-2 after:uppercase after:content-[attr(data-language)];
+    @apply after:absolute after:bottom-2 after:right-3 after:uppercase after:content-[attr(data-language)];
   }
 
   code[data-theme*=' '],

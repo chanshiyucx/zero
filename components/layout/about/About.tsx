@@ -19,7 +19,8 @@ const LinkElement = ({ icon: Icon, href, title }: LinkElementProps) => (
   <a
     href={href}
     target="_blank"
-    className="tiny-thumb mx-1 inline-flex translate-y-0.5 items-center gap-px no-underline"
+    rel="noopener noreferrer"
+    className="tiny-thumb mx-1 inline-flex translate-y-0.5 items-center gap-1 border-none no-underline"
   >
     <Icon />
     <span className="text-sm">{title}</span>
@@ -55,7 +56,7 @@ const ReactJSLink = () => (
 )
 
 const Link = ({ label, ...props }: { label: string } & LinkProps) => (
-  <NextLink {...props} className="link link-out px-1">
+  <NextLink {...props} className="link-out px-1">
     {label}
   </NextLink>
 )
