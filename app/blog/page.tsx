@@ -48,7 +48,7 @@ export default function Page() {
                       dateString={post.date}
                       className="w-16 shrink-0 text-subtle"
                     ></Date>
-                    <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    <span className="overflow-x-hidden text-ellipsis whitespace-nowrap">
                       {post.title}
                     </span>
                   </Link>

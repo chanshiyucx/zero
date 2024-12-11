@@ -29,7 +29,7 @@ export default function Page() {
                 dateString={leetcode.date}
                 className="w-16 shrink-0 text-subtle"
               ></Date>
-              <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+              <span className="overflow-x-hidden text-ellipsis whitespace-nowrap">
                 <MonoWord
                   label={leetcode.id}
                   mode="letter"

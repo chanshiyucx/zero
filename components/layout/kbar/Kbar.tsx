@@ -39,23 +39,14 @@ const ResultItem = forwardRef<
         active ? 'bg-muted/10 text-text' : 'text-subtle',
       )}
     >
-      <div className="flex items-center gap-3">
-        <span className="text-xl">{action.icon}</span>
-        <div className="flex flex-col items-start justify-center">
-          <div className="flex items-end gap-px">
-            <span
-              className={clsx(
-                'leading-none',
-                action.id.startsWith('out') && 'link',
-              )}
-            >
-              {action.name}
-            </span>
-          </div>
-          {action.subtitle && (
-            <span className="text-xs text-subtle">{action.subtitle}</span>
-          )}
-        </div>
+      <div
+        className={clsx(
+          'overflow-hidden text-ellipsis whitespace-nowrap',
+          action.id.startsWith('link') && 'link',
+        )}
+      >
+        {action.icon}
+        {action.name}
       </div>
       {action.shortcut && (
         <div className="flex gap-1">
