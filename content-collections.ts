@@ -4,6 +4,7 @@ import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
 import { isValid, parse } from 'date-fns'
 import GithubSlugger from 'github-slugger'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
@@ -21,6 +22,7 @@ const slugger = new GithubSlugger()
 const options: Options = {
   rehypePlugins: [
     rehypeSlug,
+    [rehypeAutolinkHeadings, { behavior: 'wrap' }],
     [
       rehypeExternalLinks,
       { target: '_blank', rel: ['nofollow', 'noopener', 'noreferrer'] },

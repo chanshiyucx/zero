@@ -2,7 +2,7 @@
 
 @layer base {
   html {
-    @apply scrollbar-track-transparent scrollbar-thumb-muted scrollbar-thumb-rounded-lg;
+    @apply scroll-smooth scrollbar-track-transparent scrollbar-thumb-muted scrollbar-thumb-rounded-lg;
   }
 
   * {
