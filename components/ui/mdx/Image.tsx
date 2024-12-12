@@ -23,7 +23,7 @@ export function Image(
         <span className="relative block">
           <NextImage
             {...(props as ImageProps)}
-            priority
+            priority={false}
             alt={props.alt ?? ''}
             onLoad={() => setIsReady(true)}
             onError={() => setIsReady(false)}

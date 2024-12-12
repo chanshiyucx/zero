@@ -1,7 +1,6 @@
 import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
-import beach from '@/assets/images/beach.jpg'
 
 export function AlbumCard() {
   return (
@@ -10,10 +9,10 @@ export function AlbumCard() {
       className="card-sm relative block h-36 text-base font-bold"
     >
       <Image
-        className="absolute inset-0 h-full w-full rounded-lg object-cover object-center brightness-75"
-        src={beach}
+        src="/assets/beach.jpg"
         alt="Album Beach"
-        priority={false}
+        fill
+        className="rounded-lg brightness-75"
       />
       <p className="absolute -left-2 bottom-16 top-8 w-40 -rotate-90">
         たびのきおく
