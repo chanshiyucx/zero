@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import stars from '@/assets/images/stars.jpg'
 
-export function BookCard() {
+export function StarsCard() {
   return (
     <Link href="/leetcode" className="card relative block h-full w-full">
       <Image

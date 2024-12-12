@@ -1,11 +1,11 @@
 import { AlbumCard } from './AlbumCard'
-import { BookCard } from './BookCard'
 import { DiscordStatus } from './DiscordStatus'
 import { GithubLink } from './GithubLink'
 import { GithubStats } from './GithubStats'
 import { LatestPost } from './LatestPost'
 import { SocialCard } from './SocialCard'
 import { StacksCard } from './StacksCard'
+import { StarsCard } from './StarsCard'
 import { WakatimeStats } from './WakatimeStats'
 
 export function Grid() {
@@ -39,7 +39,7 @@ export function Grid() {
             <DiscordStatus />
             <LatestPost />
           </div>
-          <BookCard />
+          <StarsCard />
         </div>
       </div>
     </div>
