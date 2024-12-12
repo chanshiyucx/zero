@@ -10,9 +10,8 @@ interface TinyButtonProps {
 export function TinyButton({ className, children, onClick }: TinyButtonProps) {
   return (
     <button
-      className={clsx(className, 'rounded-lg bg-surface p-2')}
-      type="button"
       onClick={onClick}
+      className={clsx(className, 'rounded-lg bg-surface p-2')}
     >
       {children}
     </button>

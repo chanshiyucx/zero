@@ -27,11 +27,13 @@ const fira = Fira_Code({
 })
 
 export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#232136' },
+    { media: '(prefers-color-scheme: light)', color: '#faf4ed' },
+  ],
+  colorScheme: 'dark light',
   width: 'device-width',
   initialScale: 1,
-  minimumScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 }
 
 export const metadata: Metadata = {

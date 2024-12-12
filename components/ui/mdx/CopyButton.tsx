@@ -24,6 +24,7 @@ export const CopyButton = ({ text }: CopyButtonProps) => {
     <button
       disabled={isCopied}
       onClick={copy}
+      aria-label="Copy"
       className={clsx(
         'absolute right-0 top-0 flex items-center rounded-bl-lg p-2 leading-none opacity-0 transition-all duration-300 group-hover:opacity-100 active:opacity-100',
         isCopied ? 'bg-overlay' : 'cursor-pointer bg-base',

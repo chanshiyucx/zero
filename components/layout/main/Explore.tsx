@@ -10,6 +10,7 @@ export function Expore() {
   return (
     <button
       onClick={toggle}
+      aria-label="Open menu"
       className="group flex w-full items-center justify-center gap-1 text-sm tracking-widest opacity-60 hover:opacity-100 active:opacity-100"
     >
       <span>Press</span>

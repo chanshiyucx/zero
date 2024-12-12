@@ -7,7 +7,11 @@ export function Map() {
   } = useKBar()
 
   return (
-    <button onClick={toggle} className="hidden text-sm max-md:block">
+    <button
+      onClick={toggle}
+      aria-label="Open menu"
+      className="hidden text-sm max-md:block"
+    >
       <MapTrifold weight="duotone" className="text-xl" />
     </button>
   )

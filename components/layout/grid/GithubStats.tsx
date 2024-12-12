@@ -14,7 +14,7 @@ function BackgroundPattern() {
     .map(() => colours[random(0, colours.length)])
 
   return (
-    <div className="z-0 grid grid-cols-[repeat(15,minmax(0,1fr))] place-items-center gap-1 px-2 py-3 opacity-90">
+    <div className="grid grid-cols-[repeat(15,minmax(0,1fr))] place-items-center gap-1 px-2 py-3 opacity-90">
       {days.map((c, i) => (
         <div key={i} className="size-3 rounded" style={{ background: c }} />
       ))}
