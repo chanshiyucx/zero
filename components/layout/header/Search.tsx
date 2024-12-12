@@ -9,6 +9,7 @@ export function Search() {
   return (
     <button
       onClick={toggle}
+      aria-label="Search"
       className="flex cursor-text items-center gap-3 rounded-lg bg-surface p-2 text-sm outline-none"
     >
       <span className="flex items-center gap-3">

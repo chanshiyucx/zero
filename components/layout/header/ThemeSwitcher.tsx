@@ -31,7 +31,7 @@ export function TinyButton() {
   const { toggleTheme, theme } = useThemeTransition()
   const Icon = theme === Theme.Light ? Sun : Moon
   return (
-    <button onClick={toggleTheme}>
+    <button onClick={toggleTheme} aria-label="Switch theme">
       <Icon
         className="animate-fade text-xl animate-duration-300"
         weight="duotone"

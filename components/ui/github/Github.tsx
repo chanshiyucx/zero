@@ -31,6 +31,7 @@ export function Github({ repo, className }: GithubProps) {
             href={repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Github repository"
             className="p-1"
           >
             <GithubLogo weight="duotone" />
@@ -39,6 +40,7 @@ export function Github({ repo, className }: GithubProps) {
             href={repo.homepage}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Home page"
             className="p-1"
           >
             <Globe weight="duotone" />

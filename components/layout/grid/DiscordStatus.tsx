@@ -9,7 +9,7 @@ export async function DiscordStatus() {
       <div className="relative flex -rotate-12 items-center justify-center">
         <DiscordLogo
           size="1em"
-          className="absolute -bottom-8 -z-50 h-32 w-32 -rotate-45 text-muted/40"
+          className="absolute -bottom-8 -z-10 h-32 w-32 -rotate-45 text-muted/40"
         />
 
         <p className="flex flex-col text-xl font-semibold">
