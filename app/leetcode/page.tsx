@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
-import { MonoWord } from '@/components/ui/mono-word'
 import { sortedLeetcodes } from '@/lib/content'
 
 export const metadata: Metadata = {
@@ -29,13 +28,8 @@ export default function Page() {
                 dateString={leetcode.date}
                 className="w-16 shrink-0 text-subtle"
               ></Date>
-              <span className="overflow-x-hidden text-ellipsis whitespace-nowrap">
-                <MonoWord
-                  label={leetcode.id}
-                  mode="letter"
-                  className="mr-1 w-10"
-                />
-                - {leetcode.title}
+              <span className="link-hover overflow-x-hidden text-ellipsis whitespace-nowrap text-text">
+                {leetcode.id} - {leetcode.title}
               </span>
             </Link>
           </li>

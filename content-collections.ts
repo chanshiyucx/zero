@@ -6,9 +6,12 @@ import { isValid, parse } from 'date-fns'
 import GithubSlugger from 'github-slugger'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
+import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
+import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import { rehypeCodeSave, rehypeImage } from './lib/mdx'
 
 interface CollectionProps {
@@ -22,6 +25,7 @@ const slugger = new GithubSlugger()
 const options: Options = {
   rehypePlugins: [
     rehypeSlug,
+    [rehypeKatex, { output: 'html' }],
     [rehypeAutolinkHeadings, { behavior: 'wrap' }],
     [
       rehypeExternalLinks,
@@ -39,7 +43,7 @@ const options: Options = {
     ],
     [rehypeImage, { root: 'public' }],
   ],
-  remarkPlugins: [remarkGfm],
+  remarkPlugins: [remarkGfm, remarkBreaks, remarkMath],
 }
 
 const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
