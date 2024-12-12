@@ -1,6 +1,5 @@
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import catImg from '@/assets/images/cat.jpg'
 import { config } from '@/lib/config'
 
 export function GithubLink() {
@@ -12,10 +11,11 @@ export function GithubLink() {
       className="card relative block h-full w-full"
     >
       <Image
-        src={catImg}
+        src="/assets/cat.jpg"
         alt="Cat"
-        className="absolute inset-0 -z-10 h-full w-full object-cover object-center brightness-50"
+        fill
         priority
+        className="-z-10 brightness-50"
       />
       <div className="flex h-full flex-col justify-between gap-5 p-6 text-base font-bold">
         <GithubLogo className="text-xl" weight="bold" />

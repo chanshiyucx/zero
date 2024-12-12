@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import logo from '@/public/apple-touch-icon.png'
 import { Map } from './Map'
 import { Search } from './Search'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -32,8 +31,14 @@ function MenuItem({ name, path }: MenuItemProps) {
 export function Header() {
   return (
     <header className="my-3 flex items-center justify-between rounded-lg">
-      <Link href="/" className="flex items-center py-3 text-xl font-bold">
-        <Image src={logo} alt="Site Logo" className="mr-1 w-6" priority />
+      <Link href="/" className="flex items-center gap-1 py-3 text-xl font-bold">
+        <Image
+          src="/apple-touch-icon.png"
+          alt="Site Logo"
+          width={24}
+          height={24}
+          priority
+        />
         Reverie
       </Link>
       <div className="flex items-center gap-3">
