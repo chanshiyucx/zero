@@ -19,12 +19,12 @@ export async function CV() {
         </Link>
       </header>
       <Github repo={repo} />
-      <div className="flex gap-4">
+      <div className="flex gap-5">
         <a
           href={config.links.cvPdf}
           target="_blank"
           rel="noopener noreferrer"
-          className="tiny-thumb flex flex-1 items-center justify-center gap-2 border-none"
+          className="tiny-thumb flex flex-1 items-center justify-center gap-2 border-none no-underline"
         >
           Download CV <DownloadSimple size="1em" weight="bold" />
         </a>
@@ -32,9 +32,9 @@ export async function CV() {
           href={config.links.cv}
           target="_blank"
           rel="noopener noreferrer"
-          className="link p-3 underline"
+          className="link py-3"
         >
-          read.cv
+          Read CV
         </a>
       </div>
     </div>

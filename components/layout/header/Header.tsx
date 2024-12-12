@@ -40,8 +40,8 @@ export function Header() {
         <nav className="flex items-center justify-center gap-1 max-md:hidden">
           <MenuItem name="Home" path="/" />
           <MenuItem name="Blog" path="/blog" />
-          <MenuItem name="Projects" path="/projects" />
           <MenuItem name="Leetcode" path="/leetcode" />
+          <MenuItem name="Projects" path="/projects" />
           <MenuItem name="Album" path="/album" />
         </nav>
         <Search />
