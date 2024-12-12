@@ -1,7 +1,8 @@
 import type { NextConfig } from 'next'
 import { withContentCollections } from '@content-collections/next'
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
-const nextConfig: NextConfig = {
+let nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -39,6 +40,12 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+}
+
+if (process.env.ANALYZE === 'true') {
+  nextConfig = withBundleAnalyzer({
+    enabled: true,
+  })(nextConfig)
 }
 
 export default withContentCollections(nextConfig)
