@@ -15,7 +15,7 @@ export function GithubLink() {
         src={catImg}
         alt="Cat"
         className="absolute inset-0 -z-10 h-full w-full object-cover object-center brightness-50"
-        priority={false}
+        priority
       />
       <div className="flex h-full flex-col justify-between gap-5 p-6 text-base font-bold">
         <GithubLogo className="text-xl" weight="bold" />
