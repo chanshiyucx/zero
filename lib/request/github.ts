@@ -30,32 +30,44 @@ export interface Repository {
 const GITHUB_API = 'https://api.github.com'
 const USERNAME = 'chanshiyucx'
 const REPO = 'zero'
+const PER_PAGE = 100
+const MIN_STARS = 5
 
 const headers = new Headers({
   Authorization: `token ${env.GITHUB_TOKEN}`,
+  Accept: 'application/vnd.github.v3+json',
 })
 
 export async function getGithubUserData() {
-  const url = `${GITHUB_API}/users/${USERNAME}`
-  return fetchData<User>(url, headers)
+  return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, headers)
 }
 
 export async function getGithubRepositories() {
-  const { public_repos } = await getGithubUserData()
-  const pages = Math.ceil(public_repos / 100)
-  let repositories: Repository[] = []
-  for (let index = 1; index <= pages; index++) {
-    const url = `${GITHUB_API}/users/${USERNAME}/repos?per_page=100&page=${index}`
-    const list = await fetchData<Repository[]>(url, headers)
-    repositories.push(...list)
+  try {
+    const { public_repos } = await getGithubUserData()
+    const pages = Math.ceil(public_repos / PER_PAGE)
+
+    const repositories = await Promise.all(
+      Array.from({ length: pages }, (_, i) =>
+        fetchData<Repository[]>(
+          `${GITHUB_API}/users/${USERNAME}/repos?per_page=${PER_PAGE}&page=${i + 1}`,
+          headers,
+        ),
+      ),
+    ).then((results) => results.flat())
+
+    return repositories
+      .filter((repo) => repo.stargazers_count > MIN_STARS)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+  } catch (error) {
+    console.error('Failed to fetch GitHub repositories:', error)
+    return []
   }
-  // Filter and sort
-  repositories = repositories.filter((repo) => repo.stargazers_count > 5)
-  repositories.sort((a, b) => b.stargazers_count - a.stargazers_count)
-  return repositories
 }
 
 export async function getGithubRepo() {
-  const url = `${GITHUB_API}/repos/${USERNAME}/${REPO}`
-  return fetchData<Repository>(url, headers)
+  return fetchData<Repository>(
+    `${GITHUB_API}/repos/${USERNAME}/${REPO}`,
+    headers,
+  )
 }

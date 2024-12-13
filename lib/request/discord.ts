@@ -1,9 +1,9 @@
 import { fetchData } from './fetch'
 
-enum status {
-  online,
-  idle,
-  dnd,
+const enum DiscordStatus {
+  Online = 'online',
+  Idle = 'idle',
+  Dnd = 'dnd',
 }
 
 export interface Lanyard {
@@ -14,27 +14,32 @@ export interface Lanyard {
       discriminator: string
       avatar: string
     }
-    discord_status: status
+    discord_status: DiscordStatus
     active_on_discord_web: boolean
     active_on_discord_desktop: boolean
     active_on_discord_mobile: boolean
     listening_to_spotify: boolean
-    activities: {
-      id: string
-      name: string
-      type: number
-      state: string
-      timestamps: {
-        end: number
-      }
-      emoji: {
-        name: string
-      }
-      created_at: number
-    }[]
+    activities: Activity[]
     success: boolean
   }
 }
+
+interface Activity {
+  id: string
+  name: string
+  type: number
+  state: string
+  timestamps: {
+    end: number
+  }
+  emoji: {
+    name: string
+  }
+  created_at: number
+}
+
+const LANYARD_API = 'https://api.lanyard.rest/v1'
+const DISCORD_USER_ID = '746724670757142530'
 
 const headers = new Headers({
   'Content-Type': 'application/json',
@@ -42,6 +47,9 @@ const headers = new Headers({
 })
 
 export async function getDiscordData() {
-  const url = 'https://api.lanyard.rest/v1/users/746724670757142530'
-  return fetchData<Lanyard>(url, headers, 60)
+  return fetchData<Lanyard>(
+    `${LANYARD_API}/users/${DISCORD_USER_ID}`,
+    headers,
+    60,
+  )
 }

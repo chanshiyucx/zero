@@ -14,7 +14,7 @@ export function GithubLink() {
         src="/assets/cat.jpg"
         alt="Cat"
         fill
-        priority
+        sizes="(max-width: 768px) 100vw, 50vw"
         className="-z-10 brightness-50"
       />
       <div className="flex h-full flex-col justify-between gap-5 p-6 text-base font-bold">
