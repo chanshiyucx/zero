@@ -6,9 +6,7 @@ import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
 import { config } from '@/lib/config'
-import { getGithubRepositories } from '@/lib/request'
 import '@/styles/main.css'
-import { DataProvider } from './context'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
 
@@ -77,19 +75,15 @@ export default async function RootLayout({
 }: {
   children: ReactNode
 }) {
-  const repositories = await getGithubRepositories()
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={clsx(merriweather.variable, fira.variable)}>
-        <DataProvider repositories={repositories}>
-          <Providers>
-            <Header />
-            <PageTransitionEffect>{children}</PageTransitionEffect>
-            <Helper />
-            <Footer />
-          </Providers>
-        </DataProvider>
+        <Providers>
+          <Header />
+          <PageTransitionEffect>{children}</PageTransitionEffect>
+          <Helper />
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  let repositories = await getGithubRepositories()
-  repositories = repositories.filter((repo) => repo.stargazers_count > 5)
-  repositories.sort((a, b) => b.stargazers_count - a.stargazers_count)
+  const repositories = await getGithubRepositories()
 
   return (
     <article className="page">

@@ -47,7 +47,7 @@ export async function getGithubRepositories() {
 
   const { public_repos } = await getGithubUserData()
   const pages = Math.ceil(public_repos / 100)
-  const repositories: Repository[] = []
+  let repositories: Repository[] = []
   for (let index = 1; index <= pages; index++) {
     const response = await fetch(
       `${GITHUB_API}/users/${USERNAME}/repos?per_page=100&page=${index}`,
@@ -59,6 +59,9 @@ export async function getGithubRepositories() {
     const list: Repository[] = await response.json()
     repositories.push(...list)
   }
+  // Filter and sort
+  repositories = repositories.filter((repo) => repo.stargazers_count > 5)
+  repositories.sort((a, b) => b.stargazers_count - a.stargazers_count)
   setCache(cacheKey, repositories)
   return repositories
 }
