@@ -1,4 +1,4 @@
-import { fetchWithCache } from './fetch'
+import { fetchData } from './fetch'
 
 enum status {
   online,
@@ -43,5 +43,5 @@ const headers = new Headers({
 
 export async function getDiscordData() {
   const url = 'https://api.lanyard.rest/v1/users/746724670757142530'
-  return fetchWithCache<'discord'>(url, 'discord', headers, 10 * 1000)
+  return fetchData<Lanyard>(url, headers, 60)
 }
