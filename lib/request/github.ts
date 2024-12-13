@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import { fetchWithCache, getCache, setCache } from './fetch'
+import { fetchData } from './fetch'
 
 export interface User {
   followers: number
@@ -37,36 +37,25 @@ const headers = new Headers({
 
 export async function getGithubUserData() {
   const url = `${GITHUB_API}/users/${USERNAME}`
-  return fetchWithCache<'user'>(url, 'user', headers)
+  return fetchData<User>(url, headers)
 }
 
 export async function getGithubRepositories() {
-  const cacheKey = 'repositories'
-  const cachedData = getCache(cacheKey)
-  if (cachedData) return cachedData
-
   const { public_repos } = await getGithubUserData()
   const pages = Math.ceil(public_repos / 100)
   let repositories: Repository[] = []
   for (let index = 1; index <= pages; index++) {
-    const response = await fetch(
-      `${GITHUB_API}/users/${USERNAME}/repos?per_page=100&page=${index}`,
-      { headers },
-    )
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    const list: Repository[] = await response.json()
+    const url = `${GITHUB_API}/users/${USERNAME}/repos?per_page=100&page=${index}`
+    const list = await fetchData<Repository[]>(url, headers)
     repositories.push(...list)
   }
   // Filter and sort
   repositories = repositories.filter((repo) => repo.stargazers_count > 5)
   repositories.sort((a, b) => b.stargazers_count - a.stargazers_count)
-  setCache(cacheKey, repositories)
   return repositories
 }
 
 export async function getGithubRepo() {
   const url = `${GITHUB_API}/repos/${USERNAME}/${REPO}`
-  return fetchWithCache<'repository'>(url, 'repository', headers)
+  return fetchData<Repository>(url, headers)
 }

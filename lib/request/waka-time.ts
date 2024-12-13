@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import { fetchWithCache } from './fetch'
+import { fetchData } from './fetch'
 
 const headers = new Headers({
   Authorization: `Basic ${Buffer.from(env.WAKATIME_API_KEY).toString('base64')}`,
@@ -28,5 +28,5 @@ export interface Wakatime {
 
 export async function getCodingHrs() {
   const url = 'https://wakatime.com/api/v1/users/current/all_time_since_today'
-  return fetchWithCache<'wakatime'>(url, 'wakatime', headers)
+  return fetchData<Wakatime>(url, headers)
 }
