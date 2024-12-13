@@ -1,6 +1,7 @@
+import type { Repository } from '@/lib/request'
+import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import type { Action } from 'kbar'
 import type { ReactNode } from 'react'
-import { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
   Camera,
   GitFork,
@@ -14,9 +15,9 @@ import {
   TerminalWindow,
   XLogo,
 } from '@phosphor-icons/react/dist/ssr'
-import { KBarProvider } from 'kbar'
+import { KBarProvider, useRegisterActions } from 'kbar'
 import { useRouter } from 'next/navigation'
-import { useData } from '@/app/context'
+import { useEffect, useMemo, useState } from 'react'
 import { config } from '@/lib/config'
 import { sortedLeetcodes, sortedPosts } from '@/lib/content'
 import { KBar } from './Kbar'
@@ -27,11 +28,53 @@ const iconProps: Partial<IconProps> = {
   className: 'inline-block text-xl mr-3',
 }
 
+function RegisterActions() {
+  const [repositories, setRepositories] = useState<Repository[]>([])
+  useEffect(() => {
+    const fetchRepositories = async () => {
+      try {
+        const response = await fetch('/api/github/repositories')
+        const data = await response.json()
+        setRepositories(data)
+      } catch (error) {
+        console.error('Failed to load repositories:', error)
+      }
+    }
+    fetchRepositories()
+  }, [])
+
+  const projectsAsAction: Action[] = useMemo(() => {
+    const actions: Action[] = repositories.map((repo) => ({
+      id: `link-${repo.full_name}`,
+      name: repo.full_name,
+      icon: <GitFork {...iconProps} />,
+      keywords: repo.topics.toString().replaceAll(',', ' '),
+      parent: 'search-projects',
+      section: 'Project',
+      perform: () => window.open(repo.html_url, '_blank'),
+    }))
+    return [
+      {
+        id: 'search-projects',
+        name: 'Search projects...',
+        section: 'Project',
+        keywords: 'search projects write writing',
+        shortcut: ['p', 's'],
+        icon: <MagnifyingGlass {...iconProps} />,
+      },
+      ...actions,
+    ]
+  }, [repositories])
+
+  useRegisterActions(projectsAsAction, [projectsAsAction])
+
+  return null
+}
+
 export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const { push } = useRouter()
   const postList = sortedPosts()
   const leetcodeList = sortedLeetcodes()
-  const repositories = useData()
 
   const navigationActions: Action[] = [
     {
@@ -114,16 +157,6 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
     ...leetcodeAsAction,
   ]
 
-  const projectsAsAction: Action[] = repositories.map((repo) => ({
-    id: `link-${repo.full_name}`,
-    name: repo.full_name,
-    icon: <GitFork {...iconProps} />,
-    keywords: repo.topics.toString().replaceAll(',', ' '),
-    parent: 'search-projects',
-    section: 'Project',
-    perform: () => push(repo.html_url),
-  }))
-
   const projectsActions: Action[] = [
     {
       id: 'projects',
@@ -134,15 +167,6 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       icon: <TerminalWindow {...iconProps} />,
       perform: () => push('/projects'),
     },
-    {
-      id: 'search-projects',
-      name: 'Search projects...',
-      section: 'Project',
-      keywords: 'search projects write writing',
-      shortcut: ['p', 's'],
-      icon: <MagnifyingGlass {...iconProps} />,
-    },
-    ...projectsAsAction,
   ]
 
   const websiteActions: Action[] = [
@@ -191,6 +215,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   return (
     <KBarProvider actions={actions}>
       <KBar />
+      <RegisterActions />
       {children}
     </KBarProvider>
   )
