@@ -3,10 +3,11 @@
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import { useKBar } from 'kbar'
 
-export function Expore() {
+export function Explore() {
   const {
     query: { toggle },
   } = useKBar()
+
   return (
     <button
       onClick={toggle}

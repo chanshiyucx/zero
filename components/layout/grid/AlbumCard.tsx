@@ -12,6 +12,7 @@ export function AlbumCard() {
         src="/assets/beach.jpg"
         alt="Album Beach"
         fill
+        sizes="(max-width: 768px) 100vw, 20vw"
         className="rounded-lg brightness-75"
       />
       <p className="absolute -left-2 bottom-16 top-8 w-40 -rotate-90">

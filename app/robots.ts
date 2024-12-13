@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { config } from '@/lib/config'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://chanshiyu.com/sitemap.xml',
+    sitemap: `${config.webserver.host}/sitemap.xml`,
   }
 }

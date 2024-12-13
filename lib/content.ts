@@ -9,36 +9,30 @@ import { compareDesc } from 'date-fns'
 
 export type Content = Album | Leetcode | Post
 
+function sortByDate<T extends { date: string }>(items: T[]): T[] {
+  return items.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+}
+
 export function sortedPosts(): Post[] {
-  return allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date)),
-  )
+  return sortByDate(allPosts)
 }
 
 export function sortedNotes(): Post[] {
-  return allNotes.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date)),
-  )
+  return sortByDate(allNotes)
 }
 
 export function sortedLeetcodes(sortBy: 'id' | 'date' = 'id'): Leetcode[] {
-  if (sortBy === 'date') {
+  if (sortBy === 'id') {
     return allLeetcodes.sort((a, b) => Number(b.id) - Number(a.id))
   } else {
-    return allLeetcodes.sort((a, b) =>
-      compareDesc(new Date(a.date), new Date(b.date)),
-    )
+    return sortByDate(allLeetcodes)
   }
 }
 
 export function sortedAlbums(): Album[] {
-  return allAlbums.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date)),
-  )
+  return sortByDate(allAlbums)
 }
 
-export function sortedContent(): (Album | Leetcode | Post)[] {
-  return [...allPosts, ...allNotes, ...allLeetcodes].sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date)),
-  )
+export function sortedContent(): Content[] {
+  return sortByDate([...allPosts, ...allNotes, ...allLeetcodes])
 }
