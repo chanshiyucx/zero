@@ -1,6 +1,6 @@
 export const config = {
   webserver: {
-    host: 'http://chanshiyu.com',
+    host: 'http://reverieer.vercel.app',
   },
   metadata: {
     title: "Reverie's Hideout",
@@ -10,7 +10,7 @@ export const config = {
   author: {
     name: 'Reverie',
     email: 'chanshiyucx@gmail.com',
-    link: 'https://chanshiyu.com',
+    link: 'https://reverieer.vercel.app',
   },
   links: {
     github: 'http://github.com/chanshiyucx',
