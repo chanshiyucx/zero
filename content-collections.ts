@@ -53,22 +53,19 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     include: '**/*.md',
     schema: (z) => ({
       title: z.string(),
-      date: z.string().refine(
-        (value) => {
-          const date = parse(value, 'yyyy-MM-dd HH:mm:ss', new Date())
-          return isValid(date)
-        },
-        {
-          message: 'Invalid datetime format or invalid date value.',
-        },
-      ),
+      date: z
+        .string()
+        .refine(
+          (value) => isValid(parse(value, 'yyyy-MM-dd HH:mm:ss', new Date())),
+          { message: 'Invalid datetime format or invalid date value.' },
+        ),
       tags: z.string().array(),
       description: z.string().optional(),
     }),
     transform: async (document, context) => {
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
-      const id = match[1]
-      const slug = slugger.slug(match[2])
+      const [, id, title] = match
+      const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
       const contentCode = await compileMDX(context, document, options)
 

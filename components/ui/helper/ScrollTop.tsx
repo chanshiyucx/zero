@@ -2,7 +2,7 @@
 
 import { CaretDoubleUp } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
-import { throttle } from '@/lib/lodash'
+import { throttle } from '@/lib/utils/lodash'
 import { TinyButton } from './TinyButton'
 
 export function ScrollTop() {

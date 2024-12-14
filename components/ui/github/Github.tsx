@@ -1,4 +1,4 @@
-import type { Repository } from '@/lib/request'
+import type { Repository } from '@/lib/api'
 import {
   GitFork,
   GithubLogo,

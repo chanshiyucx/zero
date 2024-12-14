@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes'
 import { useCallback } from 'react'
 import { flushSync } from 'react-dom'
 import { useIsMounted } from '@/hook'
-import { transitionViewIfSupported } from '@/lib/dom'
+import { transitionViewIfSupported } from '@/lib/utils/dom'
 
 const Theme = {
   Light: 'light',

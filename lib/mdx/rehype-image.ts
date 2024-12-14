@@ -19,11 +19,10 @@ const calcImageSize = (imageSrc: string, options?: Options) => {
   }
 }
 
-const getThumbnail = (src: string) => {
-  // from: https://cx-onedrive.pages.dev/api/raw?path=/长沙/DSC00069.JPG
-  // to:   https://cx-onedrive.pages.dev/api/thumbnail?path=/长沙/DSC01999.JPG&size=medium
-  return src.replace('/raw?', '/thumbnail?') + '&size=large'
-}
+// from: https://cx-onedrive.pages.dev/api/raw?path=/长沙/DSC00069.JPG
+// to:   https://cx-onedrive.pages.dev/api/thumbnail?path=/长沙/DSC01999.JPG&size=medium
+const getThumbnail = (src: string) =>
+  src.replace('/raw?', '/thumbnail?') + '&size=large'
 
 export const rehypeImage: Plugin<[Options?], Root> = (options) => {
   return (tree) => {

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
-import { sortedAlbums } from '@/lib/content'
+import { sortedAlbums } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
   title: 'Album',

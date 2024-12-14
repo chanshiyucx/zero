@@ -1,7 +1,7 @@
 import { Code } from '@phosphor-icons/react/dist/ssr'
 import { VStudioCode } from '@/components/icons'
-import { config } from '@/lib/config'
-import { getCodingHrs } from '@/lib/request'
+import { getCodingHrs } from '@/lib/api'
+import { config } from '@/lib/constants/config'
 
 export async function WakatimeStats() {
   const result = await getCodingHrs()

@@ -1,23 +1,24 @@
-import type { Root } from 'hast'
+import type { Element, Root } from 'hast'
 import { visit } from 'unist-util-visit'
 
-interface NodeChildren {
-  type: string
-  tagName: string
-  properties: { className: string[] }
-  children?: [{ type: string; value: string }]
-  position: {
-    start: { line: number; column: number; offset: number }
-    end: { line: number; column: number; offset: number }
-  }
+interface CodeElement extends Element {
+  tagName: 'code'
+  children: [{ type: 'text'; value: string }]
 }
 
+const isCodeElement = (node: Element): node is CodeElement =>
+  node.tagName === 'code' &&
+  Array.isArray(node.children) &&
+  node.children.length === 1 &&
+  node.children[0].type === 'text'
+
 export const rehypeCodeSave = () => (tree: Root) => {
-  visit(tree, (node) => {
-    if (node?.type === 'element' && node?.tagName === 'pre') {
-      const [codeEl] = node.children as NodeChildren[]
-      if (codeEl.tagName !== 'code') return
-      node.properties.raw = codeEl.children?.[0].value
-    }
+  visit(tree, { type: 'element', tagName: 'pre' }, (node: Element) => {
+    const [codeEl] = node.children as Element[]
+
+    if (!isCodeElement(codeEl)) return
+
+    node.properties = node.properties || {}
+    node.properties.raw = codeEl.children[0].value
   })
 }

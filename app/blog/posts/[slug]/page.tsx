@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { allPosts } from 'content-collections'
 import { notFound } from 'next/navigation'
 import { Article } from '@/components/ui/article'
-import { config } from '@/lib/config'
-import { sortedPosts } from '@/lib/content'
+import { config } from '@/lib/constants/config'
+import { sortedPosts } from '@/lib/utils/content'
 
 interface PageProps {
   params: Promise<{ slug: string }>

@@ -21,7 +21,7 @@ import {
   Vite,
   VueJS,
 } from '@/components/icons'
-import { range } from '@/lib/helper'
+import { range } from '@/lib/utils/helper'
 
 interface IconItem {
   title: string

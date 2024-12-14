@@ -1,4 +1,4 @@
-import type { Repository } from '@/lib/request'
+import type { Repository } from '@/lib/api'
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import type { Action } from 'kbar'
 import type { ReactNode } from 'react'
@@ -18,8 +18,8 @@ import {
 import { KBarProvider, useRegisterActions } from 'kbar'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import { config } from '@/lib/config'
-import { sortedLeetcodes, sortedPosts } from '@/lib/content'
+import { config } from '@/lib/constants/config'
+import { sortedLeetcodes, sortedPosts } from '@/lib/utils/content'
 import { KBar } from './Kbar'
 
 const iconProps: Partial<IconProps> = {

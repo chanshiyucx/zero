@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
-import { config } from '@/lib/config'
-import { sortedContent } from '@/lib/content'
+import { config } from '@/lib/constants/config'
+import { sortedContent } from '@/lib/utils/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const list = sortedContent().map((item) => ({

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { getYear } from 'date-fns'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
-import { sortedPosts } from '@/lib/content'
+import { sortedPosts } from '@/lib/utils/content'
 
 interface PostGroup {
   year: number

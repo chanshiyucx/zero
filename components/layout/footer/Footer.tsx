@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { config } from '@/lib/config'
+import { config } from '@/lib/constants/config'
 import { Emoji } from './Emoji'
 
 export function Footer() {

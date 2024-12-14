@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { allLeetcodes } from '@/.content-collections/generated'
 import { Article } from '@/components/ui/article'
-import { config } from '@/lib/config'
-import { sortedLeetcodes } from '@/lib/content'
+import { config } from '@/lib/constants/config'
+import { sortedLeetcodes } from '@/lib/utils/content'
 
 interface PageProps {
   params: Promise<{ slug: string }>

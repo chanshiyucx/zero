@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { isClientSide } from '@/lib/env'
+import { isClientSide } from '@/lib/utils/env'
 
 export function useLocalStorage<T>(
   key: string,

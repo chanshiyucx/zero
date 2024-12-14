@@ -6,7 +6,7 @@ import {
   MinusCircle,
   PlusCircle,
 } from '@phosphor-icons/react'
-import { toggleFullscreen } from '@/lib/screen'
+import { toggleFullscreen } from '@/lib/utils/screen'
 
 const commonProps: IconProps = {
   size: 44,
