@@ -20,7 +20,10 @@ const Content = ({ children }: { children: ReactNode }) => {
 
 const Search = () => (
   <div className="border-b px-3 pb-4">
-    <KBarSearch className="w-full border-none bg-transparent outline-none" />
+    <KBarSearch
+      className="w-full border-none bg-transparent outline-none"
+      placeholder="Type a command or search..."
+    />
   </div>
 )
 
