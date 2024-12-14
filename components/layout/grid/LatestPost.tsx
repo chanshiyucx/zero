@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { Divider } from '@/components/ui/divider'
-import { sortedPosts } from '@/lib/content'
+import { sortedPosts } from '@/lib/utils/content'
 
 export function LatestPost() {
   const latestPost = sortedPosts()[0]

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Github } from '@/components/ui/github'
-import { getGithubRepositories } from '@/lib/request'
+import { getGithubRepositories } from '@/lib/api'
 
 export const metadata: Metadata = {
   title: 'Projects',

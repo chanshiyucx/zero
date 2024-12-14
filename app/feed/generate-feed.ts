@@ -1,6 +1,6 @@
 import { Feed } from 'feed'
-import { config } from '@/lib/config'
-import { sortedContent } from '@/lib/content'
+import { config } from '@/lib/constants/config'
+import { sortedContent } from '@/lib/utils/content'
 import { markdownToHtml } from './markdown-to-html'
 
 export function generateFeed() {

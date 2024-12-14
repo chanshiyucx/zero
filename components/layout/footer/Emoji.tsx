@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { random } from '@/lib/helper'
+import { random } from '@/lib/utils/helper'
 
 const EMOJI = [
   '👀',

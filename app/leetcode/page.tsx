@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
-import { sortedLeetcodes } from '@/lib/content'
+import { sortedLeetcodes } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
   title: 'Leetcode',

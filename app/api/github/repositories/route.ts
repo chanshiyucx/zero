@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getGithubRepositories } from '@/lib/request'
+import { getGithubRepositories } from '@/lib/api'
 
 export const runtime = 'edge'
 

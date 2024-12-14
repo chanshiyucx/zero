@@ -1,6 +1,6 @@
-import { config } from '@/lib/config'
-import { random } from '@/lib/helper'
-import { getGithubRepositories, getGithubUserData } from '@/lib/request'
+import { getGithubRepositories, getGithubUserData } from '@/lib/api'
+import { config } from '@/lib/constants/config'
+import { random } from '@/lib/utils/helper'
 
 interface GitHubStatsDataProps {
   label: string

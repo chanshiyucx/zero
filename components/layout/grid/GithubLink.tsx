@@ -1,6 +1,6 @@
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import { config } from '@/lib/config'
+import { config } from '@/lib/constants/config'
 
 export function GithubLink() {
   return (

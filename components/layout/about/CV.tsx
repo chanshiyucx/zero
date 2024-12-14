@@ -1,8 +1,8 @@
 import { Coffee, DownloadSimple } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { Github } from '@/components/ui/github'
-import { config } from '@/lib/config'
-import { getGithubRepo } from '@/lib/request'
+import { getGithubRepo } from '@/lib/api'
+import { config } from '@/lib/constants/config'
 
 export async function CV() {
   const repo = await getGithubRepo()

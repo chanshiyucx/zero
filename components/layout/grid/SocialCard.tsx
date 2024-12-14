@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { LinkedinLogo, XLogo } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
-import { config } from '@/lib/config'
+import { config } from '@/lib/constants/config'
 
 interface SocialLinkProps {
   className: string

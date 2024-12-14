@@ -1,4 +1,4 @@
-import { sortedNotes } from '@/lib/content'
+import { sortedNotes } from '@/lib/utils/content'
 import { NoteItem } from './NoteItem'
 
 export function NoteList() {
