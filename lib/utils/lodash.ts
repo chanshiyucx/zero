@@ -1,78 +1,61 @@
-export const debounce = <F extends (...args: unknown[]) => unknown>(
+type AnyFunction = (...args: unknown[]) => unknown
+
+interface ThrottleOptions {
+  leading?: boolean
+  trailing?: boolean
+}
+
+export const debounce = <F extends AnyFunction>(
   func: F,
   wait: number,
   immediate = false,
 ): ((...args: Parameters<F>) => void) => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined
 
-  return function (this: unknown, ...args: Parameters<F>) {
+  return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this
-
-    const doLater = () => {
+    const later = () => {
       timeoutId = undefined
-      if (!immediate) {
-        func.apply(context, args)
-      }
+      if (!immediate) func.apply(context, args)
     }
 
     const shouldCallNow = immediate && timeoutId === undefined
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(later, wait)
 
-    if (timeoutId !== undefined) {
-      clearTimeout(timeoutId)
-    }
-
-    timeoutId = setTimeout(doLater, wait)
-
-    if (shouldCallNow) {
-      func.apply(context, args)
-    }
+    if (shouldCallNow) func.apply(context, args)
   }
 }
 
-export const throttle = <F extends (...args: unknown[]) => unknown>(
+export const throttle = <F extends AnyFunction>(
   func: F,
   wait: number,
-  options: {
-    leading?: boolean
-    trailing?: boolean
-  } = {},
+  { leading = true, trailing = true }: ThrottleOptions = {},
 ): ((...args: Parameters<F>) => void) => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined
-  let lastArgs: Parameters<F> | undefined
-  let lastCallTime: number | undefined
+  let lastTime = 0
 
-  const doLater = () => {
-    timeoutId = undefined
-    if (lastArgs !== undefined) {
-      func.apply(this, lastArgs)
-      lastArgs = undefined
-      lastCallTime = Date.now()
-      timeoutId = setTimeout(doLater, wait)
-    }
+  const invoke = (context: ThisParameterType<F>, args: Parameters<F>) => {
+    func.apply(context, args)
+    lastTime = Date.now()
   }
 
-  return function (this: never, ...args: Parameters<F>) {
-    const currentTime = Date.now()
+  return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
+    const now = Date.now()
+    const remaining = wait - (now - lastTime)
 
-    if (lastCallTime === undefined && options.leading === false) {
-      lastCallTime = currentTime
-    }
-
-    const remainingTime = wait - (currentTime - (lastCallTime ?? 0))
-
-    if (remainingTime <= 0 || remainingTime > wait) {
-      if (timeoutId !== undefined) {
-        clearTimeout(timeoutId)
-      }
-      func.apply(this, args)
-      lastCallTime = currentTime
-      timeoutId = setTimeout(doLater, wait)
-    } else if (options.trailing !== false) {
-      lastArgs = args
-      if (timeoutId === undefined) {
-        timeoutId = setTimeout(doLater, remainingTime)
-      }
+    if (remaining <= 0) {
+      clearTimeout(timeoutId)
+      timeoutId = undefined
+      lastTime = now
+      invoke(this, args)
+    } else if (!timeoutId && trailing) {
+      timeoutId = setTimeout(() => {
+        lastTime = leading ? Date.now() : 0
+        timeoutId = undefined
+        invoke(this, args)
+      }, remaining)
     }
   }
 }
