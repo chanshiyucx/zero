@@ -4,6 +4,14 @@ export const delay = (time: number): Promise<void> =>
 export const random = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min
 
+export const createSeededRandom = (initialSeed: number = 1) => {
+  let seed = initialSeed
+  return () => {
+    const x = Math.sin(seed++) * 10000
+    return x - Math.floor(x)
+  }
+}
+
 export const range = (start: number, end: number): number[] =>
   Array.from({ length: end - start }, (_, i) => start + i)
 
