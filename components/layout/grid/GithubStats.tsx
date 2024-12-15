@@ -1,20 +1,21 @@
 import { getGithubRepositories, getGithubUserData } from '@/lib/api'
 import { config } from '@/lib/constants/config'
-import { random } from '@/lib/utils/helper'
+import { createSeededRandom } from '@/lib/utils/helper'
 
 interface GitHubStatsDataProps {
   label: string
   value: number
 }
 
-function BackgroundPattern() {
+const BackgroundPattern = () => {
+  const seededRandom = createSeededRandom(1)
   const colours = ['#39d353', '#0e4429', '#0e4429', '#006d32', '#161b22']
   const days = new Array(62)
     .fill(null)
-    .map(() => colours[random(0, colours.length)])
+    .map(() => colours[Math.floor(seededRandom() * colours.length)])
 
   return (
-    <div className="grid grid-cols-[repeat(15,minmax(0,1fr))] place-items-center gap-1 px-2 py-3 opacity-90">
+    <div className="grid grid-cols-[repeat(15,minmax(0,1fr))] place-items-center gap-1 px-2 py-3">
       {days.map((c, i) => (
         <div key={i} className="size-3 rounded" style={{ background: c }} />
       ))}
