@@ -1,12 +1,8 @@
 @tailwind base;
 
 @layer base {
-  html {
-    @apply scroll-smooth scrollbar-track-transparent scrollbar-thumb-muted scrollbar-thumb-rounded-lg;
-  }
-
-  * {
-    @apply scrollbar-w-1.5;
+  :root {
+    @apply scroll-smooth scrollbar-track-transparent scrollbar-thumb-muted scrollbar-thumb-rounded-lg scrollbar-w-1.5;
   }
 
   body {
