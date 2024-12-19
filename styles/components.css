@@ -63,7 +63,16 @@
   }
 
   pre[data-language] {
+    @apply p-0;
     @apply after:absolute after:bottom-3 after:right-4 after:uppercase after:content-[attr(data-language)];
+
+    code {
+      @apply py-3;
+    }
+
+    span[data-line=''] {
+      @apply px-4;
+    }
   }
 
   code[data-theme*=' '],
@@ -77,5 +86,9 @@
     code[data-theme*=' '] span {
       color: var(--shiki-dark);
     }
+  }
+
+  span[data-highlighted-line] {
+    @apply border-l-2 border-muted bg-base;
   }
 }
