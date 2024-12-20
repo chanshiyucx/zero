@@ -29,7 +29,7 @@
   /* Menu Item */
   .menuitem {
     @apply transition-all duration-300;
-    @apply leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
+    @apply block cursor-pointer leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
   }
 
   /* Tiny Thumb */
