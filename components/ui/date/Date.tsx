@@ -8,7 +8,7 @@ interface DateProps {
 
 export function Date({
   dateString,
-  dateFormat = 'LLL dd',
+  dateFormat = 'LLL dd', // LLL dd, yyyy
   className,
 }: DateProps) {
   const date = format(parseISO(dateString), dateFormat)

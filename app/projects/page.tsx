@@ -16,7 +16,7 @@ export default async function Page() {
     <article className="page">
       <header>
         <h1 className="text-4xl font-extrabold">
-          Good software, like wine, takes time.
+          Keep it simple, but not simpler.
         </h1>
       </header>
       <ul className="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-3 max-md:grid-cols-[repeat(2,minmax(0,1fr))]">

@@ -1,4 +1,4 @@
-import type { Album, Leetcode, Post } from 'content-collections'
+import type { Album, Leetcode, Note, Post } from 'content-collections'
 import {
   allAlbums,
   allLeetcodes,
@@ -7,7 +7,7 @@ import {
 } from 'content-collections'
 import { compareDesc } from 'date-fns'
 
-export type Content = Album | Leetcode | Post
+export type Content = Post | Note | Leetcode
 
 type SortableContent = { date: string }
 type SortableById = { id: string }

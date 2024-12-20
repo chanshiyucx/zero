@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { allLeetcodes } from '@/.content-collections/generated'
+import { allNotes } from 'content-collections'
 import { Article, generateArticleMetadata } from '@/components/ui/article'
 
 interface PageProps {
@@ -9,12 +9,12 @@ interface PageProps {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  return generateArticleMetadata({ params, collection: allLeetcodes })
+  return generateArticleMetadata({ params, collection: allNotes })
 }
 
 export default async function Page(props: PageProps) {
   return Article({
     ...props,
-    collection: allLeetcodes,
+    collection: allNotes,
   })
 }

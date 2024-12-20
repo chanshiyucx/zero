@@ -2,6 +2,7 @@ import type { Post } from 'content-collections'
 import type { Metadata } from 'next'
 import { getYear } from 'date-fns'
 import Link from 'next/link'
+import { Switcher } from '@/components/layout/switcher'
 import { Date } from '@/components/ui/date'
 import { sortedPosts } from '@/lib/utils/content'
 
@@ -11,10 +12,10 @@ interface PostGroup {
 }
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: 'Posts',
   description:
     'A collection of my personal posts and thoughts on a variety of topics I enjoy, with a focus on technology.',
-  keywords: ['blog', 'notes', 'thoughts', 'technical', 'tutorials', 'posts'],
+  keywords: ['blog', 'posts', 'thoughts', 'technical', 'tutorials'],
 }
 
 export default function Page() {
@@ -31,8 +32,9 @@ export default function Page() {
 
   return (
     <article className="page">
-      <header>
+      <header className="flex items-center justify-between">
         <h1 className="text-4xl font-extrabold">Life is a burning chaos.</h1>
+        <Switcher />
       </header>
       <div>
         {postGroupList.map((postGroup) => (
