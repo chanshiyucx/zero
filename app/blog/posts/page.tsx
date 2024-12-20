@@ -2,7 +2,6 @@ import type { Post } from 'content-collections'
 import type { Metadata } from 'next'
 import { getYear } from 'date-fns'
 import Link from 'next/link'
-import { Switcher } from '@/components/layout/switcher'
 import { Date } from '@/components/ui/date'
 import { sortedPosts } from '@/lib/utils/content'
 
@@ -32,9 +31,8 @@ export default function Page() {
 
   return (
     <article className="page">
-      <header className="flex items-center justify-between">
+      <header>
         <h1 className="text-4xl font-extrabold">Life is a burning chaos.</h1>
-        <Switcher />
       </header>
       <div>
         {postGroupList.map((postGroup) => (

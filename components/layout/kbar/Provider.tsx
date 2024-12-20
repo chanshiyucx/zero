@@ -3,8 +3,8 @@ import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import type { Action } from 'kbar'
 import type { ReactNode } from 'react'
 import {
+  Briefcase,
   Camera,
-  GitFork,
   GithubLogo,
   House,
   Laptop,
@@ -19,7 +19,7 @@ import { KBarProvider, useRegisterActions } from 'kbar'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { config } from '@/lib/constants/config'
-import { sortedLeetcodes, sortedPosts } from '@/lib/utils/content'
+import { sortedLeetcodes, sortedNotes, sortedPosts } from '@/lib/utils/content'
 import { KBar } from './Kbar'
 
 const iconProps: Partial<IconProps> = {
@@ -47,17 +47,17 @@ function RegisterActions() {
     const actions: Action[] = repositories.map((repo) => ({
       id: `link-${repo.full_name}`,
       name: repo.full_name,
-      icon: <GitFork {...iconProps} />,
+      icon: <Briefcase {...iconProps} />,
       keywords: repo.topics.toString().replaceAll(',', ' '),
       parent: 'search-projects',
-      section: 'Project',
+      section: 'Projects',
       perform: () => window.open(repo.html_url, '_blank'),
     }))
     return [
       {
         id: 'search-projects',
         name: 'Search projects...',
-        section: 'Project',
+        section: 'Projects',
         keywords: 'search projects write writing',
         shortcut: ['p', 's'],
         icon: <MagnifyingGlass {...iconProps} />,
@@ -74,6 +74,7 @@ function RegisterActions() {
 export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const { push } = useRouter()
   const postList = sortedPosts()
+  const noteList = sortedNotes()
   const leetcodeList = sortedLeetcodes()
 
   const navigationActions: Action[] = [
@@ -98,38 +99,57 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const postsAsAction: Action[] = postList.map((post) => ({
     id: post.slug,
     name: `${post.id}-${post.title}`,
-    icon: <Notebook {...iconProps} />,
+    icon: <Scroll {...iconProps} />,
     keywords: post.tags.toString().replaceAll(',', ' '),
     parent: 'search-blog',
     section: 'Blog',
     perform: () => push(post.url),
   }))
+  const notesAsAction: Action[] = noteList.map((note) => ({
+    id: note.slug,
+    name: `${note.id}-${note.title}`,
+    icon: <Notebook {...iconProps} />,
+    keywords: note.tags.toString().replaceAll(',', ' '),
+    parent: 'search-blog',
+    section: 'Blog',
+    perform: () => push(note.url),
+  }))
 
   const blogActions: Action[] = [
     {
-      id: 'blog',
-      name: 'Blog',
+      id: 'posts',
+      name: 'Posts',
       shortcut: ['b'],
       section: 'Blog',
       keywords: 'posts writing',
       icon: <Scroll {...iconProps} />,
-      perform: () => push('/blog'),
+      perform: () => push('/blog/posts'),
+    },
+    {
+      id: 'notes',
+      name: 'Notes',
+      shortcut: ['n'],
+      section: 'Blog',
+      keywords: 'notes writing',
+      icon: <Notebook {...iconProps} />,
+      perform: () => push('/blog/notes'),
     },
     {
       id: 'search-blog',
-      name: 'Search blog...',
+      name: 'Search posts and notes...',
       section: 'Blog',
-      keywords: 'search blog write writing blog',
+      keywords: 'search blog posts notes',
       shortcut: ['b', 's'],
       icon: <MagnifyingGlass {...iconProps} />,
     },
     ...postsAsAction,
+    ...notesAsAction,
   ]
 
   const leetcodeAsAction: Action[] = leetcodeList.map((leetcode) => ({
     id: leetcode.slug,
     name: `${leetcode.id}-${leetcode.title}`,
-    icon: <Notebook {...iconProps} />,
+    icon: <TerminalWindow {...iconProps} />,
     keywords: leetcode.tags.toString().replaceAll(',', ' '),
     parent: 'search-leetcode',
     section: 'Leetcode',
@@ -160,11 +180,11 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const projectsActions: Action[] = [
     {
       id: 'projects',
-      name: 'Project',
+      name: 'Projects',
       shortcut: ['p'],
-      section: 'Project',
+      section: 'Projects',
       keywords: 'projects writing',
-      icon: <TerminalWindow {...iconProps} />,
+      icon: <Briefcase {...iconProps} />,
       perform: () => push('/projects'),
     },
   ]
@@ -206,8 +226,8 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
 
   const actions: Action[] = [
     ...navigationActions,
-    ...leetcodeActions,
     ...blogActions,
+    ...leetcodeActions,
     ...projectsActions,
     ...websiteActions,
   ]
