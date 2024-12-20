@@ -29,7 +29,7 @@ export async function GithubLink() {
       href={config.links.github}
       target="_blank"
       rel="noopener noreferrer"
-      className="card relative block h-36 w-full bg-surface text-base"
+      className="card relative block h-36 w-full bg-surface text-white"
     >
       <Image
         src="/assets/cat.jpg"

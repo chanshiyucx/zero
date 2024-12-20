@@ -1,26 +1,72 @@
-import type { Leetcode, Post } from 'content-collections'
+import type { Content } from '@/lib/utils/content'
+import type { Metadata } from 'next'
+import { CalendarBlank, Tag } from '@phosphor-icons/react/dist/ssr'
+import { notFound } from 'next/navigation'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
+import { config } from '@/lib/constants/config'
 
 interface ArticleProps {
-  article: Leetcode | Post
+  params: Promise<{ slug: string }>
+  collection: Content[]
 }
 
-export function Article({ article }: ArticleProps) {
+export async function generateArticleMetadata({
+  params,
+  collection,
+}: ArticleProps): Promise<Metadata> {
+  const { slug } = await params
+  const article = collection.find((item) => item.slug === slug)
+  if (!article) return {}
+  const publisher = `${config.author.name} ${config.author.link}`
+
+  return {
+    ...config.metadata,
+    keywords: article.tags,
+    publisher: publisher,
+    openGraph: {
+      ...config.metadata,
+      tags: article.tags,
+      authors: publisher,
+      type: 'article',
+      url: article.url,
+    },
+    twitter: {
+      ...config.metadata,
+      card: 'summary_large_image',
+      creator: publisher,
+    },
+  }
+}
+
+export async function Article({ params, collection }: ArticleProps) {
+  const { slug } = await params
+  const article = collection.find((item) => item.slug === slug)
+
+  if (!article) {
+    return notFound()
+  }
+
   return (
-    <article>
-      <header className="mb-6">
-        <h1 className="mb-2 text-3xl font-extrabold">{article.title}</h1>
-        <div className="mt-3 flex gap-2 space-x-2 text-subtle">
-          <Date dateString={article.date} />
+    <article className="page space-y-12">
+      <header>
+        <h1 className="text-3xl font-extrabold">{article.title}</h1>
+        <div className="mt-3 flex gap-3 text-subtle">
+          <span className="inline-flex items-center gap-1">
+            <CalendarBlank weight="bold" />
+            <Date dateString={article.date} />
+          </span>
           <span>
             {article.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
+              <span key={tag} className="inline-flex items-center gap-1">
+                <Tag weight="bold" />
+                {tag}
+              </span>
             ))}
           </span>
         </div>
       </header>
-      <section className="py-5">
+      <section>
         <MDX code={article.contentCode} />
       </section>
     </article>
