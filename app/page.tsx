@@ -4,7 +4,7 @@ import { Title } from '@/components/layout/main'
 
 export default function Page() {
   return (
-    <main className="page pt-14">
+    <main className="page">
       <Title />
       <Grid />
       <About />

@@ -3,7 +3,7 @@ import type { SVGProps } from 'react'
 export function Github(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="1em" height="1em" viewBox="0 0 128 128" {...props}>
-      <g className="fill-[#181616] dark:fill-white">
+      <g>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
