@@ -49,10 +49,13 @@ export default {
         DEFAULT: 'hsl(var(--color-foam) / 0.2)',
       },
       animation: {
+        'turn-on': 'turnOn 600ms ease-in-out',
+        'turn-off': 'turnOff 600ms ease-in-out',
         'marquee-left': 'marquee-left var(--duration, 30s) linear infinite',
         'marquee-up': 'marquee-up var(--duration, 30s) linear infinite',
         'spinner-scale':
           'spinner-scale var(--duration, 30s) var(--delay, 30s) cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite',
+        ripple: 'ripple 3400ms ease infinite',
       },
       keyframes: {
         'marquee-left': {
@@ -67,6 +70,30 @@ export default {
           '0%': { transform: 'scaley(1.0)' },
           '50%': { transform: 'scaley(0.4)' },
           '100%': { transform: 'scaley(1.0)' },
+        },
+        ripple: {
+          '0%, 100%': {
+            transform: 'translate(-50%, -50%) scale(1)',
+          },
+          '50%': {
+            transform: 'translate(-50%, -50%) scale(0.9)',
+          },
+        },
+        turnOn: {
+          '0%': {
+            clipPath: 'polygon(0% 0%, 100% 0, 100% 0, 0 0)',
+          },
+          '100%': {
+            clipPath: 'polygon(0% 0%, 100% 0, 100% 100%, 0 100%)',
+          },
+        },
+        turnOff: {
+          '0%': {
+            clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)',
+          },
+          '100%': {
+            clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 0)',
+          },
         },
       },
       typography: ({ theme }: PluginUtils) => ({

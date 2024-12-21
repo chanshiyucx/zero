@@ -14,12 +14,15 @@ interface MenuItemProps {
   name: string
   path: string
   className?: string
+  isActive?: boolean
 }
 
-function MenuItem({ name, path, className }: MenuItemProps) {
+function MenuItem({ name, path, className, isActive }: MenuItemProps) {
   const pathname = usePathname()
   const isHome = path === '/'
-  const isActive = isHome ? path === pathname : pathname.startsWith(path)
+  if (isActive === undefined) {
+    isActive = isHome ? path === pathname : pathname.startsWith(path)
+  }
 
   return (
     <Link
@@ -40,6 +43,9 @@ const variants = {
 
 function BlogMenuItem({ name, path }: MenuItemProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+  const isNotes = pathname.startsWith('/blog/notes')
+  const isPosts = pathname.startsWith('/blog/posts') || pathname === '/blog'
 
   return (
     <div
@@ -54,7 +60,7 @@ function BlogMenuItem({ name, path }: MenuItemProps) {
             initial="hidden"
             animate="enter"
             exit="exit"
-            className="absolute -left-5 top-full w-24 rounded-lg bg-surface shadow-lg"
+            className="absolute -left-7 top-full w-28 p-2"
             variants={variants}
             transition={{
               type: 'spring',
@@ -62,16 +68,20 @@ function BlogMenuItem({ name, path }: MenuItemProps) {
               damping: 30,
             }}
           >
-            <MenuItem
-              name="Posts"
-              path="/blog/posts"
-              className="rounded-b-none py-3 text-center"
-            />
-            <MenuItem
-              name="Notes"
-              path="/blog/notes"
-              className="rounded-t-none py-3 text-center"
-            />
+            <div className="rounded-lg bg-surface shadow-lg">
+              <MenuItem
+                name="Posts"
+                path="/blog/posts"
+                isActive={isPosts}
+                className="rounded-b-none py-3 text-center"
+              />
+              <MenuItem
+                name="Notes"
+                path="/blog/notes"
+                isActive={isNotes}
+                className="rounded-t-none py-3 text-center"
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

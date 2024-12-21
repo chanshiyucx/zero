@@ -1,6 +1,7 @@
 import { AlbumCard } from './AlbumCard'
+import { CatCard } from './CatCard'
 import { DiscordStatus } from './DiscordStatus'
-import { GithubLink } from './GithubLink'
+// import { GithubLink } from './GithubLink'
 import { GithubStats } from './GithubStats'
 import { LatestPost } from './LatestPost'
 import { SocialCard } from './SocialCard'
@@ -13,7 +14,7 @@ export function Grid() {
     <div>
       <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
-          <GithubLink />
+          <CatCard />
         </div>
         <div className="col-span-3">
           <GithubStats />
