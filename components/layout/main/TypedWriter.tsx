@@ -30,5 +30,5 @@ export function TypedWriter() {
     return () => typed.destroy()
   }, [])
 
-  return <span ref={typedElementRef} />
+  return <span ref={typedElementRef} className="italic" />
 }
