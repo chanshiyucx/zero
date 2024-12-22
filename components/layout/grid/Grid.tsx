@@ -1,12 +1,12 @@
 import { AlbumCard } from './AlbumCard'
+import { AnalysisCard } from './AnalysisCard'
 import { CatCard } from './CatCard'
 import { DiscordStatus } from './DiscordStatus'
-// import { GithubLink } from './GithubLink'
 import { GithubStats } from './GithubStats'
 import { LatestPost } from './LatestPost'
 import { SocialCard } from './SocialCard'
 import { StacksCard } from './StacksCard'
-import { StarsCard } from './StarsCard'
+// import { StarsCard } from './StarsCard'
 import { WakatimeStats } from './WakatimeStats'
 
 export function Grid() {
@@ -32,7 +32,7 @@ export function Grid() {
               <WakatimeStats />
             </div>
           </div>
-          <StacksCard />
+          <AnalysisCard />
         </div>
 
         <div className="col-span-3 flex flex-col gap-3">
@@ -40,7 +40,7 @@ export function Grid() {
             <DiscordStatus />
             <LatestPost />
           </div>
-          <StarsCard />
+          <StacksCard />
         </div>
       </div>
     </div>

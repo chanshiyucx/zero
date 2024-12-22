@@ -9,6 +9,12 @@ import { compareDesc } from 'date-fns'
 
 export type Content = Post | Note | Leetcode
 
+export type ContentSummary = {
+  posts: number
+  notes: number
+  leetcodes: number
+}
+
 type SortableContent = { date: string }
 type SortableById = { id: string }
 
@@ -29,3 +35,10 @@ export const sortedLeetcodes = (sortBy: 'id' | 'date' = 'id'): Leetcode[] =>
 
 export const sortedContent = (): Content[] =>
   sortByDate([...allPosts, ...allNotes, ...allLeetcodes])
+
+export const summary = (): ContentSummary => {
+  const posts = allPosts.length
+  const notes = allNotes.length
+  const leetcodes = allLeetcodes.length
+  return { posts, notes, leetcodes }
+}
