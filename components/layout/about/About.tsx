@@ -2,10 +2,12 @@ import type { JSX, SVGProps } from 'react'
 import NextLink, { LinkProps } from 'next/link'
 import {
   Hand,
+  Java,
   JavaScript,
   Python,
   ReactJS,
   TypeScript,
+  VueJS,
 } from '@/components/icons'
 import { CV } from './CV'
 
@@ -43,16 +45,20 @@ const TypeScriptLink = () => (
   />
 )
 
-const PythonLink = () => (
-  <LinkElement
-    href="https://www.typescriptlang.org/"
-    title="Python"
-    icon={Python}
-  />
+const VueLink = () => (
+  <LinkElement href="https://vuejs.org/" title="VueJS" icon={VueJS} />
 )
 
 const ReactJSLink = () => (
   <LinkElement href="https://react.dev/" title="ReactJS" icon={ReactJS} />
+)
+
+const PythonLink = () => (
+  <LinkElement href="https://www.python.org/" title="Python" icon={Python} />
+)
+
+const JavaLink = () => (
+  <LinkElement href="https://www.java.com/" title="Java" icon={Java} />
 )
 
 const Link = ({ label, ...props }: { label: string } & LinkProps) => (
@@ -72,11 +78,12 @@ export function About() {
       </p>
 
       <p>
-        I&apos;m a passionate, self-taught programmer who thrives on creating
-        clean, maintainable, and well-architected code solutions. My love for
-        programming drives me to continuously learn and work with modern
-        technologies in the <JavaScriptLink />,<TypeScriptLink />,<PythonLink />
-        , and <ReactJSLink /> ecosystems.
+        I&apos;m a self-taught programmer passionate about crafting clean,
+        maintainable, and well-architected code solutions. My love for
+        programming drives me to continuously explore modern technologies in the
+        <JavaScriptLink />,<TypeScriptLink />,<VueLink />, and <ReactJSLink />
+        ecosystems. Additionally, I have foundational knowledge of <JavaLink />
+        and <PythonLink />.
       </p>
 
       <div className="flex flex-row gap-3 max-md:flex-col">

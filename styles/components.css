@@ -92,8 +92,7 @@
     @apply border-l-2 border-muted bg-base;
   }
 
-  /*  Walk Cat */
-  /* https://codepen.io/rachelnabors/pen/ApvavZ */
+  /* Walk Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
   .walk-cat {
     animation: walk-cycle 1s steps(12) infinite;
     background: url(/assets/cat.png) center 0 no-repeat;
@@ -110,7 +109,7 @@
     }
   }
 
-  /* cute cat */
+  /* Cute Cat, https://codepen.io/AngelaVelasquez/pen/AWyNYb */
   .cute-cat {
     --cat-border: #ffb399;
     --cat-bg-light: #5ddfe8;
@@ -240,9 +239,11 @@
       margin: 5% auto;
     }
 
-    .the-cat:hover .eyes {
-      height: calc(var(--cat-size) * 0.17);
-      bottom: calc(var(--cat-size) * 0.34);
+    &:hover {
+      .the-cat .eyes {
+        height: calc(var(--cat-size) * 0.17);
+        bottom: calc(var(--cat-size) * 0.34);
+      }
     }
   }
 }

@@ -51,7 +51,7 @@ export default function Page() {
       <header>
         <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
       </header>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-12">
         {noteList.map((note) => (
           <NoteItem note={note} key={note.title} />
         ))}
