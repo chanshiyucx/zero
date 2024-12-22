@@ -12,7 +12,7 @@ export async function WakatimeStats() {
       href={config.links.wakatime}
       target="_blank"
       rel="noopener noreferrer"
-      className="card-sm relative flex h-[4.125rem] flex-col items-center justify-center bg-surface"
+      className="card-sm relative flex h-[4.125rem] flex-col items-center justify-center bg-rose text-base"
     >
       <VStudioCode className="absolute left-3 top-3 -rotate-45 text-5xl" />
       <span className="-rotate-2 items-center font-mono text-3xl font-semibold">

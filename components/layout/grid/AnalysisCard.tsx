@@ -30,19 +30,19 @@ export function AnalysisCard() {
 
   const stats = [
     {
-      icon: <Scroll size="1em" weight="duotone" />,
+      icon: <Scroll size="1em" weight="bold" />,
       label: 'Posts',
       value: posts,
       className: 'translate-x-36',
     },
     {
-      icon: <Notebook size="1em" weight="duotone" />,
+      icon: <Notebook size="1em" weight="bold" />,
       label: 'Notes',
       value: notes,
       className: 'translate-x-28',
     },
     {
-      icon: <TerminalWindow size="1em" weight="duotone" />,
+      icon: <TerminalWindow size="1em" weight="bold" />,
       label: 'Leetcode',
       value: leetcodes,
       className: 'translate-x-20',
@@ -56,16 +56,16 @@ export function AnalysisCard() {
         alt="Github"
         width={100}
         height={100}
-        className="absolute left-8 top-0 opacity-80"
+        className="absolute left-8 top-0 opacity-60"
       />
       <div
-        className="card absolute bottom-0 right-0 flex h-full w-2/3 flex-col justify-center gap-1 bg-overlay font-bold"
+        className="card absolute bottom-0 right-0 flex h-full w-2/3 flex-col justify-center gap-1 bg-surface font-bold"
         style={{
           clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 0 100%)',
         }}
       >
-        {stats.map((stat, index) => (
-          <Stat key={index} {...stat} />
+        {stats.map((stat) => (
+          <Stat key={stat.label} {...stat} />
         ))}
       </div>
     </div>
