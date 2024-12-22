@@ -17,7 +17,11 @@ export function LatestPost() {
         {latestPost.title}
       </span>
       <Divider />
-      <Date dateString={latestPost.date} className="text-subtle" />
+      <Date
+        dateString={latestPost.date}
+        dateFormat="LLL dd, yyyy"
+        className="text-subtle"
+      />
     </Link>
   )
 }

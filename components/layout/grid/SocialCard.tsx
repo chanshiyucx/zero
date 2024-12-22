@@ -32,7 +32,7 @@ export function SocialCard() {
         <LinkedinLogo size="1em" className="text-2xl" />
         <p className="-rotate-3 text-xs">(serious stuff)</p>
       </SocialLink>
-      <SocialLink href={config.links.twitter} className="bg-text">
+      <SocialLink href={config.links.twitter} className="bg-iris">
         <XLogo size="1em" className="text-2xl" />
         <p className="text-xs">(share memes ;)</p>
       </SocialLink>

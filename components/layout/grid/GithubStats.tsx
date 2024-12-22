@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { config } from '@/lib/constants/config'
 
 const GithubSVG =
-  'https://raw.githubusercontent.com/chanshiyucx/chanshiyucx/ee2a4f228b87201a01de7e82e3096ee196908dcf/metrics-calendar.svg'
+  'https://raw.githubusercontent.com/chanshiyucx/chanshiyucx/0eb826693c5681bc09c2521b78cfcf13dee47da9/metrics-calendar.svg'
 
 export function GithubStats() {
   return (
@@ -15,8 +15,8 @@ export function GithubStats() {
       <Image
         src={GithubSVG}
         alt="Github Stats"
-        width={480}
-        height={219}
+        width={362}
+        height={144}
         className="object-cover"
       />
     </a>

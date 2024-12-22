@@ -42,6 +42,13 @@ export async function getGithubUserData() {
   return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, headers)
 }
 
+export async function getGithubRepo() {
+  return fetchData<Repository>(
+    `${GITHUB_API}/repos/${USERNAME}/${REPO}`,
+    headers,
+  )
+}
+
 export async function getGithubRepositories() {
   try {
     const { public_repos } = await getGithubUserData()
@@ -63,11 +70,4 @@ export async function getGithubRepositories() {
     console.error('Failed to fetch GitHub repositories:', error)
     return []
   }
-}
-
-export async function getGithubRepo() {
-  return fetchData<Repository>(
-    `${GITHUB_API}/repos/${USERNAME}/${REPO}`,
-    headers,
-  )
 }
