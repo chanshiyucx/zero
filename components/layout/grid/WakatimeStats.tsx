@@ -14,7 +14,7 @@ export async function WakatimeStats() {
       rel="noopener noreferrer"
       className="card-sm relative flex h-[4.125rem] flex-col items-center justify-center bg-rose text-base dark:bg-rose/75"
     >
-      <VStudioCode className="absolute left-3 top-3 -rotate-45 text-5xl" />
+      <VStudioCode className="absolute left-3 top-3 -rotate-45 text-5xl opacity-80" />
       <span className="-rotate-2 items-center font-mono text-3xl font-semibold">
         <Code className="mr-2 inline-block text-xl" weight="bold" />
         {Math.round(total_seconds / 3600)}h

@@ -35,21 +35,21 @@ export function AnalysisCard() {
 
   const stats = [
     {
-      icon: <Scroll size="1em" weight="bold" />,
+      icon: <Scroll size="1em" weight="duotone" />,
       label: 'Posts',
       value: posts,
       href: '/blog',
       className: 'translate-x-32',
     },
     {
-      icon: <Notebook size="1em" weight="bold" />,
+      icon: <Notebook size="1em" weight="duotone" />,
       label: 'Notes',
       value: notes,
       href: '/blog/notes',
       className: 'translate-x-24',
     },
     {
-      icon: <TerminalWindow size="1em" weight="bold" />,
+      icon: <TerminalWindow size="1em" weight="duotone" />,
       label: 'Leetcode',
       value: leetcodes,
       href: '/leetcode',
