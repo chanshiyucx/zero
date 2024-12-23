@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { config } from '@/lib/constants/config'
 
 const GithubSVG =
-  'https://raw.githubusercontent.com/chanshiyucx/chanshiyucx/0eb826693c5681bc09c2521b78cfcf13dee47da9/metrics-calendar.svg'
+  'https://raw.githubusercontent.com/chanshiyucx/chanshiyucx/abcc45fa1abe783c9aa7635509a774e12325bfa9/metrics-calendar.svg'
 
 export function GithubStats() {
   return (
