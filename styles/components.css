@@ -92,20 +92,35 @@
     @apply border-l-2 border-muted bg-base;
   }
 
-  /* Walk Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
+  /* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
+
   .walk-cat {
-    animation: walk-cycle 1s steps(12) infinite;
-    background: url(/assets/cat.png) center 0 no-repeat;
-    background-size: 289px 1728px;
-    @apply h-full w-full;
+    --cat-height: 1728px;
+    --cat-steps: 12;
+    --cat-image: url(/assets/cat_walk.png);
   }
 
-  @keyframes walk-cycle {
+  .run-cat {
+    --cat-height: 1872px;
+    --cat-steps: 13;
+    --cat-image: url(/assets/cat_run.png);
+  }
+
+  .walk-cat,
+  .run-cat {
+    --cat-width: 289px;
+    @apply h-full w-full bg-center bg-no-repeat;
+    background-size: var(--cat-width) var(--cat-height);
+    background-image: var(--cat-image);
+    animation: cat-cycle 1s steps(var(--cat-steps)) infinite;
+  }
+
+  @keyframes cat-cycle {
     0% {
       background-position: center 0;
     }
     100% {
-      background-position: center -1728px;
+      background-position: center calc(-1 * var(--cat-height));
     }
   }
 
