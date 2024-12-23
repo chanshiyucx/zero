@@ -34,7 +34,7 @@ const EMOJI = [
 
 function getRandomEmoji(exclude?: string) {
   const emoji = exclude ? EMOJI.filter((emoji) => emoji !== exclude) : EMOJI
-  return emoji[random(0, emoji.length)]
+  return emoji[random(0, emoji.length - 1)]
 }
 
 export function Emoji() {
