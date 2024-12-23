@@ -1,4 +1,4 @@
-import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
+import { Command, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { useKBar } from 'kbar'
 
 export function Search() {
@@ -16,7 +16,9 @@ export function Search() {
         <MagnifyingGlass size="1em" weight="bold" />
         Search...
       </span>
-      <kbd>⌘ K</kbd>
+      <kbd>
+        <Command size="1em" weight="bold" /> K
+      </kbd>
     </button>
   )
 }

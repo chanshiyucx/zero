@@ -5,8 +5,8 @@ import {
   TerminalWindow,
 } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
-import Image from 'next/image'
 import Link from 'next/link'
+import { Meow } from '@/components/ui/meow'
 import { summary } from '@/lib/utils/content'
 
 type StatProps = {
@@ -59,13 +59,9 @@ export function AnalysisCard() {
 
   return (
     <div className="relative block h-full w-full">
-      <Image
-        src="/apple-touch-icon.png"
-        alt="Github"
-        width={100}
-        height={100}
-        className="absolute left-8 top-0 opacity-60"
-      />
+      <div className="absolute left-8 top-4 h-20 w-20">
+        <Meow />
+      </div>
       <div
         className="card absolute bottom-0 right-0 flex h-full w-2/3 flex-col justify-center gap-1 bg-surface pl-2 font-bold"
         style={{
