@@ -89,9 +89,10 @@ export function About() {
       <div className="flex flex-row gap-3 max-md:flex-col">
         <div>
           <p className="mt-0">
-            Here, you&apos;ll find details about the projects I&apos;ve
-            completed and those I&apos;m currently working on, along with
-            insights into my career journey and skills.
+            Here, you&apos;ll find details about
+            <Link label="the projects" href="/projects" /> I&apos;ve completed
+            and those I&apos;m currently working on, along with insights into my
+            career journey growth, and the skills I&apos;ve honed over time.
           </p>
 
           <p>
