@@ -52,6 +52,18 @@
     @apply link after:opacity-0 hover:after:opacity-100;
   }
 
+  /* Twill  */
+  .hr-twill {
+    @apply h-1 w-full border-none bg-muted;
+    mask-image: repeating-linear-gradient(
+      135deg,
+      #000 0px,
+      #000 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  }
+
   /* Photo View Mask */
   .photo-view-mask {
     @apply !bg-surface;
@@ -93,7 +105,6 @@
   }
 
   /* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
-
   .walk-cat {
     --cat-height: 1728px;
     --cat-steps: 12;
