@@ -38,7 +38,7 @@ export function Image(
         </span>
       </PhotoView>
       {props.alt && (
-        <span className="alt -mt-5 block text-center italic text-subtle">
+        <span className="alt -mt-5 block text-center text-sm italic text-subtle">
           ◭ {props.alt}
         </span>
       )}
