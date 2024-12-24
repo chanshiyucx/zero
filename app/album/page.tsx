@@ -21,7 +21,7 @@ export default function Page() {
       <div className="space-y-12">
         {albumList.map((album) => (
           <div key={album.title}>
-            <p className="mb-5 flex gap-5 text-xl font-bold">
+            <p className="mb-5 flex gap-5 text-lg font-bold">
               <Date
                 dateString={album.date}
                 dateFormat="LLL dd, yyyy"
