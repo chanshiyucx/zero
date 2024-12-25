@@ -7,7 +7,7 @@ import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 
 export default function Providers({ children }: PropsWithChildren) {
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="light">
       <CustomKBarProvider>
         <PhotoProvider {...photoViewConfig}>{children}</PhotoProvider>
       </CustomKBarProvider>
