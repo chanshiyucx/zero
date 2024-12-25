@@ -51,12 +51,12 @@ export async function Article({ params, collection }: ArticleProps) {
     <article className="page space-y-12">
       <header>
         <h1 className="text-3xl font-extrabold">{article.title}</h1>
-        <div className="mt-3 flex gap-3 text-subtle">
+        <div className="mt-3 flex gap-5 text-subtle">
           <span className="inline-flex items-center gap-1">
             <CalendarBlank weight="bold" />
-            <Date dateString={article.date} />
+            <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
           </span>
-          <span>
+          <span className="flex gap-3">
             {article.tags.map((tag) => (
               <span key={tag} className="inline-flex items-center gap-1">
                 <Tag weight="bold" />
