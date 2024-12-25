@@ -24,7 +24,7 @@ export async function CV() {
           href={config.links.cvPdf}
           target="_blank"
           rel="noopener noreferrer"
-          className="tiny-thumb flex flex-1 items-center justify-center gap-2 border-none no-underline"
+          className="tiny-button flex flex-1 items-center justify-center gap-2 border-none no-underline"
         >
           Download CV <DownloadSimple size="1em" weight="bold" />
         </a>

@@ -22,7 +22,7 @@ const LinkElement = ({ icon: Icon, href, title }: LinkElementProps) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="tiny-thumb mx-1 inline-flex translate-y-0.5 items-center gap-1 border-none no-underline"
+    className="tiny-button mx-1 inline-flex translate-y-0.5 items-center gap-1 border-none no-underline"
   >
     <Icon />
     <span className="text-sm">{title}</span>

@@ -26,15 +26,19 @@
     @apply card hover:scale-95;
   }
 
-  /* Menu Item */
-  .menuitem {
-    @apply transition-all duration-300;
-    @apply block cursor-pointer leading-none text-subtle data-[isactive='true']:text-text hover:bg-muted/10 focus:outline-none focus:ring focus:ring-inset;
+  /* Button */
+  .menu-button,
+  .tiny-button {
+    @apply inline-block cursor-pointer rounded-lg font-semibold leading-none text-subtle transition-all duration-300;
+    @apply hover:bg-muted/20 focus:outline-none focus:ring focus:ring-inset;
   }
 
-  /* Tiny Thumb */
-  .tiny-thumb {
-    @apply rounded-lg border border-muted/20 bg-muted/10 px-2 py-1 font-semibold leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
+  .menu-button {
+    @apply w-full p-2 data-[isactive='true']:text-text;
+  }
+
+  .tiny-button {
+    @apply border border-muted/20 bg-muted/10 px-2 py-1;
   }
 
   /* Link */
