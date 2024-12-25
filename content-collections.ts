@@ -61,6 +61,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         ),
       tags: z.string().array(),
       description: z.string().optional(),
+      level: z.enum(['Easy', 'Medium', 'Hard']).optional(), // Only for leetcode
     }),
     transform: async (document, context) => {
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!

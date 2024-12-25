@@ -28,7 +28,7 @@ function MenuItem({ name, path, className, isActive }: MenuItemProps) {
     <Link
       href={path}
       data-isactive={isActive}
-      className={clsx('menuitem rounded-lg p-2 font-semibold', className)}
+      className={clsx('menu-button', className)}
     >
       {name}
     </Link>
