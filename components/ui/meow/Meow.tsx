@@ -38,8 +38,16 @@ export function Meow() {
   }
 
   return (
-    <div ref={catRef} onClick={handleClick} className="cursor-pointer">
+    <div
+      ref={catRef}
+      onClick={handleClick}
+      className="group relative cursor-pointer"
+    >
       <Cat />
+      <div className="meow-bubble group-hover:opacity-100">
+        <span>meow</span>
+        <div className="tail"></div>
+      </div>
     </div>
   )
 }

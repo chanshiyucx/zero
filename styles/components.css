@@ -108,6 +108,19 @@
     @apply border-l-2 border-muted bg-base;
   }
 
+  /* Meow Bubble */
+  .meow-bubble {
+    @apply absolute -right-20 -top-4 h-8 w-16 translate-x-2 rounded-[46px] bg-overlay text-center text-sm font-bold leading-loose opacity-0 transition-opacity duration-300;
+
+    .tail {
+      @apply absolute -left-2 bottom-0.5 h-4 w-4 rounded-full bg-overlay;
+
+      &:before {
+        @apply absolute -bottom-2 -left-2 h-2 w-2 rounded-full bg-overlay content-[''];
+      }
+    }
+  }
+
   /* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
   .walk-cat {
     --cat-height: 1728px;
