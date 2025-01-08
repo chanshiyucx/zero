@@ -29,6 +29,6 @@ export interface Wakatime {
 const WAKATIME_API =
   'https://wakatime.com/api/v1/users/current/all_time_since_today'
 
-export async function getCodingHrs() {
+export function getCodingHrs() {
   return fetchData<Wakatime>(WAKATIME_API, headers)
 }

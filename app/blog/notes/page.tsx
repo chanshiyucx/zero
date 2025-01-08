@@ -1,6 +1,7 @@
 import type { Note } from 'content-collections'
 import type { Metadata } from 'next'
 import { CalendarBlank, Tag } from '@phosphor-icons/react/dist/ssr'
+import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
@@ -20,7 +21,9 @@ function NoteItem({ note }: NoteItemProps) {
   return (
     <div>
       <div className="sticky top-0 z-10 flex flex-1 flex-row items-center justify-between bg-base py-3">
-        <h2 className="text-2xl font-bold">{note.title}</h2>
+        <Link className="link-hover text-2xl font-bold" href={note.url}>
+          <h2 className="inline text-text">{note.title}</h2>
+        </Link>
         <div className="flex gap-5 text-subtle">
           <span className="inline-flex items-center gap-1">
             <CalendarBlank weight="bold" />

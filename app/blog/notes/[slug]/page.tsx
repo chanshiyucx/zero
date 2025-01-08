@@ -6,15 +6,20 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
+const pageData = {
+  type: 'Note',
+  collection: allNotes,
+} as const
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  return generateArticleMetadata({ params, collection: allNotes })
+  return generateArticleMetadata({ params, ...pageData })
 }
 
 export default async function Page(props: PageProps) {
   return Article({
     ...props,
-    collection: allNotes,
+    ...pageData,
   })
 }

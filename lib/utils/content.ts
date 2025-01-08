@@ -7,6 +7,8 @@ import {
 } from 'content-collections'
 import { compareDesc } from 'date-fns'
 
+export type ContentType = 'Post' | 'Note' | 'Leetcode'
+
 export type Content = Post | Note | Leetcode
 
 export type ContentSummary = {

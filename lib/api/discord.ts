@@ -46,10 +46,10 @@ const headers = new Headers({
   'cache-control': 'public, s-maxage=60, stale-while-revalidate=30',
 })
 
-export async function getDiscordData() {
+export function getDiscordData() {
   return fetchData<Lanyard>(
     `${LANYARD_API}/users/${DISCORD_USER_ID}`,
     headers,
-    60,
+    30,
   )
 }
