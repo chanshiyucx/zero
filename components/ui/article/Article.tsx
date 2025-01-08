@@ -1,14 +1,17 @@
-import type { Content } from '@/lib/utils/content'
+import type { Content, ContentType } from '@/lib/utils/content'
 import type { Metadata } from 'next'
 import { CalendarBlank, Tag } from '@phosphor-icons/react/dist/ssr'
 import { notFound } from 'next/navigation'
+import { Backward } from '@/components/ui/backward'
 import { Date } from '@/components/ui/date'
+import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { config } from '@/lib/constants/config'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
   collection: Content[]
+  type: ContentType
 }
 
 export async function generateArticleMetadata({
@@ -39,7 +42,7 @@ export async function generateArticleMetadata({
   }
 }
 
-export async function Article({ params, collection }: ArticleProps) {
+export async function Article({ params, collection, type }: ArticleProps) {
   const { slug } = await params
   const article = collection.find((item) => item.slug === slug)
 
@@ -69,6 +72,10 @@ export async function Article({ params, collection }: ArticleProps) {
       <section>
         <MDX code={article.contentCode} />
       </section>
+      <footer className="flex flex-col gap-2">
+        <Discussion label={type} title={article.title} />
+        <Backward />
+      </footer>
     </article>
   )
 }

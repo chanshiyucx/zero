@@ -20,11 +20,17 @@ export async function fetchData<T>(
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT)
 
-    const response = await fetch(url, {
+    const options: RequestInit = {
       headers,
-      next: { revalidate },
       signal: controller.signal,
-    })
+      cache: revalidate === 0 ? 'no-store' : 'force-cache',
+    }
+
+    if (revalidate > 0) {
+      options.next = { revalidate }
+    }
+
+    const response = await fetch(url, options)
 
     clearTimeout(timeoutId)
 

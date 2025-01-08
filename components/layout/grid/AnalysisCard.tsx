@@ -19,12 +19,9 @@ type StatProps = {
 
 function Stat({ icon, label, value, className, href }: StatProps) {
   return (
-    <Link
-      href={href}
-      className={clsx('link-hover flex items-center gap-1', className)}
-    >
-      {icon}
-      <span className="text-sm">{label}:</span>
+    <Link href={href} className={clsx('link-hover inline', className)}>
+      <span className="inline-block translate-y-0.5">{icon}</span>
+      <span className="mx-1 text-sm">{label}:</span>
       {value}
     </Link>
   )

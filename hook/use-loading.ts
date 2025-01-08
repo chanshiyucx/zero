@@ -6,14 +6,18 @@ export function useLoading(duration: number = 1000) {
     duration = 0
   }
 
-  const startTimeRef = useRef(Date.now())
+  const startTimeRef = useRef(0)
 
-  const loading = async (): Promise<void> => {
+  const delay = async (): Promise<void> => {
     const interval = duration - (Date.now() - startTimeRef.current)
     if (interval > 0) {
       await new Promise<void>((resolve) => setTimeout(resolve, interval))
     }
   }
 
-  return loading
+  const reset = () => {
+    startTimeRef.current = Date.now()
+  }
+
+  return [delay, reset]
 }

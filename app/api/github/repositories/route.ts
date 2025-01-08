@@ -9,10 +9,7 @@ export async function GET() {
     return NextResponse.json(repositories)
   } catch (error) {
     console.error('Failed to fetch GitHub repositories:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch repositories' },
-      { status: 500 },
-    )
+    return NextResponse.json(null, { status: 500 })
   }
 }
 
