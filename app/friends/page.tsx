@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 }
 
 const FriendCard = ({ friend }: { friend: Friend }) => {
-  const avatar = `/friends/${friend.name}.jpg`
+  const avatar = `/friends/${friend.name.toLowerCase()}.jpg`
   return (
     <Link
       href={friend.link}
