@@ -12,6 +12,7 @@ import {
   MagnifyingGlass,
   Notebook,
   Scroll,
+  SnapchatLogo,
   TerminalWindow,
   XLogo,
 } from '@phosphor-icons/react/dist/ssr'
@@ -190,6 +191,14 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   ]
 
   const websiteActions: Action[] = [
+    {
+      id: 'link-friend',
+      name: 'Friends',
+      section: 'Website',
+      keywords: 'friends',
+      icon: <SnapchatLogo {...iconProps} />,
+      perform: () => push('/friends'),
+    },
     {
       id: 'link-repo',
       name: 'Github',
