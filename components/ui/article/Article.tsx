@@ -7,6 +7,7 @@ import { Date } from '@/components/ui/date'
 import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { config } from '@/lib/constants/config'
+import { Toc } from './Toc'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -51,31 +52,34 @@ export async function Article({ params, collection, type }: ArticleProps) {
   }
 
   return (
-    <article className="page space-y-12">
-      <header>
-        <h1 className="text-3xl font-extrabold">{article.title}</h1>
-        <div className="mt-3 flex gap-5 text-subtle">
-          <span className="inline-flex items-center gap-1">
-            <CalendarBlank weight="bold" />
-            <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
-          </span>
-          <span className="flex gap-3">
-            {article.tags.map((tag) => (
-              <span key={tag} className="inline-flex items-center gap-1">
-                <Tag weight="bold" />
-                {tag}
-              </span>
-            ))}
-          </span>
-        </div>
-      </header>
-      <section>
-        <MDX code={article.contentCode} />
-      </section>
-      <footer className="flex flex-col gap-2">
-        <Discussion label={type} title={article.title} />
-        <Backward />
-      </footer>
-    </article>
+    <main className="group flex flex-row">
+      <Toc toc={article.toc} />
+      <article className="page space-y-12">
+        <header>
+          <h1 className="text-3xl font-extrabold">{article.title}</h1>
+          <div className="mt-3 flex gap-5 text-subtle">
+            <span className="inline-flex items-center gap-1">
+              <CalendarBlank weight="bold" />
+              <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
+            </span>
+            <span className="flex gap-3">
+              {article.tags.map((tag) => (
+                <span key={tag} className="inline-flex items-center gap-1">
+                  <Tag weight="bold" />
+                  {tag}
+                </span>
+              ))}
+            </span>
+          </div>
+        </header>
+        <section>
+          <MDX code={article.contentCode} />
+        </section>
+        <footer className="flex flex-col gap-2">
+          <Discussion label={type} title={article.title} />
+          <Backward />
+        </footer>
+      </article>
+    </main>
   )
 }

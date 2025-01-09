@@ -4,9 +4,9 @@ import type { Plugin } from 'unified'
 import sizeOf from 'image-size'
 import { visit } from 'unist-util-visit'
 
-type Options = Partial<{
-  root: string
-}>
+interface Options {
+  root?: string
+}
 
 const calcImageSize = (imageSrc: string, options?: Options) => {
   const imagePath = path.join(options?.root ?? '', imageSrc)
