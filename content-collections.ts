@@ -12,7 +12,8 @@ import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
-import { rehypeCodeSave, rehypeImage } from './lib/mdx'
+import { rehypeCodeSave, rehypeImage, rehypeToc } from './lib/mdx'
+import { tocCache } from './lib/mdx/rehype-toc'
 
 interface CollectionProps {
   name: string
@@ -42,6 +43,7 @@ const options: Options = {
       },
     ],
     [rehypeImage, { root: 'public' }],
+    rehypeToc,
   ],
   remarkPlugins: [remarkGfm, remarkBreaks, remarkMath],
 }
@@ -69,6 +71,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
       const contentCode = await compileMDX(context, document, options)
+      const toc = tocCache.get(document._meta) ?? []
 
       return {
         ...document,
@@ -76,6 +79,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         slug,
         url,
         contentCode,
+        toc,
       }
     },
   })

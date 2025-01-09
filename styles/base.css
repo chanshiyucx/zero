@@ -43,6 +43,11 @@
     @apply flex items-center gap-1 rounded-lg border border-muted/20 bg-muted/10 px-1.5 py-1 font-semibold uppercase leading-none text-subtle transition hover:bg-muted/20 focus:outline-none focus:ring;
   }
 
+  h2,
+  h3 {
+    @apply scroll-mt-8;
+  }
+
   /* Theme transition */
   ::view-transition-new(root) {
     @apply animate-turn-off;
