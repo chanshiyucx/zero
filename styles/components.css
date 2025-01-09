@@ -68,6 +68,11 @@
     );
   }
 
+  /* Toc */
+  .toc li.visible > a {
+    @apply translate-x-1.5 text-text decoration-muted;
+  }
+
   /* Text Shadow */
   .text-shadow {
     text-shadow: 1px 1px 3px hsl(var(--color-text) / 0.3);
