@@ -32,10 +32,9 @@ export function Toc({ toc }: TocProps) {
   const tocItemsRef = useRef<TocItem[]>([])
 
   useEffect(() => {
-    const drawPath = () => {
+    const updateTocItems = () => {
       const tocElement = tocRef.current
-      const path = pathRef.current
-      if (!tocElement || !path) return
+      if (!tocElement) return
 
       const listItems = [...tocElement.querySelectorAll('li')]
 
@@ -55,6 +54,11 @@ export function Toc({ toc }: TocProps) {
           }
         })
         .filter((item) => item !== null)
+    }
+
+    const drawPath = () => {
+      const path = pathRef.current
+      if (!path) return
 
       const pathCommands: string[] = []
       let pathIndent: number
@@ -99,19 +103,20 @@ export function Toc({ toc }: TocProps) {
       tocItemsRef.current.forEach((item, index) => {
         const targetBounds = item.target.getBoundingClientRect()
 
-        // 获取下一个标题的位置（如果存在）
         let nextTarget = null
         if (index < tocItemsRef.current.length - 1) {
           nextTarget = tocItemsRef.current[index + 1].target
         }
 
-        // 计算当前内容块的底部边界
         const contentBottom = nextTarget
           ? nextTarget.getBoundingClientRect().top
           : document.documentElement.scrollHeight
 
-        // 判断当前内容块是否可见（标题到下一个标题之间的内容）
-        if (contentBottom > 0 && targetBounds.top < windowHeight) {
+        const margin = 50
+        if (
+          contentBottom > margin &&
+          targetBounds.top < windowHeight - margin
+        ) {
           pathStart = Math.min(item.pathStart || 0, pathStart)
           pathEnd = Math.max(item.pathEnd || 0, pathEnd)
           visibleItems += 1
@@ -132,15 +137,18 @@ export function Toc({ toc }: TocProps) {
             'stroke-dasharray',
             `1, ${pathStart}, ${pathEnd - pathStart}, ${pathLength}`,
           )
-          // path.setAttribute('opacity', '1')
+          path.setAttribute('opacity', '1')
         }
       } else {
-        // path.setAttribute('opacity', '0')
+        path.setAttribute('opacity', '0')
       }
 
       lastPathStart.current = pathStart
       lastPathEnd.current = pathEnd
     }
+
+    // Update toc items
+    updateTocItems()
 
     // Initial draw
     drawPath()
@@ -149,7 +157,6 @@ export function Toc({ toc }: TocProps) {
     window.addEventListener('resize', drawPath)
     window.addEventListener('scroll', sync)
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', drawPath)
       window.removeEventListener('scroll', sync)
