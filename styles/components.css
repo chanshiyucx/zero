@@ -113,6 +113,12 @@
     @apply border-l-2 border-muted bg-base;
   }
 
+  figure {
+    &:hover button {
+      @apply opacity-100;
+    }
+  }
+
   /* Meow Bubble */
   .meow-bubble {
     @apply absolute -right-20 -top-4 h-8 w-16 translate-x-2 rounded-[46px] bg-overlay text-center text-sm font-bold leading-loose opacity-0 transition-opacity duration-300;
