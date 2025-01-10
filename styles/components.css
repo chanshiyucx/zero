@@ -30,7 +30,7 @@
   .menu-button,
   .tiny-button {
     @apply inline-block cursor-pointer rounded-lg font-semibold leading-none text-subtle transition-all duration-300;
-    @apply hover:bg-muted/20 focus:outline-none focus:ring focus:ring-inset;
+    @apply hover:bg-muted/20;
   }
 
   .menu-button {

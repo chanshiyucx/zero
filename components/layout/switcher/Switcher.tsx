@@ -14,7 +14,7 @@ function TinyLink({ href, label, isActive }: TinyLinkProps) {
     <Link
       href={href}
       data-isactive={isActive}
-      className="flex bg-muted/10 px-4 py-2 text-sm font-medium text-subtle transition data-[isactive='true']:bg-surface data-[isactive='true']:text-text hover:text-text data-[isactive='true']:hover:bg-surface focus:outline-none focus:ring focus:ring-inset"
+      className="flex bg-muted/10 px-4 py-2 text-sm font-medium text-subtle transition data-[isactive='true']:bg-surface data-[isactive='true']:text-text hover:text-text data-[isactive='true']:hover:bg-surface"
     >
       {label}
     </Link>
