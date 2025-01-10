@@ -6,8 +6,8 @@ import { Backward } from '@/components/ui/backward'
 import { Date } from '@/components/ui/date'
 import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
+import { Toc } from '@/components/ui/toc'
 import { config } from '@/lib/constants/config'
-import { Toc } from './Toc'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -52,8 +52,8 @@ export async function Article({ params, collection, type }: ArticleProps) {
   }
 
   return (
-    <main className="group flex flex-row">
-      <article className="page space-y-12">
+    <main className="page flex flex-row">
+      <article className="w-full space-y-12">
         <header>
           <h1 className="text-3xl font-extrabold">{article.title}</h1>
           <div className="mt-3 flex gap-5 text-subtle">
