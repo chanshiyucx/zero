@@ -175,17 +175,14 @@ export function Toc({ toc }: TocProps) {
   }, [toc])
 
   return (
-    <aside className="-ml-64 hidden min-h-screen w-60 xl:block">
-      <nav className="sticky top-24 mt-20">
+    <aside className="hidden w-0 xl:block">
+      <nav className="sticky top-24 mt-52 w-64 translate-x-4">
         <List
           size="1.5em"
           weight="bold"
-          className="ml-2 mt-3 text-muted opacity-40 transition-opacity duration-500 group-hover:opacity-100 hover:opacity-100"
+          className="ml-2 text-muted opacity-40 transition-opacity duration-500 group-hover:opacity-100 hover:opacity-100"
         />
-        <ul
-          ref={tocRef}
-          className="toc p-2 text-sm opacity-100 transition-opacity duration-500 group-hover:opacity-100 hover:opacity-100"
-        >
+        <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
           {toc.map((item) => (
             <li key={item.id} className="my-2">
               <Link
