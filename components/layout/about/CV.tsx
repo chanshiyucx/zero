@@ -18,7 +18,7 @@ export async function CV() {
           Projects
         </Link>
       </header>
-      <Github repo={repo} />
+      <Github repo={repo} className="hover:bg-muted/20" />
       <div className="flex gap-5">
         <a
           href={config.links.cvPdf}

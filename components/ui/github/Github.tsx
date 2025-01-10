@@ -17,7 +17,7 @@ export function Github({ repo, className }: GithubProps) {
   return (
     <div
       className={clsx(
-        'flex flex-col justify-between space-y-3 rounded-lg bg-muted/10 p-3 transition-all duration-300 hover:bg-muted/20',
+        'flex flex-col justify-between space-y-3 rounded-lg bg-muted/10 p-3 duration-300',
         className,
       )}
     >
