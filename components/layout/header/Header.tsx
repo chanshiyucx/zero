@@ -17,6 +17,12 @@ interface MenuItemProps {
   isActive?: boolean
 }
 
+const variants = {
+  hidden: { opacity: 0, y: -10 },
+  enter: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
+}
+
 function MenuItem({ name, path, className, isActive }: MenuItemProps) {
   const pathname = usePathname()
   const isHome = path === '/'
@@ -33,12 +39,6 @@ function MenuItem({ name, path, className, isActive }: MenuItemProps) {
       {name}
     </Link>
   )
-}
-
-const variants = {
-  hidden: { opacity: 0, y: -10 },
-  enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
 }
 
 function BlogMenuItem({ name, path }: MenuItemProps) {

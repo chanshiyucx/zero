@@ -24,7 +24,7 @@ export default async function Page() {
           <li key={repo.name}>
             <Github
               repo={repo}
-              className="bg-surface transition target:ring hover:bg-muted/10 focus:outline-none focus:ring"
+              className="bg-surface transition hover:bg-muted/10"
             />
           </li>
         ))}
