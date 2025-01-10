@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { CalendarBlank } from '@phosphor-icons/react/dist/ssr'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
 import { sortedAlbums } from '@/lib/utils/content'
@@ -20,20 +21,21 @@ export default function Page() {
       </header>
       <section className="space-y-12">
         {albumList.map((album) => (
-          <div key={album.title}>
-            <p className="mb-5 flex gap-5 text-lg font-bold">
-              <Date
-                dateString={album.date}
-                dateFormat="LLL dd, yyyy"
-                className="text-subtle"
+          <article key={album.title}>
+            <header className="sticky top-0 z-10 flex flex-row items-center justify-between bg-base py-3">
+              <h2 className="text-2xl font-bold">{album.title}</h2>
+              <span className="inline-flex items-center gap-1 text-subtle">
+                <CalendarBlank weight="bold" />
+                <Date dateString={album.date} dateFormat="LLL dd, yyyy" />
+              </span>
+            </header>
+            <section className="pt-2">
+              <MDX
+                code={album.contentCode}
+                classname="grid grid-cols-[repeat(3,minmax(0,1fr))] max-md:grid-cols-[repeat(2,minmax(0,1fr))] gap-3 album grid-template-rows"
               />
-              {album.title}
-            </p>
-            <MDX
-              code={album.contentCode}
-              classname="grid grid-cols-[repeat(3,minmax(0,1fr))] max-md:grid-cols-[repeat(2,minmax(0,1fr))] gap-3 album grid-template-rows"
-            />
-          </div>
+            </section>
+          </article>
         ))}
       </section>
     </main>
