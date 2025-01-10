@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
+import { Toc } from '@/components/ui/toc'
 import { sortedNotes } from '@/lib/utils/content'
 
 interface NoteItemProps {
@@ -20,9 +21,11 @@ export const metadata: Metadata = {
 function NoteItem({ note }: NoteItemProps) {
   return (
     <div>
-      <div className="sticky top-0 z-10 flex flex-1 flex-row items-center justify-between bg-base py-3">
+      <header className="sticky top-0 z-10 flex flex-1 flex-row items-center justify-between bg-base py-3">
         <Link className="link-hover text-2xl font-bold" href={note.url}>
-          <h2 className="inline text-text">{note.title}</h2>
+          <h2 className="inline text-text" id={note.slug}>
+            {note.title}
+          </h2>
         </Link>
         <div className="flex gap-5 text-subtle">
           <span className="inline-flex items-center gap-1">
@@ -38,10 +41,10 @@ function NoteItem({ note }: NoteItemProps) {
             ))}
           </span>
         </div>
-      </div>
-      <div className="w-full pb-12 pt-2">
+      </header>
+      <section className="w-full pb-12 pt-2">
         <MDX code={note.contentCode} />
-      </div>
+      </section>
     </div>
   )
 }
@@ -49,19 +52,28 @@ function NoteItem({ note }: NoteItemProps) {
 export default function Page() {
   const noteList = sortedNotes()
 
+  const toc = sortedNotes().map((note) => ({
+    id: note.slug,
+    title: note.title,
+    depth: 2,
+  }))
+
   return (
-    <article className="page">
-      <header>
-        <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
-      </header>
-      <div className="flex flex-col gap-8">
-        {noteList.map((note, index) => (
-          <div key={note.title}>
-            <NoteItem note={note} />
-            {index < noteList.length - 1 && <Divider />}
-          </div>
-        ))}
-      </div>
-    </article>
+    <main className="page flex flex-row">
+      <article className="w-full space-y-12">
+        <header>
+          <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
+        </header>
+        <div className="flex flex-col gap-8">
+          {noteList.map((note, index) => (
+            <div key={note.title}>
+              <NoteItem note={note} />
+              {index < noteList.length - 1 && <Divider />}
+            </div>
+          ))}
+        </div>
+      </article>
+      {toc.length > 0 && <Toc toc={toc} />}
+    </main>
   )
 }

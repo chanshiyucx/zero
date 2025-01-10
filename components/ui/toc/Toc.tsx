@@ -176,11 +176,11 @@ export function Toc({ toc }: TocProps) {
 
   return (
     <aside className="hidden w-0 xl:block">
-      <nav className="sticky top-24 mt-52 w-64 translate-x-4">
+      <nav className="sticky top-24 mt-12 w-64 translate-x-4">
         <List
           size="1.5em"
           weight="bold"
-          className="ml-2 text-muted opacity-40 transition-opacity duration-500 group-hover:opacity-100 hover:opacity-100"
+          className="ml-2 text-muted opacity-40 transition-opacity duration-500 hover:opacity-100"
         />
         <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
           {toc.map((item) => (
