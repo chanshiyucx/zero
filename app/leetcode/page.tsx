@@ -24,7 +24,7 @@ export default function Page() {
     <main className="page">
       <header>
         <h1 className="text-4xl font-extrabold">
-          Simplicity is the soul of efficiency.
+          Simplicity fuels ultimate efficiency.
         </h1>
       </header>
       <ul className="space-y-2">
