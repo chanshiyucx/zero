@@ -21,7 +21,7 @@ export default function Page() {
   const leetcodeList = sortedLeetcodes()
 
   return (
-    <article className="page">
+    <main className="page">
       <header>
         <h1 className="text-4xl font-extrabold">
           Simplicity is the soul of efficiency.
@@ -45,6 +45,6 @@ export default function Page() {
           </li>
         ))}
       </ul>
-    </article>
+    </main>
   )
 }
