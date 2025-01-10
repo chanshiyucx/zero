@@ -13,7 +13,7 @@ export default async function Page() {
   const repositories = await getGithubRepositories()
 
   return (
-    <article className="page">
+    <main className="page">
       <header>
         <h1 className="text-4xl font-extrabold">
           Keep it simple, but not simpler.
@@ -29,6 +29,6 @@ export default async function Page() {
           </li>
         ))}
       </ul>
-    </article>
+    </main>
   )
 }

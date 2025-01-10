@@ -59,21 +59,23 @@ export default function Page() {
   }))
 
   return (
-    <main className="page flex flex-row">
-      <article className="w-full space-y-12">
-        <header>
-          <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
-        </header>
-        <div className="flex flex-col gap-8">
-          {noteList.map((note, index) => (
-            <div key={note.title}>
-              <NoteItem note={note} />
-              {index < noteList.length - 1 && <Divider />}
-            </div>
-          ))}
-        </div>
-      </article>
-      {toc.length > 0 && <Toc toc={toc} />}
+    <main className="page">
+      <header>
+        <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
+      </header>
+      <section className="flex flex-row">
+        <article className="w-full">
+          <div className="flex flex-col gap-8">
+            {noteList.map((note, index) => (
+              <div key={note.title}>
+                <NoteItem note={note} />
+                {index < noteList.length - 1 && <Divider />}
+              </div>
+            ))}
+          </div>
+        </article>
+        {toc.length > 0 && <Toc toc={toc} />}
+      </section>
     </main>
   )
 }

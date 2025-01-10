@@ -39,7 +39,7 @@ const FriendCard = ({ friend }: { friend: Friend }) => {
 
 export default function Page() {
   return (
-    <article className="page">
+    <main className="page">
       <header>
         <h1 className="text-4xl font-extrabold">
           Souls connected through time.
@@ -52,6 +52,6 @@ export default function Page() {
           </li>
         ))}
       </ul>
-    </article>
+    </main>
   )
 }

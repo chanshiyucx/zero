@@ -30,11 +30,11 @@ export default function Page() {
   })
 
   return (
-    <article className="page">
+    <main className="page">
       <header>
         <h1 className="text-4xl font-extrabold">Life is a burning chaos.</h1>
       </header>
-      <div>
+      <section>
         {postGroupList.map((postGroup) => (
           <div key={postGroup.year}>
             <p className="text-right text-3xl font-extrabold">
@@ -57,7 +57,7 @@ export default function Page() {
             </ul>
           </div>
         ))}
-      </div>
-    </article>
+      </section>
+    </main>
   )
 }

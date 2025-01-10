@@ -14,11 +14,11 @@ export default function Page() {
   const albumList = sortedAlbums()
 
   return (
-    <article className="page">
+    <main className="page">
       <header>
         <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
       </header>
-      <div className="space-y-12">
+      <section className="space-y-12">
         {albumList.map((album) => (
           <div key={album.title}>
             <p className="mb-5 flex gap-5 text-lg font-bold">
@@ -35,7 +35,7 @@ export default function Page() {
             />
           </div>
         ))}
-      </div>
-    </article>
+      </section>
+    </main>
   )
 }
