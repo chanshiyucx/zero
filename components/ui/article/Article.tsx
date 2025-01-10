@@ -53,7 +53,6 @@ export async function Article({ params, collection, type }: ArticleProps) {
 
   return (
     <main className="group flex flex-row">
-      {article.toc.length > 0 && <Toc toc={article.toc} />}
       <article className="page space-y-12">
         <header>
           <h1 className="text-3xl font-extrabold">{article.title}</h1>
@@ -80,6 +79,7 @@ export async function Article({ params, collection, type }: ArticleProps) {
           <Backward />
         </footer>
       </article>
+      {article.toc.length > 0 && <Toc toc={article.toc} />}
     </main>
   )
 }
