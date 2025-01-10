@@ -55,7 +55,7 @@ export async function Article({ params, collection, type }: ArticleProps) {
     <main className="page flex flex-row">
       <article className="w-full space-y-12">
         <header>
-          <h1 className="text-3xl font-extrabold">{article.title}</h1>
+          <h1 className="text-4xl font-extrabold">{article.title}</h1>
           <div className="mt-3 flex gap-5 text-subtle">
             <span className="inline-flex items-center gap-1">
               <CalendarBlank weight="bold" />

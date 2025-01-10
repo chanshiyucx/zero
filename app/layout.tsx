@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
-import { Fira_Code, Merriweather } from 'next/font/google'
+import { Fira_Code, Source_Serif_4 } from 'next/font/google'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
@@ -10,9 +10,9 @@ import '@/styles/main.css'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
 
-const merriweather = Merriweather({
+const merriweather = Source_Serif_4({
   subsets: ['latin'],
-  weight: ['300', '400', '700', '900'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-merriweather',
   display: 'swap',
 })
