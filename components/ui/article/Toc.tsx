@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { TocEntry } from '@/lib/mdx/rehype-toc'
+import { debounce } from '@/lib/utils/lodash'
 
 interface TocProps {
   toc: TocEntry[]
@@ -30,6 +31,7 @@ export function Toc({ toc }: TocProps) {
   const lastPathStart = useRef<number>(0)
   const lastPathEnd = useRef<number>(0)
   const tocItemsRef = useRef<TocItem[]>([])
+  const isSyncScheduled = useRef<boolean>(false)
 
   useEffect(() => {
     const updateTocItems = () => {
@@ -92,59 +94,66 @@ export function Toc({ toc }: TocProps) {
     }
 
     const sync = () => {
-      const path = pathRef.current
-      if (!path) return
+      if (isSyncScheduled.current) return
+      isSyncScheduled.current = true
 
-      const windowHeight = window.innerHeight
-      let pathStart = Number.MAX_VALUE
-      let pathEnd = 0
-      let visibleItems = 0
+      requestAnimationFrame(() => {
+        const path = pathRef.current
+        if (!path) return
 
-      tocItemsRef.current.forEach((item, index) => {
-        const targetBounds = item.target.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        let pathStart = Number.MAX_VALUE
+        let pathEnd = 0
+        let visibleItems = 0
 
-        let nextTarget = null
-        if (index < tocItemsRef.current.length - 1) {
-          nextTarget = tocItemsRef.current[index + 1].target
-        }
+        tocItemsRef.current.forEach((item, index) => {
+          const targetBounds = item.target.getBoundingClientRect()
 
-        const contentBottom = nextTarget
-          ? nextTarget.getBoundingClientRect().top
-          : document.documentElement.scrollHeight
+          let nextTarget = null
+          if (index < tocItemsRef.current.length - 1) {
+            nextTarget = tocItemsRef.current[index + 1].target
+          }
 
-        const margin = 50
-        if (
-          contentBottom > margin &&
-          targetBounds.top < windowHeight - margin
-        ) {
-          pathStart = Math.min(item.pathStart || 0, pathStart)
-          pathEnd = Math.max(item.pathEnd || 0, pathEnd)
-          visibleItems += 1
-          item.listItem.classList.add('visible')
+          const contentBottom = nextTarget
+            ? nextTarget.getBoundingClientRect().top
+            : document.documentElement.scrollHeight
+
+          const margin = 50
+          if (
+            contentBottom > margin &&
+            targetBounds.top < windowHeight - margin
+          ) {
+            pathStart = Math.min(item.pathStart || 0, pathStart)
+            pathEnd = Math.max(item.pathEnd || 0, pathEnd)
+            visibleItems += 1
+            item.listItem.classList.add('visible')
+          } else {
+            item.listItem.classList.remove('visible')
+          }
+        })
+
+        if (visibleItems > 0 && pathStart < pathEnd) {
+          if (
+            pathStart !== lastPathStart.current ||
+            pathEnd !== lastPathEnd.current
+          ) {
+            const pathLength = path.getTotalLength()
+            path.setAttribute('stroke-dashoffset', '1')
+            path.setAttribute(
+              'stroke-dasharray',
+              `1, ${pathStart}, ${pathEnd - pathStart}, ${pathLength}`,
+            )
+            path.setAttribute('opacity', '1')
+          }
         } else {
-          item.listItem.classList.remove('visible')
+          path.setAttribute('opacity', '0')
         }
+
+        lastPathStart.current = pathStart
+        lastPathEnd.current = pathEnd
+
+        isSyncScheduled.current = false
       })
-
-      if (visibleItems > 0 && pathStart < pathEnd) {
-        if (
-          pathStart !== lastPathStart.current ||
-          pathEnd !== lastPathEnd.current
-        ) {
-          const pathLength = path.getTotalLength()
-          path.setAttribute('stroke-dashoffset', '1')
-          path.setAttribute(
-            'stroke-dasharray',
-            `1, ${pathStart}, ${pathEnd - pathStart}, ${pathLength}`,
-          )
-          path.setAttribute('opacity', '1')
-        }
-      } else {
-        path.setAttribute('opacity', '0')
-      }
-
-      lastPathStart.current = pathStart
-      lastPathEnd.current = pathEnd
     }
 
     // Update toc items
@@ -153,12 +162,14 @@ export function Toc({ toc }: TocProps) {
     // Initial draw
     drawPath()
 
+    const debouncedDrawPath = debounce(drawPath, 100)
+
     // Add event listeners
-    window.addEventListener('resize', drawPath)
+    window.addEventListener('resize', debouncedDrawPath)
     window.addEventListener('scroll', sync)
 
     return () => {
-      window.removeEventListener('resize', drawPath)
+      window.removeEventListener('resize', debouncedDrawPath)
       window.removeEventListener('scroll', sync)
     }
   }, [toc])
