@@ -3,7 +3,7 @@ import { AnalysisCard } from './AnalysisCard'
 import { CatCard } from './CatCard'
 import { DiscordStatus } from './DiscordStatus'
 import { GithubStats } from './GithubStats'
-import { LatestPost } from './LatestPost'
+import { LatestStat } from './LatestStat'
 import { SocialCard } from './SocialCard'
 import { StacksCard } from './StacksCard'
 // import { StarsCard } from './StarsCard'
@@ -38,7 +38,7 @@ export function Grid() {
         <div className="col-span-3 flex flex-col gap-3">
           <div className="flex gap-2">
             <DiscordStatus />
-            <LatestPost />
+            <LatestStat />
           </div>
           <StacksCard />
         </div>
