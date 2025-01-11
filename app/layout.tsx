@@ -19,7 +19,7 @@ const merriweather = Source_Serif_4({
 
 const fira = Fira_Code({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-fira',
   display: 'swap',
 })
