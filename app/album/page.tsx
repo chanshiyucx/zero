@@ -19,7 +19,8 @@ export default function Page() {
       <header>
         <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
       </header>
-      <section className="space-y-12">
+      {/* -translate-y-3 keeps all pages have the same top margin */}
+      <section className="-translate-y-3 space-y-12">
         {albumList.map((album) => (
           <article key={album.title}>
             <header className="sticky top-0 z-10 flex flex-row items-center justify-between bg-base py-3">

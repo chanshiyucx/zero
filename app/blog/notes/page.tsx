@@ -63,8 +63,9 @@ export default function Page() {
       <header>
         <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
       </header>
+      {/* -translate-y-3 keeps all pages have the same top margin */}
       <section className="flex flex-row">
-        <article className="w-full">
+        <article className="w-full -translate-y-3">
           <div className="flex flex-col gap-8">
             {noteList.map((note, index) => (
               <div key={note.title}>

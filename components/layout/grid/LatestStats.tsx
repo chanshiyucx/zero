@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { sortedContent } from '@/lib/utils/content'
 
-export function LatestStat() {
+export function LatestStats() {
   const article = sortedContent()[0]
 
   return (
