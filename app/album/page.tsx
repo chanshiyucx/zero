@@ -19,13 +19,12 @@ export default function Page() {
       <header>
         <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
       </header>
-      {/* -translate-y-3 keeps all pages have the same top margin */}
-      <section className="-translate-y-3 space-y-12">
+      <section className="space-y-12">
         {albumList.map((album) => (
           <article key={album.title}>
             <header className="sticky top-0 z-10 flex flex-row items-center justify-between bg-base py-3">
               <h2 className="text-2xl font-bold">{album.title}</h2>
-              <span className="inline-flex items-center gap-1 text-subtle">
+              <span className="inline-flex flex-shrink-0 items-center gap-1 text-subtle">
                 <CalendarBlank weight="bold" />
                 <Date dateString={album.date} dateFormat="LLL dd, yyyy" />
               </span>

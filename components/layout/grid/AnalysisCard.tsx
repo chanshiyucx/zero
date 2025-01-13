@@ -55,8 +55,8 @@ export function AnalysisCard() {
   ]
 
   return (
-    <div className="relative block h-full w-full">
-      <div className="absolute left-8 top-4 h-20 w-20">
+    <div className="relative block h-24 w-full">
+      <div className="absolute bottom-0 left-4 h-fit w-20">
         <Meow />
       </div>
       <div

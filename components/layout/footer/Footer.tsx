@@ -13,7 +13,7 @@ export function Footer() {
           2016-{new Date().getFullYear()}
         </p>
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-3 max-md:hidden">
         <Link href="/sitemap" className="link">
           Sitemap
         </Link>

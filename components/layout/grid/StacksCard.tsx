@@ -122,7 +122,7 @@ const IconElement = ({ data: { icon: Icon, title } }: { data: IconItem }) => (
 
 export const StacksCard = () => {
   return (
-    <div className="flex h-full flex-col gap-3 overflow-hidden rounded-lg p-2">
+    <div className="flex h-24 w-full flex-col gap-3 overflow-hidden rounded-lg p-2">
       <Marquee fade pauseOnHover>
         {stackLines.top.map((data) => (
           <IconElement key={data.title} data={data} />
