@@ -21,13 +21,13 @@ export const metadata: Metadata = {
 function NoteItem({ note }: NoteItemProps) {
   return (
     <div>
-      <header className="sticky top-0 z-10 flex flex-1 flex-row items-center justify-between bg-base py-3">
+      <header className="sticky top-0 z-10 flex flex-1 flex-row items-center justify-between bg-base py-3 max-md:flex-col max-md:items-start">
         <Link className="link-hover text-2xl font-bold" href={note.url}>
           <h2 className="inline text-text" id={note.slug}>
             {note.title}
           </h2>
         </Link>
-        <div className="flex gap-5 text-subtle">
+        <div className="flex flex-shrink-0 gap-5 text-subtle">
           <span className="inline-flex items-center gap-1">
             <CalendarBlank weight="bold" />
             <Date dateString={note.date} dateFormat="LLL dd, yyyy" />
@@ -63,9 +63,8 @@ export default function Page() {
       <header>
         <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
       </header>
-      {/* -translate-y-3 keeps all pages have the same top margin */}
       <section className="flex flex-row">
-        <article className="w-full -translate-y-3">
+        <article className="w-full">
           <div className="flex flex-col gap-8">
             {noteList.map((note, index) => (
               <div key={note.title}>

@@ -69,7 +69,7 @@ const Link = ({ label, ...props }: { label: string } & LinkProps) => (
 
 export function About() {
   return (
-    <div className="prose prose-rosepine w-full max-w-none text-justify">
+    <div className="prose prose-rosepine w-full max-w-none">
       <h2 className="text-xs text-subtle">Full-Stack Developer</h2>
 
       <p>
