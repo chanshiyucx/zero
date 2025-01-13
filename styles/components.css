@@ -3,7 +3,7 @@
 @layer components {
   /* Page */
   .page {
-    @apply w-full flex-1 space-y-20 py-20;
+    @apply w-full flex-1 space-y-20 py-20 max-md:space-y-12 max-md:py-12;
   }
 
   /* Album */
@@ -43,8 +43,8 @@
 
   /* Link */
   .link {
-    @apply inline text-iris underline decoration-transparent underline-offset-2 duration-300 hover:decoration-current;
-    @apply after:ml-0.5 after:inline-block after:whitespace-pre after:transition-all after:duration-300 after:content-['↗'];
+    @apply relative inline pr-4 text-iris underline decoration-transparent underline-offset-2 duration-300 hover:decoration-current;
+    @apply right-0 top-0 after:absolute after:ml-0.5 after:inline-block after:whitespace-pre after:transition-all after:duration-300 after:content-['↗'];
   }
 
   .link[href^='#'] {
