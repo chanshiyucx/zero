@@ -1,14 +1,7 @@
-import type { Post } from 'content-collections'
 import type { Metadata } from 'next'
-import { getYear } from 'date-fns'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
-import { sortedPosts } from '@/lib/utils/content'
-
-interface PostGroup {
-  year: number
-  list: Post[]
-}
+import { groupByYear, sortedPosts } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
   title: 'Posts',
@@ -19,15 +12,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   const postList = sortedPosts()
-  const postGroupList: PostGroup[] = []
-  postList.forEach((post) => {
-    const year = getYear(post.date)
-    const lastGroup = postGroupList.at(-1)
-    if (!lastGroup || lastGroup.year !== year) {
-      postGroupList.push({ year, list: [] })
-    }
-    postGroupList.at(-1)?.list.push(post)
-  })
+  const postGroupList = groupByYear(postList)
 
   return (
     <main className="page">
@@ -35,13 +20,11 @@ export default function Page() {
         <h1 className="text-4xl font-extrabold">Life is a burning chaos.</h1>
       </header>
       <section>
-        {postGroupList.map((postGroup) => (
-          <div key={postGroup.year}>
-            <p className="text-right text-3xl font-extrabold">
-              {postGroup.year}
-            </p>
+        {postGroupList.map((group) => (
+          <div key={group.year}>
+            <p className="text-right text-3xl font-extrabold">{group.year}</p>
             <ul className="space-y-2">
-              {postGroup.list.map((post) => (
+              {group.list.map((post) => (
                 <li key={post.title}>
                   <Link className="flex gap-6" href={post.url}>
                     <Date

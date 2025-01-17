@@ -34,7 +34,7 @@
   }
 
   .menu-button {
-    @apply w-full p-2 data-[isactive='true']:text-text;
+    @apply w-full p-2 text-center data-[isactive='true']:text-text;
   }
 
   .tiny-button {
