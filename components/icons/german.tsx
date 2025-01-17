@@ -8,7 +8,6 @@ export function German(props: SVGProps<SVGSVGElement>) {
       width="1em"
       height="1em"
       viewBox="0 0 100 100"
-      xmlSpace="preserve"
       {...props}
     >
       <g
