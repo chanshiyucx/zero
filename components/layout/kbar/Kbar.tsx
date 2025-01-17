@@ -44,12 +44,14 @@ const ResultItem = forwardRef<
     >
       <div
         className={clsx(
-          'flex flex-shrink-0 items-center overflow-hidden text-ellipsis whitespace-nowrap',
+          'flex w-full flex-shrink-0 items-center',
           action.id.startsWith('link') && 'link',
         )}
       >
         {action.icon}
-        {action.name}
+        <span className="inline-block overflow-hidden text-ellipsis whitespace-nowrap">
+          {action.name}
+        </span>
       </div>
       {action.shortcut && (
         <div className="flex gap-1">

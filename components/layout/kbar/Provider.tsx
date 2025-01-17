@@ -31,7 +31,7 @@ import { KBar } from './Kbar'
 const iconProps: Partial<IconProps> = {
   size: '1em',
   weight: 'duotone',
-  className: 'inline-block text-xl mr-3',
+  className: 'inline-block text-xl mr-3 flex-shrink-0',
 }
 
 const languageIcon = {
