@@ -1,46 +1,78 @@
-import type { Album, Leetcode, Note, Post } from 'content-collections'
+import type { Album, Leetcode, Note, Polyglot, Post } from 'content-collections'
 import {
   allAlbums,
   allLeetcodes,
   allNotes,
+  allPolyglots,
   allPosts,
 } from 'content-collections'
-import { compareDesc } from 'date-fns'
+import { compareDesc, getYear } from 'date-fns'
 
-export type ContentType = 'Post' | 'Note' | 'Leetcode'
+export type Content = Post | Note | Leetcode | Polyglot
 
-export type Content = Post | Note | Leetcode
+export type ContentType = 'Post' | 'Note' | 'Leetcode' | 'Polyglot'
 
-export type ContentSummary = {
+export interface ContentGroup {
+  year: number
+  list: Content[]
+}
+
+export interface BlogSummary {
   posts: number
   notes: number
   leetcodes: number
 }
 
 type SortableContent = { date: string }
-type SortableById = { id: string }
+type SortableByNo = { no: string }
 
 const sortByDate = <T extends SortableContent>(items: T[]): T[] =>
   [...items].sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
 
-const sortById = <T extends SortableById>(items: T[]): T[] =>
-  [...items].sort((a, b) => Number(b.id) - Number(a.id))
+const sortByNo = <T extends SortableByNo>(items: T[]): T[] =>
+  [...items].sort((a, b) => Number(b.no) - Number(a.no))
 
 export const sortedPosts = (): Post[] => sortByDate(allPosts)
 
-export const sortedNotes = (): Post[] => sortByDate(allNotes)
+export const sortedNotes = (): Note[] => sortByDate(allNotes)
 
-export const sortedAlbums = (): Album[] => sortByDate(allAlbums)
-
-export const sortedLeetcodes = (sortBy: 'id' | 'date' = 'id'): Leetcode[] =>
-  sortBy === 'id' ? sortById(allLeetcodes) : sortByDate(allLeetcodes)
+export const sortedLeetcodes = (sortBy: 'no' | 'date' = 'date'): Leetcode[] =>
+  sortBy === 'no' ? sortByNo(allLeetcodes) : sortByDate(allLeetcodes)
 
 export const sortedContent = (): Content[] =>
-  sortByDate([...allPosts, ...allNotes, ...allLeetcodes])
+  sortByDate([...allPosts, ...allNotes, ...allLeetcodes, ...allPolyglots])
 
-export const summary = (): ContentSummary => {
+export const groupByYear = (items: Content[]): ContentGroup[] => {
+  const contentGroup: ContentGroup[] = []
+  items.forEach((post) => {
+    const year = getYear(post.date)
+    const lastGroup = contentGroup.at(-1)
+    if (!lastGroup || lastGroup.year !== year) {
+      contentGroup.push({ year, list: [] })
+    }
+    contentGroup.at(-1)?.list.push(post)
+  })
+  return contentGroup
+}
+
+export const summary = (): BlogSummary => {
   const posts = allPosts.length
   const notes = allNotes.length
   const leetcodes = allLeetcodes.length
   return { posts, notes, leetcodes }
 }
+
+export const sortedPolyglots = (
+  filterByLanguage?: 'english' | 'german',
+): Polyglot[] => {
+  console.log(allPolyglots.length)
+  let filteredList = allPolyglots
+  if (filterByLanguage) {
+    filteredList = allPolyglots.filter((polyglot) =>
+      polyglot.tags[0].toLowerCase().startsWith(filterByLanguage),
+    )
+  }
+  return sortByDate(filteredList)
+}
+
+export const sortedAlbums = (): Album[] => sortByDate(allAlbums)

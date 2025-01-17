@@ -17,12 +17,6 @@ interface MenuItemProps {
   isActive?: boolean
 }
 
-const variants = {
-  hidden: { opacity: 0, y: -10 },
-  enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
-}
-
 function MenuItem({ name, path, className, isActive }: MenuItemProps) {
   const pathname = usePathname()
   const isHome = path === '/'
@@ -41,11 +35,25 @@ function MenuItem({ name, path, className, isActive }: MenuItemProps) {
   )
 }
 
-function BlogMenuItem({ name, path }: MenuItemProps) {
+interface DropdownItemProps {
+  name: string
+  path: string
+  items: Array<{
+    name: string
+    path: string
+  }>
+}
+
+const variants = {
+  hidden: { opacity: 0, y: -10 },
+  enter: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
+}
+
+function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-  const isNotes = pathname.startsWith('/blog/notes')
-  const isPosts = pathname.startsWith('/blog/posts') || pathname === '/blog'
+  const isActive = items.some((item) => pathname.startsWith(item.path))
 
   return (
     <div
@@ -53,36 +61,41 @@ function BlogMenuItem({ name, path }: MenuItemProps) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <MenuItem name={name} path={path} />
+      <MenuItem name={name} path={path} isActive={isActive} />
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial="hidden"
-            animate="enter"
-            exit="exit"
-            className="absolute -left-7 top-full w-28 p-2"
-            variants={variants}
-            transition={{
-              type: 'spring',
-              stiffness: 500,
-              damping: 30,
-            }}
-          >
-            <div className="rounded-lg bg-surface shadow-lg">
-              <MenuItem
-                name="Posts"
-                path="/blog/posts"
-                isActive={isPosts}
-                className="rounded-b-none py-3 text-center"
-              />
-              <MenuItem
-                name="Notes"
-                path="/blog/notes"
-                isActive={isNotes}
-                className="rounded-t-none py-3 text-center"
-              />
-            </div>
-          </motion.div>
+          <div className="absolute left-1/2 top-full z-10 -translate-x-1/2 p-2">
+            <motion.div
+              initial="hidden"
+              animate="enter"
+              exit="exit"
+              variants={variants}
+              transition={{
+                type: 'spring',
+                stiffness: 500,
+                damping: 30,
+              }}
+            >
+              <div className="rounded-lg bg-surface shadow-lg">
+                {items.map((item, index) => (
+                  <MenuItem
+                    key={item.path}
+                    name={item.name}
+                    path={item.path}
+                    isActive={pathname.startsWith(item.path)}
+                    className={clsx(
+                      'py-3',
+                      index === 0 && 'rounded-b-none',
+                      index === items.length - 1 && 'rounded-t-none',
+                      index !== 0 &&
+                        index !== items.length - 1 &&
+                        'rounded-none',
+                    )}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
@@ -105,8 +118,23 @@ export function Header() {
       <div className="flex items-center gap-3">
         <nav className="flex items-center justify-center gap-1 max-md:hidden">
           <MenuItem name="Home" path="/" />
-          <BlogMenuItem name="Blog" path="/blog" />
-          <MenuItem name="Leetcode" path="/leetcode" />
+          <DropdownMenuItem
+            name="Blog"
+            path="/blog/posts"
+            items={[
+              { name: 'Posts', path: '/blog/posts' },
+              { name: 'Notes', path: '/blog/notes' },
+              { name: 'Leetcode', path: '/blog/leetcode' },
+            ]}
+          />
+          <DropdownMenuItem
+            name="Polyglot"
+            path="/polyglot/english"
+            items={[
+              { name: 'English', path: '/polyglot/english' },
+              { name: 'German', path: '/polyglot/german' },
+            ]}
+          />
           <MenuItem name="Projects" path="/projects" />
           <MenuItem name="Album" path="/album" />
         </nav>

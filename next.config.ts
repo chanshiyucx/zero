@@ -38,10 +38,6 @@ let nextConfig: NextConfig = {
         source: '/sitemap',
         destination: '/sitemap.xml',
       },
-      {
-        source: '/blog',
-        destination: '/blog/posts',
-      },
     ]
   },
 }

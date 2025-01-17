@@ -67,15 +67,25 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     }),
     transform: async (document, context) => {
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
-      const [, id, title] = match
+      const [, no, title] = match
       const slug = slugger.slug(title)
-      const url = path.join(prefixPath, slug)
+
+      // handle polyglot url
+      let url = ''
+      if (prefixPath === '/polyglot') {
+        const language = document.tags[0].split('/')[0].toLowerCase()
+        url = path.join(prefixPath, language, slug)
+        console.log(document._meta.fileName)
+      } else {
+        url = path.join(prefixPath, slug)
+      }
+
       const contentCode = await compileMDX(context, document, options)
       const toc = tocCache.get(document._meta) ?? []
 
       return {
         ...document,
-        id,
+        no,
         slug,
         url,
         contentCode,
@@ -99,7 +109,7 @@ const notes = getCollection({
 const leetcode = getCollection({
   name: 'leetcode',
   directory: 'public/blog/leetcode',
-  prefixPath: '/leetcode',
+  prefixPath: '/blog/leetcode',
 })
 
 const album = getCollection({
@@ -108,6 +118,12 @@ const album = getCollection({
   prefixPath: '/album',
 })
 
+const polyglot = getCollection({
+  name: 'polyglot',
+  directory: 'public/blog/polyglot',
+  prefixPath: '/polyglot',
+})
+
 export default defineConfig({
-  collections: [posts, notes, leetcode, album],
+  collections: [posts, notes, leetcode, album, polyglot],
 })
