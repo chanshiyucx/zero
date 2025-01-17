@@ -44,7 +44,7 @@
   /* Link */
   .link {
     @apply relative inline pr-4 text-iris underline decoration-transparent underline-offset-2 duration-300 hover:decoration-current;
-    @apply right-0 top-0 after:absolute after:ml-0.5 after:inline-block after:whitespace-pre after:transition-all after:duration-300 after:content-['↗'];
+    @apply after:absolute after:right-0 after:top-0 after:ml-0.5 after:inline-block after:whitespace-pre after:transition-all after:duration-300 after:content-['↗'];
   }
 
   .link[href^='#'] {
