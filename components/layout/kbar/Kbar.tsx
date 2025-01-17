@@ -44,7 +44,7 @@ const ResultItem = forwardRef<
     >
       <div
         className={clsx(
-          'flex items-center overflow-hidden text-ellipsis whitespace-nowrap',
+          'flex flex-shrink-0 items-center overflow-hidden text-ellipsis whitespace-nowrap',
           action.id.startsWith('link') && 'link',
         )}
       >

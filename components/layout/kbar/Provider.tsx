@@ -1,4 +1,3 @@
-import type { Repository } from '@/lib/api'
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import type { Action } from 'kbar'
 import type { ReactNode } from 'react'
@@ -16,11 +15,17 @@ import {
   TerminalWindow,
   XLogo,
 } from '@phosphor-icons/react/dist/ssr'
-import { KBarProvider, useRegisterActions } from 'kbar'
+import clsx from 'clsx'
+import { KBarProvider } from 'kbar'
 import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { English, German } from '@/components/icons'
 import { config } from '@/lib/constants/config'
-import { sortedLeetcodes, sortedNotes, sortedPosts } from '@/lib/utils/content'
+import {
+  sortedLeetcodes,
+  sortedNotes,
+  sortedPolyglots,
+  sortedPosts,
+} from '@/lib/utils/content'
 import { KBar } from './Kbar'
 
 const iconProps: Partial<IconProps> = {
@@ -29,47 +34,19 @@ const iconProps: Partial<IconProps> = {
   className: 'inline-block text-xl mr-3',
 }
 
-function RegisterActions() {
-  const [repositories, setRepositories] = useState<Repository[]>([])
-  useEffect(() => {
-    const fetchRepositories = async () => {
-      try {
-        const response = await fetch('/api/github/repositories')
-        const data = await response.json()
-        setRepositories(data)
-      } catch (error) {
-        console.error('Failed to load repositories:', error)
-      }
-    }
-    fetchRepositories()
-  }, [])
-
-  const projectsAsAction: Action[] = useMemo(() => {
-    const actions: Action[] = repositories.map((repo) => ({
-      id: `link-${repo.full_name}`,
-      name: repo.full_name,
-      icon: <Briefcase {...iconProps} />,
-      keywords: repo.topics.toString().replaceAll(',', ' '),
-      parent: 'search-projects',
-      section: 'Projects',
-      perform: () => window.open(repo.html_url, '_blank'),
-    }))
-    return [
-      {
-        id: 'search-projects',
-        name: 'Search projects...',
-        section: 'Projects',
-        keywords: 'search projects write writing',
-        shortcut: ['p', 's'],
-        icon: <MagnifyingGlass {...iconProps} />,
-      },
-      ...actions,
-    ]
-  }, [repositories])
-
-  useRegisterActions(projectsAsAction, [projectsAsAction])
-
-  return null
+const languageIcon = {
+  english: (
+    <English
+      {...iconProps}
+      className={clsx(iconProps.className, 'text-base text-subtle')}
+    />
+  ),
+  german: (
+    <German
+      {...iconProps}
+      className={clsx(iconProps.className, 'text-base text-subtle')}
+    />
+  ),
 }
 
 export function CustomKBarProvider({ children }: { children: ReactNode }) {
@@ -77,6 +54,7 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const postList = sortedPosts()
   const noteList = sortedNotes()
   const leetcodeList = sortedLeetcodes()
+  const polyglotList = sortedPolyglots()
 
   const navigationActions: Action[] = [
     {
@@ -88,10 +66,18 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       perform: () => push('/'),
     },
     {
+      id: 'projects',
+      name: 'Projects',
+      shortcut: ['n', 'p'],
+      keywords: 'projects writing',
+      icon: <Briefcase {...iconProps} />,
+      perform: () => push('/projects'),
+    },
+    {
       id: 'album',
       name: 'Album',
       shortcut: ['n', 'a'],
-      keywords: 'a collection of moments and memories',
+      keywords: 'album photography',
       icon: <Camera {...iconProps} />,
       perform: () => push('/album'),
     },
@@ -99,21 +85,32 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
 
   const postsAsAction: Action[] = postList.map((post) => ({
     id: post.slug,
-    name: `${post.id}-${post.title}`,
+    name: post.title,
     icon: <Scroll {...iconProps} />,
     keywords: post.tags.toString().replaceAll(',', ' '),
     parent: 'search-blog',
     section: 'Blog',
     perform: () => push(post.url),
   }))
+
   const notesAsAction: Action[] = noteList.map((note) => ({
     id: note.slug,
-    name: `${note.id}-${note.title}`,
+    name: note.title,
     icon: <Notebook {...iconProps} />,
     keywords: note.tags.toString().replaceAll(',', ' '),
     parent: 'search-blog',
     section: 'Blog',
     perform: () => push(note.url),
+  }))
+
+  const leetcodeAsAction: Action[] = leetcodeList.map((leetcode) => ({
+    id: leetcode.slug,
+    name: `${leetcode.no}-${leetcode.title}`,
+    icon: <TerminalWindow {...iconProps} />,
+    keywords: leetcode.tags.toString().replaceAll(',', ' '),
+    parent: 'search-blog',
+    section: 'Blog',
+    perform: () => push(leetcode.url),
   }))
 
   const blogActions: Action[] = [
@@ -136,58 +133,69 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
       perform: () => push('/blog/notes'),
     },
     {
-      id: 'search-blog',
-      name: 'Search posts and notes...',
+      id: 'leetcode',
+      name: 'Leetcode',
+      shortcut: ['l'],
       section: 'Blog',
-      keywords: 'search blog posts notes',
+      keywords: 'leetcode writing',
+      icon: <TerminalWindow {...iconProps} />,
+      perform: () => push('/blog/leetcode'),
+    },
+    {
+      id: 'search-blog',
+      name: 'Search blog...',
+      section: 'Blog',
+      keywords: 'search blog',
       shortcut: ['b', 's'],
       icon: <MagnifyingGlass {...iconProps} />,
     },
     ...postsAsAction,
     ...notesAsAction,
-  ]
-
-  const leetcodeAsAction: Action[] = leetcodeList.map((leetcode) => ({
-    id: leetcode.slug,
-    name: `${leetcode.id}-${leetcode.title}`,
-    icon: <TerminalWindow {...iconProps} />,
-    keywords: leetcode.tags.toString().replaceAll(',', ' '),
-    parent: 'search-leetcode',
-    section: 'Leetcode',
-    perform: () => push(leetcode.url),
-  }))
-
-  const leetcodeActions: Action[] = [
-    {
-      id: 'leetcode',
-      name: 'Leetcode',
-      shortcut: ['l'],
-      section: 'Leetcode',
-      keywords: 'leetcode writing',
-      icon: <TerminalWindow {...iconProps} />,
-      perform: () => push('/leetcode'),
-    },
-    {
-      id: 'search-leetcode',
-      name: 'Search leetcode...',
-      section: 'Leetcode',
-      keywords: 'search leetcode write writing',
-      shortcut: ['l', 's'],
-      icon: <MagnifyingGlass {...iconProps} />,
-    },
     ...leetcodeAsAction,
   ]
 
-  const projectsActions: Action[] = [
+  const polyglotAsAction: Action[] = polyglotList.map((polyglot) => {
+    const language = polyglot.tags[0].split('/')[0].toLowerCase()
+
+    return {
+      id: polyglot.slug,
+      name: polyglot.title,
+      icon: languageIcon[language as keyof typeof languageIcon],
+      keywords: polyglot.tags.toString().replaceAll(',', ' '),
+      parent: 'search-polyglot',
+      section: 'Polyglot',
+      perform: () => push(polyglot.url),
+    }
+  })
+
+  const polyglotActions: Action[] = [
     {
-      id: 'projects',
-      name: 'Projects',
-      shortcut: ['p'],
-      section: 'Projects',
-      keywords: 'projects writing',
-      icon: <Briefcase {...iconProps} />,
-      perform: () => push('/projects'),
+      id: 'english',
+      name: 'English',
+      shortcut: ['e'],
+      section: 'Polyglot',
+      keywords: 'english writing',
+      icon: languageIcon.english,
+      perform: () => push('/polyglot/english'),
     },
+    {
+      id: 'german',
+      name: 'German',
+      shortcut: ['g'],
+      section: 'Polyglot',
+      keywords: 'german writing',
+      icon: languageIcon.german,
+      perform: () => push('/polyglot/german'),
+    },
+    {
+      id: 'search-polyglot',
+      name: 'Search polyglot...',
+      section: 'Polyglot',
+      keywords: 'search polyglot write writing',
+      shortcut: ['p', 's'],
+      icon: <MagnifyingGlass {...iconProps} />,
+    },
+    ...polyglotAsAction,
   ]
 
   const websiteActions: Action[] = [
@@ -236,15 +244,13 @@ export function CustomKBarProvider({ children }: { children: ReactNode }) {
   const actions: Action[] = [
     ...navigationActions,
     ...blogActions,
-    ...leetcodeActions,
-    ...projectsActions,
+    ...polyglotActions,
     ...websiteActions,
   ]
 
   return (
     <KBarProvider actions={actions}>
       <KBar />
-      <RegisterActions />
       {children}
     </KBarProvider>
   )
