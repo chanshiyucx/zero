@@ -5,7 +5,11 @@ import { useEffect, useRef } from 'react'
 import { Cat } from '@/components/icons'
 import { random } from '@/lib/utils/helper'
 
-export function Meow() {
+interface MeowProps {
+  links: string[]
+}
+
+export function Meow({ links }: MeowProps) {
   const catRef = useRef<HTMLDivElement>(null)
   const { push } = useRouter()
 
@@ -32,8 +36,7 @@ export function Meow() {
   }, [])
 
   const handleClick = () => {
-    const to = ['/blog', '/blog/notes', '/leetcode']
-    const randomPath = to[random(0, to.length - 1)]
+    const randomPath = links[random(0, links.length - 1)]
     push(randomPath)
   }
 
