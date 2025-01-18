@@ -35,7 +35,7 @@ export function AnalysisCard() {
       icon: <Scroll size="1em" weight="duotone" />,
       label: 'Posts',
       value: posts,
-      href: '/blog',
+      href: '/blog/posts',
       className: 'translate-x-32',
     },
     {
@@ -49,15 +49,17 @@ export function AnalysisCard() {
       icon: <TerminalWindow size="1em" weight="duotone" />,
       label: 'Leetcode',
       value: leetcodes,
-      href: '/leetcode',
+      href: '/blog/leetcode',
       className: 'translate-x-16',
     },
   ]
 
+  const links = stats.map((stat) => stat.href)
+
   return (
     <div className="relative block h-24 w-full">
       <div className="absolute bottom-0 left-4 h-fit w-20">
-        <Meow />
+        <Meow links={links} />
       </div>
       <div
         className="card absolute bottom-0 right-0 flex h-full w-2/3 flex-col justify-center gap-1 bg-surface pl-2 font-bold"
