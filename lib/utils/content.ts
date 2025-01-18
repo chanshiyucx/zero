@@ -65,7 +65,6 @@ export const summary = (): BlogSummary => {
 export const sortedPolyglots = (
   filterByLanguage?: 'english' | 'german',
 ): Polyglot[] => {
-  console.log(allPolyglots.length)
   let filteredList = allPolyglots
   if (filterByLanguage) {
     filteredList = allPolyglots.filter((polyglot) =>
