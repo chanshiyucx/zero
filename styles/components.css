@@ -43,13 +43,13 @@
 
   /* Link */
   .link {
-    @apply relative inline pr-4 text-iris underline decoration-transparent underline-offset-2 duration-300 hover:decoration-current;
-    @apply after:absolute after:right-0 after:top-0 after:ml-0.5 after:inline-block after:whitespace-pre after:transition-all after:duration-300 after:content-['↗'];
+    @apply relative inline pr-[1em] text-iris underline decoration-transparent underline-offset-2 duration-300 hover:decoration-current;
+    @apply after:absolute after:right-0 after:top-0 after:inline-block after:h-full after:whitespace-pre after:leading-[normal] after:transition-all after:duration-300 after:content-['↗'];
   }
 
   .link[href^='#'] {
     @apply relative font-bold text-text no-underline;
-    @apply after:absolute after:-left-6 after:text-muted after:opacity-0 after:content-['#'] hover:after:opacity-100;
+    @apply after:-left-6 after:text-muted after:opacity-0 after:content-['#'] hover:after:opacity-100;
   }
 
   .link-hover {

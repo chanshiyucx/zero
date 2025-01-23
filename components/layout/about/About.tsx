@@ -62,7 +62,7 @@ const JavaLink = () => (
 )
 
 const Link = ({ label, ...props }: { label: string } & LinkProps) => (
-  <NextLink {...props} className="link px-1">
+  <NextLink {...props} className="link mx-1">
     {label}
   </NextLink>
 )
@@ -82,23 +82,25 @@ export function About() {
         maintainable, and well-architected code solutions. My love for
         programming drives me to continuously explore modern technologies in the
         <JavaScriptLink />,<TypeScriptLink />,<VueLink />, and <ReactJSLink />
-        ecosystems. Additionally, I have foundational knowledge of <JavaLink />
+        ecosystems. Additionally, I have some basic knowledge of <JavaLink />
         and <PythonLink />.
       </p>
 
       <div className="flex flex-row gap-3 max-md:flex-col">
         <div>
           <p className="mt-0">
-            Here, you&apos;ll find details about
-            <Link label="the projects" href="/projects" /> I&apos;ve completed
-            and those I&apos;m currently working on, along with insights into my
-            career journey growth, and the skills I&apos;ve honed over time.
+            Maybe you will find something interesting in my
+            <Link label="blog posts" href="/blog/posts" /> or
+            <Link label="study notes" href="/blog/notes" />! Feel free to
+            explore <Link label="the projects" href="/projects" /> I&apos;ve
+            poured my effort into.
           </p>
 
           <p>
-            Maybe you can discover something new from my
-            <Link label="blog posts" href="/blog" /> or
-            <Link label="study notes" href="/blog/notes" />!
+            I&apos;m working hard to improve my
+            <Link label="English" href="/polyglot/english" /> while starting to
+            learn <Link label="German" href="/polyglot/german" />. It&apos; a
+            challenging process, but I hope it will pay off.
           </p>
 
           <p>
