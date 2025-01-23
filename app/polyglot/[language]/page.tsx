@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { groupByYear, sortedPolyglots } from '@/lib/utils/content'
@@ -19,6 +20,13 @@ const title = {
   german: 'Deutsch ist ein Fenster weiter.',
 }
 
+const colors = {
+  Grammar: 'text-foam',
+  Writing: 'text-gold',
+}
+
+const getTag = (tag: string) => tag.split('/')[1] as keyof typeof colors
+
 export default async function Page({ params }: PageProps) {
   const { language } = await params
   const polyglotList = sortedPolyglots(language)
@@ -34,19 +42,25 @@ export default async function Page({ params }: PageProps) {
           <div key={group.year}>
             <p className="text-right text-3xl font-extrabold">{group.year}</p>
             <ul className="space-y-2">
-              {group.list.map((polyglot) => (
-                <li key={polyglot.title}>
-                  <Link className="flex gap-6" href={polyglot.url}>
-                    <Date
-                      dateString={polyglot.date}
-                      className="w-16 shrink-0 text-subtle"
-                    ></Date>
-                    <span className="link-hover overflow-x-hidden text-ellipsis whitespace-nowrap text-text">
-                      {polyglot.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
+              {group.list.map((polyglot) => {
+                const tag = getTag(polyglot.tags[0])
+                return (
+                  <li key={polyglot.title}>
+                    <Link className="flex gap-6" href={polyglot.url}>
+                      <Date
+                        dateString={polyglot.date}
+                        className="w-16 shrink-0 text-subtle"
+                      ></Date>
+                      <span className={clsx('w-16 text-sm', colors[tag])}>
+                        {tag}
+                      </span>
+                      <span className="link-hover overflow-x-hidden text-ellipsis whitespace-nowrap text-text">
+                        {polyglot.title}
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         ))}
