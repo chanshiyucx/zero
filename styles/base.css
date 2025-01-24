@@ -1,54 +1,9 @@
-@tailwind base;
-
 @layer base {
   :root {
-    @apply scroll-smooth scrollbar-track-transparent scrollbar-thumb-muted scrollbar-thumb-rounded-lg scrollbar-w-1.5;
-
     color-scheme: light dark;
-    --color-base: 32deg 57% 95%;
-    --color-surface: 35deg 100% 98%;
-    --color-overlay: 33deg 43% 91%;
-    --color-muted: 257deg 9% 61%;
-    --color-subtle: 248deg 12% 52%;
-    --color-text: 248deg 19% 40%;
-    --color-love: 343deg 35% 55%;
-    --color-gold: 35deg 81% 56%;
-    --color-rose: 3deg 53% 67%;
-    --color-pine: 197deg 53% 34%;
-    --color-foam: 189deg 30% 48%;
-    --color-iris: 268deg 21% 57%;
+    @apply scroll-smooth;
   }
 
-  [data-theme='dark'] {
-    --color-base: 249deg 22% 12%;
-    --color-surface: 247deg 23% 15%;
-    --color-overlay: 248deg 25% 18%;
-    --color-muted: 249deg 12% 47%;
-    --color-subtle: 248deg 15% 61%;
-    --color-text: 245deg 50% 91%;
-    --color-love: 343deg 76% 68%;
-    --color-gold: 35deg 88% 72%;
-    --color-rose: 2deg 55% 83%;
-    --color-pine: 197deg 49% 38%;
-    --color-foam: 189deg 43% 73%;
-    --color-iris: 267deg 57% 78%;
-  }
-
-  body {
-    @apply container !mx-auto flex min-h-screen flex-col bg-base px-4 font-sans font-medium text-text antialiased;
-    @apply selection:bg-muted/20;
-  }
-
-  kbd {
-    @apply flex items-center gap-1 rounded-lg border border-muted/20 bg-muted/10 px-1.5 py-1 font-semibold uppercase leading-none text-subtle transition hover:bg-muted/20;
-  }
-
-  h2,
-  h3 {
-    @apply scroll-mt-8;
-  }
-
-  /* Theme transition */
   ::view-transition-new(root) {
     @apply animate-turn-off;
   }
@@ -59,5 +14,59 @@
 
   [data-theme='dark']::view-transition-new(root) {
     @apply animate-turn-on;
+  }
+
+  *,
+  ::after,
+  ::before {
+    @apply border-muted/20;
+  }
+
+  body {
+    @apply bg-base text-text container mx-auto! flex min-h-screen flex-col px-4 font-sans font-medium antialiased;
+    @apply selection:bg-muted/20;
+  }
+
+  kbd {
+    @apply border-muted/20 bg-muted/10 text-subtle hover:bg-muted/20 flex items-center gap-1 rounded-lg border px-1.5 py-1 leading-none font-semibold uppercase transition;
+  }
+
+  h2,
+  h3 {
+    @apply scroll-mt-8;
+  }
+
+  pre[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  pre[data-language] {
+    @apply p-0!;
+    @apply after:absolute after:right-4 after:bottom-3 after:uppercase after:content-[attr(data-language)];
+
+    code {
+      @apply py-3!;
+    }
+
+    span[data-line=''] {
+      @apply px-4;
+    }
+  }
+
+  code[data-theme*=' '],
+  code[data-theme*=' '] span {
+    @apply font-medium;
+    color: var(--shiki-light);
+  }
+
+  [data-theme='dark'] {
+    code[data-theme*=' '],
+    code[data-theme*=' '] span {
+      color: var(--shiki-dark);
+    }
+  }
+
+  span[data-highlighted-line] {
+    @apply border-muted bg-base border-l-2;
   }
 }

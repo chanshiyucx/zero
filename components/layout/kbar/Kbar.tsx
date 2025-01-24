@@ -12,7 +12,7 @@ import { forwardRef, ReactNode } from 'react'
 
 const Content = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="w-[45vw] space-y-4 rounded-lg bg-surface p-6 shadow-lg max-md:w-[96vw]">
+    <div className="bg-surface w-[45vw] space-y-4 rounded-lg p-6 shadow-lg max-md:w-[96vw]">
       {children}
     </div>
   )
@@ -21,7 +21,7 @@ const Content = ({ children }: { children: ReactNode }) => {
 const Search = () => (
   <div className="border-b px-3 pb-4">
     <KBarSearch
-      className="w-full border-none bg-transparent outline-none"
+      className="w-full border-none bg-transparent outline-hidden"
       placeholder="Type a command or search..."
     />
   </div>
@@ -42,14 +42,14 @@ const ResultItem = forwardRef<
         active ? 'bg-muted/10 text-text' : 'text-subtle',
       )}
     >
-      <div
-        className={clsx(
-          'flex w-full flex-shrink-0 items-center',
-          action.id.startsWith('link') && 'link',
-        )}
-      >
+      <div className="flex w-full shrink-0 items-center">
         {action.icon}
-        <span className="inline-block overflow-hidden text-ellipsis whitespace-nowrap">
+        <span
+          className={clsx(
+            'inline-block overflow-hidden text-ellipsis whitespace-nowrap',
+            action.id.startsWith('link') && 'link',
+          )}
+        >
           {action.name}
         </span>
       </div>
@@ -94,7 +94,7 @@ function RenderResults() {
 export function KBar() {
   return (
     <KBarPortal>
-      <KBarPositioner className="z-50 bg-muted/20 backdrop-blur-sm">
+      <KBarPositioner className="bg-muted/20 z-50 backdrop-blur-xs">
         <KBarAnimator>
           <Content>
             <Search />

@@ -70,12 +70,12 @@ export function Discussion({ label, title }: DiscussionProps) {
     comments > 0 ? `(${comments} comment${comments > 1 ? 's' : ''})` : ''
 
   return (
-    <div className="flex items-center justify-start gap-1 text-muted">
+    <div className="text-muted flex items-center justify-start gap-1">
       <CaretRight weight="bold" className="text-sm" />
       comment on
       <span
         onClick={discuss}
-        className="mx-0.5 cursor-pointer font-mono font-bold underline decoration-muted/40 underline-offset-4"
+        className="decoration-muted/40 mx-0.5 cursor-pointer font-mono font-bold underline underline-offset-4"
       >
         discussions
       </span>

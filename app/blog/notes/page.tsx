@@ -21,13 +21,13 @@ export const metadata: Metadata = {
 function NoteItem({ note }: NoteItemProps) {
   return (
     <div>
-      <header className="sticky top-0 z-10 flex flex-1 flex-row items-center justify-between bg-base py-3 max-md:flex-col max-md:items-start">
+      <header className="bg-base sticky top-0 z-10 flex flex-1 flex-row items-center justify-between py-3 max-md:flex-col max-md:items-start">
         <Link className="link-hover text-2xl font-bold" href={note.url}>
-          <h2 className="inline text-text" id={note.slug}>
+          <h2 className="text-text inline" id={note.slug}>
             {note.title}
           </h2>
         </Link>
-        <div className="flex flex-shrink-0 gap-5 text-subtle">
+        <div className="text-subtle flex shrink-0 gap-5">
           <span className="inline-flex items-center gap-1">
             <CalendarBlank weight="bold" />
             <Date dateString={note.date} dateFormat="LLL dd, yyyy" />
@@ -42,7 +42,7 @@ function NoteItem({ note }: NoteItemProps) {
           </span>
         </div>
       </header>
-      <section className="w-full pb-12 pt-2">
+      <section className="w-full pt-2 pb-12">
         <MDX code={note.contentCode} />
       </section>
     </div>

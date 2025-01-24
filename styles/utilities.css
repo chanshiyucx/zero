@@ -1,1 +1,291 @@
-@tailwind utilities;
+@utility prose-rosepine {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-text);
+  --tw-prose-lead: var(--color-text);
+  --tw-prose-links: var(--color-iris);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-counters: var(--color-subtle);
+  --tw-prose-bullets: var(--color-subtle);
+  --tw-prose-hr: var(--color-muted);
+  --tw-prose-quotes: var(--color-text);
+  --tw-prose-quote-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-kbd: var(--color-text);
+  --tw-prose-kbd-shadows: var(--color-text);
+  --tw-prose-captions: var(--color-text);
+  --tw-prose-code: var(--color-rose);
+  --tw-prose-pre-code: var(--color-muted);
+  --tw-prose-pre-bg: var(--color-surface);
+  --tw-prose-th-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-td-borders: --alpha(var(--color-muted) / 20%);
+
+  /* invert mode */
+  --tw-prose-invert-body: var(--color-text);
+  --tw-prose-invert-headings: var(--color-text);
+  --tw-prose-invert-lead: var(--color-text);
+  --tw-prose-invert-links: var(--color-iris);
+  --tw-prose-invert-bold: var(--color-text);
+  --tw-prose-invert-counters: var(--color-subtle);
+  --tw-prose-invert-bullets: var(--color-subtle);
+  --tw-prose-invert-hr: var(--color-muted);
+  --tw-prose-invert-quotes: var(--color-text);
+  --tw-prose-invert-quote-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-invert-kbd: var(--color-text);
+  --tw-prose-invert-kbd-shadows: var(--color-text);
+  --tw-prose-invert-captions: var(--color-text);
+  --tw-prose-invert-code: var(--color-rose);
+  --tw-prose-invert-pre-code: var(--color-muted);
+  --tw-prose-invert-pre-bg: var(--color-surface);
+  --tw-prose-invert-th-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-invert-td-borders: --alpha(var(--color-muted) / 20%);
+}
+
+@utility page {
+  @apply w-full flex-1 space-y-20 py-20 max-md:space-y-12 max-md:py-12;
+}
+
+@utility album {
+  p,
+  img {
+    @apply m-0;
+  }
+
+  .alt {
+    @apply my-2;
+  }
+}
+
+@utility card {
+  @apply transform-gpu overflow-hidden rounded-lg duration-500 hover:scale-[.97];
+}
+
+@utility card-sm {
+  @apply card hover:scale-95;
+}
+
+@utility menu-button {
+  @apply text-subtle inline-block cursor-pointer rounded-lg leading-none font-semibold transition-all duration-300;
+  @apply hover:bg-muted/20;
+  @apply data-[isactive='true']:text-text w-full p-2 text-center;
+}
+
+@utility tiny-button {
+  @apply text-subtle inline-block cursor-pointer rounded-lg leading-none font-semibold transition-all duration-300;
+  @apply hover:bg-muted/20;
+  @apply border-muted/20 bg-muted/10 border px-2 py-1;
+}
+
+@utility link {
+  @apply text-iris relative inline pr-[1em] underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
+  @apply after:absolute after:top-0 after:right-0 after:inline-block after:h-full after:leading-[normal] after:whitespace-pre after:transition-all after:duration-300 after:content-['↗'];
+
+  &[href^='#'] {
+    @apply text-text relative font-bold no-underline;
+    @apply after:text-muted after:-left-6 after:opacity-0 after:content-['#'] hover:after:opacity-100;
+  }
+}
+
+@utility link-hover {
+  @apply link after:opacity-0 hover:after:opacity-100;
+}
+
+@utility hr-twill {
+  @apply bg-muted h-1 w-full border-none;
+  mask-image: repeating-linear-gradient(
+    135deg,
+    #000 0px,
+    #000 2px,
+    transparent 2px,
+    transparent 6px
+  );
+}
+
+@utility toc {
+  & li.visible > a {
+    @apply text-text decoration-muted translate-x-1.5;
+  }
+}
+
+@utility visible {
+  .toc &li > a {
+    @apply text-text decoration-muted translate-x-1.5;
+  }
+}
+
+@utility text-shadow {
+  text-shadow: 1px 1px 3px hsl(var(--color-text) / 0.3);
+}
+
+@utility photo-view-mask {
+  @apply bg-surface!;
+}
+
+@utility meow-bubble {
+  @apply bg-overlay absolute -top-4 -right-20 h-8 w-16 translate-x-2 rounded-[46px] text-center text-sm leading-loose font-bold opacity-0 transition-opacity duration-300;
+
+  .tail {
+    @apply bg-overlay absolute bottom-0.5 -left-2 h-4 w-4 rounded-full;
+
+    &:before {
+      @apply bg-overlay absolute -bottom-2 -left-2 h-2 w-2 rounded-full content-[''];
+    }
+  }
+}
+
+/* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
+@utility city-cat {
+  @apply animate-cat-cycle h-full w-full bg-center bg-no-repeat;
+  background-size: var(--cat-width) var(--cat-height);
+  background-image: var(--cat-image);
+}
+
+@utility walk {
+  --cat-height: 1728px;
+  --cat-width: 289px;
+  --cat-steps: 12;
+  --cat-image: url(/assets/cat_walk.png);
+}
+
+@utility run {
+  --cat-height: 1872px;
+  --cat-width: 289px;
+  --cat-steps: 13;
+  --cat-image: url(/assets/cat_run.png);
+}
+
+/* Cute Cat, https://codepen.io/AngelaVelasquez/pen/AWyNYb */
+@utility cute-cat {
+  --cat-border: #ffb399;
+  --cat-bg-light: #5ddfe8;
+  --cat-bg-dark: #111;
+  --cat-sun: #ffee94;
+  --cat-moon: #eee;
+  --cat-body-light: #777;
+  --cat-body-dark: #444;
+
+  @apply relative z-10 block h-[var(--cat-size)] w-[var(--cat-size)] cursor-pointer overflow-hidden rounded-full border-[calc(var(--cat-size)*0.034)] border-[var(--cat-border)] bg-[var(--cat-bg-light)] shadow-inner transition-colors duration-1000;
+
+  .the-sun,
+  .the-moon {
+    @apply absolute block rounded-full;
+    transition: top 0.5s ease-in-out;
+  }
+
+  .the-sun {
+    @apply bg-[var(--cat-sun)];
+    width: calc(var(--cat-size) * 0.17);
+    height: calc(var(--cat-size) * 0.17);
+    top: calc(var(--cat-size) * 0.077);
+    right: calc(var(--cat-size) * 0.255);
+    box-shadow: 0 0 calc(var(--cat-size) * 0.17) var(--cat-sun);
+  }
+
+  .the-moon {
+    @apply bg-[var(--cat-moon)];
+    height: calc(var(--cat-size) * 0.102);
+    width: calc(var(--cat-size) * 0.102);
+    top: calc(var(--cat-size) * 0.851);
+    left: calc(var(--cat-size) * 0.255);
+    box-shadow: 0 0 calc(var(--cat-size) * 0.085) var(--cat-moon);
+  }
+
+  .the-cat {
+    @apply absolute block bg-[var(--cat-body-light)] transition-all duration-300;
+    bottom: calc(var(--cat-size) * -0.085);
+    height: calc(var(--cat-size) * 0.596);
+    width: calc(var(--cat-size) * 0.574);
+    margin: 0 calc(var(--cat-size) * 0.179);
+  }
+
+  .the-cat:before,
+  .the-cat:after {
+    @apply absolute h-0 w-0;
+    content: '';
+    top: calc(var(--cat-size) * -0.08);
+    border-bottom: calc(var(--cat-size) * 0.085) solid var(--cat-body-light);
+  }
+
+  .the-cat:before {
+    @apply left-0;
+    border-left: 0 solid transparent;
+    border-right: calc(var(--cat-size) * 0.128) solid transparent;
+  }
+
+  .the-cat:after {
+    @apply right-0;
+    border-right: 0 solid transparent;
+    border-left: calc(var(--cat-size) * 0.128) solid transparent;
+  }
+
+  .the-cat .eyes {
+    @apply absolute block bg-[var(--cat-sun)];
+    height: calc(var(--cat-size) * 0.17);
+    width: calc(var(--cat-size) * 0.17);
+    bottom: calc(var(--cat-size) * 0.34);
+    border-radius: 100%;
+  }
+
+  .the-cat .eyes.left {
+    left: calc(var(--cat-size) * 0.051);
+  }
+
+  .the-cat .eyes.right {
+    right: calc(var(--cat-size) * 0.051);
+  }
+
+  .the-cat .eyes .pupil {
+    @apply relative mx-auto block h-full bg-[var(--cat-border)] transition-all duration-500;
+    width: calc(var(--cat-size) * 0.021);
+    border-radius: 100%;
+  }
+
+  .the-cat .nose {
+    @apply relative mx-auto block rounded-full bg-[var(--cat-border)];
+    height: calc(var(--cat-size) * 0.043);
+    width: calc(var(--cat-size) * 0.043);
+    top: calc(var(--cat-size) * 0.191);
+  }
+
+  &:hover {
+    .the-cat {
+      bottom: calc(var(--cat-size) * -0.17);
+    }
+    .the-cat .eyes {
+      height: calc(var(--cat-size) * 0.034);
+      bottom: calc(var(--cat-size) * 0.426);
+    }
+  }
+
+  [data-theme='dark'] & {
+    @apply bg-[var(--cat-bg-dark)];
+
+    .the-sun {
+      top: calc(var(--cat-size) * 0.851);
+    }
+
+    .the-moon {
+      top: calc(var(--cat-size) * 0.17);
+    }
+
+    .the-cat {
+      @apply bg-[var(--cat-body-dark)];
+    }
+
+    .the-cat:before,
+    .the-cat:after {
+      @apply border-b-[var(--cat-body-dark)];
+    }
+
+    .the-cat .eyes .pupil {
+      height: 90%;
+      width: calc(var(--cat-size) * 0.145);
+      margin: 5% auto;
+    }
+
+    &:hover {
+      .the-cat .eyes {
+        height: calc(var(--cat-size) * 0.17);
+        bottom: calc(var(--cat-size) * 0.34);
+      }
+    }
+  }
+}

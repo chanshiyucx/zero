@@ -6,14 +6,14 @@ import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
 import { config } from '@/lib/constants/config'
-import '@/styles/main.css'
+import '@/styles/tailwindcss.css'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
 
-const merriweather = Source_Serif_4({
+const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-merriweather',
+  variable: '--font-source-serif',
   display: 'swap',
 })
 
@@ -76,8 +76,12 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={clsx(merriweather.variable, fira.variable)}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={clsx(sourceSerif.variable, fira.variable)}
+    >
+      <body>
         <Providers>
           <Header />
           <PageTransitionEffect>{children}</PageTransitionEffect>

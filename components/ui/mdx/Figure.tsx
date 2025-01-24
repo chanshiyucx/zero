@@ -10,7 +10,7 @@ interface FigureProps extends React.ComponentPropsWithoutRef<'figure'> {
 export function Figure({ children, raw, ...props }: FigureProps) {
   const showCopyButton = raw && 'data-rehype-pretty-code-figure' in props
   return (
-    <figure {...props} className="relative">
+    <figure {...props} className="group relative">
       {children}
       {showCopyButton && <CopyButton text={raw} />}
     </figure>
