@@ -13,10 +13,6 @@
   --color-pine: light-dark(hsl(197deg 53% 34%), hsl(197deg 49% 38%));
   --color-foam: light-dark(hsl(189deg 30% 48%), hsl(189deg 43% 73%));
   --color-iris: light-dark(hsl(268deg 21% 57%), hsl(267deg 57% 78%));
-
-  --breakpoint-*: initial;
-  --breakpoint-sm: 40rem;
-  --breakpoint-md: 48rem;
 }
 
 @theme inline {
