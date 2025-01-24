@@ -36,10 +36,6 @@
     @apply scroll-mt-8;
   }
 
-  pre[data-theme='dark'] {
-    color-scheme: dark;
-  }
-
   pre[data-language] {
     @apply p-0!;
     @apply after:absolute after:right-4 after:bottom-3 after:uppercase after:content-[attr(data-language)];
@@ -53,17 +49,10 @@
     }
   }
 
-  code[data-theme*=' '],
-  code[data-theme*=' '] span {
+  code[data-theme],
+  code[data-theme] span {
     @apply font-medium;
-    color: var(--shiki-light);
-  }
-
-  [data-theme='dark'] {
-    code[data-theme*=' '],
-    code[data-theme*=' '] span {
-      color: var(--shiki-dark);
-    }
+    color: light-dark(var(--shiki-light), var(--shiki-dark));
   }
 
   span[data-highlighted-line] {
