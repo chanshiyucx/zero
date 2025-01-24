@@ -180,7 +180,7 @@ export function Toc({ toc }: TocProps) {
         <List
           size="1.2em"
           weight="bold"
-          className="ml-2 text-muted opacity-40 transition-opacity duration-500 group-hover:opacity-100"
+          className="text-muted ml-2 opacity-40 transition-opacity duration-500 group-hover:opacity-100"
         />
         <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
           {toc.map((item) => (
@@ -188,7 +188,7 @@ export function Toc({ toc }: TocProps) {
               <Link
                 href={`#${item.id}`}
                 className={clsx(
-                  'inline-block text-muted underline decoration-muted/40 underline-offset-2 duration-300 hover:text-text hover:decoration-muted',
+                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted inline-block underline underline-offset-2 duration-300',
                   getIndent(item.depth),
                 )}
               >
@@ -203,7 +203,7 @@ export function Toc({ toc }: TocProps) {
         >
           <path
             ref={pathRef}
-            stroke="hsl(var(--color-subtle) / 1)"
+            stroke="var(--color-subtle)"
             strokeWidth="3"
             fill="transparent"
             strokeDasharray="0, 0, 0, 1000"
