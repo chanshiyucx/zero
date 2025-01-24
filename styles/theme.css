@@ -1,0 +1,103 @@
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-base: light-dark(hsl(32deg 57% 95%), hsl(249deg 22% 12%));
+  --color-surface: light-dark(hsl(35deg 100% 98%), hsl(247deg 23% 15%));
+  --color-overlay: light-dark(hsl(33deg 43% 91%), hsl(248deg 25% 18%));
+  --color-muted: light-dark(hsl(257deg 9% 61%), hsl(249deg 12% 47%));
+  --color-subtle: light-dark(hsl(248deg 12% 52%), hsl(248deg 15% 61%));
+  --color-text: light-dark(hsl(248deg 19% 40%), hsl(245deg 50% 91%));
+  --color-love: light-dark(hsl(343deg 35% 55%), hsl(343deg 76% 68%));
+  --color-gold: light-dark(hsl(35deg 81% 56%), hsl(35deg 88% 72%));
+  --color-rose: light-dark(hsl(3deg 53% 67%), hsl(2deg 55% 83%));
+  --color-pine: light-dark(hsl(197deg 53% 34%), hsl(197deg 49% 38%));
+  --color-foam: light-dark(hsl(189deg 30% 48%), hsl(189deg 43% 73%));
+  --color-iris: light-dark(hsl(268deg 21% 57%), hsl(267deg 57% 78%));
+
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-source-serif), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-fira), ui-monospace, monospace;
+}
+
+@theme inline {
+  --animate-turn-on: turnOn 600ms ease-in-out;
+  --animate-turn-off: turnOff 600ms ease-in-out;
+  --animate-marquee-left: marquee-left var(--duration, 30s) linear infinite;
+  --animate-marquee-up: marquee-up var(--duration, 30s) linear infinite;
+  --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
+    cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
+  --animate-ripple: ripple 3400ms ease infinite;
+  --animate-cat-cycle: cat-cycle 1s steps(var(--cat-steps)) infinite;
+
+  @keyframes turnOn {
+    0% {
+      clip-path: polygon(0% 0%, 100% 0, 100% 0, 0 0);
+    }
+    100% {
+      clip-path: polygon(0% 0%, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  @keyframes turnOff {
+    0% {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+    }
+    100% {
+      clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+    }
+  }
+
+  @keyframes marquee-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-up {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes spinner-scale {
+    0% {
+      transform: scaley(1);
+    }
+    50% {
+      transform: scaley(0.4);
+    }
+    100% {
+      transform: scaley(1);
+    }
+  }
+
+  @keyframes ripple {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+  }
+
+  @keyframes cat-cycle {
+    0% {
+      background-position: center 0;
+    }
+    100% {
+      background-position: center calc(-1 * var(--cat-height));
+    }
+  }
+}

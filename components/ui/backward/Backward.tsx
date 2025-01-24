@@ -10,10 +10,10 @@ export function Backward() {
   return (
     <div
       onClick={back}
-      className="flex items-center justify-start gap-1 text-muted"
+      className="text-muted flex items-center justify-start gap-1"
     >
       <CaretRight weight="bold" className="text-sm" />
-      <span className="cursor-pointer font-mono font-bold underline decoration-muted/40 underline-offset-4">
+      <span className="decoration-muted/40 cursor-pointer font-mono font-bold underline underline-offset-4">
         cd ..
       </span>
     </div>

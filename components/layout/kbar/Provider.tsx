@@ -31,20 +31,20 @@ import { KBar } from './Kbar'
 const iconProps: Partial<IconProps> = {
   size: '1em',
   weight: 'duotone',
-  className: 'inline-block text-xl mr-3 flex-shrink-0',
+  className: 'inline-block text-xl mr-3 shrink-0',
 }
 
 const languageIcon = {
   english: (
     <English
       {...iconProps}
-      className={clsx(iconProps.className, 'text-base text-subtle')}
+      className={clsx(iconProps.className, 'text-subtle text-base')}
     />
   ),
   german: (
     <German
       {...iconProps}
-      className={clsx(iconProps.className, 'text-base text-subtle')}
+      className={clsx(iconProps.className, 'text-subtle text-base')}
     />
   ),
 }

@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@import './theme.css';
+@import './base.css';
+@import './utilities.css';
+
+@plugin "@tailwindcss/typography";
+@plugin 'tailwindcss-animate';
+@plugin 'tailwindcss-animated';

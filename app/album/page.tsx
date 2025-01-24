@@ -22,9 +22,9 @@ export default function Page() {
       <section className="space-y-12">
         {albumList.map((album) => (
           <article key={album.title}>
-            <header className="sticky top-0 z-10 flex flex-row items-center justify-between bg-base py-3">
+            <header className="bg-base sticky top-0 z-10 flex flex-row items-center justify-between py-3">
               <h2 className="text-2xl font-bold">{album.title}</h2>
-              <span className="inline-flex flex-shrink-0 items-center gap-1 text-subtle">
+              <span className="text-subtle inline-flex shrink-0 items-center gap-1">
                 <CalendarBlank weight="bold" />
                 <Date dateString={album.date} dateFormat="LLL dd, yyyy" />
               </span>

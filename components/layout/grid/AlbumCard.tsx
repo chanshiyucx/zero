@@ -6,7 +6,7 @@ export function AlbumCard() {
   return (
     <Link
       href={'/album'}
-      className="card-sm relative block h-36 text-base font-bold"
+      className="card-sm dark:text-text relative block h-36 text-base font-bold"
     >
       <Image
         src="/assets/beach.jpg"
@@ -15,13 +15,13 @@ export function AlbumCard() {
         sizes="(max-width: 768px) 100vw, 20vw"
         className="rounded-lg brightness-75"
       />
-      <p className="absolute -left-2 bottom-16 top-8 w-40 -rotate-90">
+      <p className="absolute top-8 bottom-16 -left-2 w-40 -rotate-90">
         たびのきおく
       </p>
       <ArrowUpRight
         weight="bold"
         size="1em"
-        className="absolute right-2 top-2"
+        className="absolute top-2 right-2"
       />
     </Link>
   )

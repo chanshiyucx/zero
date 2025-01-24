@@ -101,7 +101,7 @@ function Marquee({
           data-direction={direction}
           data-pause-on-hover={pauseOnHover}
           data-reverse={reverse}
-          className="flex shrink-0 animate-marquee-up flex-col justify-around gap-4 [--gap:1rem] data-[direction='left']:animate-marquee-left data-[direction='left']:flex-row data-[reverse='true']:direction-reverse data-[pause-on-hover='true']:group-hover:[animation-play-state:paused]"
+          className="animate-marquee-up data-[direction='left']:animate-marquee-left data-[reverse='true']:direction-reverse flex shrink-0 flex-col justify-around gap-4 [--gap:1rem] data-[direction='left']:flex-row group-hover:data-[pause-on-hover='true']:[animation-play-state:paused]"
         >
           {children}
         </div>

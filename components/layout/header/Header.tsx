@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -64,7 +64,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
       <MenuItem name={name} path={path} isActive={isActive} />
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute left-1/2 top-full z-10 -translate-x-1/2 p-2">
+          <div className="absolute top-full left-1/2 z-10 -translate-x-1/2 p-2">
             <motion.div
               initial="hidden"
               animate="enter"
@@ -76,7 +76,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
                 damping: 30,
               }}
             >
-              <div className="rounded-lg bg-surface shadow-lg">
+              <div className="bg-surface rounded-lg shadow-lg">
                 {items.map((item, index) => (
                   <MenuItem
                     key={item.path}
