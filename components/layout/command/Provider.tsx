@@ -24,7 +24,9 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
-import { CommandGroup, CommandItem, CommandMenu } from './components'
+import { CommandGroup } from './CommandGroup'
+import { CommandItem } from './CommandItem'
+import { CommandMenu } from './CommandMenu'
 import { CommandProviderContext } from './contexts/provider-context'
 
 const iconProps: Partial<IconProps> = {
@@ -146,7 +148,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
             </CommandItem>
           </CommandGroup>
 
-          <CommandGroup heading="Blog Posts" page="search-blog">
+          <CommandGroup heading="Blog" page="search-blog">
             {postList.map((post) => (
               <CommandItem
                 key={post.slug}
@@ -215,7 +217,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
             </CommandItem>
           </CommandGroup>
 
-          <CommandGroup heading="Polyglot Posts" page="search-polyglot">
+          <CommandGroup heading="Polyglot" page="search-polyglot">
             {polyglotList.map((polyglot) => {
               const language = polyglot.tags[0].split('/')[0].toLowerCase()
               return (
