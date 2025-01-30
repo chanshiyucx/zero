@@ -1,7 +1,16 @@
-import type { CommandItemProps } from '../types'
+import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import { Command } from 'cmdk'
-import { useCommand } from '../hooks/use-command'
+import { useCommand } from './hooks/use-command'
+
+interface CommandItemProps {
+  onSelect?: () => void
+  icon?: ReactNode
+  shortcut?: string[]
+  page?: string
+  className?: string
+  children: ReactNode
+}
 
 export const CommandItem = ({
   onSelect,

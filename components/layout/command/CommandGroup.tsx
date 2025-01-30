@@ -1,6 +1,12 @@
-import type { CommandGroupProps } from '../types'
+import type { ReactNode } from 'react'
 import { Command } from 'cmdk'
-import { useCommand } from '../hooks/use-command'
+import { useCommand } from './hooks/use-command'
+
+interface CommandGroupProps {
+  heading: string
+  page?: string
+  children: ReactNode
+}
 
 export const CommandGroup = ({
   heading,

@@ -1,7 +1,12 @@
-import type { CommandMenuProps } from '../types'
+import type { ReactNode } from 'react'
 import { Command } from 'cmdk'
 import { useState } from 'react'
-import { CommandContext } from '../contexts/command-context'
+import { CommandContext } from './contexts/command-context'
+
+interface CommandMenuProps {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  children: ReactNode
+}
 
 export const CommandMenu = ({ children, setOpen }: CommandMenuProps) => {
   const [pages, setPages] = useState<string[]>(['root'])
