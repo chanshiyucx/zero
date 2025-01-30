@@ -1,10 +1,8 @@
 import { Command, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
-import { useKBar } from 'kbar'
+import { useCommandProvider } from '@/components/layout/command'
 
 export function Search() {
-  const {
-    query: { toggle },
-  } = useKBar()
+  const { toggle } = useCommandProvider()
 
   return (
     <button

@@ -1,12 +1,10 @@
 'use client'
 
 import { ArrowRight, Command } from '@phosphor-icons/react/dist/ssr'
-import { useKBar } from 'kbar'
+import { useCommandProvider } from '@/components/layout/command'
 
 export function Explore() {
-  const {
-    query: { toggle },
-  } = useKBar()
+  const { toggle } = useCommandProvider()
 
   return (
     <button
