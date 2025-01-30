@@ -6,7 +6,7 @@
   --tw-prose-bold: var(--color-text);
   --tw-prose-counters: var(--color-subtle);
   --tw-prose-bullets: var(--color-subtle);
-  --tw-prose-hr: var(--color-muted);
+  --tw-prose-hr: --alpha(var(--color-muted) / 20%);
   --tw-prose-quotes: var(--color-text);
   --tw-prose-quote-borders: --alpha(var(--color-muted) / 20%);
   --tw-prose-kbd: var(--color-text);
@@ -26,7 +26,7 @@
   --tw-prose-invert-bold: var(--color-text);
   --tw-prose-invert-counters: var(--color-subtle);
   --tw-prose-invert-bullets: var(--color-subtle);
-  --tw-prose-invert-hr: var(--color-muted);
+  --tw-prose-invert-hr: --alpha(var(--color-muted) / 20%);
   --tw-prose-invert-quotes: var(--color-text);
   --tw-prose-invert-quote-borders: --alpha(var(--color-muted) / 20%);
   --tw-prose-invert-kbd: var(--color-text);
