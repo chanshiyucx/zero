@@ -12,7 +12,12 @@ import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
-import { rehypeCodeSave, rehypeImage, rehypeToc } from './lib/mdx'
+import {
+  rehypeCallout,
+  rehypeCodeSave,
+  rehypeImage,
+  rehypeToc,
+} from './lib/mdx'
 import { tocCache } from './lib/mdx/rehype-toc'
 
 interface CollectionProps {
@@ -43,6 +48,7 @@ const options: Options = {
       },
     ],
     [rehypeImage, { root: 'public' }],
+    rehypeCallout,
     rehypeToc,
   ],
   remarkPlugins: [remarkGfm, remarkBreaks, remarkMath],
