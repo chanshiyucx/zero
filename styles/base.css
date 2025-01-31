@@ -58,4 +58,13 @@
   span[data-highlighted-line] {
     @apply border-muted bg-base border-l-2;
   }
+
+  blockquote {
+    @apply bg-surface block rounded-lg px-3 py-1;
+
+    p:first-child::before,
+    p:last-child::after {
+      content: none !important;
+    }
+  }
 }
