@@ -20,7 +20,8 @@ export async function generateArticleMetadata({
   collection,
 }: ArticleProps): Promise<Metadata> {
   const { slug } = await params
-  const article = collection.find((item) => item.slug === slug)
+  const decodedSlug = decodeURIComponent(slug)
+  const article = collection.find((item) => item.slug === decodedSlug)
   if (!article) return {}
   const publisher = `${config.author.name} ${config.author.link}`
 
@@ -45,7 +46,8 @@ export async function generateArticleMetadata({
 
 export async function Article({ params, collection, type }: ArticleProps) {
   const { slug } = await params
-  const article = collection.find((item) => item.slug === slug)
+  const decodedSlug = decodeURIComponent(slug)
+  const article = collection.find((item) => item.slug === decodedSlug)
 
   if (!article) {
     return notFound()
@@ -56,7 +58,7 @@ export async function Article({ params, collection, type }: ArticleProps) {
       <article className="w-full space-y-12">
         <header>
           <h1 className="text-4xl font-extrabold">{article.title}</h1>
-          <div className="mt-3 flex gap-5 text-subtle">
+          <div className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex items-center gap-1">
               <CalendarBlank weight="bold" />
               <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
