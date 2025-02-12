@@ -23,6 +23,7 @@ const title = {
 const colors = {
   Grammar: 'text-foam',
   Writing: 'text-gold',
+  Lektion: 'text-love',
 }
 
 const getTag = (tag: string) => tag.split('/')[1] as keyof typeof colors
@@ -49,12 +50,12 @@ export default async function Page({ params }: PageProps) {
                     <Link className="flex gap-6" href={polyglot.url}>
                       <Date
                         dateString={polyglot.date}
-                        className="w-16 shrink-0 text-subtle"
+                        className="text-subtle w-16 shrink-0"
                       ></Date>
                       <span className={clsx('w-16 text-sm', colors[tag])}>
                         {tag}
                       </span>
-                      <span className="link-hover overflow-x-hidden text-ellipsis whitespace-nowrap text-text">
+                      <span className="link-hover text-text overflow-x-hidden text-ellipsis whitespace-nowrap">
                         {polyglot.title}
                       </span>
                     </Link>
