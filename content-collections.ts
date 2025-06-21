@@ -12,6 +12,7 @@ import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import { z } from 'zod'
 import {
   rehypeCallout,
   rehypeCodeSave,
@@ -59,7 +60,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     name,
     directory,
     include: '**/*.md',
-    schema: (z) => ({
+    schema: z.object({
       title: z.string(),
       date: z
         .string()
@@ -76,7 +77,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const [, no, title] = match
       const slug = slugger.slug(title)
 
-      // handle polyglot url
+      // handle polyglot urlchore: update package
       let url = ''
       if (prefixPath === '/polyglot') {
         const language = document.tags[0].split('/')[0].toLowerCase()
