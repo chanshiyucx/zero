@@ -1,17 +1,17 @@
 import path from 'path'
 import type { Element, Root } from 'hast'
 import type { Plugin } from 'unified'
-import sizeOf from 'image-size'
+import { imageSizeFromFile } from 'image-size/fromFile'
 import { visit } from 'unist-util-visit'
 
 interface Options {
   root?: string
 }
 
-const calcImageSize = (imageSrc: string, options?: Options) => {
+const calcImageSize = async (imageSrc: string, options?: Options) => {
   const imagePath = path.join(options?.root ?? '', imageSrc)
   try {
-    const dimensions = sizeOf(imagePath)
+    const dimensions = await imageSizeFromFile(imagePath)
     return { width: dimensions.width, height: dimensions.height }
   } catch (err) {
     console.error(`Failed to get image size for ${imagePath}`, err)
@@ -25,7 +25,9 @@ const getThumbnail = (src: string) =>
   src.replace('/raw?', '/thumbnail?') + '&size=large'
 
 export const rehypeImage: Plugin<[Options?], Root> = (options) => {
-  return (tree) => {
+  return async (tree) => {
+    const imageNodes: Element[] = []
+
     visit(tree, { type: 'element', tagName: 'img' }, (node: Element) => {
       if (!node.properties || typeof node.properties.src !== 'string') return
       if (node.properties.src.startsWith('http')) {
@@ -37,10 +39,8 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
       } else {
         // Wiki image
         const imageSrc = path.join('/blog/posts/', node.properties.src)
-        const imageSize = calcImageSize(imageSrc, options)
         node.properties.src = imageSrc
-        node.properties.width = imageSize.width
-        node.properties.height = imageSize.height
+        imageNodes.push(node)
       }
     })
 
@@ -51,7 +51,6 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
       // Only wiki image can be executed here.
       const imageName = match[1]
       const imageSrc = path.join('/blog/posts/static/', imageName)
-      const imageSize = calcImageSize(imageSrc, options)
       const alt = path
         .basename(imageName, path.extname(imageName))
         .replace(/-/g, ' ')
@@ -60,13 +59,23 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
         tagName: 'img',
         properties: {
           src: imageSrc,
-          width: imageSize.width,
-          height: imageSize.height,
           alt,
         },
         children: [],
       }
+      imageNodes.push(imgNode)
       parent.children.splice(index, 1, imgNode)
     })
+
+    await Promise.all(
+      imageNodes.map(async (node) => {
+        const imageSize = await calcImageSize(
+          node.properties.src as string,
+          options,
+        )
+        node.properties.width = imageSize.width
+        node.properties.height = imageSize.height
+      }),
+    )
   }
 }
