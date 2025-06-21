@@ -12,7 +12,7 @@ export function Image(
   props: DetailedHTMLProps<
     ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement
-  > & { originalsrc?: string },
+  > & { originalsrc: string },
 ) {
   const [isReady, setIsReady] = useState(false)
   const originalsrc = props.originalsrc ?? props.src
@@ -32,13 +32,13 @@ export function Image(
               isReady ? 'opacity-100' : 'opacity-0',
             )}
           />
-          <span className="absolute inset-0 -z-10 flex items-center justify-center rounded-lg bg-overlay">
+          <span className="bg-overlay absolute inset-0 -z-10 flex items-center justify-center rounded-lg">
             <Spinner />
           </span>
         </span>
       </PhotoView>
       {props.alt && (
-        <span className="alt -mt-5 block text-center text-sm italic text-subtle">
+        <span className="alt text-subtle -mt-5 block text-center text-sm italic">
           ◭ {props.alt}
         </span>
       )}
