@@ -1,4 +1,4 @@
-export const config = {
+export const siteConfig = {
   webserver: {
     host: 'http://reverieer.vercel.app',
   },

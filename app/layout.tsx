@@ -5,7 +5,7 @@ import { Fira_Code, Source_Serif_4 } from 'next/font/google'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
-import { config } from '@/lib/constants/config'
+import { siteConfig } from '@/lib/constants/config'
 import '@/styles/tailwindcss.css'
 import PageTransitionEffect from './effect'
 import Providers from './providers'
@@ -35,14 +35,14 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  ...config.metadata,
-  metadataBase: new URL(config.webserver.host),
+  ...siteConfig.metadata,
+  metadataBase: new URL(siteConfig.webserver.host),
   title: {
-    default: config.metadata.title,
-    template: `%s • ${config.metadata.title}`,
+    default: siteConfig.metadata.title,
+    template: `%s • ${siteConfig.metadata.title}`,
   },
-  applicationName: config.metadata.title,
-  authors: [{ name: config.author.name, url: config.author.link }],
+  applicationName: siteConfig.metadata.title,
+  authors: [{ name: siteConfig.author.name, url: siteConfig.author.link }],
   category: 'Personal Website',
   keywords: 'Blog, Code, ACG, Web, Zero, Programming, Knowledge',
   icons: {
@@ -58,14 +58,14 @@ export const metadata: Metadata = {
     index: true,
   },
   openGraph: {
-    ...config.metadata,
-    siteName: config.metadata.title,
+    ...siteConfig.metadata,
+    siteName: siteConfig.metadata.title,
     type: 'website',
     url: '/',
-    emails: [config.author.email],
+    emails: [siteConfig.author.email],
   },
   twitter: {
-    ...config.metadata,
+    ...siteConfig.metadata,
     card: 'summary_large_image',
   },
 }
