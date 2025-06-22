@@ -77,7 +77,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const [, no, title] = match
       const slug = slugger.slug(title)
 
-      // handle polyglot urlchore: update package
+      // handle polyglot url
       let url = ''
       if (prefixPath === '/polyglot') {
         const language = document.tags[0].split('/')[0].toLowerCase()
