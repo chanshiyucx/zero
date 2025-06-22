@@ -1,6 +1,6 @@
 'use client'
 
-import { List } from '@phosphor-icons/react/dist/ssr'
+import { ListIcon } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
@@ -177,7 +177,7 @@ export function Toc({ toc }: TocProps) {
   return (
     <aside className="group hidden w-0 xl:block">
       <nav className="sticky top-24 mt-12 w-64 translate-x-6">
-        <List
+        <ListIcon
           size="1.2em"
           weight="bold"
           className="text-muted ml-2 opacity-40 transition-opacity duration-500 group-hover:opacity-100"

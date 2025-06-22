@@ -1,6 +1,6 @@
 'use client'
 
-import { CaretDoubleUp } from '@phosphor-icons/react/dist/ssr'
+import { CaretDoubleUpIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { throttle } from '@/lib/utils/lodash'
 import { TinyButton } from './TinyButton'
@@ -44,7 +44,7 @@ export function ScrollTop() {
 
   return (
     <TinyButton className={!showBackTop ? 'hidden' : ''} onClick={backToTop}>
-      <CaretDoubleUp className="text-xl" weight="duotone" />
+      <CaretDoubleUpIcon className="text-xl" weight="duotone" />
     </TinyButton>
   )
 }

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { config } from '@/lib/constants/config'
+import { siteConfig } from '@/lib/constants/config'
 
 const GithubSVG =
   'https://cdn.jsdelivr.net/gh/chanshiyucx/chanshiyucx@latest/metrics-calendar.svg'
@@ -7,10 +7,10 @@ const GithubSVG =
 export function GithubStats() {
   return (
     <a
-      href={config.links.github}
+      href={siteConfig.links.github}
       target="_blank"
       rel="noopener noreferrer"
-      className="card block h-36 bg-surface"
+      className="card bg-surface block h-36"
     >
       <Image
         src={GithubSVG}
