@@ -1,3 +1,5 @@
+@import './vendor.css';
+
 @import 'tailwindcss';
 
 @import './theme.css';

@@ -2,7 +2,7 @@ import 'react-photo-view/dist/react-photo-view.css'
 import type { PhotoProviderBase } from 'react-photo-view/dist/types'
 import { Spinner } from '@/components/ui/spinner'
 
-// I think hide the toolbar is better. ( ˘▽˘)っ♨
+// maybe hide the toolbar is better. ( ˘▽˘)っ♨
 // import { Toolbar } from './Toolbar'
 
 export { PhotoProvider, PhotoView } from 'react-photo-view'
