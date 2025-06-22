@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import {
-  Notebook,
-  Scroll,
-  TerminalWindow,
+  NotebookIcon,
+  ScrollIcon,
+  TerminalWindowIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -34,21 +34,21 @@ export function AnalysisCard() {
 
   const stats = [
     {
-      icon: <Scroll size="1em" weight="duotone" />,
+      icon: <ScrollIcon size="1em" weight="duotone" />,
       label: 'Posts',
       value: posts,
       href: '/blog/posts',
       className: 'translate-x-32',
     },
     {
-      icon: <Notebook size="1em" weight="duotone" />,
+      icon: <NotebookIcon size="1em" weight="duotone" />,
       label: 'Notes',
       value: notes,
       href: '/blog/notes',
       className: 'translate-x-24',
     },
     {
-      icon: <TerminalWindow size="1em" weight="duotone" />,
+      icon: <TerminalWindowIcon size="1em" weight="duotone" />,
       label: 'Leetcode',
       value: leetcodes,
       href: '/blog/leetcode',
@@ -64,7 +64,7 @@ export function AnalysisCard() {
         <Meow links={links} />
       </div>
       <div
-        className="card absolute bottom-0 right-0 flex h-full w-2/3 flex-col justify-center gap-1 bg-surface pl-2 font-bold"
+        className="card bg-surface absolute right-0 bottom-0 flex h-full w-2/3 flex-col justify-center gap-1 pl-2 font-bold"
         style={{
           clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 0 100%)',
         }}

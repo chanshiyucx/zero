@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, Copy } from '@phosphor-icons/react/dist/ssr'
+import { CheckIcon, CopyIcon } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -30,7 +30,7 @@ export const CopyButton = ({ text }: CopyButtonProps) => {
         isCopied ? 'bg-overlay' : 'bg-base cursor-pointer opacity-0',
       )}
     >
-      {isCopied ? <Check size="1em" /> : <Copy size="1em" />}
+      {isCopied ? <CheckIcon size="1em" /> : <CopyIcon size="1em" />}
     </button>
   )
 }

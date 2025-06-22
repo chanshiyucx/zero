@@ -1,9 +1,9 @@
 import type { Repository } from '@/lib/api'
 import {
-  GitFork,
-  GithubLogo,
-  Globe,
-  Star,
+  GitForkIcon,
+  GithubLogoIcon,
+  GlobeIcon,
+  StarIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import { Date } from '@/components/ui/date'
@@ -17,14 +17,14 @@ export function Github({ repo, className }: GithubProps) {
   return (
     <div
       className={clsx(
-        'flex flex-col justify-between space-y-3 rounded-lg bg-muted/10 p-3 duration-300',
+        'bg-muted/10 flex flex-col justify-between space-y-3 rounded-lg p-3 duration-300',
         className,
       )}
     >
       <div className="flex items-start justify-between gap-1">
         <div>
           <div className="text-lg font-bold">{repo.name}</div>
-          <Date dateString={repo.updated_at} className="text-xs text-subtle" />
+          <Date dateString={repo.updated_at} className="text-subtle text-xs" />
         </div>
         <div className="inline-flex items-center text-lg">
           <a
@@ -34,7 +34,7 @@ export function Github({ repo, className }: GithubProps) {
             aria-label="Github repository"
             className="p-1"
           >
-            <GithubLogo weight="duotone" />
+            <GithubLogoIcon weight="duotone" />
           </a>
           <a
             href={repo.homepage}
@@ -43,18 +43,18 @@ export function Github({ repo, className }: GithubProps) {
             aria-label="Home page"
             className="p-1"
           >
-            <Globe weight="duotone" />
+            <GlobeIcon weight="duotone" />
           </a>
         </div>
       </div>
       <div>{repo.description}</div>
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1">
-          <Star size="1em" weight="bold" />
+          <StarIcon size="1em" weight="bold" />
           <span>{repo.stargazers_count}</span>
         </div>
         <div className="flex items-center gap-1">
-          <GitFork size="1em" weight="bold" />
+          <GitForkIcon size="1em" weight="bold" />
           <span>{repo.forks_count}</span>
         </div>
       </div>

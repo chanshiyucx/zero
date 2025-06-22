@@ -1,6 +1,6 @@
 'use client'
 
-import { CaretRight } from '@phosphor-icons/react/dist/ssr'
+import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useRouter } from 'next/navigation'
 
 export function Backward() {
@@ -12,7 +12,7 @@ export function Backward() {
       onClick={back}
       className="text-muted flex items-center justify-start gap-1"
     >
-      <CaretRight weight="bold" className="text-sm" />
+      <CaretRightIcon weight="bold" className="text-sm" />
       <span className="decoration-muted/40 cursor-pointer font-mono font-bold underline underline-offset-4">
         cd ..
       </span>

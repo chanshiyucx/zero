@@ -1,23 +1,23 @@
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
-  Briefcase,
-  Camera,
-  GithubLogo,
-  House,
-  Laptop,
-  LinkedinLogo,
-  MagnifyingGlass,
-  Notebook,
-  Scroll,
-  SnapchatLogo,
-  TerminalWindow,
-  XLogo,
+  BriefcaseIcon,
+  CameraIcon,
+  GithubLogoIcon,
+  HouseIcon,
+  LaptopIcon,
+  LinkedinLogoIcon,
+  MagnifyingGlassIcon,
+  NotebookIcon,
+  ScrollIcon,
+  SnapchatLogoIcon,
+  TerminalWindowIcon,
+  XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
 import { English, German } from '@/components/icons'
-import { config } from '@/lib/constants/config'
+import { siteConfig } from '@/lib/constants/config'
 import {
   sortedLeetcodes,
   sortedNotes,
@@ -77,7 +77,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
         <CommandMenu setOpen={setOpen}>
           <CommandGroup heading="Navigation" page="root">
             <CommandItem
-              icon={<House {...iconProps} />}
+              icon={<HouseIcon {...iconProps} />}
               onSelect={() => {
                 push('/')
                 setOpen(false)
@@ -87,7 +87,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               Home
             </CommandItem>
             <CommandItem
-              icon={<Briefcase {...iconProps} />}
+              icon={<BriefcaseIcon {...iconProps} />}
               onSelect={() => {
                 push('/projects')
                 setOpen(false)
@@ -97,7 +97,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               Projects
             </CommandItem>
             <CommandItem
-              icon={<Camera {...iconProps} />}
+              icon={<CameraIcon {...iconProps} />}
               onSelect={() => {
                 push('/album')
                 setOpen(false)
@@ -110,7 +110,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
 
           <CommandGroup heading="Blog" page="root">
             <CommandItem
-              icon={<Scroll {...iconProps} />}
+              icon={<ScrollIcon {...iconProps} />}
               onSelect={() => {
                 push('/blog/posts')
                 setOpen(false)
@@ -120,7 +120,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               Posts
             </CommandItem>
             <CommandItem
-              icon={<Notebook {...iconProps} />}
+              icon={<NotebookIcon {...iconProps} />}
               onSelect={() => {
                 push('/blog/notes')
                 setOpen(false)
@@ -130,7 +130,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               Notes
             </CommandItem>
             <CommandItem
-              icon={<TerminalWindow {...iconProps} />}
+              icon={<TerminalWindowIcon {...iconProps} />}
               onSelect={() => {
                 push('/blog/leetcode')
                 setOpen(false)
@@ -140,7 +140,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               Leetcode
             </CommandItem>
             <CommandItem
-              icon={<MagnifyingGlass {...iconProps} />}
+              icon={<MagnifyingGlassIcon {...iconProps} />}
               page="search-blog"
               shortcut={['b', 's']}
             >
@@ -152,7 +152,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
             {postList.map((post) => (
               <CommandItem
                 key={post.slug}
-                icon={<Scroll {...iconProps} />}
+                icon={<ScrollIcon {...iconProps} />}
                 onSelect={() => {
                   push(post.url)
                   setOpen(false)
@@ -164,7 +164,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
             {noteList.map((note) => (
               <CommandItem
                 key={note.slug}
-                icon={<Notebook {...iconProps} />}
+                icon={<NotebookIcon {...iconProps} />}
                 onSelect={() => {
                   push(note.url)
                   setOpen(false)
@@ -176,7 +176,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
             {leetcodeList.map((leetcode) => (
               <CommandItem
                 key={leetcode.slug}
-                icon={<TerminalWindow {...iconProps} />}
+                icon={<TerminalWindowIcon {...iconProps} />}
                 onSelect={() => {
                   push(leetcode.url)
                   setOpen(false)
@@ -209,7 +209,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               German
             </CommandItem>
             <CommandItem
-              icon={<MagnifyingGlass {...iconProps} />}
+              icon={<MagnifyingGlassIcon {...iconProps} />}
               page="search-polyglot"
               shortcut={['p', 's']}
             >
@@ -237,7 +237,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
 
           <CommandGroup heading="Website">
             <CommandItem
-              icon={<SnapchatLogo {...iconProps} />}
+              icon={<SnapchatLogoIcon {...iconProps} />}
               onSelect={() => {
                 push('/friends')
                 setOpen(false)
@@ -246,29 +246,29 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               Friends
             </CommandItem>
             <CommandItem
-              icon={<GithubLogo {...iconProps} />}
-              onSelect={() => window.open(config.links.repo, '_blank')}
+              icon={<GithubLogoIcon {...iconProps} />}
+              onSelect={() => window.open(siteConfig.links.repo, '_blank')}
               className="link"
             >
               Github
             </CommandItem>
             <CommandItem
-              icon={<XLogo {...iconProps} />}
-              onSelect={() => window.open(config.links.twitter, '_blank')}
+              icon={<XLogoIcon {...iconProps} />}
+              onSelect={() => window.open(siteConfig.links.twitter, '_blank')}
               className="link"
             >
               Twitter
             </CommandItem>
             <CommandItem
-              icon={<LinkedinLogo {...iconProps} />}
-              onSelect={() => window.open(config.links.linkedIn, '_blank')}
+              icon={<LinkedinLogoIcon {...iconProps} />}
+              onSelect={() => window.open(siteConfig.links.linkedIn, '_blank')}
               className="link"
             >
               LinkedIn
             </CommandItem>
             <CommandItem
-              icon={<Laptop {...iconProps} />}
-              onSelect={() => window.open(config.links.wakatime, '_blank')}
+              icon={<LaptopIcon {...iconProps} />}
+              onSelect={() => window.open(siteConfig.links.wakatime, '_blank')}
               className="link"
             >
               Wakatime

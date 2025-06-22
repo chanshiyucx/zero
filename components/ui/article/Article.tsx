@@ -1,13 +1,13 @@
 import type { Content, ContentType } from '@/lib/utils/content'
 import type { Metadata } from 'next'
-import { CalendarBlank, Tag } from '@phosphor-icons/react/dist/ssr'
+import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
 import { notFound } from 'next/navigation'
 import { Backward } from '@/components/ui/backward'
 import { Date } from '@/components/ui/date'
 import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { Toc } from '@/components/ui/toc'
-import { config } from '@/lib/constants/config'
+import { siteConfig } from '@/lib/constants/config'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -23,21 +23,21 @@ export async function generateArticleMetadata({
   const decodedSlug = decodeURIComponent(slug)
   const article = collection.find((item) => item.slug === decodedSlug)
   if (!article) return {}
-  const publisher = `${config.author.name} ${config.author.link}`
+  const publisher = `${siteConfig.author.name} ${siteConfig.author.link}`
 
   return {
-    ...config.metadata,
+    ...siteConfig.metadata,
     keywords: article.tags,
     publisher: publisher,
     openGraph: {
-      ...config.metadata,
+      ...siteConfig.metadata,
       tags: article.tags,
       authors: publisher,
       type: 'article',
       url: article.url,
     },
     twitter: {
-      ...config.metadata,
+      ...siteConfig.metadata,
       card: 'summary_large_image',
       creator: publisher,
     },
@@ -60,13 +60,13 @@ export async function Article({ params, collection, type }: ArticleProps) {
           <h1 className="text-4xl font-extrabold">{article.title}</h1>
           <div className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex items-center gap-1">
-              <CalendarBlank weight="bold" />
+              <CalendarBlankIcon weight="bold" />
               <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
             </span>
             <span className="flex gap-3">
               {article.tags.map((tag) => (
                 <span key={tag} className="inline-flex items-center gap-1">
-                  <Tag weight="bold" />
+                  <TagIcon weight="bold" />
                   {tag}
                 </span>
               ))}

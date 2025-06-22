@@ -2,7 +2,7 @@
 
 import type { Discussion } from '@/lib/api'
 import type { ContentType } from '@/lib/utils/content'
-import { CaretRight } from '@phosphor-icons/react/dist/ssr'
+import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { useLoading } from '@/hook/use-loading'
 
@@ -71,7 +71,7 @@ export function Discussion({ label, title }: DiscussionProps) {
 
   return (
     <div className="text-muted flex items-center justify-start gap-1">
-      <CaretRight weight="bold" className="text-sm" />
+      <CaretRightIcon weight="bold" className="text-sm" />
       comment on
       <span
         onClick={discuss}

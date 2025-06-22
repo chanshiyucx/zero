@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { config } from '@/lib/constants/config'
+import { siteConfig } from '@/lib/constants/config'
 import { Emoji } from './Emoji'
 
 export function Footer() {
@@ -21,7 +21,7 @@ export function Footer() {
           RSS
         </Link>
         <a
-          href={config.links.github}
+          href={siteConfig.links.github}
           target="_blank"
           rel="noopener noreferrer"
           className="link"

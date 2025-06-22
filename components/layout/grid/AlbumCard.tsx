@@ -1,4 +1,4 @@
-import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
+import { ArrowUpRightIcon } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -18,7 +18,7 @@ export function AlbumCard() {
       <p className="absolute top-8 bottom-16 -left-2 w-40 -rotate-90">
         たびのきおく
       </p>
-      <ArrowUpRight
+      <ArrowUpRightIcon
         weight="bold"
         size="1em"
         className="absolute top-2 right-2"

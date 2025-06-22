@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, Command } from '@phosphor-icons/react/dist/ssr'
+import { ArrowRightIcon, CommandIcon } from '@phosphor-icons/react/dist/ssr'
 import { useCommandProvider } from '@/components/layout/command'
 
 export function Explore() {
@@ -14,11 +14,11 @@ export function Explore() {
     >
       <span>Press</span>
       <kbd className="tracking-normal">
-        <Command size="1em" weight="bold" /> K
+        <CommandIcon size="1em" weight="bold" /> K
       </kbd>
       <span>Click</span>
       <span>to explore</span>
-      <ArrowRight
+      <ArrowRightIcon
         size="1em"
         weight="bold"
         className="-translate-x-full opacity-0 duration-300 group-hover:translate-x-0 group-hover:opacity-100"
