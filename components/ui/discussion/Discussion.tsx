@@ -1,6 +1,6 @@
 'use client'
 
-import type { Discussion } from '@/lib/api'
+import type { Discussion as DiscussionType } from '@/lib/api'
 import type { ContentType } from '@/lib/utils/content'
 import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
@@ -12,7 +12,7 @@ interface DiscussionProps {
 }
 
 export function Discussion({ label, title }: DiscussionProps) {
-  const [discussion, setDiscussions] = useState<Discussion>()
+  const [discussion, setDiscussions] = useState<DiscussionType>()
   const [loading, setLoading] = useState(false)
   const [delay, reset] = useLoading(1000)
 
@@ -23,7 +23,7 @@ export function Discussion({ label, title }: DiscussionProps) {
         const response = await fetch(
           `/api/github/discussions?title=${title}&label=${label}`,
         )
-        const data: Discussion = await response.json()
+        const data: DiscussionType = await response.json()
         if (data) {
           setDiscussions(data)
         }
@@ -44,7 +44,7 @@ export function Discussion({ label, title }: DiscussionProps) {
         method: 'POST',
         body: JSON.stringify({ title, label }),
       })
-      const data: Discussion = await response.json()
+      const data: DiscussionType = await response.json()
       if (data) {
         setDiscussions(data)
         window.open(data.html_url, '_blank')
