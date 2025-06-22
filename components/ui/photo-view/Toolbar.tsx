@@ -1,10 +1,10 @@
+import type { IconProps } from '@phosphor-icons/react'
 import type { OverlayRenderProps } from 'react-photo-view/dist/types'
 import {
-  CornersIn,
-  CornersOut,
-  IconProps,
-  MinusCircle,
-  PlusCircle,
+  CornersInIcon,
+  CornersOutIcon,
+  MinusCircleIcon,
+  PlusCircleIcon,
 } from '@phosphor-icons/react'
 import { toggleFullscreen } from '@/lib/utils/screen'
 
@@ -19,12 +19,12 @@ export function Toolbar({ onScale, scale }: OverlayRenderProps) {
 
   return (
     <>
-      <PlusCircle {...commonProps} onClick={() => onScale(scale + 1)} />
-      <MinusCircle {...commonProps} onClick={() => onScale(scale - 1)} />
+      <PlusCircleIcon {...commonProps} onClick={() => onScale(scale + 1)} />
+      <MinusCircleIcon {...commonProps} onClick={() => onScale(scale - 1)} />
       {isFullScreen ? (
-        <CornersIn {...commonProps} onClick={toggleFullscreen} />
+        <CornersInIcon {...commonProps} onClick={toggleFullscreen} />
       ) : (
-        <CornersOut {...commonProps} onClick={toggleFullscreen} />
+        <CornersOutIcon {...commonProps} onClick={toggleFullscreen} />
       )}
     </>
   )
