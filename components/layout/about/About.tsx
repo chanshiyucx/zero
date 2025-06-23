@@ -70,7 +70,7 @@ const Link = ({ label, ...props }: { label: string } & LinkProps) => (
 export function About() {
   return (
     <div className="prose prose-rosepine w-full max-w-none">
-      <h2 className="text-xs text-subtle">Full-Stack Developer</h2>
+      <h2 className="text-subtle text-xs">Full-Stack Developer</h2>
 
       <p>
         <Hand width="1.3rem" height="1.3rem" />
@@ -97,10 +97,10 @@ export function About() {
           </p>
 
           <p>
-            I&apos;m working hard to improve my
-            <Link label="English" href="/polyglot/english" /> while starting to
-            learn <Link label="German" href="/polyglot/german" />. It&apos; a
-            challenging process, but I hope it will pay off.
+            I aspire to become a <Link label="polyglot" href="/polyglot" />,
+            dedicating myself to refining my English proficiency while also
+            starting to learn German. Though challenging, I believe the journey
+            will be deeply rewarding.
           </p>
 
           <p>

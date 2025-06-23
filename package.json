@@ -5,13 +5,14 @@
   "description": "文心雕龙",
   "author": "蝉時雨 <chanshiyucx@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "predev": "node syncBlog.mjs",
-    "prebuild": "node syncBlog.mjs",
+    "predev": "node syncBlog.js",
+    "prebuild": "node syncBlog.js",
     "prepare": "husky"
   },
   "lint-staged": {

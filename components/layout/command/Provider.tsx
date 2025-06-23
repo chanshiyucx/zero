@@ -1,5 +1,6 @@
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
+  ArticleMediumIcon,
   BriefcaseIcon,
   CameraIcon,
   GithubLogoIcon,
@@ -9,14 +10,12 @@ import {
   MagnifyingGlassIcon,
   NotebookIcon,
   ScrollIcon,
-  SnapchatLogoIcon,
+  // SnapchatLogoIcon,
   TerminalWindowIcon,
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
-import { English, German } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
 import {
   sortedLeetcodes,
@@ -33,21 +32,6 @@ const iconProps: Partial<IconProps> = {
   size: '1em',
   weight: 'duotone',
   className: 'inline-block text-xl mr-3 shrink-0',
-}
-
-const languageIcon = {
-  english: (
-    <English
-      {...iconProps}
-      className={clsx(iconProps.className, 'text-subtle text-base')}
-    />
-  ),
-  german: (
-    <German
-      {...iconProps}
-      className={clsx(iconProps.className, 'text-subtle text-base')}
-    />
-  ),
 }
 
 export function CommandProvider({ children }: { children: ReactNode }) {
@@ -189,24 +173,14 @@ export function CommandProvider({ children }: { children: ReactNode }) {
 
           <CommandGroup heading="Polyglot" page="root">
             <CommandItem
-              icon={languageIcon.english}
+              icon={<ArticleMediumIcon {...iconProps} />}
               onSelect={() => {
-                push('/polyglot/english')
+                push('/polyglot')
                 setOpen(false)
               }}
-              shortcut={['e']}
+              shortcut={['p']}
             >
-              English
-            </CommandItem>
-            <CommandItem
-              icon={languageIcon.german}
-              onSelect={() => {
-                push('/polyglot/german')
-                setOpen(false)
-              }}
-              shortcut={['g']}
-            >
-              German
+              Polyglot
             </CommandItem>
             <CommandItem
               icon={<MagnifyingGlassIcon {...iconProps} />}
@@ -219,11 +193,10 @@ export function CommandProvider({ children }: { children: ReactNode }) {
 
           <CommandGroup heading="Polyglot" page="search-polyglot">
             {polyglotList.map((polyglot) => {
-              const language = polyglot.tags[0].split('/')[0].toLowerCase()
               return (
                 <CommandItem
                   key={polyglot.slug}
-                  icon={languageIcon[language as keyof typeof languageIcon]}
+                  icon={<ArticleMediumIcon {...iconProps} />}
                   onSelect={() => {
                     push(polyglot.url)
                     setOpen(false)
@@ -236,7 +209,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
           </CommandGroup>
 
           <CommandGroup heading="Website">
-            <CommandItem
+            {/* <CommandItem
               icon={<SnapchatLogoIcon {...iconProps} />}
               onSelect={() => {
                 push('/friends')
@@ -244,7 +217,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
               }}
             >
               Friends
-            </CommandItem>
+            </CommandItem> */}
             <CommandItem
               icon={<GithubLogoIcon {...iconProps} />}
               onSelect={() => window.open(siteConfig.links.repo, '_blank')}

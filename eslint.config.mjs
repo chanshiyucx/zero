@@ -20,7 +20,6 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
-        project: './tsconfig.json',
       },
       globals: {
         ...globals.es2021,

@@ -127,14 +127,7 @@ export function Header() {
               { name: 'Leetcode', path: '/blog/leetcode' },
             ]}
           />
-          <DropdownMenuItem
-            name="Polyglot"
-            path="/polyglot/english"
-            items={[
-              { name: 'English', path: '/polyglot/english' },
-              { name: 'German', path: '/polyglot/german' },
-            ]}
-          />
+          <MenuItem name="Polyglot" path="/polyglot" />
           <MenuItem name="Projects" path="/projects" />
           <MenuItem name="Album" path="/album" />
         </nav>
