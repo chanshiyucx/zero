@@ -62,16 +62,6 @@ export const summary = (): BlogSummary => {
   return { posts, notes, leetcodes }
 }
 
-export const sortedPolyglots = (
-  filterByLanguage?: 'english' | 'german',
-): Polyglot[] => {
-  let filteredList = allPolyglots
-  if (filterByLanguage) {
-    filteredList = allPolyglots.filter((polyglot) =>
-      polyglot.tags[0].toLowerCase().startsWith(filterByLanguage),
-    )
-  }
-  return sortByDate(filteredList)
-}
+export const sortedPolyglots = (): Polyglot[] => sortByDate(allPolyglots)
 
 export const sortedAlbums = (): Album[] => sortByDate(allAlbums)

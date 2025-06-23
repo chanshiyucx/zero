@@ -76,17 +76,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const [, no, title] = match
       const slug = slugger.slug(title)
-
-      // handle polyglot url
-      let url = ''
-      if (prefixPath === '/polyglot') {
-        const language = document.tags[0].split('/')[0].toLowerCase()
-        url = path.join(prefixPath, language, slug)
-        console.log(document._meta.fileName)
-      } else {
-        url = path.join(prefixPath, slug)
-      }
-
+      const url = path.join(prefixPath, slug)
       const contentCode = await compileMDX(context, document, options)
       const toc = tocCache.get(document._meta) ?? []
 

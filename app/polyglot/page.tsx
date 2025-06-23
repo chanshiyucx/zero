@@ -4,10 +4,6 @@ import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { groupByYear, sortedPolyglots } from '@/lib/utils/content'
 
-interface PageProps {
-  params: Promise<{ language: 'english' | 'german' }>
-}
-
 export const metadata: Metadata = {
   title: 'Polyglot',
   description:
@@ -15,28 +11,23 @@ export const metadata: Metadata = {
   keywords: ['polyglot', 'english', 'german'],
 }
 
-const title = {
-  english: 'English writing sharpens thinking.',
-  german: 'Deutsch ist ein Fenster weiter.',
-}
-
 const colors = {
-  Grammar: 'text-foam',
-  Writing: 'text-gold',
-  Lektion: 'text-love',
+  German: 'text-foam',
+  English: 'text-gold',
 }
 
-const getTag = (tag: string) => tag.split('/')[1] as keyof typeof colors
+const getTag = (tag: string) => tag.split('/')[0] as keyof typeof colors
 
-export default async function Page({ params }: PageProps) {
-  const { language } = await params
-  const polyglotList = sortedPolyglots(language)
+export default async function Page() {
+  const polyglotList = sortedPolyglots()
   const polyglotGroupList = groupByYear(polyglotList)
 
   return (
     <main className="page">
       <header>
-        <h1 className="text-4xl font-extrabold">{title[language]}</h1>
+        <h1 className="text-4xl font-extrabold">
+          Polyglots think beyond one world.
+        </h1>
       </header>
       <section>
         {polyglotGroupList.map((group) => (
