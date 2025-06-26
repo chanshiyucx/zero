@@ -11,7 +11,7 @@ export function Search() {
     <button
       onClick={toggle}
       aria-label="Search"
-      className="bg-surface flex cursor-text items-center gap-3 rounded-lg p-2 text-sm outline-hidden"
+      className="bg-surface flex cursor-text items-center gap-3 rounded-lg p-2 text-sm outline-hidden max-md:hidden"
     >
       <span className="flex items-center gap-3">
         <MagnifyingGlassIcon size="1em" weight="bold" />
