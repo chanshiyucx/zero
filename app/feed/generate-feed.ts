@@ -12,7 +12,7 @@ export function generateFeed() {
     id: siteConfig.webserver.host,
     link: siteConfig.webserver.host,
     favicon: `${siteConfig.webserver.host}/favicon.ico`,
-    copyright: `All rights reserved ${date.getFullYear()}, Reverie.`,
+    copyright: `All rights reserved ${date.getFullYear()}, Chanshiyu.`,
     updated: list.length > 0 ? new Date(list[0].date) : date,
     feedLinks: {
       rss2: `${siteConfig.webserver.host}/blog/feed`,

@@ -113,7 +113,7 @@ export function Header() {
           height={24}
           priority
         />
-        Reverie
+        Shiyu
       </Link>
       <div className="flex items-center gap-3">
         <nav className="flex items-center justify-center gap-1 max-md:hidden">

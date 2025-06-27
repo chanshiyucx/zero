@@ -10,7 +10,7 @@ export function Title() {
     <div className="flex h-fit w-full flex-col gap-20 max-md:gap-12">
       <div className="relative flex items-center justify-between max-md:justify-center">
         <div className="z-10 flex flex-col items-start gap-4">
-          <h1 className="text-6xl font-bold drop-shadow-lg">Reverie,</h1>
+          <h1 className="text-6xl font-bold drop-shadow-lg">Shiyu,</h1>
           <div className="text-subtle min-h-9 text-2xl">
             <TypedWriter />
           </div>
