@@ -1,3 +1,5 @@
+'use client'
+
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
   ArticleMediumIcon,
@@ -15,7 +17,7 @@ import {
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import { useRouter } from 'next/navigation'
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { siteConfig } from '@/lib/constants/config'
 import {
   sortedLeetcodes,
@@ -23,10 +25,10 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
+import { useCommandStore } from '@/store/command'
 import { CommandGroup } from './command-group'
 import { CommandItem } from './command-item'
 import { CommandMenu } from './command-menu'
-import { CommandProviderContext } from './contexts/provider-context'
 
 const iconProps: Partial<IconProps> = {
   size: '1em',
@@ -34,21 +36,19 @@ const iconProps: Partial<IconProps> = {
   className: 'inline-block text-xl mr-3 shrink-0',
 }
 
-export function CommandProvider({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState(false)
+export function Command() {
+  const { open, toggle, setOpen } = useCommandStore()
   const { push } = useRouter()
   const postList = sortedPosts()
   const noteList = sortedNotes()
   const leetcodeList = sortedLeetcodes()
   const polyglotList = sortedPolyglots()
 
-  const toggle = () => setOpen((prev) => !prev)
-
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
-        setOpen((prev) => !prev)
+        toggle()
       }
     }
     document.addEventListener('keydown', down)
@@ -56,9 +56,9 @@ export function CommandProvider({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <CommandProviderContext.Provider value={{ toggle }}>
+    <>
       {open && (
-        <CommandMenu setOpen={setOpen}>
+        <CommandMenu>
           <CommandGroup heading="Navigation" page="root">
             <CommandItem
               icon={<HouseIcon {...iconProps} />}
@@ -208,7 +208,7 @@ export function CommandProvider({ children }: { children: ReactNode }) {
             })}
           </CommandGroup>
 
-          <CommandGroup heading="Website">
+          <CommandGroup heading="Website" page="root">
             {/* <CommandItem
               icon={<SnapchatLogoIcon {...iconProps} />}
               onSelect={() => {
@@ -249,7 +249,6 @@ export function CommandProvider({ children }: { children: ReactNode }) {
           </CommandGroup>
         </CommandMenu>
       )}
-      {children}
-    </CommandProviderContext.Provider>
+    </>
   )
 }

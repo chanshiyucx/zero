@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { usePolyglot } from '@/components/layout/polyglot'
+import { usePolyglotStore } from '@/store/polyglot'
 
 interface PolyglotContentWrapperProps {
   children: ReactNode
@@ -13,7 +13,7 @@ export function PolyglotWrapper({
   children,
   hasMultipleLanguages,
 }: PolyglotContentWrapperProps) {
-  const { language } = usePolyglot()
+  const { language } = usePolyglotStore()
 
   if (!hasMultipleLanguages) {
     return <div>{children}</div>
