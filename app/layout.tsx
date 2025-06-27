@@ -2,13 +2,14 @@ import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import { Fira_Code, Source_Serif_4 } from 'next/font/google'
+import { Command } from '@/components/layout/command'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
 import { siteConfig } from '@/lib/constants/config'
 import '@/styles/tailwindcss.css'
+import { ThemeProvider } from 'next-themes'
 import PageTransitionEffect from './effect'
-import Providers from './providers'
 
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
@@ -82,12 +83,13 @@ export default function RootLayout({
       className={clsx(sourceSerif.variable, fira.variable)}
     >
       <body>
-        <Providers>
+        <ThemeProvider defaultTheme="light">
           <Header />
           <PageTransitionEffect>{children}</PageTransitionEffect>
+          <Command />
           <Helper />
           <Footer />
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   )

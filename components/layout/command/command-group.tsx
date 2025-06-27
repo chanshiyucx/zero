@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Command } from 'cmdk'
-import { useCommand } from './hooks/use-command'
+import { useActivePage } from '@/store/command'
 
 interface CommandGroupProps {
   heading: string
@@ -13,8 +13,7 @@ export const CommandGroup = ({
   children,
   page = 'root',
 }: CommandGroupProps) => {
-  const { activePage } = useCommand()
-
+  const activePage = useActivePage()
   if (activePage !== page) return null
 
   return (

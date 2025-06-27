@@ -1,5 +1,8 @@
+'use client'
+
 import { useMDXComponent } from '@content-collections/mdx/react'
 import clsx from 'clsx'
+import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 import { Figure } from './figure'
 import { Image } from './image'
 import { Link } from './link'
@@ -27,7 +30,9 @@ export function MDX({ code, classname, lang }: MDXProps) {
       )}
       data-lang={lang}
     >
-      <Component components={components} />
+      <PhotoProvider {...photoViewConfig}>
+        <Component components={components} />
+      </PhotoProvider>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import { Command } from 'cmdk'
-import { useCommand } from './hooks/use-command'
+import { useCommandStore } from '@/store/command'
 
 interface CommandItemProps {
   onSelect?: () => void
@@ -20,12 +20,13 @@ export const CommandItem = ({
   page,
   className,
 }: CommandItemProps) => {
-  const { pushPage } = useCommand()
+  const { pushPage } = useCommandStore()
 
   return (
     <Command.Item
       onSelect={() => {
-        if (page && pushPage) {
+        console.log('pushPage', page)
+        if (page) {
           pushPage(page)
         } else if (onSelect) {
           onSelect()
