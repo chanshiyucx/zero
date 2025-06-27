@@ -134,6 +134,17 @@
   }
 }
 
+@utility polyglot {
+  [data-lang] {
+    @apply hidden;
+  }
+
+  &[data-active-lang='de'] [data-lang='de'],
+  &[data-active-lang='en'] [data-lang='en'] {
+    @apply block;
+  }
+}
+
 /* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
 @utility city-cat {
   @apply animate-cat-cycle h-full w-full bg-center bg-no-repeat;
