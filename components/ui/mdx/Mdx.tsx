@@ -13,17 +13,19 @@ const components = {
 interface MDXProps {
   code: string
   classname?: string
+  lang?: 'en' | 'de'
 }
 
-export function MDX({ code, classname }: MDXProps) {
+export function MDX({ code, classname, lang }: MDXProps) {
   const Component = useMDXComponent(code)
 
   return (
     <div
       className={clsx(
         classname,
-        'prose prose-rosepine max-w-none prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg',
+        'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none',
       )}
+      data-lang={lang}
     >
       <Component components={components} />
     </div>

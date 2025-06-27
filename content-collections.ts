@@ -55,6 +55,22 @@ const options: Options = {
   remarkPlugins: [remarkGfm, remarkBreaks, remarkMath],
 }
 
+function extractLanguageSections(content: string) {
+  const parts = content
+    .split(/^##\s+/gm)
+    .filter(Boolean)
+    .map((section) => {
+      const lines = section.split('\n')
+      lines.shift()
+      return lines.join('\n').trim()
+    })
+
+  return {
+    de: parts[0],
+    en: parts[1],
+  }
+}
+
 const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
   defineCollection({
     name,
@@ -77,8 +93,27 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const [, no, title] = match
       const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
-      const contentCode = await compileMDX(context, document, options)
+      const contentCode = { en: '', de: '' }
       const toc = tocCache.get(document._meta) ?? []
+
+      if (prefixPath === '/polyglot') {
+        const sections = extractLanguageSections(document.content)
+        contentCode.de = await compileMDX(
+          context,
+          { ...document, content: sections.de },
+          options,
+        )
+        contentCode.en = await compileMDX(
+          context,
+          {
+            ...document,
+            content: sections.en,
+          },
+          options,
+        )
+      } else {
+        contentCode.en = await compileMDX(context, document, options)
+      }
 
       return {
         ...document,
