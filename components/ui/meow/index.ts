@@ -1,1 +1,1 @@
-export * from './Meow'
+export * from './meow'

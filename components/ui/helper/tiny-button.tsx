@@ -11,7 +11,7 @@ export function TinyButton({ className, children, onClick }: TinyButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={clsx(className, 'rounded-lg bg-surface p-2')}
+      className={clsx(className, 'bg-surface rounded-lg p-2')}
     >
       {children}
     </button>

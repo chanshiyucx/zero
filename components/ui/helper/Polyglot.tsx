@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { usePolyglot } from '@/components/layout/polyglot'
-import { TinyButton } from './TinyButton'
+import { TinyButton } from './tiny-button'
 
 export function Polyglot() {
   const { language, toggleLanguage } = usePolyglot()

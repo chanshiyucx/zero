@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { random } from '@/lib/utils/helper'
-import { Explore } from './Explore'
-import { TypedWriter } from './TypedWriter'
+import { Explore } from './explore'
+import { TypedWriter } from './typed-writer'
 
 export function Title() {
   const action = random(0, 1) === 0 ? 'walk' : 'run'

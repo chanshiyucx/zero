@@ -1,13 +1,14 @@
-import { AlbumCard } from './AlbumCard'
-import { AnalysisCard } from './AnalysisCard'
-import { CatCard } from './CatCard'
-import { DiscordStatus } from './DiscordStatus'
-import { GithubStats } from './GithubStats'
-import { LatestStats } from './LatestStats'
-import { SocialCard } from './SocialCard'
-import { StacksCard } from './StacksCard'
-// import { StarsCard } from './StarsCard'
-import { WakatimeStats } from './WakatimeStats'
+import { AlbumCard } from './album-card'
+import { AnalysisCard } from './analysis-card'
+import { CatCard } from './cat-card'
+import { DiscordStatus } from './discord-status'
+import { GithubStats } from './github-stats'
+import { LatestStats } from './latest-stats'
+import { SocialCard } from './social-card'
+import { StacksCard } from './stacks-card'
+import { WakatimeStats } from './wakatime-stats'
+
+// import { StarsCard } from './stars-card'
 
 export function Grid() {
   return (

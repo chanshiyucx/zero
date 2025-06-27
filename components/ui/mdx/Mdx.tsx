@@ -1,8 +1,8 @@
 import { useMDXComponent } from '@content-collections/mdx/react'
 import clsx from 'clsx'
-import { Figure } from './Figure'
-import { Image } from './Image'
-import { Link } from './Link'
+import { Figure } from './figure'
+import { Image } from './image'
+import { Link } from './link'
 
 const components = {
   img: Image,

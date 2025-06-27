@@ -23,9 +23,9 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
-import { CommandGroup } from './CommandGroup'
-import { CommandItem } from './CommandItem'
-import { CommandMenu } from './CommandMenu'
+import { CommandGroup } from './command-group'
+import { CommandItem } from './command-item'
+import { CommandMenu } from './command-menu'
 import { CommandProviderContext } from './contexts/provider-context'
 
 const iconProps: Partial<IconProps> = {

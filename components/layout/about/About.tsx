@@ -9,7 +9,7 @@ import {
   TypeScript,
   VueJS,
 } from '@/components/icons'
-import { CV } from './CV'
+import { CV } from './cv'
 
 interface LinkElementProps {
   href: string

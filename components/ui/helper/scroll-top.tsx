@@ -3,7 +3,7 @@
 import { CaretDoubleUpIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { throttle } from '@/lib/utils/lodash'
-import { TinyButton } from './TinyButton'
+import { TinyButton } from './tiny-button'
 
 export function ScrollTop() {
   const [showBackTop, setShowBackTop] = useState(false)
