@@ -1,16 +1,16 @@
 export const siteConfig = {
   webserver: {
-    host: 'http://reverieer.vercel.app',
+    host: 'http://shiyui.vercel.app',
   },
   metadata: {
-    title: "Reverie's Hideout",
+    title: "Shiyu's Hideout",
     description:
       'My internet hideout, where you can explore topics I am learning, projects I am building, tech blog posts, and know more about who I am...',
   },
   author: {
-    name: 'Reverie',
+    name: 'Shiyu',
     email: 'chanshiyucx@gmail.com',
-    link: 'https://reverieer.vercel.app',
+    link: 'https://shiyui.vercel.app',
   },
   links: {
     github: 'http://github.com/chanshiyucx',
