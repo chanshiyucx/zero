@@ -1,1 +1,1 @@
-export * from './PhotoView'
+export * from './photo-view'

@@ -1,1 +1,1 @@
-export * from './PolyglotContext'
+export * from './polyglot-context'

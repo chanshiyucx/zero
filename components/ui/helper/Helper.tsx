@@ -1,5 +1,5 @@
-import { Polyglot } from './Polyglot'
-import { ScrollTop } from './ScrollTop'
+import { Polyglot } from './polyglot'
+import { ScrollTop } from './scroll-top'
 
 export function Helper() {
   return (

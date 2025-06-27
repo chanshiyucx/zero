@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { siteConfig } from '@/lib/constants/config'
-import { Emoji } from './Emoji'
+import { Emoji } from './emoji'
 
 export function Footer() {
   return (

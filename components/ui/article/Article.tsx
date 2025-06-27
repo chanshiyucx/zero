@@ -8,7 +8,7 @@ import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
-import { PolyglotWrapper } from './PolyglotWrapper'
+import { PolyglotWrapper } from './polyglot-wrapper'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>

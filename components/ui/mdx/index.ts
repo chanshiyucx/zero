@@ -1,1 +1,1 @@
-export * from './Mdx'
+export * from './mdx'

@@ -6,9 +6,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { Map } from './Map'
-import { Search } from './Search'
-import { ThemeSwitcher } from './ThemeSwitcher'
+import { Map } from './map'
+import { Search } from './search'
+import { ThemeSwitcher } from './theme-switcher'
 
 interface MenuItemProps {
   name: string

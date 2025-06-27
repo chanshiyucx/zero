@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { CopyButton } from './CopyButton'
+import { CopyButton } from './copy-button'
 
 interface FigureProps extends React.ComponentPropsWithoutRef<'figure'> {
   children?: ReactNode
