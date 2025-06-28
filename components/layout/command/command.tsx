@@ -241,6 +241,7 @@ export function Command() {
         toggle()
         return
       }
+      if (open) return
 
       e.preventDefault()
       handleKeypress(e.key.toLowerCase())
@@ -248,7 +249,7 @@ export function Command() {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [toggle, handleKeypress])
+  }, [open, toggle, handleKeypress])
 
   useEffect(() => {
     const allActions = actionGroups.flatMap((group) => group.items)
