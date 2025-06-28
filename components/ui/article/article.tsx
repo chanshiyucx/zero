@@ -1,0 +1,97 @@
+import type { Content, ContentType } from '@/lib/utils/content'
+import type { Metadata } from 'next'
+import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
+import { notFound } from 'next/navigation'
+import { Backward } from '@/components/ui/backward'
+import { Date } from '@/components/ui/date'
+import { Discussion } from '@/components/ui/discussion'
+import { MDX } from '@/components/ui/mdx'
+import { Toc } from '@/components/ui/toc'
+import { siteConfig } from '@/lib/constants/config'
+import { PolyglotWrapper } from './polyglot-wrapper'
+
+interface ArticleProps {
+  params: Promise<{ slug: string }>
+  collection: Content[]
+  type: ContentType
+}
+
+export async function generateArticleMetadata({
+  params,
+  collection,
+}: ArticleProps): Promise<Metadata> {
+  const { slug } = await params
+  const decodedSlug = decodeURIComponent(slug)
+  const article = collection.find((item) => item.slug === decodedSlug)
+  if (!article) return {}
+  const publisher = `${siteConfig.author.name} ${siteConfig.author.link}`
+
+  return {
+    ...siteConfig.metadata,
+    keywords: article.tags,
+    publisher: publisher,
+    openGraph: {
+      ...siteConfig.metadata,
+      tags: article.tags,
+      authors: publisher,
+      type: 'article',
+      url: article.url,
+    },
+    twitter: {
+      ...siteConfig.metadata,
+      card: 'summary_large_image',
+      creator: publisher,
+    },
+  }
+}
+
+export async function Article({ params, collection, type }: ArticleProps) {
+  const { slug } = await params
+  const decodedSlug = decodeURIComponent(slug)
+  const article = collection.find((item) => item.slug === decodedSlug)
+
+  if (!article) {
+    return notFound()
+  }
+
+  return (
+    <main className="page flex flex-row">
+      <article className="w-full space-y-12">
+        <header>
+          <h1 className="text-4xl font-extrabold">{article.title}</h1>
+          <div className="text-subtle mt-3 flex gap-5">
+            <span className="inline-flex items-center gap-1">
+              <CalendarBlankIcon weight="bold" />
+              <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
+            </span>
+            <span className="flex gap-3">
+              {article.tags.map((tag) => (
+                <span key={tag} className="inline-flex items-center gap-1">
+                  <TagIcon weight="bold" />
+                  {tag}
+                </span>
+              ))}
+            </span>
+          </div>
+        </header>
+        <section>
+          {article.contentCode.de ? (
+            <PolyglotWrapper hasMultipleLanguages={true} defaultLang="de">
+              <MDX code={article.contentCode.de} lang="de" />
+              <MDX code={article.contentCode.en} lang="en" />
+            </PolyglotWrapper>
+          ) : (
+            <PolyglotWrapper hasMultipleLanguages={false} defaultLang="en">
+              <MDX code={article.contentCode.en} lang="en" />
+            </PolyglotWrapper>
+          )}
+        </section>
+        <footer className="flex flex-col gap-2">
+          <Discussion label={type} title={article.title} />
+          <Backward />
+        </footer>
+      </article>
+      {article.toc.length > 0 && <Toc toc={article.toc} />}
+    </main>
+  )
+}
