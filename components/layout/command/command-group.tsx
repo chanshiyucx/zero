@@ -11,7 +11,7 @@ interface CommandGroupProps {
 export const CommandGroup = ({
   heading,
   children,
-  page = 'root',
+  page,
 }: CommandGroupProps) => {
   const activePage = useActivePage()
   if (activePage !== page) return null
