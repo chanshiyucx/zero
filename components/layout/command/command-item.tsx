@@ -25,7 +25,6 @@ export const CommandItem = ({
   return (
     <Command.Item
       onSelect={() => {
-        console.log('pushPage', page)
         if (page) {
           pushPage(page)
         } else if (onSelect) {

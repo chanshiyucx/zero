@@ -1,6 +1,5 @@
 import { Moon, Sun } from '@/components/icons'
-import { useIsMounted } from '@/hook'
-import { Theme, useThemeTransition } from '@/hook/use-theme-transition'
+import { Theme, useIsMounted, useThemeTransition } from '@/hook'
 
 function ThemeButton() {
   const { toggleTheme, theme } = useThemeTransition()
