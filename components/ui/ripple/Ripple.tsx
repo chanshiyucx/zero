@@ -29,12 +29,12 @@ export function Ripple({
   })
 
   return (
-    <div className="absolute left-1/2 top-1/2 z-0 h-full w-full overflow-visible">
+    <div className="absolute top-1/2 left-1/2 z-0 h-full w-full overflow-visible">
       {Array.from({ length: numCircles }, (_, i) => (
         <div
           key={i}
           className={clsx(
-            'absolute z-0 animate-ripple rounded-full bg-love/80',
+            'animate-ripple bg-love/80 absolute z-0 rounded-full',
             className,
           )}
           style={getStyle(i)}
