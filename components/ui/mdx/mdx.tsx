@@ -24,7 +24,8 @@ interface MDXProps {
 
 export function MDX({ contentCode, classname }: MDXProps) {
   const { language } = usePolyglotStore()
-  const code = contentCode[language]
+  const displayLanguage = contentCode[language] ? language : 'en'
+  const code = contentCode[displayLanguage]
   const Component = useMDXComponent(code)
 
   return (
@@ -33,7 +34,7 @@ export function MDX({ contentCode, classname }: MDXProps) {
         classname,
         'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none',
       )}
-      data-lang={language}
+      data-lang={displayLanguage}
     >
       <PhotoProvider {...photoViewConfig}>
         <Component components={components} />
