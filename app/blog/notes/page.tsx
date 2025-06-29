@@ -43,7 +43,7 @@ function NoteItem({ note }: NoteItemProps) {
         </div>
       </header>
       <section className="w-full pt-2 pb-12">
-        <MDX code={note.contentCode.en} />
+        <MDX contentCode={note.contentCode} />
       </section>
     </div>
   )

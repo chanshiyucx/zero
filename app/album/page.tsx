@@ -31,7 +31,7 @@ export default function Page() {
             </header>
             <section className="pt-2">
               <MDX
-                code={album.contentCode.en}
+                contentCode={album.contentCode}
                 classname="grid grid-cols-[repeat(3,minmax(0,1fr))] max-md:grid-cols-[repeat(2,minmax(0,1fr))] gap-3 album grid-template-rows"
               />
             </section>
