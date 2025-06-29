@@ -1,13 +1,12 @@
 import { MapTrifoldIcon } from '@phosphor-icons/react/dist/ssr'
-
-// import { useCommandProvider } from '@/components/layout/command'
+import { useCommandStore } from '@/store/command'
 
 export function Map() {
-  // const { toggle } = useCommandProvider()
+  const { toggle } = useCommandStore()
 
   return (
     <button
-      // onClick={toggle}
+      onClick={toggle}
       aria-label="Open menu"
       className="hidden text-sm max-md:block"
     >
