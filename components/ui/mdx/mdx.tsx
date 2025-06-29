@@ -3,6 +3,7 @@
 import { useMDXComponent } from '@content-collections/mdx/react'
 import clsx from 'clsx'
 import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
+import { usePolyglotStore } from '@/store/polyglot'
 import { Figure } from './figure'
 import { Image } from './image'
 import { Link } from './link'
@@ -14,12 +15,16 @@ const components = {
 }
 
 interface MDXProps {
-  code: string
+  contentCode: {
+    de: string
+    en: string
+  }
   classname?: string
-  lang?: 'en' | 'de'
 }
 
-export function MDX({ code, classname, lang }: MDXProps) {
+export function MDX({ contentCode, classname }: MDXProps) {
+  const { language } = usePolyglotStore()
+  const code = contentCode[language]
   const Component = useMDXComponent(code)
 
   return (
@@ -28,7 +33,7 @@ export function MDX({ code, classname, lang }: MDXProps) {
         classname,
         'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none',
       )}
-      data-lang={lang}
+      data-lang={language}
     >
       <PhotoProvider {...photoViewConfig}>
         <Component components={components} />

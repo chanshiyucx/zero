@@ -8,7 +8,6 @@ import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
-import { PolyglotWrapper } from './polyglot-wrapper'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -75,16 +74,7 @@ export async function Article({ params, collection, type }: ArticleProps) {
           </div>
         </header>
         <section>
-          {article.contentCode.de ? (
-            <PolyglotWrapper hasMultipleLanguages={true} defaultLang="de">
-              <MDX code={article.contentCode.de} lang="de" />
-              <MDX code={article.contentCode.en} lang="en" />
-            </PolyglotWrapper>
-          ) : (
-            <PolyglotWrapper hasMultipleLanguages={false} defaultLang="en">
-              <MDX code={article.contentCode.en} lang="en" />
-            </PolyglotWrapper>
-          )}
+          <MDX contentCode={article.contentCode} />
         </section>
         <footer className="flex flex-col gap-2">
           <Discussion label={type} title={article.title} />
