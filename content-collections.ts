@@ -61,8 +61,9 @@ function extractLanguageSections(content: string) {
     .filter(Boolean)
     .map((section) => {
       const lines = section.split('\n')
-      lines.shift()
-      return lines.join('\n').trim()
+      const title = lines.shift()!
+      const content = lines.join('\n').trim()
+      return { title, content }
     })
 
   return {
@@ -94,25 +95,33 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
       const contentCode = { en: '', de: '' }
+      const titleCode = { en: '', de: '' }
       const toc = tocCache.get(document._meta) ?? []
 
-      if (prefixPath === '/polyglot') {
+      const isPolyglotDeutsch =
+        prefixPath === '/polyglot' &&
+        document.tags.some((e) => e === 'German/Writing')
+
+      if (isPolyglotDeutsch) {
         const sections = extractLanguageSections(document.content)
         contentCode.de = await compileMDX(
           context,
-          { ...document, content: sections.de },
+          { ...document, content: sections.de.content },
           options,
         )
         contentCode.en = await compileMDX(
           context,
           {
             ...document,
-            content: sections.en,
+            content: sections.en.content,
           },
           options,
         )
+        titleCode.de = sections.de.title
+        titleCode.en = sections.en.title
       } else {
         contentCode.en = await compileMDX(context, document, options)
+        titleCode.en = title
       }
 
       return {
@@ -120,8 +129,9 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         no,
         slug,
         url,
-        contentCode,
         toc,
+        contentCode,
+        titleCode,
       }
     },
   })
