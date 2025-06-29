@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import { Command } from 'cmdk'
+import { useCallback } from 'react'
 import { useCommandStore } from '@/store/command'
 
 interface CommandItemProps {
@@ -21,16 +22,17 @@ export const CommandItem = ({
   className,
 }: CommandItemProps) => {
   const { pushPage } = useCommandStore()
+  const handleSelect = useCallback(() => {
+    if (page) {
+      pushPage(page)
+    } else if (onSelect) {
+      onSelect()
+    }
+  }, [page, onSelect, pushPage])
 
   return (
     <Command.Item
-      onSelect={() => {
-        if (page) {
-          pushPage(page)
-        } else if (onSelect) {
-          onSelect()
-        }
-      }}
+      onSelect={handleSelect}
       className="text-subtle data-[selected=true]:bg-muted/10 data-[selected=true]:text-text m-0 flex cursor-pointer items-center justify-between gap-5 rounded-lg p-2 transition-colors"
     >
       <div className="flex shrink-0 items-center">

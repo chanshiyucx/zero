@@ -30,6 +30,7 @@ const EMOJI = [
   '🍒',
   '🎃',
   '🌈',
+  '🔖',
 ]
 
 function getRandomEmoji(exclude?: string) {

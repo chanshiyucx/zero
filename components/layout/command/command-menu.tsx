@@ -1,13 +1,36 @@
-import type { ReactNode } from 'react'
+import type { KeyboardEvent, ReactNode } from 'react'
 import { Command } from 'cmdk'
-import { useCommandStore } from '@/store/command'
+import { useCallback, useEffect, useRef } from 'react'
+import { useActivePage, useCommandStore } from '@/store/command'
 
 interface CommandMenuProps {
   children: ReactNode
 }
 
 export const CommandMenu = ({ children }: CommandMenuProps) => {
-  const { pages, popPage, setOpen } = useCommandStore()
+  const { pages, popPage, setOpen, open } = useCommandStore()
+  const activePage = useActivePage()
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        if (pages.length > 1) {
+          popPage()
+        } else {
+          setOpen(false)
+        }
+      }
+    },
+    [pages.length, popPage, setOpen],
+  )
+
+  useEffect(() => {
+    if (open && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [activePage, open])
 
   return (
     <div
@@ -21,15 +44,12 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
         >
           <Command
             className="bg-surface rounded-lg shadow-lg"
-            onKeyDown={(e) => {
-              if (e.key === 'Escape' && pages.length > 1) {
-                e.preventDefault()
-                popPage()
-              }
-            }}
+            onKeyDown={handleKeyDown}
           >
             <div className="border-b p-4">
               <Command.Input
+                autoFocus
+                ref={inputRef}
                 className="w-full border-none bg-transparent outline-hidden"
                 placeholder="Type a command or search..."
               />
