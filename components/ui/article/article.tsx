@@ -8,6 +8,7 @@ import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
+import { Title } from './title'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -57,7 +58,7 @@ export async function Article({ params, collection, type }: ArticleProps) {
     <main className="page flex flex-row">
       <article className="w-full space-y-12">
         <header>
-          <h1 className="text-4xl font-extrabold">{article.title}</h1>
+          <Title titleCode={article.titleCode} />
           <div className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex items-center gap-1">
               <CalendarBlankIcon weight="bold" />

@@ -2,6 +2,7 @@
 
 import { useMDXComponent } from '@content-collections/mdx/react'
 import clsx from 'clsx'
+import { useEffect, useMemo } from 'react'
 import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 import { usePolyglotStore } from '@/store/polyglot'
 import { Figure } from './figure'
@@ -23,10 +24,19 @@ interface MDXProps {
 }
 
 export function MDX({ contentCode, classname }: MDXProps) {
-  const { language } = usePolyglotStore()
-  const displayLanguage = contentCode[language] ? language : 'en'
+  const { language, setHasMultipleLanguage } = usePolyglotStore()
+
+  const displayLanguage = useMemo(() => {
+    return contentCode[language] ? language : 'en'
+  }, [language, contentCode])
+
   const code = contentCode[displayLanguage]
   const Component = useMDXComponent(code)
+
+  useEffect(() => {
+    const hasMultipleLanguage = !!contentCode.de && !!contentCode.en
+    setHasMultipleLanguage(hasMultipleLanguage)
+  }, [contentCode, setHasMultipleLanguage])
 
   return (
     <div
