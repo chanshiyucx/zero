@@ -14,6 +14,7 @@ interface ArticleProps {
   params: Promise<{ slug: string }>
   collection: Content[]
   type: ContentType
+  hideDiscussion?: boolean
 }
 
 export async function generateArticleMetadata({
@@ -45,7 +46,12 @@ export async function generateArticleMetadata({
   }
 }
 
-export async function Article({ params, collection, type }: ArticleProps) {
+export async function Article({
+  params,
+  collection,
+  type,
+  hideDiscussion = false,
+}: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const article = collection.find((item) => item.slug === decodedSlug)
@@ -80,7 +86,7 @@ export async function Article({ params, collection, type }: ArticleProps) {
           <MDX contentCode={article.contentCode} />
         </section>
         <footer className="flex flex-col gap-2">
-          <Discussion label={type} title={article.title} />
+          {!hideDiscussion && <Discussion label={type} title={article.title} />}
           <Backward />
         </footer>
       </article>

@@ -21,5 +21,6 @@ export default async function Page(props: PageProps) {
   return Article({
     ...props,
     ...pageData,
+    hideDiscussion: true,
   })
 }
