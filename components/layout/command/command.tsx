@@ -11,6 +11,7 @@ import {
   LaptopIcon,
   LinkedinLogoIcon,
   MagnifyingGlassIcon,
+  NewspaperClippingIcon,
   NotebookIcon,
   ScrollIcon,
   TerminalWindowIcon,
@@ -97,7 +98,7 @@ export function Command() {
           {
             icon: <BriefcaseIcon {...iconProps} />,
             label: 'Projects',
-            shortcut: ['c'],
+            shortcut: ['w'],
             onSelect: () => navigateAndClose('/projects'),
           },
           {
@@ -105,6 +106,12 @@ export function Command() {
             label: 'Album',
             shortcut: ['a'],
             onSelect: () => navigateAndClose('/album'),
+          },
+          {
+            icon: <NewspaperClippingIcon {...iconProps} />,
+            label: 'Clippings',
+            shortcut: ['c'],
+            onSelect: () => navigateAndClose('/clippings'),
           },
         ],
       },
@@ -242,6 +249,7 @@ export function Command() {
         return
       }
       if (open) return
+      if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) return
 
       e.preventDefault()
       handleKeypress(e.key.toLowerCase())

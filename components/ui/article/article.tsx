@@ -54,6 +54,8 @@ export async function Article({ params, collection, type }: ArticleProps) {
     return notFound()
   }
 
+  console.log('article', article)
+
   return (
     <main className="page flex flex-row">
       <article className="w-full space-y-12">
