@@ -102,7 +102,7 @@ export function getDiscussions() {
 
 export async function createDiscussion(
   title: string,
-  label: ContentType,
+  label: Exclude<ContentType, 'Clipping'>,
 ): Promise<Discussion> {
   try {
     const createDiscussionQuery = `mutation {
