@@ -13,7 +13,6 @@ export function useShortcut() {
   }, [])
 
   const handleKeypress = useCallback((key: string) => {
-    console.log('handleKeypress ', key)
     if (keyTimeout.current) {
       clearTimeout(keyTimeout.current)
     }

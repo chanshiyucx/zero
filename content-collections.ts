@@ -90,14 +90,16 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       level: z.enum(['Easy', 'Medium', 'Hard']).optional(), // Only for leetcode
     }),
     transform: async (document, context) => {
+      const title = document.title
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
-      const [, no, title] = match
+      const [, no] = match
       const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
       const contentCode = { en: '', de: '' }
       const titleCode = { en: '', de: '' }
       const toc = tocCache.get(document._meta) ?? []
 
+      // Only German writing is currently bilingual
       const isPolyglotDeutsch =
         prefixPath === '/polyglot' &&
         document.tags.some((e) => e === 'German/Writing')
@@ -162,10 +164,16 @@ const album = getCollection({
 
 const polyglot = getCollection({
   name: 'polyglot',
-  directory: 'public/blog/polyglot',
+  directory: 'public/blog/polyglot/writing',
   prefixPath: '/polyglot',
 })
 
+const clippings = getCollection({
+  name: 'clippings',
+  directory: 'public/blog/polyglot/reading',
+  prefixPath: '/clippings',
+})
+
 export default defineConfig({
-  collections: [posts, notes, leetcode, album, polyglot],
+  collections: [posts, notes, leetcode, album, polyglot, clippings],
 })

@@ -1,6 +1,14 @@
-import type { Album, Leetcode, Note, Polyglot, Post } from 'content-collections'
+import type {
+  Album,
+  Clipping,
+  Leetcode,
+  Note,
+  Polyglot,
+  Post,
+} from 'content-collections'
 import {
   allAlbums,
+  allClippings,
   allLeetcodes,
   allNotes,
   allPolyglots,
@@ -8,9 +16,9 @@ import {
 } from 'content-collections'
 import { compareDesc, getYear } from 'date-fns'
 
-export type Content = Post | Note | Leetcode | Polyglot
+export type Content = Post | Note | Leetcode | Polyglot | Clipping
 
-export type ContentType = 'Post' | 'Note' | 'Leetcode' | 'Polyglot'
+export type ContentType = 'Post' | 'Note' | 'Leetcode' | 'Polyglot' | 'Clipping'
 
 export interface ContentGroup {
   year: number
@@ -40,7 +48,13 @@ export const sortedLeetcodes = (sortBy: 'no' | 'date' = 'date'): Leetcode[] =>
   sortBy === 'no' ? sortByNo(allLeetcodes) : sortByDate(allLeetcodes)
 
 export const sortedContent = (): Content[] =>
-  sortByDate([...allPosts, ...allNotes, ...allLeetcodes, ...allPolyglots])
+  sortByDate([
+    ...allPosts,
+    ...allNotes,
+    ...allLeetcodes,
+    ...allPolyglots,
+    ...allClippings,
+  ])
 
 export const groupByYear = (items: Content[]): ContentGroup[] => {
   const contentGroup: ContentGroup[] = []
@@ -63,5 +77,7 @@ export const summary = (): BlogSummary => {
 }
 
 export const sortedPolyglots = (): Polyglot[] => sortByDate(allPolyglots)
+
+export const sortedClippings = (): Clipping[] => sortByDate(allClippings)
 
 export const sortedAlbums = (): Album[] => sortByDate(allAlbums)
