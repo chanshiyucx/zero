@@ -22,8 +22,6 @@ export default async function Page() {
   const polyglotList = sortedPolyglots()
   const polyglotGroupList = groupByYear(polyglotList)
 
-  console.log('polyglotGroupList', polyglotGroupList)
-
   return (
     <main className="page">
       <header>
