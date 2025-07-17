@@ -97,7 +97,6 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const url = path.join(prefixPath, slug)
       const contentCode = { en: '', de: '' }
       const titleCode = { en: '', de: '' }
-      const toc = tocCache.get(document._meta) ?? []
 
       // Only German writing is currently bilingual
       const isPolyglotDeutsch =
@@ -125,6 +124,8 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         contentCode.en = await compileMDX(context, document, options)
         titleCode.en = title
       }
+
+      const toc = tocCache.get(document._meta) ?? []
 
       return {
         ...document,
