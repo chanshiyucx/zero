@@ -19,7 +19,6 @@ import {
   rehypeImage,
   rehypeToc,
 } from './lib/mdx'
-import { tocCache } from './lib/mdx/rehype-toc'
 
 interface CollectionProps {
   name: string
@@ -125,7 +124,9 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         titleCode.en = title
       }
 
-      const toc = tocCache.get(document._meta) ?? []
+      // @ts-expect-error: toc injected at runtime and is not typed in Meta
+      // lib/mdx/rehype-toc.ts
+      const toc = document._meta?.toc
 
       return {
         ...document,
