@@ -1,3 +1,4 @@
+import type { Meta } from '@content-collections/core'
 import type { Element, Root } from 'hast'
 import type { Plugin } from 'unified'
 import { toString } from 'hast-util-to-string'
@@ -13,7 +14,9 @@ export interface TocEntry {
   depth: number
 }
 
-export const tocCache = new WeakMap()
+interface MetaWithToc extends Meta {
+  toc: TocEntry[]
+}
 
 export const rehypeToc: Plugin<[Options?], Root> = (options = {}) => {
   const { headings = ['h2', 'h3'] } = options
@@ -31,9 +34,7 @@ export const rehypeToc: Plugin<[Options?], Root> = (options = {}) => {
         depth,
       })
     })
-
-    if (file.data._meta) {
-      tocCache.set(file.data._meta, toc)
-    }
+    const meta = file.data._meta as MetaWithToc
+    meta.toc = toc
   }
 }
