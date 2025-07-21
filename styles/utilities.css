@@ -52,10 +52,6 @@
   img {
     @apply aspect-[3/2] object-cover;
   }
-
-  .alt {
-    @apply my-2;
-  }
 }
 
 @utility card {
