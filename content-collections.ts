@@ -126,7 +126,8 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
 
       // @ts-expect-error: toc injected at runtime and is not typed in Meta
       // lib/mdx/rehype-toc.ts
-      const toc = document._meta?.toc
+      // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
+      const toc = document._meta?.toc ?? []
 
       return {
         ...document,
