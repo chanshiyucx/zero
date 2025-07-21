@@ -105,7 +105,10 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
 export function Header() {
   return (
     <header className="my-3 flex items-center justify-between rounded-lg">
-      <Link href="/" className="flex items-center gap-1 py-3 text-xl font-bold">
+      <Link
+        href="/"
+        className="flex items-center gap-1 py-3 text-xl font-bold italic"
+      >
         <Image
           src="/apple-touch-icon.png"
           alt="Site Logo"
