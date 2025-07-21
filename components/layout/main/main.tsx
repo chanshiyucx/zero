@@ -3,14 +3,16 @@ import { random } from '@/lib/utils/helper'
 import { Explore } from './explore'
 import { TypedWriter } from './typed-writer'
 
-export function Title() {
+export function Main() {
   const action = random(0, 1) === 0 ? 'walk' : 'run'
 
   return (
     <div className="flex h-fit w-full flex-col gap-20 max-md:gap-12">
       <div className="relative flex items-center justify-between max-md:justify-center">
         <div className="z-10 flex flex-col items-start gap-4">
-          <h1 className="text-6xl font-bold drop-shadow-lg">Shiyu,</h1>
+          <h1 className="w-full text-6xl font-bold drop-shadow-lg max-md:text-center">
+            Shiyu,
+          </h1>
           <div className="text-subtle min-h-9 text-2xl">
             <TypedWriter />
           </div>
