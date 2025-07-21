@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
-import { Fira_Code, Source_Serif_4 } from 'next/font/google'
+import { Fira_Code, Merriweather } from 'next/font/google'
 import { Command } from '@/components/layout/command'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
@@ -11,10 +11,11 @@ import '@/styles/tailwindcss.css'
 import { ThemeProvider } from 'next-themes'
 import PageTransitionEffect from './effect'
 
-const sourceSerif = Source_Serif_4({
+const merriweather = Merriweather({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-source-serif',
+  style: ['normal', 'italic'],
+  variable: '--font-merriweather',
   display: 'swap',
 })
 
@@ -80,7 +81,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={clsx(sourceSerif.variable, fira.variable)}
+      className={clsx(merriweather.variable, fira.variable)}
     >
       <body>
         <ThemeProvider defaultTheme="light">
