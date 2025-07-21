@@ -16,7 +16,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-source-serif), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-merriweather), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-fira), ui-monospace, monospace;
 }
 
