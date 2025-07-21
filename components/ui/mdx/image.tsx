@@ -2,6 +2,7 @@
 
 import type { ImageProps } from 'next/image'
 import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
+import { CameraIcon, SlideshowIcon } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import NextImage from 'next/image'
 import { useState } from 'react'
@@ -15,6 +16,7 @@ export function Image(
   > & { originalsrc: string },
 ) {
   const [isReady, setIsReady] = useState(false)
+  const isAlum = Boolean(props.originalsrc)
   const originalsrc = props.originalsrc ?? props.src
 
   return (
@@ -38,8 +40,13 @@ export function Image(
         </span>
       </PhotoView>
       {props.alt && (
-        <span className="alt text-subtle -mt-5 block text-center text-sm italic">
-          ◭ {props.alt}
+        <span className="text-subtle my-2 block flex items-center justify-center text-sm italic">
+          {isAlum ? (
+            <CameraIcon weight="duotone" className="fill-subtle mr-1" />
+          ) : (
+            <SlideshowIcon weight="duotone" className="fill-subtle mr-1" />
+          )}
+          {props.alt}
         </span>
       )}
     </>
