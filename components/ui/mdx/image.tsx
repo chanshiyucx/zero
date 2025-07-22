@@ -40,13 +40,16 @@ export function Image(
         </span>
       </PhotoView>
       {props.alt && (
-        <span className="text-subtle my-2 block flex items-center justify-center text-sm italic">
+        <span className="text-subtle my-2 block text-center text-sm italic">
           {isAlum ? (
-            <CameraIcon weight="duotone" className="fill-subtle mr-1" />
+            <CameraIcon weight="duotone" className="fill-subtle mr-1 inline" />
           ) : (
-            <SlideshowIcon weight="duotone" className="fill-subtle mr-1" />
+            <SlideshowIcon
+              weight="duotone"
+              className="fill-subtle mr-1 inline"
+            />
           )}
-          {props.alt}
+          <span className="align-text-top">{props.alt}</span>
         </span>
       )}
     </>
