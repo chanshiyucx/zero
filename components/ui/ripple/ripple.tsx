@@ -1,5 +1,5 @@
-import type { CSSProperties } from 'react'
 import clsx from 'clsx'
+import type { CSSProperties } from 'react'
 
 const NUM_CIRCLES = 6
 const MAIN_CIRCLE_SIZE = 100

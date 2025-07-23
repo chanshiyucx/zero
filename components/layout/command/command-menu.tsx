@@ -1,6 +1,11 @@
-import type { KeyboardEvent, ReactNode } from 'react'
 import { Command } from 'cmdk'
-import { useCallback, useEffect, useRef } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react'
 import { useActivePage, useCommandStore } from '@/store/command'
 
 interface CommandMenuProps {

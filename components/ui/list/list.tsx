@@ -1,8 +1,8 @@
-import type { Content, ContentGroup } from '@/lib/utils/content'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { Date } from '@/components/ui/date'
+import type { Content, ContentGroup } from '@/lib/utils/content'
 
 export interface ExtraInfo {
   color: string

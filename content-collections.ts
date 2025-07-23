@@ -1,7 +1,6 @@
 import path from 'path'
-import type { Options } from '@content-collections/mdx'
 import { defineCollection, defineConfig } from '@content-collections/core'
-import { compileMDX } from '@content-collections/mdx'
+import { compileMDX, type Options } from '@content-collections/mdx'
 import { isValid, parse } from 'date-fns'
 import GithubSlugger from 'github-slugger'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'

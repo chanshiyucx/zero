@@ -1,6 +1,5 @@
 'use client'
 
-// import { usePathname } from 'next/navigation'
 import { usePolyglotStore } from '@/store/polyglot'
 import { TinyButton } from './tiny-button'
 

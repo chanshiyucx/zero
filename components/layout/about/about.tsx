@@ -1,5 +1,5 @@
-import type { JSX, SVGProps } from 'react'
 import NextLink, { LinkProps } from 'next/link'
+import type { JSX, SVGProps } from 'react'
 import {
   Hand,
   Java,

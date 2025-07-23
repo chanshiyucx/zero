@@ -1,5 +1,5 @@
-import type { CSSProperties } from 'react'
 import clsx from 'clsx'
+import type { CSSProperties } from 'react'
 import { range } from '@/lib/utils/helper'
 
 type Size = 'small' | 'large'
