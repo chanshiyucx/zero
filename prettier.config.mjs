@@ -13,8 +13,7 @@ const config = {
   ],
   pluginSearchDirs: false,
   importOrder: [
-    '<TYPES>',
-    '<TYPES>^[.]',
+    '<BUILTIN_MODULES>',
     '<THIRD_PARTY_MODULES>',
     '^@/(.*)$',
     '^[./]',
@@ -26,6 +25,7 @@ const config = {
     'decorators-legacy',
   ],
   importOrderTypeScriptVersion: '5.0.0',
+  importOrderCombineTypeAndValueImports: true,
   tailwindFunctions: ['clsx'],
 }
 
