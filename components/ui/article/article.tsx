@@ -66,17 +66,13 @@ export async function Article({
         <header>
           <Title titleCode={article.titleCode} />
           <div className="text-subtle mt-3 flex gap-5">
-            <span className="inline-flex items-center gap-1">
+            <span className="inline-flex shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" />
               <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
             </span>
-            <span className="flex gap-3">
-              {article.tags.map((tag) => (
-                <span key={tag} className="inline-flex items-center gap-1">
-                  <TagIcon weight="bold" />
-                  {tag}
-                </span>
-              ))}
+            <span className="inline-flex items-center gap-1">
+              <TagIcon weight="bold" />
+              {article.tags.at(-1)}
             </span>
           </div>
         </header>
