@@ -18,7 +18,12 @@ interface ListProps {
 
 function renderExtraInfo(extraInfo: ExtraInfo) {
   return (
-    <span className={clsx('ml-6 inline-block w-16 text-sm', extraInfo.color)}>
+    <span
+      className={clsx(
+        'ml-6 inline-block w-16 text-sm max-md:ml-3',
+        extraInfo.color,
+      )}
+    >
       {extraInfo.text}
     </span>
   )
@@ -48,7 +53,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                       />
                       {extractInfo && renderExtraInfo(extractInfo(article))}
                     </span>
-                    <span className="link-hover text-text overflow-x-hidden text-ellipsis whitespace-nowrap">
+                    <span className="link-hover text-text overflow-x-hidden text-ellipsis whitespace-nowrap max-md:whitespace-normal">
                       {renderTitle ? renderTitle(article) : article.title}
                     </span>
                   </Link>
