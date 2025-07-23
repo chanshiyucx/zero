@@ -1,6 +1,6 @@
 'use client'
 
-import { useMDXComponent } from '@content-collections/mdx/react'
+import { MDXContent } from '@content-collections/mdx/react'
 import clsx from 'clsx'
 import { useEffect, useMemo } from 'react'
 import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
@@ -31,7 +31,6 @@ export function MDX({ contentCode, classname }: MDXProps) {
   }, [language, contentCode])
 
   const code = contentCode[displayLanguage]
-  const Component = useMDXComponent(code)
 
   useEffect(() => {
     const hasMultipleLanguage = !!contentCode.de && !!contentCode.en
@@ -47,7 +46,7 @@ export function MDX({ contentCode, classname }: MDXProps) {
       data-lang={displayLanguage}
     >
       <PhotoProvider {...photoViewConfig}>
-        <Component components={components} />
+        <MDXContent components={components} code={code} />
       </PhotoProvider>
     </div>
   )
