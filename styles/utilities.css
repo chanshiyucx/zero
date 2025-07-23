@@ -76,7 +76,7 @@
 
 @utility link {
   @apply text-iris relative inline w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
-  @apply after:absolute after:-top-1 after:-right-0.5 after:inline-block after:h-full after:text-xs after:leading-[normal] after:whitespace-pre after:transition-all after:duration-300 after:content-['┓'];
+  @apply after:absolute after:-top-1.5 after:-right-0.5 after:inline-block after:h-full after:text-xs after:leading-[normal] after:whitespace-pre after:transition-all after:duration-300 after:content-['┓'];
 
   &[href^='#'] {
     @apply text-text font-bold no-underline;
