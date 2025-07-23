@@ -1,7 +1,7 @@
+import type { ExtraInfo } from '@/components/ui/list'
+import type { Leetcode } from 'content-collections'
 import type { Metadata } from 'next'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { Date } from '@/components/ui/date'
+import { List } from '@/components/ui/list'
 import { groupByYear, sortedLeetcodes } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -15,6 +15,18 @@ const colors = {
   Easy: 'text-foam',
   Medium: 'text-gold',
   Hard: 'text-love',
+} as const
+
+const extractInfo = (article: Leetcode): ExtraInfo => {
+  const level = article.level!
+  return {
+    color: colors[level],
+    text: level,
+  }
+}
+
+const renderTitle = (article: Leetcode) => {
+  return `${article.no} - ${article.title}`
 }
 
 export default function Page() {
@@ -22,39 +34,11 @@ export default function Page() {
   const leetcodeGroupList = groupByYear(leetcodeList)
 
   return (
-    <main className="page">
-      <header>
-        <h1 className="text-4xl font-extrabold">
-          Simplicity fuels ultimate efficiency.
-        </h1>
-      </header>
-      <section>
-        {leetcodeGroupList.map((group) => (
-          <div key={group.year}>
-            <p className="text-right text-3xl font-extrabold">{group.year}</p>
-            <ul className="space-y-2">
-              {group.list.map((leetcode) => (
-                <li key={leetcode.title}>
-                  <Link className="flex gap-6" href={leetcode.url}>
-                    <Date
-                      dateString={leetcode.date}
-                      className="text-subtle w-16 shrink-0"
-                    ></Date>
-                    <span
-                      className={clsx('w-16 text-sm', colors[leetcode.level!])}
-                    >
-                      {leetcode.level}
-                    </span>
-                    <span className="link-hover text-text overflow-x-hidden text-ellipsis whitespace-nowrap">
-                      {leetcode.no} - {leetcode.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
-    </main>
+    <List
+      title="Simplicity fuels ultimate efficiency."
+      groups={leetcodeGroupList}
+      extractInfo={extractInfo}
+      renderTitle={renderTitle}
+    />
   )
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { allLeetcodes } from '@/.content-collections/generated'
+import { allLeetcodes } from 'content-collections'
 import { Article, generateArticleMetadata } from '@/components/ui/article'
 
 interface PageProps {
