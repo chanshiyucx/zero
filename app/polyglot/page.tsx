@@ -1,7 +1,7 @@
+import type { ExtraInfo } from '@/components/ui/list'
+import type { Polyglot } from 'content-collections'
 import type { Metadata } from 'next'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { Date } from '@/components/ui/date'
+import { List } from '@/components/ui/list'
 import { groupByYear, sortedPolyglots } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -14,49 +14,25 @@ export const metadata: Metadata = {
 const colors = {
   German: 'text-foam',
   English: 'text-gold',
-}
+} as const
 
-const getTag = (tag: string) => tag.split('/')[0] as keyof typeof colors
+const extractInfo = (article: Polyglot): ExtraInfo => {
+  const tag = article.tags[0].split('/')[0] as keyof typeof colors
+  return {
+    color: colors[tag],
+    text: tag,
+  }
+}
 
 export default async function Page() {
   const polyglotList = sortedPolyglots()
   const polyglotGroupList = groupByYear(polyglotList)
 
   return (
-    <main className="page">
-      <header>
-        <h1 className="text-4xl font-extrabold">
-          Polyglots think beyond one world.
-        </h1>
-      </header>
-      <section>
-        {polyglotGroupList.map((group) => (
-          <div key={group.year}>
-            <p className="text-right text-3xl font-extrabold">{group.year}</p>
-            <ul className="space-y-2">
-              {group.list.map((polyglot) => {
-                const tag = getTag(polyglot.tags[0])
-                return (
-                  <li key={polyglot.title}>
-                    <Link className="flex gap-6" href={polyglot.url}>
-                      <Date
-                        dateString={polyglot.date}
-                        className="text-subtle w-16 shrink-0"
-                      ></Date>
-                      <span className={clsx('w-16 text-sm', colors[tag])}>
-                        {tag}
-                      </span>
-                      <span className="link-hover text-text overflow-x-hidden text-ellipsis whitespace-nowrap">
-                        {polyglot.title}
-                      </span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        ))}
-      </section>
-    </main>
+    <List
+      title="Polyglots think beyond one world."
+      groups={polyglotGroupList}
+      extractInfo={extractInfo}
+    />
   )
 }

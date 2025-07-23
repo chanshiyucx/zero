@@ -27,7 +27,7 @@ function NoteItem({ note }: NoteItemProps) {
             {note.title}
           </h2>
         </Link>
-        <div className="text-subtle flex shrink-0 gap-5">
+        <div className="text-subtle mt-1 flex shrink-0 gap-5">
           <span className="inline-flex items-center gap-1">
             <CalendarBlankIcon weight="bold" />
             <Date dateString={note.date} dateFormat="LLL dd, yyyy" />
