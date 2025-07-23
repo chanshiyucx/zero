@@ -1,7 +1,6 @@
 'use client'
 
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
-import type { ReactNode } from 'react'
 import {
   ArticleMediumIcon,
   BriefcaseIcon,
@@ -18,7 +17,7 @@ import {
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
 import { useShortcut } from '@/hook'
 import { siteConfig } from '@/lib/constants/config'
 import {

@@ -1,11 +1,3 @@
-import type {
-  Album,
-  Clipping,
-  Leetcode,
-  Note,
-  Polyglot,
-  Post,
-} from 'content-collections'
 import {
   allAlbums,
   allClippings,
@@ -13,6 +5,12 @@ import {
   allNotes,
   allPolyglots,
   allPosts,
+  type Album,
+  type Clipping,
+  type Leetcode,
+  type Note,
+  type Polyglot,
+  type Post,
 } from 'content-collections'
 import { compareDesc, getYear } from 'date-fns'
 

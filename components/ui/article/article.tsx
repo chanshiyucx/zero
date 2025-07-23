@@ -1,6 +1,5 @@
-import type { Content, ContentType } from '@/lib/utils/content'
-import type { Metadata } from 'next'
 import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Backward } from '@/components/ui/backward'
 import { Date } from '@/components/ui/date'
@@ -8,6 +7,7 @@ import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
+import type { Content, ContentType } from '@/lib/utils/content'
 import { Title } from './title'
 
 interface ArticleProps {

@@ -1,11 +1,11 @@
-import type { IconProps } from '@phosphor-icons/react'
-import type { OverlayRenderProps } from 'react-photo-view/dist/types'
 import {
   CornersInIcon,
   CornersOutIcon,
   MinusCircleIcon,
   PlusCircleIcon,
+  type IconProps,
 } from '@phosphor-icons/react'
+import type { OverlayRenderProps } from 'react-photo-view/dist/types'
 import { toggleFullscreen } from '@/lib/utils/screen'
 
 const commonProps: IconProps = {

@@ -1,8 +1,7 @@
-import type { Friend } from '@/lib/constants/friends'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { friends } from '@/lib/constants/friends'
+import { friends, type Friend } from '@/lib/constants/friends'
 
 export const metadata: Metadata = {
   title: 'Friend',

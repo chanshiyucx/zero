@@ -1,4 +1,3 @@
-import type { Repository } from '@/lib/api'
 import {
   GitForkIcon,
   GithubLogoIcon,
@@ -7,6 +6,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import { Date } from '@/components/ui/date'
+import type { Repository } from '@/lib/api'
 
 interface GithubProps {
   repo: Repository

@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
 import { Command } from 'cmdk'
+import type { ReactNode } from 'react'
 import { useActivePage } from '@/store/command'
 
 interface CommandGroupProps {

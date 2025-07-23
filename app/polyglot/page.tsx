@@ -1,7 +1,6 @@
-import type { ExtraInfo } from '@/components/ui/list'
 import type { Polyglot } from 'content-collections'
 import type { Metadata } from 'next'
-import { List } from '@/components/ui/list'
+import { List, type ExtraInfo } from '@/components/ui/list'
 import { groupByYear, sortedPolyglots } from '@/lib/utils/content'
 
 export const metadata: Metadata = {

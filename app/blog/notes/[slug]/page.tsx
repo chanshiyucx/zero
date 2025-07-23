@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
 import { allNotes } from 'content-collections'
+import type { Metadata } from 'next'
 import { Article, generateArticleMetadata } from '@/components/ui/article'
 
 interface PageProps {

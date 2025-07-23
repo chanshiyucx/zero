@@ -1,6 +1,6 @@
+import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
 import type { Note } from 'content-collections'
 import type { Metadata } from 'next'
-import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { Divider } from '@/components/ui/divider'

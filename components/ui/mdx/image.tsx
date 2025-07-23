@@ -1,11 +1,9 @@
 'use client'
 
-import type { ImageProps } from 'next/image'
-import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import { CameraIcon, SlideshowIcon } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
-import NextImage from 'next/image'
-import { useState } from 'react'
+import NextImage, { type ImageProps } from 'next/image'
+import { useState, type DetailedHTMLProps, type ImgHTMLAttributes } from 'react'
 import { PhotoView } from '@/components/ui/photo-view'
 import { Spinner } from '@/components/ui/spinner'
 

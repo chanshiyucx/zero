@@ -1,7 +1,6 @@
-import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import { Command } from 'cmdk'
-import { useCallback } from 'react'
+import { useCallback, type ReactNode } from 'react'
 import { useCommandStore } from '@/store/command'
 
 interface CommandItemProps {
