@@ -134,6 +134,29 @@
   }
 }
 
+@utility player-progress {
+  @apply bg-overlay block h-10 w-full cursor-pointer appearance-none outline-hidden;
+
+  &::-webkit-slider-runnable-track {
+    @apply h-10;
+    background: linear-gradient(
+      to right,
+      var(--color-muted) 0%,
+      var(--color-muted) var(--progress),
+      transparent var(--progress),
+      transparent 100%
+    );
+  }
+
+  &::-webkit-slider-thumb {
+    @apply bg-muted h-10 w-1 appearance-none;
+  }
+}
+
+@utility player-button {
+  @apply flex h-20 w-20 cursor-pointer items-center justify-center outline-hidden disabled:opacity-60;
+}
+
 /* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
 @utility city-cat {
   @apply animate-cat-cycle h-full w-full bg-center bg-no-repeat;

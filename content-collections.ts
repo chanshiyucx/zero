@@ -13,6 +13,7 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import { z } from 'zod'
 import {
+  rehypeAudio,
   rehypeCallout,
   rehypeCodeSave,
   rehypeImage,
@@ -47,6 +48,7 @@ const options: Options = {
       },
     ],
     [rehypeImage, { root: 'public' }],
+    rehypeAudio,
     rehypeCallout,
     rehypeToc,
   ],
