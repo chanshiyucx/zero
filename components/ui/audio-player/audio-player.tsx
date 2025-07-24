@@ -242,22 +242,38 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             disabled={isLoading || !duration}
           />
 
-          <div className="flex h-10 min-w-0 items-center gap-2">
-            <div className="flex min-w-0 flex-1 gap-4 overflow-hidden">
+          <div className="flex h-10 min-w-0 items-center justify-between gap-2">
+            <div className="flex min-w-0 flex-1 gap-4 overflow-hidden max-md:hidden">
               {range(0, 2).map((i) => (
                 <span
                   key={i}
-                  className="animate-marquee-left flex shrink-0 flex-row justify-around gap-4 [--gap:1rem]"
+                  className="animate-marquee-left flex shrink-0 flex-row justify-around gap-4 duration-10000 [--gap:1rem]"
                 >
                   {title}
                 </span>
               ))}
             </div>
 
+            <button
+              onClick={handleBack}
+              className="player-button hidden h-10 w-10 max-md:flex"
+              disabled={isLoading}
+            >
+              <RewindIcon size={24} weight="duotone" />
+            </button>
+
             <span className="flex-shrink-0 text-sm whitespace-nowrap">
               {formatTime(Math.min(currentTime, duration))} /{' '}
               {formatTime(duration)}
             </span>
+
+            <button
+              onClick={handleForward}
+              className="player-button hidden h-10 w-10 max-md:flex"
+              disabled={isLoading}
+            >
+              <FastForwardIcon size={26} weight="duotone" />
+            </button>
           </div>
         </div>
 
