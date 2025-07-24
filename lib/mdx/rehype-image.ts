@@ -45,7 +45,7 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
     })
 
     visit(tree, 'text', (node, index, parent) => {
-      if (!parent || index === undefined) return
+      if (!parent || typeof index !== 'number') return
       const match = node.value.match(/^!\[\[(.+?)\]\]$/)
       if (!match) return
       // Only wiki image can be executed here.

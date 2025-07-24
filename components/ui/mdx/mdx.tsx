@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { useEffect, useMemo } from 'react'
 import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 import { usePolyglotStore } from '@/store/polyglot'
+import { Audio } from './audio'
 import { Figure } from './figure'
 import { Image } from './image'
 import { Link } from './link'
@@ -13,6 +14,7 @@ const components = {
   img: Image,
   a: Link,
   figure: Figure,
+  audio: Audio,
 }
 
 interface MDXProps {
