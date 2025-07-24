@@ -206,7 +206,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
-    <div className="bg-surface w-full overflow-hidden rounded-lg">
+    <div className="bg-surface sticky top-0 w-full overflow-hidden rounded-lg">
       <audio ref={audioRef} src={src} preload="metadata" loop={false} />
 
       <div className="flex items-center">
