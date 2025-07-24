@@ -33,7 +33,6 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
     const handleLoadedData = () => {
       setDuration(audio.duration || 0)
       setCurrentTime(audio.currentTime)
-      setIsLoading(false)
     }
 
     const handleTimeUpdate = () => {
@@ -94,6 +93,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
         }
 
         setTitle(metadata.common.title || 'Unknown title')
+        setIsLoading(false)
       } catch (err) {
         console.error(err)
       }
