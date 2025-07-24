@@ -56,12 +56,12 @@ function PolyglotIcon({ language }: { language: string }) {
   return (
     <>
       {language === 'english' ? (
-        <German
+        <English
           {...iconProps}
           className={clsx(iconProps.className, 'text-subtle text-base')}
         />
       ) : (
-        <English
+        <German
           {...iconProps}
           className={clsx(iconProps.className, 'text-subtle text-base')}
         />
@@ -115,7 +115,7 @@ export function Command() {
           {
             icon: <BriefcaseIcon {...iconProps} />,
             label: 'Projects',
-            shortcut: ['w'],
+            shortcut: ['p'],
             onSelect: () => navigateAndClose('/projects'),
           },
           {
@@ -123,6 +123,12 @@ export function Command() {
             label: 'Album',
             shortcut: ['a'],
             onSelect: () => navigateAndClose('/album'),
+          },
+          {
+            icon: <MagnifyingGlassIcon {...iconProps} />,
+            label: 'Search',
+            shortcut: ['s'],
+            page: 'search',
           },
         ],
       },
@@ -148,12 +154,6 @@ export function Command() {
             shortcut: ['l'],
             onSelect: () => navigateAndClose('/blog/leetcode'),
           },
-          {
-            icon: <MagnifyingGlassIcon {...iconProps} />,
-            label: 'Search blog...',
-            shortcut: ['b', 's'],
-            page: 'search-blog',
-          },
         ],
       },
       {
@@ -171,12 +171,6 @@ export function Command() {
             label: 'German',
             shortcut: ['g'],
             onSelect: () => navigateAndClose('/polyglot/german'),
-          },
-          {
-            icon: <MagnifyingGlassIcon {...iconProps} />,
-            label: 'Search polyglot...',
-            shortcut: ['p', 's'],
-            page: 'search-polyglot',
           },
         ],
       },
@@ -221,8 +215,8 @@ export function Command() {
   const searchGroups: ActionGroup[] = useMemo(
     () => [
       {
-        heading: 'Blog',
-        page: 'search-blog',
+        heading: 'Navigation',
+        page: 'search',
         items: [
           ...contentLists.posts.map((post) => ({
             icon: <ScrollIcon {...iconProps} />,
@@ -242,20 +236,16 @@ export function Command() {
             shortcut: [],
             onSelect: () => navigateAndClose(leetcode.url),
           })),
+          ...contentLists.polyglots.map((polyglot) => {
+            const language = polyglot.tags[0].split('/')[0].toLowerCase()
+            return {
+              icon: <PolyglotIcon language={language} />,
+              label: polyglot.title,
+              shortcut: [],
+              onSelect: () => navigateAndClose(polyglot.url),
+            }
+          }),
         ],
-      },
-      {
-        heading: 'Polyglot',
-        page: 'search-polyglot',
-        items: contentLists.polyglots.map((polyglot) => {
-          const language = polyglot.tags[0].split('/')[0].toLowerCase()
-          return {
-            icon: <PolyglotIcon language={language} />,
-            label: polyglot.title,
-            shortcut: [],
-            onSelect: () => navigateAndClose(polyglot.url),
-          }
-        }),
       },
     ],
     [contentLists, navigateAndClose],
