@@ -94,16 +94,23 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const [, no] = match
       const slug = slugger.slug(title)
-      const url = path.join(prefixPath, slug)
       const contentCode = { en: '', de: '' }
       const titleCode = { en: '', de: '' }
 
-      // Only German writing is currently bilingual
-      const isPolyglotDeutsch =
-        prefixPath === '/polyglot' &&
-        document.tags.some((e) => e === 'German/Writing')
+      const isPolyglot = prefixPath === '/polyglot'
+      // handle polyglot url
+      let url = ''
+      if (isPolyglot) {
+        const language = document.tags[0].split('/')[0].toLowerCase()
+        url = path.join(prefixPath, language, slug)
+      } else {
+        url = path.join(prefixPath, slug)
+      }
 
-      if (isPolyglotDeutsch) {
+      // only German writing is currently bilingual
+      const isGermanWriting =
+        isPolyglot && document.tags.some((e) => e === 'German/Writing')
+      if (isGermanWriting) {
         const sections = extractLanguageSections(document.content)
         contentCode.de = await compileMDX(
           context,
@@ -142,42 +149,36 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     },
   })
 
-const posts = getCollection({
-  name: 'posts',
-  directory: 'public/blog/posts',
-  prefixPath: '/blog/posts',
-})
+const collectionConfigs: CollectionProps[] = [
+  {
+    name: 'posts',
+    directory: 'public/blog/posts',
+    prefixPath: '/blog/posts',
+  },
+  {
+    name: 'notes',
+    directory: 'public/blog/notes',
+    prefixPath: '/blog/notes',
+  },
+  {
+    name: 'leetcode',
+    directory: 'public/blog/leetcode',
+    prefixPath: '/blog/leetcode',
+  },
+  {
+    name: 'album',
+    directory: 'public/blog/album',
+    prefixPath: '/album',
+  },
+  {
+    name: 'polyglot',
+    directory: 'public/blog/polyglot',
+    prefixPath: '/polyglot',
+  },
+] as const
 
-const notes = getCollection({
-  name: 'notes',
-  directory: 'public/blog/notes',
-  prefixPath: '/blog/notes',
-})
-
-const leetcode = getCollection({
-  name: 'leetcode',
-  directory: 'public/blog/leetcode',
-  prefixPath: '/blog/leetcode',
-})
-
-const album = getCollection({
-  name: 'album',
-  directory: 'public/blog/album',
-  prefixPath: '/album',
-})
-
-const polyglot = getCollection({
-  name: 'polyglot',
-  directory: 'public/blog/polyglot/writing',
-  prefixPath: '/polyglot',
-})
-
-const clippings = getCollection({
-  name: 'clippings',
-  directory: 'public/blog/polyglot/reading',
-  prefixPath: '/clippings',
-})
+const collections = collectionConfigs.map(getCollection)
 
 export default defineConfig({
-  collections: [posts, notes, leetcode, album, polyglot, clippings],
+  collections,
 })

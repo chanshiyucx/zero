@@ -10,26 +10,37 @@ export const metadata: Metadata = {
   keywords: ['polyglot', 'english', 'german'],
 }
 
+interface PageProps {
+  params: Promise<{ language: 'english' | 'german' }>
+}
+
 const colors = {
-  German: 'text-foam',
-  English: 'text-gold',
+  Writing: 'text-foam',
+  Reading: 'text-gold',
+  Listening: 'text-love',
+} as const
+
+const title = {
+  english: 'English writing sharpens thinking.',
+  german: 'Deutsch ist ein Fenster weiter.',
 } as const
 
 const extractInfo = (article: Polyglot): ExtraInfo => {
-  const tag = article.tags[0].split('/')[0] as keyof typeof colors
+  const tag = article.tags[0].split('/')[1] as keyof typeof colors
   return {
     color: colors[tag],
     text: tag,
   }
 }
 
-export default async function Page() {
-  const polyglotList = sortedPolyglots()
+export default async function Page({ params }: PageProps) {
+  const { language } = await params
+  const polyglotList = sortedPolyglots(language)
   const polyglotGroupList = groupByYear(polyglotList)
 
   return (
     <List
-      title="Polyglots think beyond one world."
+      title={title[language]}
       groups={polyglotGroupList}
       extractInfo={extractInfo}
     />
