@@ -2,7 +2,6 @@
 
 import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
-  ArticleMediumIcon,
   BriefcaseIcon,
   CameraIcon,
   GithubLogoIcon,
@@ -10,14 +9,15 @@ import {
   LaptopIcon,
   LinkedinLogoIcon,
   MagnifyingGlassIcon,
-  NewspaperClippingIcon,
   NotebookIcon,
   ScrollIcon,
   TerminalWindowIcon,
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
+import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
+import { English, German } from '@/components/icons'
 import { useShortcut } from '@/hook'
 import { siteConfig } from '@/lib/constants/config'
 import {
@@ -50,6 +50,24 @@ interface ActionGroup {
   heading: string
   page: string
   items: Action[]
+}
+
+function PolyglotIcon({ language }: { language: string }) {
+  return (
+    <>
+      {language === 'english' ? (
+        <German
+          {...iconProps}
+          className={clsx(iconProps.className, 'text-subtle text-base')}
+        />
+      ) : (
+        <English
+          {...iconProps}
+          className={clsx(iconProps.className, 'text-subtle text-base')}
+        />
+      )}
+    </>
+  )
 }
 
 export function Command() {
@@ -106,12 +124,6 @@ export function Command() {
             shortcut: ['a'],
             onSelect: () => navigateAndClose('/album'),
           },
-          {
-            icon: <NewspaperClippingIcon {...iconProps} />,
-            label: 'Clippings',
-            shortcut: ['c'],
-            onSelect: () => navigateAndClose('/clippings'),
-          },
         ],
       },
       {
@@ -149,10 +161,16 @@ export function Command() {
         page: 'root',
         items: [
           {
-            icon: <ArticleMediumIcon {...iconProps} />,
-            label: 'Polyglot',
-            shortcut: ['p'],
-            onSelect: () => navigateAndClose('/polyglot'),
+            icon: <PolyglotIcon language="english" />,
+            label: 'English',
+            shortcut: ['e'],
+            onSelect: () => navigateAndClose('/polyglot/english'),
+          },
+          {
+            icon: <PolyglotIcon language="german" />,
+            label: 'German',
+            shortcut: ['g'],
+            onSelect: () => navigateAndClose('/polyglot/german'),
           },
           {
             icon: <MagnifyingGlassIcon {...iconProps} />,
@@ -229,12 +247,15 @@ export function Command() {
       {
         heading: 'Polyglot',
         page: 'search-polyglot',
-        items: contentLists.polyglots.map((polyglot) => ({
-          icon: <ArticleMediumIcon {...iconProps} />,
-          label: polyglot.title,
-          shortcut: [],
-          onSelect: () => navigateAndClose(polyglot.url),
-        })),
+        items: contentLists.polyglots.map((polyglot) => {
+          const language = polyglot.tags[0].split('/')[0].toLowerCase()
+          return {
+            icon: <PolyglotIcon language={language} />,
+            label: polyglot.title,
+            shortcut: [],
+            onSelect: () => navigateAndClose(polyglot.url),
+          }
+        }),
       },
     ],
     [contentLists, navigateAndClose],

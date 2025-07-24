@@ -1,12 +1,10 @@
 import {
   allAlbums,
-  allClippings,
   allLeetcodes,
   allNotes,
   allPolyglots,
   allPosts,
   type Album,
-  type Clipping,
   type Leetcode,
   type Note,
   type Polyglot,
@@ -14,9 +12,9 @@ import {
 } from 'content-collections'
 import { compareDesc, getYear } from 'date-fns'
 
-export type Content = Post | Note | Leetcode | Polyglot | Clipping
+export type Content = Post | Note | Leetcode | Polyglot
 
-export type ContentType = 'Post' | 'Note' | 'Leetcode' | 'Polyglot' | 'Clipping'
+export type ContentType = 'Post' | 'Note' | 'Leetcode' | 'Polyglot'
 
 export interface ContentGroup {
   year: number
@@ -46,13 +44,7 @@ export const sortedLeetcodes = (sortBy: 'no' | 'date' = 'date'): Leetcode[] =>
   sortBy === 'no' ? sortByNo(allLeetcodes) : sortByDate(allLeetcodes)
 
 export const sortedContent = (): Content[] =>
-  sortByDate([
-    ...allPosts,
-    ...allNotes,
-    ...allLeetcodes,
-    ...allPolyglots,
-    ...allClippings,
-  ])
+  sortByDate([...allPosts, ...allNotes, ...allLeetcodes, ...allPolyglots])
 
 export const groupByYear = (items: Content[]): ContentGroup[] => {
   const contentGroup: ContentGroup[] = []
@@ -74,8 +66,16 @@ export const summary = (): BlogSummary => {
   return { posts, notes, leetcodes }
 }
 
-export const sortedPolyglots = (): Polyglot[] => sortByDate(allPolyglots)
-
-export const sortedClippings = (): Clipping[] => sortByDate(allClippings)
+export const sortedPolyglots = (
+  filterByLanguage?: 'english' | 'german',
+): Polyglot[] => {
+  let filteredList = allPolyglots
+  if (filterByLanguage) {
+    filteredList = allPolyglots.filter((polyglot) =>
+      polyglot.tags[0].toLowerCase().startsWith(filterByLanguage),
+    )
+  }
+  return sortByDate(filteredList)
+}
 
 export const sortedAlbums = (): Album[] => sortByDate(allAlbums)
