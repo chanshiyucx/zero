@@ -30,7 +30,6 @@
   --animate-ripple: ripple 3400ms ease infinite;
   --animate-cat-cycle: cat-cycle 1s steps(var(--cat-steps)) infinite;
   --animate-wave: wave var(--duration, 10s) linear infinite;
-  --animate-blink: blink 2s infinite;
 
   @keyframes turnOn {
     0% {
@@ -107,15 +106,5 @@
 
   100% {
     transform: translate(-50%, -75%) rotate(360deg);
-  }
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
   }
 }
