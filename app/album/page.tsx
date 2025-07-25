@@ -19,7 +19,7 @@ export default function Page() {
       <header>
         <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
       </header>
-      <section className="space-y-12">
+      <section className="space-y-8">
         {albumList.map((album) => (
           <article key={album.title}>
             <header className="bg-base sticky top-0 z-10 flex flex-row items-center justify-between py-3">

@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     )
     return NextResponse.json(discussion)
   } catch (error) {
-    console.error('Failed to fetch discussions:', error)
+    console.error('Failed to fetch discussions:', (error as Error)?.message)
     return NextResponse.json(null, { status: 500 })
   }
 }
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const discussion = await createDiscussion(title, label)
     return NextResponse.json(discussion)
   } catch (error) {
-    console.error('Failed to create discussion:', error)
+    console.error('Failed to create discussion:', (error as Error)?.message)
     return NextResponse.json(null, { status: 500 })
   }
 }
