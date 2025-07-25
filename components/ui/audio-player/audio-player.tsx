@@ -17,7 +17,8 @@ import {
   type CSSProperties,
 } from 'react'
 import { Spinner } from '@/components/ui/spinner'
-import { formatTime, range } from '@/lib/utils/helper'
+import { formatTime } from '@/lib/utils/helper'
+import { Title } from './title'
 
 interface AudioPlayerProps {
   src: string
@@ -260,16 +261,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
           />
 
           <div className="flex h-10 min-w-0 items-center justify-between gap-2">
-            <div className="flex min-w-0 flex-1 gap-4 overflow-hidden max-md:hidden">
-              {range(0, 2).map((i) => (
-                <span
-                  key={i}
-                  className="animate-marquee-left flex shrink-0 flex-row justify-around gap-4 duration-10000 [--gap:1rem]"
-                >
-                  {title}
-                </span>
-              ))}
-            </div>
+            <Title title={title} />
 
             <button
               onClick={handleBack}
