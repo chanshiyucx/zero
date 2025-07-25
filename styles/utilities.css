@@ -87,31 +87,6 @@
   }
 }
 
-@utility wave {
-  &::before,
-  &::after {
-    @apply absolute -top-20 left-1/2 aspect-square w-sm;
-    content: '';
-  }
-
-  &::before {
-    --duration: 10s;
-    @apply animate-wave rounded-[45%] bg-white/40;
-  }
-
-  &::after {
-    --duration: 20s;
-    @apply animate-wave rounded-[40%] bg-white/20;
-  }
-}
-
-@utility wave-reverse {
-  &::before,
-  &::after {
-    animation-direction: reverse;
-  }
-}
-
 @utility link-hover {
   @apply link after:opacity-0 hover:after:opacity-100;
 }
@@ -180,6 +155,31 @@
 
 @utility player-button {
   @apply flex h-20 w-20 cursor-pointer items-center justify-center outline-hidden disabled:opacity-60;
+}
+
+@utility wave {
+  &::before,
+  &::after {
+    @apply absolute -top-20 left-1/2 aspect-square w-sm;
+    content: '';
+  }
+
+  &::before {
+    --duration: 10s;
+    @apply animate-wave rounded-[45%] bg-white/40;
+  }
+
+  &::after {
+    --duration: 20s;
+    @apply animate-wave rounded-[40%] bg-white/20;
+  }
+}
+
+@utility wave-reverse {
+  &::before,
+  &::after {
+    animation-direction: reverse;
+  }
 }
 
 /* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
