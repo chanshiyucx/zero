@@ -8,7 +8,14 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { parseBlob } from 'music-metadata'
 import Image from 'next/image'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type CSSProperties,
+} from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { formatTime, range } from '@/lib/utils/helper'
 
@@ -17,14 +24,20 @@ interface AudioPlayerProps {
 }
 
 export function AudioPlayer({ src }: AudioPlayerProps) {
+  const [isLoading, setIsLoading] = useState(true)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [title, setTitle] = useState<string>('')
-  const [isLoading, setIsLoading] = useState(true)
-  const audioRef = useRef<HTMLAudioElement>(null)
   const [coverUrl, setCoverUrl] = useState<string | null>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
+
+  const cleanupCoverUrl = useCallback((url: string | null) => {
+    if (url) {
+      URL.revokeObjectURL(url)
+    }
+  }, [])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -42,7 +55,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
     const handleEnded = () => {
       if (isRepeat) {
         audio.currentTime = 0
-        audio.play()
+        audio.play().catch(console.error)
       } else {
         setIsPlaying(false)
       }
@@ -72,6 +85,12 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
     async function fetchMetadata() {
       try {
         setIsLoading(true)
+        setTitle('')
+        setCoverUrl((prevUrl) => {
+          cleanupCoverUrl(prevUrl)
+          return null
+        })
+
         const response = await fetch(src)
 
         if (!response.ok) {
@@ -88,14 +107,16 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
           const coverBlob = new Blob([picture.data], { type: picture.format })
           const url = URL.createObjectURL(coverBlob)
           setCoverUrl(url)
-        } else {
-          setCoverUrl(null)
         }
 
         setTitle(metadata.common.title || 'Unknown title')
-        setIsLoading(false)
       } catch (err) {
-        console.error(err)
+        console.error('Failed to fetch audio metadata:', err)
+        setTitle('Unknown title')
+      } finally {
+        if (!isCancelled) {
+          setIsLoading(false)
+        }
       }
     }
 
@@ -103,19 +124,14 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
 
     return () => {
       isCancelled = true
-      if (coverUrl) {
-        URL.revokeObjectURL(coverUrl)
-      }
     }
-  }, [src])
+  }, [src, cleanupCoverUrl])
 
   useEffect(() => {
     return () => {
-      if (coverUrl) {
-        URL.revokeObjectURL(coverUrl)
-      }
+      cleanupCoverUrl(coverUrl)
     }
-  }, [coverUrl])
+  }, [])
 
   const togglePlayPause = useCallback(async () => {
     const audio = audioRef.current
@@ -128,7 +144,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
         await audio.play()
       }
     } catch (err) {
-      console.error(err)
+      console.error('Failed to toggle play/pause:', err)
     }
   }, [isPlaying])
 
@@ -155,7 +171,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
   }, [duration])
 
   const handleProgressChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const audio = audioRef.current
       if (!audio || !duration) return
 
@@ -174,8 +190,8 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
         target.tagName === 'TEXTAREA' ||
         target.isContentEditable
 
-      if (isInputting) return
-      if (isLoading) return
+      if (isInputting || isLoading) return
+
       event.preventDefault()
 
       switch (event.code) {
@@ -237,9 +253,10 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             style={
               {
                 '--progress': `${progressPercentage + 1}%`,
-              } as React.CSSProperties
+              } as CSSProperties
             }
             disabled={isLoading || !duration}
+            aria-label="Audio progress"
           />
 
           <div className="flex h-10 min-w-0 items-center justify-between gap-2">
@@ -258,6 +275,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
               onClick={handleBack}
               className="player-button hidden h-10 w-10 max-md:flex"
               disabled={isLoading}
+              aria-label="Rewind 10 seconds"
             >
               <RewindIcon size={24} weight="duotone" />
             </button>
@@ -271,6 +289,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
               onClick={handleForward}
               className="player-button hidden h-10 w-10 max-md:flex"
               disabled={isLoading}
+              aria-label="Forward 10 seconds"
             >
               <FastForwardIcon size={26} weight="duotone" />
             </button>
@@ -282,6 +301,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             onClick={handleBack}
             className="player-button max-md:hidden"
             disabled={isLoading}
+            aria-label="Rewind 10 seconds"
           >
             <RewindIcon size={36} weight="duotone" />
           </button>
@@ -290,6 +310,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             onClick={togglePlayPause}
             className="player-button"
             disabled={isLoading}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? (
               <PauseIcon size={36} weight="duotone" />
@@ -302,6 +323,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             onClick={handleForward}
             className="player-button max-md:hidden"
             disabled={isLoading}
+            aria-label="Forward 10 seconds"
           >
             <FastForwardIcon size={36} weight="duotone" />
           </button>
@@ -310,6 +332,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             onClick={toggleRepeat}
             className="player-button max-md:hidden"
             disabled={isLoading}
+            aria-label={isRepeat ? 'Disable repeat' : 'Enable repeat'}
           >
             {isRepeat ? (
               <RepeatIcon size={36} weight="duotone" />
