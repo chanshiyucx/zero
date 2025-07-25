@@ -29,6 +29,7 @@
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
   --animate-ripple: ripple 3400ms ease infinite;
   --animate-cat-cycle: cat-cycle 1s steps(var(--cat-steps)) infinite;
+  --animate-wave: wave var(--duration, 10s) linear infinite;
 
   @keyframes turnOn {
     0% {
@@ -95,5 +96,15 @@
     100% {
       background-position: center calc(-1 * var(--cat-height));
     }
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
   }
 }
