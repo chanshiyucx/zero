@@ -35,7 +35,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
       <header>
         <h1 className="text-4xl font-extrabold">{title}</h1>
       </header>
-      <section>
+      <section className="space-y-2">
         {groups.map((group) => (
           <div key={group.year}>
             <p className="text-right text-3xl font-extrabold">{group.year}</p>
@@ -43,10 +43,10 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
               {group.list.map((article) => (
                 <li key={article.title}>
                   <Link
-                    className="flex gap-6 max-md:flex-col max-md:gap-1"
+                    className="flex gap-6 max-sm:flex-col max-sm:gap-0"
                     href={article.url}
                   >
-                    <span className="max-md:text-sm">
+                    <span className="shrink-0 max-md:text-sm">
                       <Date
                         dateString={article.date}
                         className="text-subtle inline-block w-16 shrink-0"
