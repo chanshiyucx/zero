@@ -8,7 +8,7 @@ export async function GET() {
     const repositories = await getGithubRepositories()
     return NextResponse.json(repositories)
   } catch (error) {
-    console.error('Failed to fetch GitHub repositories:', error)
+    console.error('Failed to fetch repositories:', (error as Error)?.message)
     return NextResponse.json(null, { status: 500 })
   }
 }
