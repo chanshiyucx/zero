@@ -1,6 +1,6 @@
 'use client'
 
-import { usePolyglotStore } from '@/store/polyglot'
+import { usePolyglotStore } from '@/stores/polyglot'
 import { TinyButton } from './tiny-button'
 
 export function Polyglot() {

@@ -1,7 +1,7 @@
 'use client'
 
 import { ArrowRightIcon, CommandIcon } from '@phosphor-icons/react/dist/ssr'
-import { useCommandStore } from '@/store/command'
+import { useCommandStore } from '@/stores/command'
 
 export function Explore() {
   const { toggle } = useCommandStore()

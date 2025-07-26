@@ -1,5 +1,5 @@
 import { MapTrifoldIcon } from '@phosphor-icons/react/dist/ssr'
-import { useCommandStore } from '@/store/command'
+import { useCommandStore } from '@/stores/command'
 
 export function Map() {
   const { toggle } = useCommandStore()
