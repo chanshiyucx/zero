@@ -38,21 +38,21 @@ export function AnalysisCard() {
       label: 'Posts',
       value: posts,
       href: '/blog/posts',
-      className: 'translate-x-32',
+      className: 'translate-x-4/7',
     },
     {
       icon: <NotebookIcon size="1em" weight="duotone" />,
       label: 'Notes',
       value: notes,
       href: '/blog/notes',
-      className: 'translate-x-24',
+      className: 'translate-x-3/7',
     },
     {
       icon: <TerminalWindowIcon size="1em" weight="duotone" />,
       label: 'Leetcode',
       value: leetcodes,
       href: '/blog/leetcode',
-      className: 'translate-x-16',
+      className: 'translate-x-2/7',
     },
   ]
 
