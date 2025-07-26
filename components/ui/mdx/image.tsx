@@ -28,12 +28,12 @@ export function Image(
             onLoad={() => setIsReady(true)}
             onError={() => setIsReady(false)}
             className={clsx(
-              'transition-opacity duration-500',
+              'cursor-pointer transition-opacity duration-500',
               isReady ? 'opacity-100' : 'opacity-0',
             )}
           />
           <span className="bg-overlay absolute inset-0 -z-10 flex items-center justify-center rounded-lg">
-            <Spinner />
+            {!isReady && <Spinner />}
           </span>
         </span>
       </PhotoView>
