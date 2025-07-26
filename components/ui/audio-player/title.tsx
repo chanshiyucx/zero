@@ -60,7 +60,7 @@ export function Title({ title }: TitleProps) {
       {shouldScroll ? (
         <MarqueeTitle title={title} />
       ) : (
-        <span ref={textRef} className="px-2">
+        <span ref={textRef} className="px-2 whitespace-nowrap">
           {title}
         </span>
       )}
