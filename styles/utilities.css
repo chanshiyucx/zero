@@ -50,16 +50,8 @@
   }
 
   img {
-    @apply aspect-[3/2] object-cover;
+    @apply aspect-[3/2] cursor-pointer object-cover;
   }
-}
-
-@utility card {
-  @apply transform-gpu overflow-hidden rounded-lg duration-500 hover:scale-[.97];
-}
-
-@utility card-sm {
-  @apply card hover:scale-95;
 }
 
 @utility menu-button {
@@ -158,6 +150,8 @@
 }
 
 @utility wave {
+  @apply relative;
+
   &::before,
   &::after {
     @apply absolute -top-20 left-1/2 aspect-square w-sm;

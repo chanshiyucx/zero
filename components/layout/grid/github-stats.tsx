@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Card } from '@/components/ui/card'
 import { siteConfig } from '@/lib/constants/config'
 
 const GithubSVG =
@@ -6,19 +7,21 @@ const GithubSVG =
 
 export function GithubStats() {
   return (
-    <a
-      href={siteConfig.links.github}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="card bg-surface block h-36"
-    >
-      <Image
-        src={GithubSVG}
-        alt="Github Stats"
-        width={362}
-        height={144}
-        className="object-cover"
-      />
-    </a>
+    <Card>
+      <a
+        href={siteConfig.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-surface block h-36 overflow-hidden rounded-lg"
+      >
+        <Image
+          src={GithubSVG}
+          alt="Github Stats"
+          width={362}
+          height={144}
+          className="object-cover"
+        />
+      </a>
+    </Card>
   )
 }
