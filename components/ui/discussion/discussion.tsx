@@ -2,7 +2,7 @@
 
 import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
-import { useLoading } from '@/hook/use-loading'
+import { useLoading } from '@/hooks/use-loading'
 import type { Discussion as DiscussionType } from '@/lib/api'
 import type { ContentType } from '@/lib/utils/content'
 

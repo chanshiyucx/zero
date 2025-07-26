@@ -13,8 +13,8 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react'
-import { useIsMobile } from '@/hook'
 import { clamp } from '@/lib/utils/helper'
+import { useDeviceStore } from '@/stores/device'
 
 interface CardProps {
   children: ReactNode
@@ -31,7 +31,7 @@ export function Card({
   maxTilt = 20,
   className = '',
 }: CardProps) {
-  const isMobile = useIsMobile()
+  const isMobile = useDeviceStore((s) => s.isMobile)
   const cardRef = useRef<HTMLDivElement>(null)
   const rectRef = useRef<DOMRect | null>(null)
   const rafRef = useRef<number | null>(null)
@@ -124,15 +124,11 @@ export function Card({
     }
   }, [])
 
-  if (isMobile) {
-    return <div className={className}>{children}</div>
-  }
-
   return (
     <motion.div
       ref={cardRef}
       className={`will-change-transform transform-3d ${className}`}
-      style={{ transform }}
+      style={{ transform: isMobile ? '' : transform }}
       onMouseMove={handleMouseMoveThrottled}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

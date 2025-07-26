@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { Command } from 'cmdk'
 import { useCallback, type ReactNode } from 'react'
-import { useCommandStore } from '@/store/command'
+import { useCommandStore } from '@/stores/command'
 
 interface CommandItemProps {
   onSelect?: () => void

@@ -6,7 +6,8 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react'
-import { useActivePage, useCommandStore } from '@/store/command'
+import { useActivePage, useCommandStore } from '@/stores/command'
+import { useDeviceStore } from '@/stores/device'
 
 interface CommandMenuProps {
   children: ReactNode
@@ -15,6 +16,7 @@ interface CommandMenuProps {
 export const CommandMenu = ({ children }: CommandMenuProps) => {
   const { pages, popPage, setOpen, open } = useCommandStore()
   const activePage = useActivePage()
+  const isMobile = useDeviceStore((s) => s.isMobile)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleKeyDown = useCallback(
@@ -32,10 +34,10 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
   )
 
   useEffect(() => {
-    if (open && inputRef.current) {
+    if (open && inputRef.current && !isMobile) {
       inputRef.current.focus()
     }
-  }, [activePage, open])
+  }, [activePage, open, isMobile])
 
   return (
     <div
@@ -53,7 +55,7 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
           >
             <div className="border-b p-4">
               <Command.Input
-                autoFocus
+                autoFocus={!isMobile}
                 ref={inputRef}
                 className="w-full border-none bg-transparent outline-hidden"
                 placeholder="Type a command or search..."

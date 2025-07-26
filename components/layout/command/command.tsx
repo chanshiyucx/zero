@@ -18,7 +18,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
 import { English, German } from '@/components/icons'
-import { useShortcut } from '@/hook'
+import { useShortcut } from '@/hooks'
 import { siteConfig } from '@/lib/constants/config'
 import {
   sortedLeetcodes,
@@ -26,7 +26,7 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
-import { useCommandStore } from '@/store/command'
+import { useCommandStore } from '@/stores/command'
 import { CommandGroup } from './command-group'
 import { CommandItem } from './command-item'
 import { CommandMenu } from './command-menu'

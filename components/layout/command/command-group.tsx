@@ -1,6 +1,6 @@
 import { Command } from 'cmdk'
 import type { ReactNode } from 'react'
-import { useActivePage } from '@/store/command'
+import { useActivePage } from '@/stores/command'
 
 interface CommandGroupProps {
   heading: string

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface CommandStore {
+interface CommandState {
   pages: string[]
   open: boolean
   pushPage: (page: string) => void
@@ -9,7 +9,7 @@ interface CommandStore {
   toggle: () => void
 }
 
-export const useCommandStore = create<CommandStore>((set) => ({
+export const useCommandStore = create<CommandState>((set) => ({
   pages: ['root'],
   open: false,
   pushPage: (page: string) =>

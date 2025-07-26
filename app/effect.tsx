@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { usePathname } from 'next/navigation'
 import { useContext, useRef, type ReactNode } from 'react'
+import { useDeviceListener } from '@/hooks'
 
 function FrozenRouter(props: { children: ReactNode }) {
   const context = useContext(LayoutRouterContext ?? {})
@@ -28,6 +29,7 @@ const variants = {
 
 const PageTransitionEffect = ({ children }: { children: ReactNode }) => {
   const key = usePathname()
+  useDeviceListener()
 
   return (
     <AnimatePresence mode="popLayout">
