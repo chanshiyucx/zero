@@ -64,7 +64,7 @@ export function AnalysisCard() {
         <Meow links={links} />
       </div>
       <div
-        className="card bg-surface absolute right-0 bottom-0 flex h-full w-2/3 flex-col justify-center gap-1 pl-2 font-bold"
+        className="bg-surface absolute right-0 bottom-0 flex h-full w-2/3 flex-col justify-center gap-1 overflow-hidden rounded-lg pl-2 font-bold"
         style={{
           clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 0 100%)',
         }}

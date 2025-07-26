@@ -1,6 +1,7 @@
 import { LinkedinLogoIcon, XLogoIcon } from '@phosphor-icons/react/dist/ssr'
 import clsx from 'clsx'
 import type { ReactNode } from 'react'
+import { Card } from '@/components/ui/card'
 import { siteConfig } from '@/lib/constants/config'
 
 interface SocialLinkProps {
@@ -17,7 +18,7 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
       rel="noopener noreferrer"
       className={clsx(
         className,
-        'card-sm flex h-[4.125rem] w-full flex-col items-center justify-center text-base',
+        'flex h-[4.125rem] w-full flex-col items-center justify-center overflow-hidden rounded-lg text-base',
       )}
     >
       {children}
@@ -28,17 +29,21 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
 export function SocialCard() {
   return (
     <div className="grid grid-cols-2 gap-2">
-      <SocialLink href={siteConfig.links.linkedIn} className="bg-pine wave">
-        <LinkedinLogoIcon size="1em" className="text-2xl" />
-        <p className="-rotate-3 text-xs">(serious stuff)</p>
-      </SocialLink>
-      <SocialLink
-        href={siteConfig.links.twitter}
-        className="bg-iris dark:bg-iris/75 wave wave-reverse"
-      >
-        <XLogoIcon size="1em" className="text-2xl" />
-        <p className="text-xs">(share memes ;)</p>
-      </SocialLink>
+      <Card tiltStrength={6}>
+        <SocialLink href={siteConfig.links.linkedIn} className="bg-pine wave">
+          <LinkedinLogoIcon size="1em" className="text-2xl" />
+          <p className="-rotate-3 text-xs">(serious stuff)</p>
+        </SocialLink>
+      </Card>
+      <Card tiltStrength={6}>
+        <SocialLink
+          href={siteConfig.links.twitter}
+          className="bg-iris dark:bg-iris/75 wave wave-reverse"
+        >
+          <XLogoIcon size="1em" className="text-2xl" />
+          <p className="text-xs">(share memes ;)</p>
+        </SocialLink>
+      </Card>
     </div>
   )
 }

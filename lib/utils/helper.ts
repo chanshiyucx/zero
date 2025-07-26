@@ -33,3 +33,7 @@ export const formatTime = (timeInSeconds: number): string => {
   const seconds = Math.floor(timeInSeconds % 60)
   return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
+
+export const clamp = (value: number, min: number, max: number) => {
+  return Math.min(Math.max(value, min), max)
+}
