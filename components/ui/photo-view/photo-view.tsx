@@ -47,9 +47,11 @@ export function PhotoView({
       targetHeight = targetWidth / aspectRatio
     }
 
+    // Maximum zoom ratio, wiki image is 1.5x, onedrive image is 10x
     const scale = Math.min(
       targetWidth / bounds.width,
       targetHeight / bounds.height,
+      originalsrc ? 10 : 1.5,
     )
 
     const centerX = window.innerWidth / 2
@@ -61,20 +63,18 @@ export function PhotoView({
     const translateY = centerY - originalCenterY
 
     return { scale, translateX, translateY }
-  }, [bounds])
+  }, [bounds, originalsrc])
 
   const handleImageClick = useCallback(() => {
     if (!imageRef.current || isOpen) return
 
-    if (!bounds) {
-      const rect = imageRef.current.getBoundingClientRect()
-      setBounds({
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height,
-      })
-    }
+    const rect = imageRef.current.getBoundingClientRect()
+    setBounds({
+      x: rect.left,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height,
+    })
 
     setIsOpen(true)
     setShowOnTop(true)
@@ -92,7 +92,7 @@ export function PhotoView({
       }
       originalImg.src = originalsrc
     }
-  }, [isOpen, src, originalsrc, currentSrc, bounds])
+  }, [isOpen, src, originalsrc, currentSrc])
 
   const handleClose = useCallback(
     (e?: MouseEvent) => {
@@ -115,6 +115,12 @@ export function PhotoView({
   }, [isOpen])
 
   useEffect(() => {
+    if (imageRef.current?.complete) {
+      setIsReady(true)
+    }
+  }, [src])
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
         handleClose()
@@ -123,12 +129,13 @@ export function PhotoView({
 
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown)
+      const originalOverflow = document.body.style.overflow
       document.body.style.overflow = 'hidden'
-    }
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown)
+        document.body.style.overflow = originalOverflow
+      }
     }
   }, [isOpen, handleClose])
 
@@ -186,7 +193,7 @@ export function PhotoView({
           className={clsx(
             'relative origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
             showOnTop ? 'z-101 rounded-none!' : '',
-            isReady ? 'opacity-100' : 'opacity-0',
+            isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
           )}
           animate={animate}
           transition={{
