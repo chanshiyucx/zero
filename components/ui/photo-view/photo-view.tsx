@@ -1,18 +1,209 @@
-import 'react-photo-view/dist/react-photo-view.css'
-import type { PhotoProviderBase } from 'react-photo-view/dist/types'
+import clsx from 'clsx'
+import { AnimatePresence, motion } from 'framer-motion'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+} from 'react'
+import { type ImageProps } from '@/components/ui/mdx/image'
 import { Spinner } from '@/components/ui/spinner'
 
-// maybe hide the toolbar is better. ( ˘▽˘)っ♨
-// import { Toolbar } from './Toolbar'
+export function PhotoView({
+  src,
+  originalsrc,
+  alt,
+  width,
+  height,
+}: ImageProps) {
+  const [currentSrc, setCurrentSrc] = useState(src)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isReady, setIsReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showOnTop, setShowOnTop] = useState(false)
+  const [bounds, setBounds] = useState<{
+    x: number
+    y: number
+    width: number
+    height: number
+  } | null>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
 
-export { PhotoProvider, PhotoView } from 'react-photo-view'
+  const getPreviewTransform = useCallback(() => {
+    if (!bounds) return { scale: 1, translateX: 0, translateY: 0 }
 
-export const photoViewConfig: PhotoProviderBase = {
-  maskOpacity: 1,
-  maskClassName: 'photo-view-mask',
-  bannerVisible: false,
-  photoClosable: true,
-  pullClosable: true,
-  loadingElement: <Spinner size="large" />,
-  // toolbarRender: (props) => <Toolbar {...props} />,
+    const maxWidth = window.innerWidth
+    const maxHeight = window.innerHeight
+
+    const aspectRatio = bounds.width / bounds.height
+    let targetWidth, targetHeight
+
+    if (maxWidth / maxHeight > aspectRatio) {
+      targetHeight = maxHeight
+      targetWidth = targetHeight * aspectRatio
+    } else {
+      targetWidth = maxWidth
+      targetHeight = targetWidth / aspectRatio
+    }
+
+    const scale = Math.min(
+      targetWidth / bounds.width,
+      targetHeight / bounds.height,
+    )
+
+    const centerX = window.innerWidth / 2
+    const centerY = window.innerHeight / 2
+    const originalCenterX = bounds.x + bounds.width / 2
+    const originalCenterY = bounds.y + bounds.height / 2
+
+    const translateX = centerX - originalCenterX
+    const translateY = centerY - originalCenterY
+
+    return { scale, translateX, translateY }
+  }, [bounds])
+
+  const handleImageClick = useCallback(() => {
+    if (!imageRef.current || isOpen) return
+
+    if (!bounds) {
+      const rect = imageRef.current.getBoundingClientRect()
+      setBounds({
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height,
+      })
+    }
+
+    setIsOpen(true)
+    setShowOnTop(true)
+
+    if (originalsrc && originalsrc !== src && originalsrc !== currentSrc) {
+      setIsLoading(true)
+
+      const originalImg = new Image()
+      originalImg.onload = () => {
+        setCurrentSrc(originalsrc)
+        setIsLoading(false)
+      }
+      originalImg.onerror = () => {
+        setIsLoading(false)
+      }
+      originalImg.src = originalsrc
+    }
+  }, [isOpen, src, originalsrc, currentSrc, bounds])
+
+  const handleClose = useCallback(
+    (e?: MouseEvent) => {
+      if (e) {
+        e.stopPropagation()
+      }
+
+      if (isOpen) {
+        setIsOpen(false)
+        setIsLoading(false)
+      }
+    },
+    [isOpen],
+  )
+
+  const handleAnimationComplete = useCallback(() => {
+    if (!isOpen) {
+      setShowOnTop(false)
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        handleClose()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'hidden'
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [isOpen, handleClose])
+
+  const previewTransform = getPreviewTransform()
+  const animate = isOpen
+    ? {
+        scale: previewTransform.scale,
+        x: previewTransform.translateX,
+        y: previewTransform.translateY,
+      }
+    : {
+        scale: 1,
+        x: 0,
+        y: 0,
+      }
+
+  return (
+    <>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="fixed inset-0 z-100 cursor-pointer backdrop-blur-xs"
+            onClick={handleClose}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isOpen && isLoading && (
+          <motion.span
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="bg-base fixed right-1/2 bottom-6 z-102 flex translate-x-1/2 items-center gap-3 rounded-xl px-4 py-3 text-sm shadow-lg backdrop-blur-xs"
+          >
+            <span className="border-t-text border-overlay h-4 w-4 animate-spin rounded-full border-2"></span>
+            <span>Unveiling the full image…</span>
+          </motion.span>
+        )}
+      </AnimatePresence>
+
+      <span className="relative block">
+        <motion.img
+          ref={imageRef}
+          src={currentSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          draggable={false}
+          className={clsx(
+            'relative origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
+            showOnTop ? 'z-101 rounded-none!' : '',
+            isReady ? 'opacity-100' : 'opacity-0',
+          )}
+          animate={animate}
+          transition={{
+            type: 'tween',
+            duration: 0.25,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
+          onLoad={() => setIsReady(true)}
+          onError={() => setIsReady(false)}
+          onClick={handleImageClick}
+          onAnimationComplete={handleAnimationComplete}
+        />
+
+        <span className="bg-overlay absolute inset-0 -z-10 flex items-center justify-center rounded-lg">
+          {!isReady && <Spinner />}
+        </span>
+      </span>
+    </>
+  )
 }

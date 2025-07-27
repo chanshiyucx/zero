@@ -3,7 +3,6 @@
 import { MDXContent } from '@content-collections/mdx/react'
 import clsx from 'clsx'
 import { useEffect, useMemo } from 'react'
-import { PhotoProvider, photoViewConfig } from '@/components/ui/photo-view'
 import { usePolyglotStore } from '@/stores'
 import { Audio } from './audio'
 import { Figure } from './figure'
@@ -47,9 +46,7 @@ export function MDX({ contentCode, classname }: MDXProps) {
       )}
       data-lang={displayLanguage}
     >
-      <PhotoProvider {...photoViewConfig}>
-        <MDXContent components={components} code={code} />
-      </PhotoProvider>
+      <MDXContent components={components} code={code} />
     </div>
   )
 }
