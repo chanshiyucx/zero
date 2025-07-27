@@ -14,7 +14,7 @@ import {
   type ReactNode,
 } from 'react'
 import { clamp } from '@/lib/utils/helper'
-import { useDeviceStore } from '@/stores/device'
+import { useDeviceStore } from '@/stores'
 
 interface CardProps {
   children: ReactNode

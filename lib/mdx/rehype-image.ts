@@ -20,7 +20,7 @@ const calcImageSize = async (imageSrc: string, options?: Options) => {
 }
 
 // from: https://cx-onedrive.pages.dev/api/raw?path=/长沙/DSC00069.JPG
-// to:   https://cx-onedrive.pages.dev/api/thumbnail?path=/长沙/DSC01999.JPG&size=medium
+// to:   https://cx-onedrive.pages.dev/api/thumbnail?path=/长沙/DSC01999.JPG&size=large
 const getThumbnail = (src: string) =>
   src.replace('/raw?', '/thumbnail?') + '&size=large'
 

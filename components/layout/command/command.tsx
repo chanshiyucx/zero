@@ -26,7 +26,7 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
-import { useCommandStore } from '@/stores/command'
+import { useCommandStore } from '@/stores'
 import { CommandGroup } from './command-group'
 import { CommandItem } from './command-item'
 import { CommandMenu } from './command-menu'

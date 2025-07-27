@@ -1,6 +1,6 @@
 'use client'
 
-import { usePolyglotStore } from '@/stores/polyglot'
+import { usePolyglotStore } from '@/stores'
 
 interface TitleProps {
   titleCode: {
