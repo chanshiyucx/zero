@@ -21,7 +21,7 @@ export function PhotoView({
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [showOnTop, setShowOnTop] = useState(false)
+  const [zoomState, setZoomState] = useState(0) // 0 initial, 1 zooming, 2 preview
   const [bounds, setBounds] = useState<{
     x: number
     y: number
@@ -65,7 +65,32 @@ export function PhotoView({
     return { scale, translateX, translateY }
   }, [bounds, originalsrc])
 
+  const handleClose = useCallback(
+    (e?: MouseEvent) => {
+      if (e) {
+        e.stopPropagation()
+      }
+
+      if (isOpen && zoomState === 2) {
+        setIsOpen(false)
+        setIsLoading(false)
+      }
+    },
+    [isOpen, zoomState],
+  )
+
+  const handleAnimationComplete = useCallback(() => {
+    setZoomState(isOpen ? 2 : 0)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (imageRef.current?.complete) {
+      setIsReady(true)
+    }
+  }, [src])
+
   const handleImageClick = useCallback(() => {
+    handleClose()
     if (!imageRef.current || isOpen) return
 
     const rect = imageRef.current.getBoundingClientRect()
@@ -77,7 +102,7 @@ export function PhotoView({
     })
 
     setIsOpen(true)
-    setShowOnTop(true)
+    setZoomState(1)
 
     if (originalsrc && originalsrc !== src && originalsrc !== currentSrc) {
       setIsLoading(true)
@@ -92,33 +117,7 @@ export function PhotoView({
       }
       originalImg.src = originalsrc
     }
-  }, [isOpen, src, originalsrc, currentSrc])
-
-  const handleClose = useCallback(
-    (e?: MouseEvent) => {
-      if (e) {
-        e.stopPropagation()
-      }
-
-      if (isOpen) {
-        setIsOpen(false)
-        setIsLoading(false)
-      }
-    },
-    [isOpen],
-  )
-
-  const handleAnimationComplete = useCallback(() => {
-    if (!isOpen) {
-      setShowOnTop(false)
-    }
-  }, [isOpen])
-
-  useEffect(() => {
-    if (imageRef.current?.complete) {
-      setIsReady(true)
-    }
-  }, [src])
+  }, [isOpen, src, originalsrc, currentSrc, handleClose])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -161,7 +160,7 @@ export function PhotoView({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed inset-0 z-100 cursor-pointer backdrop-blur-xs"
+            className="fixed inset-0 z-100 backdrop-blur-xs"
             onClick={handleClose}
           />
         )}
@@ -192,13 +191,13 @@ export function PhotoView({
           draggable={false}
           className={clsx(
             'relative origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
-            showOnTop ? 'z-101 rounded-none!' : '',
+            zoomState !== 0 ? 'z-101 rounded-none!' : '',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
           )}
           animate={animate}
           transition={{
             type: 'tween',
-            duration: 0.25,
+            duration: 0.3,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
           onLoad={() => setIsReady(true)}
