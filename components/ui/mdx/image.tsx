@@ -1,45 +1,27 @@
 'use client'
 
 import { CameraIcon, SlideshowIcon } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
-import NextImage, { type ImageProps } from 'next/image'
-import { useState, type DetailedHTMLProps, type ImgHTMLAttributes } from 'react'
+import { type DetailedHTMLProps, type ImgHTMLAttributes } from 'react'
 import { PhotoView } from '@/components/ui/photo-view'
-import { Spinner } from '@/components/ui/spinner'
 
-export function Image(
-  props: DetailedHTMLProps<
+export interface ImageProps
+  extends DetailedHTMLProps<
     ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement
-  > & { originalsrc: string },
-) {
-  const [isReady, setIsReady] = useState(false)
-  const isAlum = Boolean(props.originalsrc)
-  const originalsrc = props.originalsrc ?? props.src
+  > {
+  originalsrc: string
+}
+
+export function Image(props: ImageProps) {
+  const isAlbum = Boolean(props.originalsrc)
 
   return (
     <>
-      <PhotoView src={originalsrc}>
-        <span className="relative block">
-          <NextImage
-            {...(props as ImageProps)}
-            priority={false}
-            alt={props.alt ?? ''}
-            onLoad={() => setIsReady(true)}
-            onError={() => setIsReady(false)}
-            className={clsx(
-              'cursor-pointer transition-opacity duration-500',
-              isReady ? 'opacity-100' : 'opacity-0',
-            )}
-          />
-          <span className="bg-overlay absolute inset-0 -z-10 flex items-center justify-center rounded-lg">
-            {!isReady && <Spinner />}
-          </span>
-        </span>
-      </PhotoView>
+      <PhotoView {...props} />
+
       {props.alt && (
         <span className="text-subtle my-2 block text-center text-sm italic">
-          {isAlum ? (
+          {isAlbum ? (
             <CameraIcon weight="duotone" className="fill-subtle mr-1 inline" />
           ) : (
             <SlideshowIcon
