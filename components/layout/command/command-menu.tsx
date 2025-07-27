@@ -6,8 +6,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react'
-import { useActivePage, useCommandStore } from '@/stores/command'
-import { useDeviceStore } from '@/stores/device'
+import { useActivePage, useCommandStore, useDeviceStore } from '@/stores'
 
 interface CommandMenuProps {
   children: ReactNode
