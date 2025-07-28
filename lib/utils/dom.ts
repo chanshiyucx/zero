@@ -20,10 +20,19 @@ export const getIsMobile = (breakpoint = 768): boolean => {
   if (isServerSide) return false
 
   const isSmallScreen = window.innerWidth <= breakpoint
-
   const hasTouchSupport =
     'ontouchstart' in window ||
     navigator.maxTouchPoints > 0 ||
     'msMaxTouchPoints' in navigator
+
   return isSmallScreen && hasTouchSupport
+}
+
+export const getIsIOSSafari = () => {
+  if (isServerSide) return false
+
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+    /Safari/.test(navigator.userAgent)
+  )
 }

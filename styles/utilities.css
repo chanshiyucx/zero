@@ -50,7 +50,7 @@
   }
 
   img {
-    @apply aspect-[3/2] cursor-pointer object-cover;
+    @apply aspect-[3/2] w-full cursor-pointer object-cover;
   }
 }
 
@@ -290,13 +290,15 @@
     top: calc(var(--cat-size) * 0.191);
   }
 
-  &:hover {
-    .the-cat {
-      bottom: calc(var(--cat-size) * -0.17);
-    }
-    .the-cat .eyes {
-      height: calc(var(--cat-size) * 0.034);
-      bottom: calc(var(--cat-size) * 0.426);
+  @media (hover: hover) {
+    &:hover {
+      .the-cat {
+        bottom: calc(var(--cat-size) * -0.17);
+      }
+      .the-cat .eyes {
+        height: calc(var(--cat-size) * 0.034);
+        bottom: calc(var(--cat-size) * 0.426);
+      }
     }
   }
 

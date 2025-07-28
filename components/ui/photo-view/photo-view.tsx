@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { type ImageProps } from '@/components/ui/mdx/image'
 import { Spinner } from '@/components/ui/spinner'
+import { formatFileSize } from '@/lib/utils/helper'
 
 export function PhotoView({
   src,
@@ -21,6 +22,8 @@ export function PhotoView({
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [imageSize, setImageSize] = useState(0)
+  const [loadSize, setLoadSize] = useState(0)
   const [zoomState, setZoomState] = useState(0) // 0 initial, 1 zooming, 2 preview
   const [bounds, setBounds] = useState<{
     x: number
@@ -29,6 +32,72 @@ export function PhotoView({
     height: number
   } | null>(null)
   const imageRef = useRef<HTMLImageElement>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
+
+  const loadImageWithProgress = useCallback(
+    async (url: string): Promise<string> => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+
+      abortControllerRef.current = new AbortController()
+
+      try {
+        const response = await fetch(url, {
+          signal: abortControllerRef.current.signal,
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const contentLength = response.headers.get('content-length')
+        const total = contentLength ? parseInt(contentLength, 10) : 0
+
+        setImageSize(total)
+        setLoadSize(0)
+
+        if (!response.body) {
+          throw new Error('ReadableStream not supported')
+        }
+
+        const reader = response.body.getReader()
+        const chunks: Uint8Array[] = []
+        let receivedLength = 0
+
+        while (true) {
+          const { done, value } = await reader.read()
+
+          if (done) break
+
+          if (value) {
+            chunks.push(value)
+            receivedLength += value.length
+            setLoadSize(receivedLength)
+          }
+        }
+
+        const allChunks = new Uint8Array(receivedLength)
+        let position = 0
+        for (const chunk of chunks) {
+          allChunks.set(chunk, position)
+          position += chunk.length
+        }
+
+        const blob = new Blob([allChunks])
+        const imageUrl = URL.createObjectURL(blob)
+
+        return imageUrl
+      } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') {
+          throw error
+        }
+        console.error('Failed to load image with progress:', error)
+        throw error
+      }
+    },
+    [],
+  )
 
   const getPreviewTransform = useCallback(() => {
     if (!bounds) return { scale: 1, translateX: 0, translateY: 0 }
@@ -72,25 +141,25 @@ export function PhotoView({
       }
 
       if (isOpen && zoomState === 2) {
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort()
+        }
+
         setIsOpen(false)
         setIsLoading(false)
+        setImageSize(0)
+        setLoadSize(0)
       }
     },
     [isOpen, zoomState],
   )
 
   const handleAnimationComplete = useCallback(() => {
-    setZoomState(isOpen ? 2 : 0)
+    const newZoomState = isOpen ? 2 : 0
+    setZoomState(newZoomState)
   }, [isOpen])
 
-  useEffect(() => {
-    if (imageRef.current?.complete) {
-      setIsReady(true)
-    }
-  }, [src])
-
-  const handleImageClick = useCallback(() => {
-    handleClose()
+  const handleImageClick = useCallback(async () => {
     if (!imageRef.current || isOpen) return
 
     const rect = imageRef.current.getBoundingClientRect()
@@ -106,18 +175,37 @@ export function PhotoView({
 
     if (originalsrc && originalsrc !== src && originalsrc !== currentSrc) {
       setIsLoading(true)
+      setLoadSize(0)
+      setImageSize(0)
 
-      const originalImg = new Image()
-      originalImg.onload = () => {
-        setCurrentSrc(originalsrc)
+      try {
+        const imageUrl = await loadImageWithProgress(originalsrc)
+
+        setCurrentSrc(imageUrl)
         setIsLoading(false)
+      } catch (error) {
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.error('Failed to load original image:', error)
+          setIsLoading(false)
+        }
       }
-      originalImg.onerror = () => {
-        setIsLoading(false)
-      }
-      originalImg.src = originalsrc
     }
-  }, [isOpen, src, originalsrc, currentSrc, handleClose])
+  }, [isOpen, src, originalsrc, currentSrc, loadImageWithProgress])
+
+  // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
+  useEffect(() => {
+    if (imageRef.current?.complete) {
+      setIsReady(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (typeof currentSrc === 'string' && currentSrc.startsWith('blob:')) {
+        URL.revokeObjectURL(currentSrc)
+      }
+    }
+  }, [currentSrc])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -138,7 +226,9 @@ export function PhotoView({
     }
   }, [isOpen, handleClose])
 
+  const progress = imageSize > 0 ? Math.round((loadSize / imageSize) * 100) : 0
   const previewTransform = getPreviewTransform()
+
   const animate = isOpen
     ? {
         scale: previewTransform.scale,
@@ -173,10 +263,18 @@ export function PhotoView({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="bg-base fixed right-1/2 bottom-6 z-102 flex translate-x-1/2 items-center gap-3 rounded-xl px-4 py-3 text-sm shadow-lg backdrop-blur-xs"
+            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-xl px-4 py-3 text-sm shadow-lg backdrop-blur-xs"
           >
             <span className="border-t-text border-overlay h-4 w-4 animate-spin rounded-full border-2"></span>
-            <span>Unveiling the full image…</span>
+            <span className="flex flex-col gap-1">
+              <span>Unveiling the full image…</span>
+              <span className="space-x-6">
+                <span>{progress}%</span>
+                <span className="">
+                  {formatFileSize(loadSize)} / {formatFileSize(imageSize)}
+                </span>
+              </span>
+            </span>
           </motion.span>
         )}
       </AnimatePresence>
