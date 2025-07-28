@@ -27,9 +27,3 @@ export const getIsMobile = (breakpoint = 768): boolean => {
 
   return isSmallScreen && hasTouchSupport
 }
-
-export const getIsIOS = () => {
-  if (isServerSide) return false
-
-  return /iPad|iPhone|iPod/.test(navigator.userAgent)
-}

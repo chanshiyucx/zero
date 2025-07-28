@@ -75,15 +75,19 @@ export function PhotoView({
         const chunks: Uint8Array[] = []
         let receivedLength = 0
 
+        let lastUpdate = 0
         while (true) {
           const { done, value } = await reader.read()
-
           if (done) break
 
           if (value) {
             chunks.push(value)
             receivedLength += value.length
-            setLoadSize(receivedLength)
+            const now = Date.now()
+            if (now - lastUpdate > 100 || receivedLength >= total) {
+              setLoadSize(receivedLength)
+              lastUpdate = now
+            }
           }
         }
 
@@ -117,7 +121,6 @@ export function PhotoView({
     const maxHeight = window.innerHeight
 
     const aspectRatio = naturalDimensions.width / naturalDimensions.height
-    // const aspectRatio = bounds.width / bounds.height
     let targetWidth, targetHeight
 
     if (maxWidth / maxHeight > aspectRatio) {
@@ -129,28 +132,24 @@ export function PhotoView({
     }
 
     // Maximum zoom ratio, wiki image is 1.5x, onedrive image is 10x
-    // const scale = Math.min(
-    //   targetWidth / naturalDimensions.width,
-    //   targetHeight / naturalDimensions.height,
-    //   originalsrc ? 10 : 1.5,
-    // )
+    const maxScale = originalsrc ? 10 : 1.5
+    const curScale = targetWidth / bounds.width
+    if (curScale > maxScale) {
+      targetWidth = (targetWidth / curScale) * maxScale
+      targetHeight = (targetHeight / curScale) * maxScale
+    }
 
     const centerX = window.innerWidth / 2
     const centerY = window.innerHeight / 2
     const originalCenterX = bounds.x + targetWidth / 2
     const originalCenterY = bounds.y + targetHeight / 2
-
     const previewCenterX = centerX
     const previewCenterY = centerY
 
     const targetX = previewCenterX - originalCenterX - window.scrollX
     const targetY = previewCenterY - originalCenterY - window.scrollY
-
     const originalX = 0
     const originalY = -window.scrollY
-
-    // const translateX = 0
-    // const translateY = 0
 
     return {
       width: targetWidth,
@@ -160,7 +159,7 @@ export function PhotoView({
       originalX,
       originalY,
     }
-  }, [bounds, naturalDimensions])
+  }, [bounds, originalsrc, naturalDimensions])
 
   const handleClose = useCallback(
     (e?: MouseEvent) => {
@@ -215,7 +214,7 @@ export function PhotoView({
       setZoomState(1)
     }, 200)
 
-    if (originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
+    if (originalsrc && originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
       setIsLoading(true)
       setLoadSize(0)
       setImageSize(0)
@@ -330,7 +329,10 @@ export function PhotoView({
         )}
       </AnimatePresence>
 
-      <span className="relative block">
+      <span
+        className="relative block"
+        style={{ width: `${bounds?.width}px`, height: `${bounds?.height}px` }}
+      >
         <motion.img
           ref={imageRef}
           src={currentSrc}
@@ -339,7 +341,7 @@ export function PhotoView({
           height={height}
           draggable={false}
           className={clsx(
-            'origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
+            'm-0! origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
             zoomState !== 0
               ? 'fixed z-101 rounded-none!'
               : 'relative transform-none!',

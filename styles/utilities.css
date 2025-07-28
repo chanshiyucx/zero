@@ -44,8 +44,7 @@
 }
 
 @utility album {
-  p,
-  img {
+  p {
     @apply m-0;
   }
 
