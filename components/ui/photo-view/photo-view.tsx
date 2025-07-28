@@ -258,8 +258,6 @@ export function PhotoView({
         y: 0,
       }
 
-  console.log('progress--', progress)
-
   return (
     <>
       <AnimatePresence>
@@ -268,7 +266,7 @@ export function PhotoView({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="fixed inset-0 z-100 backdrop-blur-xs"
             onClick={handleClose}
           />
@@ -281,8 +279,8 @@ export function PhotoView({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-xl px-4 py-3 text-sm shadow-lg backdrop-blur-xs"
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-xl px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
           >
             <span className="border-t-text border-overlay h-4 w-4 animate-spin rounded-full border-2"></span>
             <span className="inline-flex flex-col gap-1">
