@@ -11,6 +11,10 @@ import { type ImageProps } from '@/components/ui/mdx/image'
 import { Spinner } from '@/components/ui/spinner'
 import { formatFileSize } from '@/lib/utils/helper'
 
+const isBlobSrc = (src: string | Blob | undefined): src is string => {
+  return typeof src === 'string' && src.startsWith('blob:')
+}
+
 export function PhotoView({
   src,
   originalsrc,
@@ -160,7 +164,13 @@ export function PhotoView({
   }, [isOpen])
 
   const handleImageClick = useCallback(async () => {
-    if (!imageRef.current || isOpen) return
+    if (!imageRef.current) return
+    if (isOpen) {
+      if (zoomState === 2) {
+        handleClose()
+      }
+      return
+    }
 
     const rect = imageRef.current.getBoundingClientRect()
     setBounds({
@@ -173,7 +183,7 @@ export function PhotoView({
     setIsOpen(true)
     setZoomState(1)
 
-    if (originalsrc && originalsrc !== src && originalsrc !== currentSrc) {
+    if (originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
       setIsLoading(true)
       setLoadSize(0)
       setImageSize(0)
@@ -190,7 +200,14 @@ export function PhotoView({
         }
       }
     }
-  }, [isOpen, src, originalsrc, currentSrc, loadImageWithProgress])
+  }, [
+    isOpen,
+    originalsrc,
+    zoomState,
+    currentSrc,
+    loadImageWithProgress,
+    handleClose,
+  ])
 
   // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
   useEffect(() => {
@@ -201,7 +218,7 @@ export function PhotoView({
 
   useEffect(() => {
     return () => {
-      if (typeof currentSrc === 'string' && currentSrc.startsWith('blob:')) {
+      if (isBlobSrc(currentSrc)) {
         URL.revokeObjectURL(currentSrc)
       }
     }
@@ -241,6 +258,8 @@ export function PhotoView({
         y: 0,
       }
 
+  console.log('progress--', progress)
+
   return (
     <>
       <AnimatePresence>
@@ -266,11 +285,11 @@ export function PhotoView({
             className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-xl px-4 py-3 text-sm shadow-lg backdrop-blur-xs"
           >
             <span className="border-t-text border-overlay h-4 w-4 animate-spin rounded-full border-2"></span>
-            <span className="flex flex-col gap-1">
+            <span className="inline-flex flex-col gap-1">
               <span>Unveiling the full image…</span>
-              <span className="space-x-6">
+              <span className="inline-flex justify-between pr-2">
                 <span>{progress}%</span>
-                <span className="">
+                <span>
                   {formatFileSize(loadSize)} / {formatFileSize(imageSize)}
                 </span>
               </span>
