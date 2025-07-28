@@ -35,6 +35,12 @@ export function PhotoView({
     width: number
     height: number
   } | null>(null)
+
+  const [naturalDimensions, setNaturalDimensions] = useState<{
+    width: number
+    height: number
+  } | null>(null)
+
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
 
@@ -104,12 +110,14 @@ export function PhotoView({
   )
 
   const getPreviewTransform = useCallback(() => {
-    if (!bounds) return { scale: 1, translateX: 0, translateY: 0 }
+    if (!bounds || !naturalDimensions)
+      return { scale: 1, translateX: 0, translateY: 0 }
 
     const maxWidth = window.innerWidth
     const maxHeight = window.innerHeight
 
-    const aspectRatio = bounds.width / bounds.height
+    const aspectRatio = naturalDimensions.width / naturalDimensions.height
+    // const aspectRatio = bounds.width / bounds.height
     let targetWidth, targetHeight
 
     if (maxWidth / maxHeight > aspectRatio) {
@@ -121,22 +129,38 @@ export function PhotoView({
     }
 
     // Maximum zoom ratio, wiki image is 1.5x, onedrive image is 10x
-    const scale = Math.min(
-      targetWidth / bounds.width,
-      targetHeight / bounds.height,
-      originalsrc ? 10 : 1.5,
-    )
+    // const scale = Math.min(
+    //   targetWidth / naturalDimensions.width,
+    //   targetHeight / naturalDimensions.height,
+    //   originalsrc ? 10 : 1.5,
+    // )
 
     const centerX = window.innerWidth / 2
     const centerY = window.innerHeight / 2
-    const originalCenterX = bounds.x + bounds.width / 2
-    const originalCenterY = bounds.y + bounds.height / 2
+    const originalCenterX = bounds.x + targetWidth / 2
+    const originalCenterY = bounds.y + targetHeight / 2
 
-    const translateX = centerX - originalCenterX
-    const translateY = centerY - originalCenterY
+    const previewCenterX = centerX
+    const previewCenterY = centerY
 
-    return { scale, translateX, translateY }
-  }, [bounds, originalsrc])
+    const targetX = previewCenterX - originalCenterX - window.scrollX
+    const targetY = previewCenterY - originalCenterY - window.scrollY
+
+    const originalX = 0
+    const originalY = -window.scrollY
+
+    // const translateX = 0
+    // const translateY = 0
+
+    return {
+      width: targetWidth,
+      height: targetHeight,
+      targetX,
+      targetY,
+      originalX,
+      originalY,
+    }
+  }, [bounds, naturalDimensions])
 
   const handleClose = useCallback(
     (e?: MouseEvent) => {
@@ -180,8 +204,16 @@ export function PhotoView({
       height: rect.height,
     })
 
-    setIsOpen(true)
-    setZoomState(1)
+    const naturalDims = {
+      width: imageRef.current.naturalWidth,
+      height: imageRef.current.naturalHeight,
+    }
+    setNaturalDimensions(naturalDims)
+
+    setTimeout(() => {
+      setIsOpen(true)
+      setZoomState(1)
+    }, 200)
 
     if (originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
       setIsLoading(true)
@@ -248,14 +280,16 @@ export function PhotoView({
 
   const animate = isOpen
     ? {
-        scale: previewTransform.scale,
-        x: previewTransform.translateX,
-        y: previewTransform.translateY,
+        width: previewTransform.width,
+        height: previewTransform.height,
+        x: previewTransform.targetX,
+        y: previewTransform.targetY,
       }
     : {
-        scale: 1,
-        x: 0,
-        y: 0,
+        width: bounds?.width,
+        height: bounds?.height,
+        x: previewTransform.originalX,
+        y: previewTransform.originalY,
       }
 
   return (
@@ -305,8 +339,10 @@ export function PhotoView({
           height={height}
           draggable={false}
           className={clsx(
-            'relative origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
-            zoomState !== 0 ? 'z-101 rounded-none!' : '',
+            'origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
+            zoomState !== 0
+              ? 'fixed z-101 rounded-none!'
+              : 'relative transform-none!',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
           )}
           animate={animate}
