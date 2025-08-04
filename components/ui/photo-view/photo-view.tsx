@@ -337,6 +337,7 @@ export function PhotoView({
           width={width}
           height={height}
           draggable={false}
+          loading="lazy"
           className={clsx(
             'absolute m-0! h-full w-full max-w-none origin-center cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
