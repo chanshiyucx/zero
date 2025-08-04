@@ -3,14 +3,37 @@ import { AnimatePresence, motion } from 'framer-motion'
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type MouseEvent,
 } from 'react'
 import { type ImageProps } from '@/components/ui/mdx/image'
 import { Spinner } from '@/components/ui/spinner'
-import { useLoading } from '@/hooks'
 import { formatFileSize } from '@/lib/utils/helper'
+
+interface Bounds {
+  x: number
+  y: number
+  width: number
+  height: number
+  naturalWidth: number
+  naturalHeight: number
+}
+
+interface Transform {
+  width: number
+  height: number
+  targetX: number
+  targetY: number
+  originalX: number
+  originalY: number
+}
+
+interface LoadProgress {
+  loaded: number
+  total: number
+}
 
 const isBlobSrc = (src: string | Blob | undefined): src is string => {
   return typeof src === 'string' && src.startsWith('blob:')
@@ -27,29 +50,15 @@ export function PhotoView({
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [imageSize, setImageSize] = useState(0)
-  const [loadSize, setLoadSize] = useState(0)
   const [zoomState, setZoomState] = useState(0) // 0 initial, 1 zooming, 2 preview
-  const [bounds, setBounds] = useState<{
-    x: number
-    y: number
-    width: number
-    height: number
-    naturalWidth: number
-    naturalHeight: number
-  } | null>(null)
-  const [transform, setTransform] = useState<{
-    width: number
-    height: number
-    targetX: number
-    targetY: number
-    originalX: number
-    originalY: number
-  } | null>(null)
-
+  const [bounds, setBounds] = useState<Bounds | null>(null)
+  const [transform, setTransform] = useState<Transform | null>(null)
+  const [loadProgress, setLoadProgress] = useState<LoadProgress>({
+    loaded: 0,
+    total: 0,
+  })
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
-  const [delay, reset] = useLoading(300)
 
   const loadImageWithProgress = useCallback(
     async (url: string): Promise<string> => {
@@ -71,8 +80,7 @@ export function PhotoView({
         const contentLength = response.headers.get('content-length')
         const total = contentLength ? parseInt(contentLength, 10) : 0
 
-        setImageSize(total)
-        setLoadSize(0)
+        setLoadProgress({ loaded: 0, total })
 
         if (!response.body) {
           throw new Error('ReadableStream not supported')
@@ -81,18 +89,16 @@ export function PhotoView({
         const reader = response.body.getReader()
         const chunks: Uint8Array[] = []
         let receivedLength = 0
-
         let lastUpdate = 0
         while (true) {
           const { done, value } = await reader.read()
           if (done) break
-
           if (value) {
             chunks.push(value)
             receivedLength += value.length
             const now = Date.now()
             if (now - lastUpdate > 100 || receivedLength >= total) {
-              setLoadSize(receivedLength)
+              setLoadProgress((prev) => ({ ...prev, loaded: receivedLength }))
               lastUpdate = now
             }
           }
@@ -106,9 +112,7 @@ export function PhotoView({
         }
 
         const blob = new Blob([allChunks])
-        const imageUrl = URL.createObjectURL(blob)
-
-        return imageUrl
+        return URL.createObjectURL(blob)
       } catch (error) {
         if (error instanceof Error && error.name === 'AbortError') {
           throw error
@@ -121,24 +125,22 @@ export function PhotoView({
   )
 
   const getPreviewTransform = useCallback(() => {
-    if (!imageRef.current) return
-    const rect = imageRef.current.getBoundingClientRect()
-    const bounds = {
+    const imageElement = imageRef.current
+    if (!imageElement) return
+    const rect = imageElement.getBoundingClientRect()
+    const bounds: Bounds = {
       x: rect.left,
       y: rect.top,
       width: rect.width,
       height: rect.height,
-      naturalWidth: imageRef.current.naturalWidth,
-      naturalHeight: imageRef.current.naturalHeight,
+      naturalWidth: imageElement.naturalWidth,
+      naturalHeight: imageElement.naturalHeight,
     }
-    setBounds(bounds)
 
-    const maxWidth = window.innerWidth
-    const maxHeight = window.innerHeight
-
+    const { innerWidth: maxWidth, innerHeight: maxHeight } = window
     const aspectRatio = bounds.naturalWidth / bounds.naturalHeight
-    let targetWidth, targetHeight
 
+    let targetWidth, targetHeight
     if (maxWidth / maxHeight > aspectRatio) {
       targetHeight = maxHeight
       targetWidth = targetHeight * aspectRatio
@@ -149,32 +151,34 @@ export function PhotoView({
 
     // Maximum zoom ratio, wiki image is 1.5x, onedrive image is 10x
     const maxScale = originalsrc ? 10 : 1.5
-    const curScale = targetWidth / bounds.width
-    if (curScale > maxScale) {
-      targetWidth = (targetWidth / curScale) * maxScale
-      targetHeight = (targetHeight / curScale) * maxScale
+    const currentScale = targetWidth / bounds.width
+    if (currentScale > maxScale) {
+      const scaleFactor = maxScale / currentScale
+      targetWidth *= scaleFactor
+      targetHeight *= scaleFactor
     }
 
-    const centerX = window.innerWidth / 2
-    const centerY = window.innerHeight / 2
+    const centerX = maxWidth / 2
+    const centerY = maxHeight / 2
     const originalCenterX = bounds.x + targetWidth / 2
     const originalCenterY = bounds.y + targetHeight / 2
-    const previewCenterX = centerX
-    const previewCenterY = centerY
 
-    const targetX = previewCenterX - originalCenterX - window.scrollX
-    const targetY = previewCenterY - originalCenterY - window.scrollY
+    const targetX = centerX - originalCenterX - window.scrollX
+    const targetY = centerY - originalCenterY - window.scrollY
     const originalX = 0
     const originalY = -window.scrollY
 
-    setTransform({
+    const transform: Transform = {
       width: targetWidth,
       height: targetHeight,
       targetX,
       targetY,
       originalX,
       originalY,
-    })
+    }
+
+    setBounds(bounds)
+    setTransform(transform)
   }, [originalsrc])
 
   const handleClose = useCallback(
@@ -190,16 +194,14 @@ export function PhotoView({
 
         setIsOpen(false)
         setIsLoading(false)
-        setImageSize(0)
-        setLoadSize(0)
+        setLoadProgress({ loaded: 0, total: 0 })
       }
     },
     [isOpen, zoomState],
   )
 
   const handleAnimationComplete = useCallback(() => {
-    const newZoomState = isOpen ? 2 : 0
-    setZoomState(newZoomState)
+    setZoomState(isOpen ? 2 : 0)
   }, [isOpen])
 
   const handleImageClick = useCallback(async () => {
@@ -207,34 +209,25 @@ export function PhotoView({
       handleClose()
     } else if (zoomState === 0) {
       getPreviewTransform()
-
-      reset()
-      await delay()
-
       setIsOpen(true)
       setZoomState(1)
 
       if (originalsrc && originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
         setIsLoading(true)
-        setLoadSize(0)
-        setImageSize(0)
+        setLoadProgress({ loaded: 0, total: 0 })
 
         try {
           const imageUrl = await loadImageWithProgress(originalsrc)
-
           setCurrentSrc(imageUrl)
           setIsLoading(false)
         } catch (error) {
           if (error instanceof Error && error.name !== 'AbortError') {
             console.error('Failed to load original image:', error)
-            setIsLoading(false)
           }
         }
       }
     }
   }, [
-    reset,
-    delay,
     originalsrc,
     zoomState,
     currentSrc,
@@ -267,43 +260,73 @@ export function PhotoView({
   }, [currentSrc])
 
   useEffect(() => {
+    if (zoomState === 0) {
+      document.body.style.overflow = 'initial'
+    } else {
+      document.body.style.overflow = 'hidden'
+    }
+  }, [zoomState])
+
+  useEffect(() => {
+    if (zoomState !== 2) return
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape') {
         handleClose()
       }
     }
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown)
-      const originalOverflow = document.body.style.overflow
-      document.body.style.overflow = 'hidden'
-
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown)
-        document.body.style.overflow = originalOverflow
-      }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isOpen, handleClose])
+  }, [zoomState, handleClose])
 
-  const progress = imageSize > 0 ? Math.round((loadSize / imageSize) * 100) : 0
+  useEffect(() => {
+    const updateBoundsPosition = () => {
+      setTransform((prev) =>
+        prev
+          ? {
+              ...prev,
+              originalY: -window.scrollY,
+            }
+          : null,
+      )
+    }
 
-  const animate = isOpen
-    ? {
-        width: transform?.width,
-        height: transform?.height,
-        x: transform?.targetX,
-        y: transform?.targetY,
-      }
-    : {
-        width: bounds?.width,
-        height: bounds?.height,
-        x: transform?.originalX,
-        y: transform?.originalY,
-      }
+    const handleScroll = () => {
+      requestAnimationFrame(updateBoundsPosition)
+    }
 
-  console.log('bounds: ', bounds)
-  console.log('transform: ', transform)
-  console.log('animate: ', animate)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const progress = useMemo(() => {
+    return loadProgress.total > 0
+      ? Math.round((loadProgress.loaded / loadProgress.total) * 100)
+      : 0
+  }, [loadProgress.loaded, loadProgress.total])
+
+  const animate = useMemo(() => {
+    if (!bounds || !transform) return {}
+
+    return isOpen
+      ? {
+          width: transform.width,
+          height: transform.height,
+          x: transform.targetX,
+          y: transform.targetY,
+        }
+      : {
+          width: bounds.width,
+          height: bounds.height,
+          x: transform.originalX,
+          y: transform.originalY,
+        }
+  }, [isOpen, bounds, transform])
+
+  console.log('animate:', isOpen, animate)
 
   return (
     <>
@@ -335,7 +358,8 @@ export function PhotoView({
               <span className="inline-flex justify-between pr-2">
                 <span>{progress}%</span>
                 <span>
-                  {formatFileSize(loadSize)} / {formatFileSize(imageSize)}
+                  {formatFileSize(loadProgress.loaded)} /{' '}
+                  {formatFileSize(loadProgress.total)}
                 </span>
               </span>
             </span>
@@ -345,7 +369,10 @@ export function PhotoView({
 
       <span
         className="relative block"
-        style={{ width: `${bounds?.width}px`, height: `${bounds?.height}px` }}
+        style={{
+          width: bounds?.width ? `${bounds.width}px` : 'auto',
+          height: bounds?.height ? `${bounds.height}px` : 'auto',
+        }}
       >
         <motion.img
           ref={imageRef}
@@ -355,18 +382,18 @@ export function PhotoView({
           height={height}
           draggable={false}
           className={clsx(
-            'm-0! origin-center cursor-pointer transition-opacity duration-300 will-change-transform',
-            zoomState !== 0
-              ? 'fixed z-101 rounded-none!'
-              : 'relative transform-none!',
+            'm-0! w-full origin-center cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
+            zoomState === 0
+              ? 'relative transform-none!'
+              : 'fixed z-101 rounded-none!',
           )}
-          animate={animate}
           transition={{
             type: 'tween',
             duration: 0.3,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
+          animate={animate}
           onLoad={handleImageLoad}
           onError={() => setIsReady(false)}
           onClick={handleImageClick}
