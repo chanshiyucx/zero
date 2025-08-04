@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { type ImageProps } from '@/components/ui/mdx/image'
 import { Spinner } from '@/components/ui/spinner'
+import { useLoading } from '@/hooks'
 import { formatFileSize } from '@/lib/utils/helper'
 
 const isBlobSrc = (src: string | Blob | undefined): src is string => {
@@ -34,15 +35,21 @@ export function PhotoView({
     y: number
     width: number
     height: number
+    naturalWidth: number
+    naturalHeight: number
   } | null>(null)
-
-  const [naturalDimensions, setNaturalDimensions] = useState<{
+  const [transform, setTransform] = useState<{
     width: number
     height: number
+    targetX: number
+    targetY: number
+    originalX: number
+    originalY: number
   } | null>(null)
 
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const [delay, reset] = useLoading(300)
 
   const loadImageWithProgress = useCallback(
     async (url: string): Promise<string> => {
@@ -114,13 +121,22 @@ export function PhotoView({
   )
 
   const getPreviewTransform = useCallback(() => {
-    if (!bounds || !naturalDimensions)
-      return { scale: 1, translateX: 0, translateY: 0 }
+    if (!imageRef.current) return
+    const rect = imageRef.current.getBoundingClientRect()
+    const bounds = {
+      x: rect.left,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height,
+      naturalWidth: imageRef.current.naturalWidth,
+      naturalHeight: imageRef.current.naturalHeight,
+    }
+    setBounds(bounds)
 
     const maxWidth = window.innerWidth
     const maxHeight = window.innerHeight
 
-    const aspectRatio = naturalDimensions.width / naturalDimensions.height
+    const aspectRatio = bounds.naturalWidth / bounds.naturalHeight
     let targetWidth, targetHeight
 
     if (maxWidth / maxHeight > aspectRatio) {
@@ -151,15 +167,15 @@ export function PhotoView({
     const originalX = 0
     const originalY = -window.scrollY
 
-    return {
+    setTransform({
       width: targetWidth,
       height: targetHeight,
       targetX,
       targetY,
       originalX,
       originalY,
-    }
-  }, [bounds, originalsrc, naturalDimensions])
+    })
+  }, [originalsrc])
 
   const handleClose = useCallback(
     (e?: MouseEvent) => {
@@ -187,65 +203,60 @@ export function PhotoView({
   }, [isOpen])
 
   const handleImageClick = useCallback(async () => {
-    if (!imageRef.current) return
-    if (isOpen) {
-      if (zoomState === 2) {
-        handleClose()
-      }
-      return
-    }
+    if (zoomState === 2) {
+      handleClose()
+    } else if (zoomState === 0) {
+      getPreviewTransform()
 
-    const rect = imageRef.current.getBoundingClientRect()
-    setBounds({
-      x: rect.left,
-      y: rect.top,
-      width: rect.width,
-      height: rect.height,
-    })
+      reset()
+      await delay()
 
-    const naturalDims = {
-      width: imageRef.current.naturalWidth,
-      height: imageRef.current.naturalHeight,
-    }
-    setNaturalDimensions(naturalDims)
-
-    setTimeout(() => {
       setIsOpen(true)
       setZoomState(1)
-    }, 200)
 
-    if (originalsrc && originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
-      setIsLoading(true)
-      setLoadSize(0)
-      setImageSize(0)
+      if (originalsrc && originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
+        setIsLoading(true)
+        setLoadSize(0)
+        setImageSize(0)
 
-      try {
-        const imageUrl = await loadImageWithProgress(originalsrc)
+        try {
+          const imageUrl = await loadImageWithProgress(originalsrc)
 
-        setCurrentSrc(imageUrl)
-        setIsLoading(false)
-      } catch (error) {
-        if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('Failed to load original image:', error)
+          setCurrentSrc(imageUrl)
           setIsLoading(false)
+        } catch (error) {
+          if (error instanceof Error && error.name !== 'AbortError') {
+            console.error('Failed to load original image:', error)
+            setIsLoading(false)
+          }
         }
       }
     }
   }, [
-    isOpen,
+    reset,
+    delay,
     originalsrc,
     zoomState,
     currentSrc,
-    loadImageWithProgress,
     handleClose,
+    loadImageWithProgress,
+    getPreviewTransform,
   ])
+
+  const handleImageLoad = useCallback(() => {
+    setIsReady(true)
+
+    if (src === currentSrc) {
+      getPreviewTransform()
+    }
+  }, [getPreviewTransform, src, currentSrc])
 
   // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
   useEffect(() => {
     if (imageRef.current?.complete) {
-      setIsReady(true)
+      handleImageLoad()
     }
-  }, [])
+  }, [handleImageLoad])
 
   useEffect(() => {
     return () => {
@@ -275,21 +286,24 @@ export function PhotoView({
   }, [isOpen, handleClose])
 
   const progress = imageSize > 0 ? Math.round((loadSize / imageSize) * 100) : 0
-  const previewTransform = getPreviewTransform()
 
   const animate = isOpen
     ? {
-        width: previewTransform.width,
-        height: previewTransform.height,
-        x: previewTransform.targetX,
-        y: previewTransform.targetY,
+        width: transform?.width,
+        height: transform?.height,
+        x: transform?.targetX,
+        y: transform?.targetY,
       }
     : {
         width: bounds?.width,
         height: bounds?.height,
-        x: previewTransform.originalX,
-        y: previewTransform.originalY,
+        x: transform?.originalX,
+        y: transform?.originalY,
       }
+
+  console.log('bounds: ', bounds)
+  console.log('transform: ', transform)
+  console.log('animate: ', animate)
 
   return (
     <>
@@ -353,7 +367,7 @@ export function PhotoView({
             duration: 0.3,
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
-          onLoad={() => setIsReady(true)}
+          onLoad={handleImageLoad}
           onError={() => setIsReady(false)}
           onClick={handleImageClick}
           onAnimationComplete={handleAnimationComplete}
