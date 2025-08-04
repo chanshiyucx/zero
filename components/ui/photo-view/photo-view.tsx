@@ -24,10 +24,8 @@ interface Bounds {
 interface Transform {
   width: number
   height: number
-  targetX: number
-  targetY: number
-  originalX: number
-  originalY: number
+  top: number
+  left: number
 }
 
 interface LoadProgress {
@@ -158,27 +156,16 @@ export function PhotoView({
       targetHeight *= scaleFactor
     }
 
-    const centerX = maxWidth / 2
-    const centerY = maxHeight / 2
-    const originalCenterX = bounds.x + targetWidth / 2
-    const originalCenterY = bounds.y + targetHeight / 2
-
-    const targetX = centerX - originalCenterX - window.scrollX
-    const targetY = centerY - originalCenterY - window.scrollY
-    const originalX = 0
-    const originalY = -window.scrollY
-
-    const transform: Transform = {
-      width: targetWidth,
-      height: targetHeight,
-      targetX,
-      targetY,
-      originalX,
-      originalY,
-    }
+    const targetTop = window.innerHeight / 2 - targetHeight / 2 - rect.top
+    const targetLeft = window.innerWidth / 2 - targetWidth / 2 - rect.left
 
     setBounds(bounds)
-    setTransform(transform)
+    setTransform({
+      width: targetWidth,
+      height: targetHeight,
+      top: targetTop,
+      left: targetLeft,
+    })
   }, [originalsrc])
 
   const handleClose = useCallback(
@@ -236,20 +223,12 @@ export function PhotoView({
     getPreviewTransform,
   ])
 
-  const handleImageLoad = useCallback(() => {
-    setIsReady(true)
-
-    if (src === currentSrc) {
-      getPreviewTransform()
-    }
-  }, [getPreviewTransform, src, currentSrc])
-
   // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
   useEffect(() => {
     if (imageRef.current?.complete) {
-      handleImageLoad()
+      setIsReady(true)
     }
-  }, [handleImageLoad])
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -282,26 +261,6 @@ export function PhotoView({
     }
   }, [zoomState, handleClose])
 
-  useEffect(() => {
-    const updateBoundsPosition = () => {
-      setTransform((prev) =>
-        prev
-          ? {
-              ...prev,
-              originalY: -window.scrollY,
-            }
-          : null,
-      )
-    }
-
-    const handleScroll = () => {
-      requestAnimationFrame(updateBoundsPosition)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const progress = useMemo(() => {
     return loadProgress.total > 0
       ? Math.round((loadProgress.loaded / loadProgress.total) * 100)
@@ -315,18 +274,16 @@ export function PhotoView({
       ? {
           width: transform.width,
           height: transform.height,
-          x: transform.targetX,
-          y: transform.targetY,
+          y: transform.top,
+          x: transform.left,
         }
       : {
           width: bounds.width,
           height: bounds.height,
-          x: transform.originalX,
-          y: transform.originalY,
+          y: 0,
+          x: 0,
         }
   }, [isOpen, bounds, transform])
-
-  console.log('animate:', isOpen, animate)
 
   return (
     <>
@@ -370,8 +327,7 @@ export function PhotoView({
       <span
         className="relative block"
         style={{
-          width: bounds?.width ? `${bounds.width}px` : 'auto',
-          height: bounds?.height ? `${bounds.height}px` : 'auto',
+          aspectRatio: height ? `${width}/${height}` : '3/2',
         }}
       >
         <motion.img
@@ -382,11 +338,9 @@ export function PhotoView({
           height={height}
           draggable={false}
           className={clsx(
-            'm-0! w-full origin-center cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
+            'absolute m-0! h-full w-full max-w-none origin-center cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
-            zoomState === 0
-              ? 'relative transform-none!'
-              : 'fixed z-101 rounded-none!',
+            zoomState !== 0 && 'z-101 rounded-none!',
           )}
           transition={{
             type: 'tween',
@@ -394,7 +348,7 @@ export function PhotoView({
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
           animate={animate}
-          onLoad={handleImageLoad}
+          onLoad={() => setIsReady(true)}
           onError={() => setIsReady(false)}
           onClick={handleImageClick}
           onAnimationComplete={handleAnimationComplete}
