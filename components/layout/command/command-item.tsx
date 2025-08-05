@@ -38,7 +38,7 @@ export const CommandItem = ({
         {icon}
         <span
           className={clsx(
-            '"inline-block whitespace-nowrap" overflow-hidden text-ellipsis',
+            'inline-block overflow-hidden text-ellipsis whitespace-nowrap',
             className,
           )}
         >
