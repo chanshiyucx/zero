@@ -1,49 +1,37 @@
 'use client'
 
 import { CaretDoubleUpIcon } from '@phosphor-icons/react/dist/ssr'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { throttle } from '@/lib/utils/lodash'
 import { TinyButton } from './tiny-button'
 
 export function ScrollTop() {
   const [showBackTop, setShowBackTop] = useState(false)
 
-  const backToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  const backToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
+
+  const handleScrollAndResize = useCallback(() => {
+    const { innerHeight, scrollY } = window
+    setShowBackTop(scrollY > innerHeight / 5)
+  }, [])
 
   useEffect(() => {
-    const readViewport = throttle(() => {
-      const { innerHeight, scrollY } = window
-      setShowBackTop(scrollY > innerHeight / 5)
-    }, 16)
+    const throttledHandler = throttle(handleScrollAndResize, 16)
+    throttledHandler()
 
-    readViewport()
+    window.addEventListener('scroll', throttledHandler)
+    window.addEventListener('resize', throttledHandler)
 
-    window.addEventListener('resize', readViewport)
     return () => {
-      window.removeEventListener('resize', readViewport)
+      window.removeEventListener('scroll', throttledHandler)
+      window.removeEventListener('resize', throttledHandler)
     }
-  }, [])
-
-  useEffect(() => {
-    const scrollHandler = throttle(
-      () => {
-        const { innerHeight, scrollY } = window
-        setShowBackTop(scrollY > innerHeight / 5)
-      },
-      16,
-      {
-        leading: false,
-      },
-    )
-
-    scrollHandler()
-
-    window.addEventListener('scroll', scrollHandler)
-    return () => window.removeEventListener('scroll', scrollHandler)
-  }, [])
+  }, [handleScrollAndResize])
 
   return (
-    <TinyButton className={!showBackTop ? 'hidden' : ''} onClick={backToTop}>
+    <TinyButton show={showBackTop} onClick={backToTop}>
       <CaretDoubleUpIcon className="text-xl" weight="duotone" />
     </TinyButton>
   )
