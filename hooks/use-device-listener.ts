@@ -9,13 +9,11 @@ export function useDeviceListener(breakpoint = 768) {
   useEffect(() => {
     setIsMobile(getIsMobile())
 
-    const debouncedCheck = debounce(() => {
+    const check = debounce(() => {
       setIsMobile(window.innerWidth < breakpoint)
     }, 200)
 
-    window.addEventListener('resize', debouncedCheck)
-    return () => {
-      window.removeEventListener('resize', debouncedCheck)
-    }
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
   }, [breakpoint, setIsMobile])
 }
