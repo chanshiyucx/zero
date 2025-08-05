@@ -49,7 +49,6 @@ export function PhotoView({
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [zoomState, setZoomState] = useState(0) // 0 initial, 1 zooming, 2 preview
-  const [bounds, setBounds] = useState<Bounds | null>(null)
   const [transform, setTransform] = useState<Transform | null>(null)
   const [loadProgress, setLoadProgress] = useState<LoadProgress>({
     loaded: 0,
@@ -158,7 +157,6 @@ export function PhotoView({
     const targetTop = window.innerHeight / 2 - targetHeight / 2 - bounds.y
     const targetLeft = window.innerWidth / 2 - targetWidth / 2 - bounds.x
 
-    setBounds(bounds)
     setTransform({
       width: targetWidth,
       height: targetHeight,
@@ -173,7 +171,7 @@ export function PhotoView({
         e.stopPropagation()
       }
 
-      if (isOpen && zoomState === 2) {
+      if (zoomState === 2) {
         if (abortControllerRef.current) {
           abortControllerRef.current.abort()
         }
@@ -183,7 +181,7 @@ export function PhotoView({
         setLoadProgress({ loaded: 0, total: 0 })
       }
     },
-    [isOpen, zoomState],
+    [zoomState],
   )
 
   const handleAnimationComplete = useCallback(() => {
@@ -246,8 +244,6 @@ export function PhotoView({
   }, [zoomState])
 
   useEffect(() => {
-    if (zoomState !== 2) return
-
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         handleClose()
@@ -255,10 +251,8 @@ export function PhotoView({
     }
 
     document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [zoomState, handleClose])
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleClose])
 
   const progress = useMemo(() => {
     return loadProgress.total > 0
@@ -267,7 +261,7 @@ export function PhotoView({
   }, [loadProgress.loaded, loadProgress.total])
 
   const animate = useMemo(() => {
-    if (!bounds || !transform) return {}
+    if (!transform) return {}
 
     return isOpen
       ? {
@@ -276,13 +270,8 @@ export function PhotoView({
           y: transform.top,
           x: transform.left,
         }
-      : {
-          width: bounds.width,
-          height: bounds.height,
-          y: 0,
-          x: 0,
-        }
-  }, [isOpen, bounds, transform])
+      : {}
+  }, [isOpen, transform])
 
   return (
     <>
