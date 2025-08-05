@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
+  memo,
   useCallback,
   useEffect,
   useMemo,
@@ -37,17 +38,12 @@ const isBlobSrc = (src: string | Blob | undefined): src is string => {
   return typeof src === 'string' && src.startsWith('blob:')
 }
 
-export function PhotoView({
-  src,
-  originalsrc,
-  alt,
-  width,
-  height,
-}: ImageProps) {
+function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   const [currentSrc, setCurrentSrc] = useState(src)
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isInteracting, setIsInteracting] = useState(false)
   const [zoomState, setZoomState] = useState(0) // 0 initial, 1 zooming, 2 preview
   const [transform, setTransform] = useState<Transform | null>(null)
   const [loadProgress, setLoadProgress] = useState<LoadProgress>({
@@ -186,12 +182,20 @@ export function PhotoView({
 
   const handleAnimationComplete = useCallback(() => {
     setZoomState(isOpen ? 2 : 0)
+    if (!isOpen) {
+      setIsInteracting(false)
+    }
   }, [isOpen])
 
   const handleImageClick = useCallback(async () => {
     if (zoomState === 2) {
       handleClose()
     } else if (zoomState === 0) {
+      setIsInteracting(true)
+
+      // waiting will-change classname to be added
+      await new Promise((resolve) => requestAnimationFrame(resolve))
+
       getPreviewTransform()
       setIsOpen(true)
       setZoomState(1)
@@ -325,9 +329,10 @@ export function PhotoView({
           draggable={false}
           loading="lazy"
           className={clsx(
-            'm-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
+            'absolute m-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
-            zoomState === 0 ? 'relative' : 'absolute z-101 rounded-none!',
+            zoomState !== 0 && 'z-101 rounded-none!',
+            isInteracting && 'will-change-transform',
           )}
           transition={{
             type: 'tween',
@@ -348,3 +353,5 @@ export function PhotoView({
     </>
   )
 }
+
+export const PhotoView = memo(Preview)
