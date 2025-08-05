@@ -251,6 +251,11 @@ export function Command() {
     [contentLists, navigateAndClose],
   )
 
+  const allGroups = useMemo(
+    () => [...actionGroups, ...searchGroups],
+    [actionGroups, searchGroups],
+  )
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -284,8 +289,6 @@ export function Command() {
   }, [register, actionGroups, openSearchPage])
 
   if (!open) return null
-
-  const allGroups = [...actionGroups, ...searchGroups]
 
   return (
     <CommandMenu>
