@@ -115,7 +115,7 @@
   .tail {
     @apply bg-overlay absolute bottom-0.5 -left-2 h-4 w-4 rounded-full;
 
-    &:before {
+    &::before {
       @apply bg-overlay absolute -bottom-2 -left-2 h-2 w-2 rounded-full content-[''];
     }
   }
@@ -234,65 +234,66 @@
     height: calc(var(--cat-size) * 0.596);
     width: calc(var(--cat-size) * 0.574);
     margin: 0 calc(var(--cat-size) * 0.179);
-  }
 
-  .the-cat:before,
-  .the-cat:after {
-    @apply absolute h-0 w-0;
-    content: '';
-    top: calc(var(--cat-size) * -0.08);
-    border-bottom: calc(var(--cat-size) * 0.085) solid var(--cat-body-light);
-  }
+    &::before,
+    &::after {
+      @apply absolute h-0 w-0;
+      content: '';
+      top: calc(var(--cat-size) * -0.08);
+      border-bottom: calc(var(--cat-size) * 0.085) solid var(--cat-body-light);
+    }
 
-  .the-cat:before {
-    @apply left-0;
-    border-left: 0 solid transparent;
-    border-right: calc(var(--cat-size) * 0.128) solid transparent;
-  }
+    &::before {
+      @apply left-0;
+      border-left: 0 solid transparent;
+      border-right: calc(var(--cat-size) * 0.128) solid transparent;
+    }
 
-  .the-cat:after {
-    @apply right-0;
-    border-right: 0 solid transparent;
-    border-left: calc(var(--cat-size) * 0.128) solid transparent;
-  }
+    &::after {
+      @apply right-0;
+      border-right: 0 solid transparent;
+      border-left: calc(var(--cat-size) * 0.128) solid transparent;
+    }
 
-  .the-cat .eyes {
-    @apply absolute block bg-[var(--cat-sun)];
-    height: calc(var(--cat-size) * 0.17);
-    width: calc(var(--cat-size) * 0.17);
-    bottom: calc(var(--cat-size) * 0.34);
-    border-radius: 100%;
-  }
+    .eyes {
+      @apply absolute block bg-[var(--cat-sun)];
+      height: calc(var(--cat-size) * 0.17);
+      width: calc(var(--cat-size) * 0.17);
+      bottom: calc(var(--cat-size) * 0.34);
+      border-radius: 100%;
+    }
 
-  .the-cat .eyes.left {
-    left: calc(var(--cat-size) * 0.051);
-  }
+    .eyes.left {
+      left: calc(var(--cat-size) * 0.051);
+    }
 
-  .the-cat .eyes.right {
-    right: calc(var(--cat-size) * 0.051);
-  }
+    .eyes.right {
+      right: calc(var(--cat-size) * 0.051);
+    }
 
-  .the-cat .eyes .pupil {
-    @apply relative mx-auto block h-full bg-[var(--cat-border)] transition-all duration-500;
-    width: calc(var(--cat-size) * 0.021);
-    border-radius: 100%;
-  }
+    .eyes .pupil {
+      @apply relative mx-auto block h-full bg-[var(--cat-border)] transition-all duration-500;
+      width: calc(var(--cat-size) * 0.021);
+      border-radius: 100%;
+    }
 
-  .the-cat .nose {
-    @apply relative mx-auto block rounded-full bg-[var(--cat-border)];
-    height: calc(var(--cat-size) * 0.043);
-    width: calc(var(--cat-size) * 0.043);
-    top: calc(var(--cat-size) * 0.191);
+    .nose {
+      @apply relative mx-auto block rounded-full bg-[var(--cat-border)];
+      height: calc(var(--cat-size) * 0.043);
+      width: calc(var(--cat-size) * 0.043);
+      top: calc(var(--cat-size) * 0.191);
+    }
   }
 
   @media (hover: hover) {
     &:hover {
       .the-cat {
         bottom: calc(var(--cat-size) * -0.17);
-      }
-      .the-cat .eyes {
-        height: calc(var(--cat-size) * 0.034);
-        bottom: calc(var(--cat-size) * 0.426);
+
+        .eyes {
+          height: calc(var(--cat-size) * 0.034);
+          bottom: calc(var(--cat-size) * 0.426);
+        }
       }
     }
   }
@@ -310,17 +311,17 @@
 
     .the-cat {
       @apply bg-[var(--cat-body-dark)];
-    }
 
-    .the-cat:before,
-    .the-cat:after {
-      @apply border-b-[var(--cat-body-dark)];
-    }
+      &::before,
+      &::after {
+        @apply border-b-[var(--cat-body-dark)];
+      }
 
-    .the-cat .eyes .pupil {
-      height: 90%;
-      width: calc(var(--cat-size) * 0.145);
-      margin: 5% auto;
+      .eyes .pupil {
+        height: 90%;
+        width: calc(var(--cat-size) * 0.145);
+        margin: 5% auto;
+      }
     }
 
     &:hover {
