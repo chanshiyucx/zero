@@ -77,7 +77,6 @@ export function PhotoView({
 
         const contentLength = response.headers.get('content-length')
         const total = contentLength ? parseInt(contentLength, 10) : 0
-
         setLoadProgress({ loaded: 0, total })
 
         if (!response.body) {
@@ -156,8 +155,8 @@ export function PhotoView({
       targetHeight *= scaleFactor
     }
 
-    const targetTop = window.innerHeight / 2 - targetHeight / 2 - rect.top
-    const targetLeft = window.innerWidth / 2 - targetWidth / 2 - rect.left
+    const targetTop = window.innerHeight / 2 - targetHeight / 2 - bounds.y
+    const targetLeft = window.innerWidth / 2 - targetWidth / 2 - bounds.x
 
     setBounds(bounds)
     setTransform({
@@ -326,9 +325,7 @@ export function PhotoView({
 
       <span
         className="relative block"
-        style={{
-          aspectRatio: height ? `${width}/${height}` : '3/2',
-        }}
+        style={{ aspectRatio: `${width}/${height}` }}
       >
         <motion.img
           ref={imageRef}
@@ -339,9 +336,9 @@ export function PhotoView({
           draggable={false}
           loading="lazy"
           className={clsx(
-            'absolute m-0! h-full w-full max-w-none origin-center cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
+            'm-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300 will-change-transform',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
-            zoomState !== 0 && 'z-101 rounded-none!',
+            zoomState === 0 ? 'relative' : 'absolute z-101 rounded-none!',
           )}
           transition={{
             type: 'tween',
