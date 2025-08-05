@@ -111,7 +111,9 @@ function Player({ src }: AudioPlayerProps) {
 
         const picture = metadata.common.picture?.[0]
         if (picture) {
-          const coverBlob = new Blob([picture.data], { type: picture.format })
+          const coverBlob = new Blob([new Uint8Array(picture.data)], {
+            type: picture.format,
+          })
           const url = URL.createObjectURL(coverBlob)
           setCoverUrl(url)
         }
