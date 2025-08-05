@@ -9,6 +9,7 @@ import {
 import { parseBlob } from 'music-metadata'
 import Image from 'next/image'
 import {
+  memo,
   useCallback,
   useEffect,
   useRef,
@@ -24,14 +25,15 @@ interface AudioPlayerProps {
   src: string
 }
 
-export function AudioPlayer({ src }: AudioPlayerProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isRepeat, setIsRepeat] = useState(false)
+function Player({ src }: AudioPlayerProps) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [title, setTitle] = useState<string>('')
   const [coverUrl, setCoverUrl] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isRepeat, setIsRepeat] = useState(false)
+  const isRepeatRef = useRef(isRepeat)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const cleanupCoverUrl = useCallback((url: string | null) => {
@@ -39,6 +41,10 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
       URL.revokeObjectURL(url)
     }
   }, [])
+
+  useEffect(() => {
+    isRepeatRef.current = isRepeat
+  }, [isRepeat])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -54,7 +60,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
     }
 
     const handleEnded = () => {
-      if (isRepeat) {
+      if (isRepeatRef.current) {
         audio.currentTime = 0
         audio.play().catch(console.error)
       } else {
@@ -78,7 +84,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
       audio.removeEventListener('play', handlePlay)
       audio.removeEventListener('pause', handlePause)
     }
-  }, [isRepeat])
+  }, [])
 
   useEffect(() => {
     let isCancelled = false
@@ -129,10 +135,13 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
   }, [src, cleanupCoverUrl])
 
   useEffect(() => {
+    const urlToCleanup = coverUrl
     return () => {
-      cleanupCoverUrl(coverUrl)
+      if (urlToCleanup) {
+        cleanupCoverUrl(urlToCleanup)
+      }
     }
-  }, [])
+  }, [coverUrl, cleanupCoverUrl])
 
   const togglePlayPause = useCallback(async () => {
     const audio = audioRef.current
@@ -283,7 +292,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
               disabled={isLoading}
               aria-label="Forward 10 seconds"
             >
-              <FastForwardIcon size={26} weight="duotone" />
+              <FastForwardIcon size={24} weight="duotone" />
             </button>
           </div>
         </div>
@@ -337,3 +346,5 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
     </div>
   )
 }
+
+export const AudioPlayer = memo(Player)
