@@ -103,7 +103,6 @@
   0% {
     transform: translate(-50%, -75%) rotate(0deg);
   }
-
   100% {
     transform: translate(-50%, -75%) rotate(360deg);
   }
@@ -114,16 +113,20 @@
     stroke-dashoffset: var(--path-length);
     fill: var(--color-muted);
   }
+  30% {
+    fill: var(--color-text);
+  }
   40% {
     stroke-dashoffset: 0;
     fill: var(--color-text);
   }
-
+  50% {
+    fill: var(--color-text);
+  }
   80% {
     stroke-dashoffset: var(--path-length);
     fill: var(--color-muted);
   }
-
   100% {
     stroke-dashoffset: var(--path-length);
     fill: var(--color-muted);

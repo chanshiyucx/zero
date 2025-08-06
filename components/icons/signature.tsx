@@ -13,7 +13,7 @@ const Signature = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
         strokeLinecap="round"
         fillRule="evenodd"
         stroke="var(--color-muted)"
-        strokeWidth="0.25mm"
+        strokeWidth="2px"
         fill="none"
       >
         <path
