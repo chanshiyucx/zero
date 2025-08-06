@@ -1,14 +1,8 @@
-import type { SVGProps } from 'react'
+import { type SVGProps } from 'react'
 
 export function NodeJS(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 -99 512 512"
-      {...props}
-    >
+    <svg width="1em" height="1em" viewBox="0 -99 512 512" {...props}>
       <defs>
         <linearGradient
           id="b"

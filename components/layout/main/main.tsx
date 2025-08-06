@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Logo } from '@/components/ui/logo'
 import { random } from '@/lib/utils/helper'
 import { Explore } from './explore'
 import { TypedWriter } from './typed-writer'
@@ -10,9 +11,11 @@ export function Main() {
     <div className="flex h-fit w-full flex-col gap-20 max-md:gap-12">
       <div className="relative flex items-center justify-between max-md:justify-center">
         <div className="z-10 flex flex-col items-start gap-4 italic">
-          <h1 className="w-full text-6xl font-extrabold drop-shadow-lg max-md:text-center">
+          {/* <h1 className="w-full text-6xl font-extrabold drop-shadow-lg max-md:text-center">
             Shiyu,
-          </h1>
+          </h1> */}
+          <Logo />
+
           <div className="text-subtle min-h-9 text-2xl">
             <TypedWriter />
           </div>
