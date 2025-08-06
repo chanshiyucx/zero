@@ -2,13 +2,7 @@ import { SVGProps } from 'react'
 
 export function Moon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
       <g fill="currentColor" fillOpacity="0">
         <path d="M15.22 6.03l2.53-1.94L14.56 4L13.5 1l-1.06 3l-3.19.09l2.53 1.94l-.91 3.06l2.63-1.81l2.63 1.81z">
           <animate

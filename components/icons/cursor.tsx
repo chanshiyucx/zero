@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react'
+import { type SVGProps } from 'react'
 
 interface CursorProps extends SVGProps<SVGSVGElement> {
   variant?: 'dark' | 'light'

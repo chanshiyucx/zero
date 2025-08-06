@@ -1,13 +1,8 @@
-import type { SVGProps } from 'react'
+import { type SVGProps } from 'react'
 
 export function Cat(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      viewBox="0 0 493 470"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg viewBox="0 0 493 470" fill="none" {...props}>
       <circle className="eye fill-[#ffee94]" cx={320.377} cy={151.203} r={44} />
       <circle className="eye fill-[#ffee94]" cx={429.549} cy={151.203} r={44} />
       <circle

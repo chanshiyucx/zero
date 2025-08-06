@@ -108,3 +108,24 @@
     transform: translate(-50%, -75%) rotate(360deg);
   }
 }
+
+@keyframes svg-text {
+  0% {
+    stroke-dashoffset: var(--path-length);
+    fill: var(--color-muted);
+  }
+  40% {
+    stroke-dashoffset: 0;
+    fill: var(--color-text);
+  }
+
+  80% {
+    stroke-dashoffset: var(--path-length);
+    fill: var(--color-muted);
+  }
+
+  100% {
+    stroke-dashoffset: var(--path-length);
+    fill: var(--color-muted);
+  }
+}

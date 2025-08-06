@@ -1,8 +1,8 @@
-import type { SVGProps } from 'react'
+import { type SVGProps } from 'react'
 
 export function Space(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" {...props}>
+    <svg viewBox="0 0 800 600" {...props}>
       <defs>
         <clipPath id="a">
           <path d="M380.857 346.164c-1.247 4.651-4.668 8.421-9.196 10.06-9.332 3.377-26.2 7.817-42.301 3.5s-28.485-16.599-34.877-24.192c-3.101-3.684-4.177-8.66-2.93-13.311l7.453-27.798a6.948 6.948 0 0 1 6.088-5.13c6.755-.61 20.546-.608 41.785 5.087s33.181 12.591 38.725 16.498a6.948 6.948 0 0 1 2.705 7.488l-7.452 27.798z" />
