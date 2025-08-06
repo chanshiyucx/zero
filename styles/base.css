@@ -49,7 +49,6 @@
 
   pre[data-language] {
     @apply p-0!;
-    @apply after:absolute after:right-4 after:bottom-3 after:uppercase after:content-[attr(data-language)];
 
     code {
       @apply py-3!;
