@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Card } from '@/components/ui/card'
 import { Github } from '@/components/ui/github'
 import { getGithubRepositories } from '@/lib/api'
 
@@ -22,10 +23,12 @@ export default async function Page() {
       <ul className="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-3 max-md:grid-cols-[repeat(2,minmax(0,1fr))] max-sm:grid-cols-[repeat(1,minmax(0,1fr))]">
         {repositories.map((repo) => (
           <li key={repo.name}>
-            <Github
-              repo={repo}
-              className="bg-surface hover:bg-muted/10 transition"
-            />
+            <Card>
+              <Github
+                repo={repo}
+                className="bg-surface hover:bg-muted/10 transition"
+              />
+            </Card>
           </li>
         ))}
       </ul>
