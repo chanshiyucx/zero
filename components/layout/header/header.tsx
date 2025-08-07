@@ -110,11 +110,12 @@ export function Header() {
         className="flex items-center gap-1 py-3 text-xl font-bold italic"
       >
         <Image
-          src="/apple-touch-icon.png"
+          src="/icon.svg"
           alt="Site Logo"
-          width={24}
-          height={24}
+          width={16}
+          height={16}
           priority
+          className="mb-0.5"
         />
         Shiyu
       </Link>

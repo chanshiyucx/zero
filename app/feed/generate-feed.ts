@@ -11,7 +11,7 @@ export function generateFeed() {
     description: siteConfig.metadata.description,
     id: siteConfig.webserver.host,
     link: siteConfig.webserver.host,
-    favicon: `${siteConfig.webserver.host}/favicon.ico`,
+    favicon: `${siteConfig.webserver.host}/icon.png`,
     copyright: `All rights reserved ${date.getFullYear()}, Chanshiyu.`,
     updated: list.length > 0 ? new Date(list[0].date) : date,
     feedLinks: {
