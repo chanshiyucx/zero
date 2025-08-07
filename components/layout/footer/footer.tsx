@@ -1,14 +1,20 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/constants/config'
-import { Emoji } from './emoji'
 
 export function Footer() {
   return (
     <footer className="my-3 flex items-center justify-between gap-3 text-sm">
       <div className="flex gap-1">
-        <Emoji />
-        <p className="ml-1">
-          Chanshiyu
+        <Image
+          src="/icon.svg"
+          alt="Site Logo"
+          width={12}
+          height={12}
+          priority
+        />
+        <p>
+          Shiyu
           <span className="ml-1 inline-block translate-y-0.5">&copy; </span>
           2016-{new Date().getFullYear()}
         </p>
