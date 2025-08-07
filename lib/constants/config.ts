@@ -18,6 +18,7 @@ export const siteConfig = {
     linkedIn: 'https://linkedin.com/in/xinchen-cx',
     twitter: 'https://x.com/chanshiyucx',
     wakatime: 'https://wakatime.com/@Reverie',
+    discord: 'https://discord.gg/Nxmuaycj',
     cvPdf:
       'https://chanshiyucx.github.io/cv/Xin%20Chen%20-%20FrontEnd%20Engineer%20Resume.pdf',
     cv: 'https://chanshiyucx.github.io/cv/',
