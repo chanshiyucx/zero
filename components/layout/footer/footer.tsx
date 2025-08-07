@@ -12,6 +12,7 @@ export function Footer() {
           width={12}
           height={12}
           priority
+          className="animate-spin duration-2000"
         />
         <p>
           Shiyu
