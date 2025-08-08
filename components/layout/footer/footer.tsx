@@ -1,10 +1,27 @@
+import {
+  CompassIcon,
+  DiscordLogoIcon,
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  RssSimpleIcon,
+  XLogoIcon,
+} from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/constants/config'
 
+const socialLinks = [
+  { href: '/feed', icon: RssSimpleIcon },
+  { href: '/sitemap', icon: CompassIcon },
+  { href: siteConfig.links.twitter, icon: XLogoIcon },
+  { href: siteConfig.links.discord, icon: DiscordLogoIcon },
+  { href: siteConfig.links.github, icon: GithubLogoIcon },
+  { href: siteConfig.links.linkedIn, icon: LinkedinLogoIcon },
+] as const
+
 export function Footer() {
   return (
-    <footer className="my-3 flex items-center justify-between gap-3 text-sm">
+    <footer className="my-3 flex items-center justify-between gap-5 text-sm max-md:flex-col-reverse max-md:gap-3">
       <div className="flex gap-1">
         <Image
           src="/icon.svg"
@@ -20,21 +37,24 @@ export function Footer() {
           2016-{new Date().getFullYear()}
         </p>
       </div>
-      <div className="flex gap-3 max-md:hidden">
-        <Link href="/sitemap" className="link">
-          Sitemap
-        </Link>
-        <Link href="/feed" className="link">
-          RSS
-        </Link>
-        <a
-          href={siteConfig.links.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link"
-        >
-          Github
-        </a>
+      <div className="text-muted flex gap-5 text-lg">
+        {socialLinks.map(({ href, icon: Icon }, index) => {
+          const external = href.startsWith('http')
+          const linkProps = external
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : {}
+
+          const LinkComponent = external ? 'a' : Link
+
+          return (
+            <LinkComponent key={index} href={href} {...linkProps}>
+              <Icon
+                weight="fill"
+                className="hover:text-subtle transition-colors duration-300"
+              />
+            </LinkComponent>
+          )
+        })}
       </div>
     </footer>
   )

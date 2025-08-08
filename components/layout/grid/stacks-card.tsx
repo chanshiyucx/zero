@@ -95,7 +95,7 @@ function Marquee({
           : undefined,
       }}
     >
-      {range(0, 2).map((i) => (
+      {range(0, 3).map((i) => (
         <div
           key={i}
           data-direction={direction}
