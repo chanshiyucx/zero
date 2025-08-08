@@ -19,7 +19,7 @@ export function GithubStats() {
           alt="Github Stats"
           width={362}
           height={144}
-          className="w-auto object-cover"
+          className="object-cover"
         />
       </a>
     </Card>
