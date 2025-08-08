@@ -50,9 +50,8 @@
 }
 
 @utility menu-button {
-  @apply text-subtle inline-block cursor-pointer rounded-lg leading-none font-semibold transition-all duration-300;
-  @apply hover:bg-muted/20;
-  @apply data-[isactive='true']:text-text w-full p-2 text-center;
+  @apply text-subtle hover:bg-muted/20 inline-block w-full cursor-pointer rounded-lg p-2 text-center leading-none font-semibold transition-all duration-300;
+  @apply data-[isactive='true']:text-rose;
 }
 
 @utility tiny-button {
