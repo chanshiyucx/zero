@@ -1,9 +1,25 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="256" cy="256" r="256" fill="url(#paint0_linear_1_8)"/>
-<defs>
-<linearGradient id="paint0_linear_1_8" x1="512" y1="512" x2="0" y2="0" gradientUnits="userSpaceOnUse">
-<stop offset="0.14" stop-color="#EB6F92"/>
-<stop offset="0.86" stop-color="#F6C177"/>
-</linearGradient>
-</defs>
+  <style>
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .rotatable-group {
+      transform-origin: center;
+      animation: spin 2s linear infinite;
+    }
+  </style>
+  <circle class="rotatable-group" cx="256" cy="256" r="256" fill="url(#paint0_linear_1_8)" />
+  <defs>
+    <linearGradient id="paint0_linear_1_8" x1="512" y1="512" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0.14" stop-color="#EB6F92" />
+      <stop offset="0.86" stop-color="#F6C177" />
+    </linearGradient>
+  </defs>
 </svg>
