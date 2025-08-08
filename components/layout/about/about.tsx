@@ -1,7 +1,7 @@
+import { HandWavingIcon } from '@phosphor-icons/react/dist/ssr'
 import NextLink, { LinkProps } from 'next/link'
 import type { JSX, SVGProps } from 'react'
 import {
-  Hand,
   Java,
   JavaScript,
   Python,
@@ -73,7 +73,7 @@ export function About() {
       <h2 className="text-subtle text-xs">Full-Stack Developer</h2>
 
       <p>
-        <Hand width="1.3rem" height="1.3rem" />
+        <HandWavingIcon weight="duotone" className="mr-1 inline text-xl" />
         <span>Hello, welcome to my little corner on the web!</span>
       </p>
 
