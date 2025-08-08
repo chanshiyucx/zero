@@ -115,7 +115,7 @@ export function Header() {
           width={16}
           height={16}
           priority
-          className="mb-0.5 animate-spin duration-2000"
+          className="mb-0.5 animate-spin duration-3000"
         />
         Shiyu
       </Link>
