@@ -11,12 +11,20 @@ import Link from 'next/link'
 import { siteConfig } from '@/lib/constants/config'
 
 const socialLinks = [
-  { href: '/feed', icon: RssSimpleIcon },
-  { href: '/sitemap', icon: CompassIcon },
-  { href: siteConfig.links.twitter, icon: XLogoIcon },
-  { href: siteConfig.links.discord, icon: DiscordLogoIcon },
-  { href: siteConfig.links.github, icon: GithubLogoIcon },
-  { href: siteConfig.links.linkedIn, icon: LinkedinLogoIcon },
+  { href: '/feed', icon: RssSimpleIcon, label: 'RSS Feed' },
+  { href: '/sitemap', icon: CompassIcon, label: 'Sitemap' },
+  {
+    href: siteConfig.links.twitter,
+    icon: XLogoIcon,
+    label: 'X (formerly Twitter)',
+  },
+  { href: siteConfig.links.discord, icon: DiscordLogoIcon, label: 'Discord' },
+  { href: siteConfig.links.github, icon: GithubLogoIcon, label: 'GitHub' },
+  {
+    href: siteConfig.links.linkedIn,
+    icon: LinkedinLogoIcon,
+    label: 'LinkedIn',
+  },
 ] as const
 
 export function Footer() {
@@ -38,7 +46,7 @@ export function Footer() {
         </p>
       </div>
       <div className="text-muted flex gap-5 text-lg">
-        {socialLinks.map(({ href, icon: Icon }, index) => {
+        {socialLinks.map(({ href, icon: Icon, label }, index) => {
           const external = href.startsWith('http')
           const linkProps = external
             ? { target: '_blank', rel: 'noopener noreferrer' }
@@ -47,7 +55,12 @@ export function Footer() {
           const LinkComponent = external ? 'a' : Link
 
           return (
-            <LinkComponent key={index} href={href} {...linkProps}>
+            <LinkComponent
+              key={index}
+              href={href}
+              aria-label={label}
+              {...linkProps}
+            >
               <Icon
                 weight="fill"
                 className="hover:text-subtle transition-colors duration-300"

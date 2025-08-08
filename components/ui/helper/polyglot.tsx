@@ -7,7 +7,11 @@ export function Polyglot() {
   const { language, toggleLanguage, hasMultipleLanguage } = usePolyglotStore()
 
   return (
-    <TinyButton show={hasMultipleLanguage} onClick={toggleLanguage}>
+    <TinyButton
+      show={hasMultipleLanguage}
+      onClick={toggleLanguage}
+      label="Switch Language"
+    >
       {language === 'de' ? 'DE' : 'EN'}
     </TinyButton>
   )
