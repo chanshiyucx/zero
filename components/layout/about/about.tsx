@@ -97,10 +97,11 @@ export function About() {
           </p>
 
           <p>
-            I aspire to become a <Link label="polyglot" href="/polyglot" />,
-            dedicating myself to refining my English proficiency while also
-            starting to learn German. Though challenging, I believe the journey
-            will be deeply rewarding.
+            I aspire to become a polyglot , dedicating myself to refining my{' '}
+            <Link label="English" href="/polyglot/english" /> proficiency while
+            also starting to learn{' '}
+            <Link label="German" href="/polyglot/german" /> . Though
+            challenging, I believe the journey will be deeply rewarding.
           </p>
 
           <p>
