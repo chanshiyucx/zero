@@ -21,7 +21,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       try {
         if (!title || !label) return
         const response = await fetch(
-          `/api/github/discussions?title=${title}&label=${label}`,
+          `/api/discussions?title=${title}&label=${label}`,
         )
         const data: DiscussionType = await response.json()
         if (data) {
@@ -40,7 +40,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       if (loading || discussion) return
       setLoading(true)
       reset()
-      const response = await fetch('/api/github/discussions', {
+      const response = await fetch('/api/discussions', {
         method: 'POST',
         body: JSON.stringify({ title, label }),
       })
