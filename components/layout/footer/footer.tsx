@@ -36,7 +36,6 @@ export function Footer() {
           alt="Site Logo"
           width={12}
           height={12}
-          priority
           className="animate-spin duration-3000"
         />
         <p>

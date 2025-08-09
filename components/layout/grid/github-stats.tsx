@@ -19,7 +19,6 @@ export function GithubStats() {
           alt="Github Stats"
           width={362}
           height={144}
-          priority
           className="object-cover"
         />
       </a>
