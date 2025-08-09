@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useIsMounted } from '@/hooks'
 import { Map } from './map'
 import { Search } from './search'
 import { ThemeSwitcher } from './theme-switcher'
@@ -19,15 +20,15 @@ interface MenuItemProps {
 
 function MenuItem({ name, path, className, isActive }: MenuItemProps) {
   const pathname = usePathname()
-  const isHome = path === '/'
-  if (isActive === undefined) {
-    isActive = isHome ? path === pathname : pathname.startsWith(path)
-  }
+  const mounted = useIsMounted()
+  const finalIsActive =
+    mounted &&
+    (isActive ?? (path === '/' ? path === pathname : pathname.startsWith(path)))
 
   return (
     <Link
       href={path}
-      data-isactive={isActive}
+      data-isactive={finalIsActive}
       className={clsx('menu-button', className)}
     >
       {name}
@@ -76,21 +77,14 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
                 damping: 30,
               }}
             >
-              <div className="bg-surface rounded-lg shadow-lg">
-                {items.map((item, index) => (
+              <div className="bg-surface overflow-hidden rounded-lg shadow-lg">
+                {items.map((item) => (
                   <MenuItem
                     key={item.path}
                     name={item.name}
                     path={item.path}
                     isActive={pathname.startsWith(item.path)}
-                    className={clsx(
-                      'py-3',
-                      index === 0 && 'rounded-b-none',
-                      index === items.length - 1 && 'rounded-t-none',
-                      index !== 0 &&
-                        index !== items.length - 1 &&
-                        'rounded-none',
-                    )}
+                    className="rounded-none py-3"
                   />
                 ))}
               </div>
