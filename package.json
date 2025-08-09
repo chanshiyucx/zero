@@ -84,5 +84,8 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-animated": "^2.0.0",
     "typescript": "^5.9.2"
-  }
+  },
+  "browserslist": [
+    "defaults and fully supports es6-module"
+  ]
 }
