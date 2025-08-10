@@ -1,10 +1,10 @@
 'use client'
 
 import { ArrowRightIcon, CommandIcon } from '@phosphor-icons/react/dist/ssr'
-import { useCommandStore } from '@/stores'
+import { useCommand } from '@/stores/use-command'
 
 export function Explore() {
-  const { toggle } = useCommandStore()
+  const { toggle } = useCommand()
 
   return (
     <button

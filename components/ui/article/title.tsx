@@ -1,6 +1,6 @@
 'use client'
 
-import { usePolyglotStore } from '@/stores'
+import { usePolyglot } from '@/stores/use-polyglot'
 
 interface TitleProps {
   titleCode: {
@@ -10,7 +10,7 @@ interface TitleProps {
 }
 
 export function Title({ titleCode }: TitleProps) {
-  const { language } = usePolyglotStore()
+  const { language } = usePolyglot()
   const displayLanguage = titleCode[language] ? language : 'en'
   const title = titleCode[displayLanguage]
 

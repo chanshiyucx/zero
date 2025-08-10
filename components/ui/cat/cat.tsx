@@ -1,7 +1,7 @@
 'use client'
 
 import type { CSSProperties } from 'react'
-import { useThemeTransition } from '@/hooks'
+import { useThemeTransition } from '@/hooks/use-theme-transition'
 
 interface CatProps {
   size?: number

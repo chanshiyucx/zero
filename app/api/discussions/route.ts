@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createDiscussion, getDiscussions } from '@/lib/api'
+import { createDiscussion, getDiscussions } from '@/lib/api/github'
 
 export const runtime = 'edge'
 

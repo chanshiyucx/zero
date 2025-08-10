@@ -1,7 +1,7 @@
 import { Command } from 'cmdk'
 import { useCallback, type ReactNode } from 'react'
 import { cn } from '@/lib/utils/style'
-import { useCommandStore } from '@/stores'
+import { useCommand } from '@/stores/use-command'
 
 interface CommandItemProps {
   onSelect?: () => void
@@ -20,7 +20,7 @@ export const CommandItem = ({
   page,
   className,
 }: CommandItemProps) => {
-  const { pushPage } = useCommandStore()
+  const { pushPage } = useCommand()
   const handleSelect = useCallback(() => {
     if (page) {
       pushPage(page)

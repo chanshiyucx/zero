@@ -15,7 +15,7 @@ interface PolyglotState {
   setHasMultipleLanguage: (val: boolean) => void
 }
 
-export const usePolyglotStore = create<PolyglotState>((set, get) => ({
+export const usePolyglot = create<PolyglotState>((set, get) => ({
   language: Polyglot.Deutsch,
   hasMultipleLanguage: false,
   toggleLanguage: () => {

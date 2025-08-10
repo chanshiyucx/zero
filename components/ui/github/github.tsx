@@ -5,7 +5,7 @@ import {
   StarIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import { Date } from '@/components/ui/date'
-import type { Repository } from '@/lib/api'
+import type { Repository } from '@/lib/api/github'
 import { cn } from '@/lib/utils/style'
 
 interface GithubProps {

@@ -5,7 +5,7 @@ interface DeviceState {
   setIsMobile: (value: boolean) => void
 }
 
-export const useDeviceStore = create<DeviceState>((set) => ({
+export const useDevice = create<DeviceState>((set) => ({
   isMobile: false,
   setIsMobile: (value) => set({ isMobile: value }),
 }))
