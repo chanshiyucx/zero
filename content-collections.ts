@@ -15,7 +15,7 @@ import { z } from 'zod'
 import {
   rehypeAudio,
   rehypeCallout,
-  rehypeCodeSave,
+  rehypeCode,
   rehypeImage,
   rehypeToc,
 } from './lib/mdx'
@@ -37,7 +37,7 @@ const options: Options = {
       rehypeExternalLinks,
       { target: '_blank', rel: ['nofollow', 'noopener', 'noreferrer'] },
     ],
-    rehypeCodeSave,
+    rehypeCode,
     [
       rehypePrettyCode,
       {

@@ -13,8 +13,9 @@ const isCodeElement = (node: Element): node is CodeElement =>
   node.children.length === 1 &&
   node.children[0].type === 'text'
 
-export const rehypeCodeSave: Plugin<[], Root> = () => {
+export const rehypeCode: Plugin<[], Root> = () => {
   return (tree) => {
+    // code copy support
     visit(tree, { type: 'element', tagName: 'pre' }, (node: Element) => {
       const [codeEl] = node.children as Element[]
       if (!isCodeElement(codeEl)) return
@@ -23,6 +24,13 @@ export const rehypeCodeSave: Plugin<[], Root> = () => {
       node.properties.raw = codeEl.children[0].value
       const className = codeEl.properties?.className as string[]
       node.properties['data-language'] = className[0]?.split('-')[1]
+    })
+
+    // replace &nbsp with space
+    visit(tree, 'text', (node) => {
+      if (typeof node.value === 'string') {
+        node.value = node.value.replace(/\u00A0/g, ' ')
+      }
     })
   }
 }
