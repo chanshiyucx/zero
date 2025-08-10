@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -66,7 +66,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
       <AnimatePresence>
         {isOpen && (
           <div className="absolute top-full left-1/2 z-10 -translate-x-1/2 p-2">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="enter"
               exit="exit"
@@ -88,7 +88,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
                   />
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
