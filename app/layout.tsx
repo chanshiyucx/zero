@@ -9,7 +9,8 @@ import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
 import { ThemeProvider } from 'next-themes'
-import PageTransitionEffect from './effect'
+import MotionProvider from './providers/motion-provider'
+import TransitionProvider from './providers/transition-provider'
 
 const merriweather = Merriweather({
   subsets: ['latin'],
@@ -78,11 +79,13 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider defaultTheme="light">
-          <Header />
-          <PageTransitionEffect>{children}</PageTransitionEffect>
-          <Command />
-          <Helper />
-          <Footer />
+          <MotionProvider>
+            <Header />
+            <TransitionProvider>{children}</TransitionProvider>
+            <Command />
+            <Helper />
+            <Footer />
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>
