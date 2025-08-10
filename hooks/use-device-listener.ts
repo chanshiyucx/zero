@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { getIsMobile } from '@/lib/utils/dom'
 import { debounce } from '@/lib/utils/lodash'
-import { useDeviceStore } from '@/stores'
+import { useDevice } from '@/stores/use-device'
 
 export function useDeviceListener(breakpoint = 768) {
-  const setIsMobile = useDeviceStore((s) => s.setIsMobile)
+  const setIsMobile = useDevice((s) => s.setIsMobile)
 
   useEffect(() => {
     setIsMobile(getIsMobile())

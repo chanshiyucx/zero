@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from 'react'
 import { clamp } from '@/lib/utils/helper'
-import { useDeviceStore } from '@/stores'
+import { useDevice } from '@/stores/use-device'
 
 interface CardProps {
   children: ReactNode
@@ -26,7 +26,7 @@ export function Card({
   maxTilt = 20,
   className = '',
 }: CardProps) {
-  const isMobile = useDeviceStore((s) => s.isMobile)
+  const isMobile = useDevice((s) => s.isMobile)
   const cardRef = useRef<HTMLDivElement>(null)
   const rectRef = useRef<DOMRect | null>(null)
   const rafRef = useRef<number | null>(null)

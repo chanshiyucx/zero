@@ -17,7 +17,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
 import { English, German } from '@/components/icons'
-import { useShortcut } from '@/hooks'
+import { useShortcut } from '@/hooks/use-shortcut'
 import { siteConfig } from '@/lib/constants/config'
 import {
   sortedLeetcodes,
@@ -26,7 +26,7 @@ import {
   sortedPosts,
 } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
-import { useCommandStore } from '@/stores'
+import { useCommand } from '@/stores/use-command'
 import { CommandGroup } from './command-group'
 import { CommandItem } from './command-item'
 import { CommandMenu } from './command-menu'
@@ -71,7 +71,7 @@ function PolyglotIcon({ language }: { language: string }) {
 }
 
 export function Command() {
-  const { open, toggle, setOpen, pushPage } = useCommandStore()
+  const { open, toggle, setOpen, pushPage } = useCommand()
   const { register, handleKeypress } = useShortcut()
   const { push } = useRouter()
   const contentLists = useMemo(

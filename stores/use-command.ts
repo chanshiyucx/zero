@@ -9,7 +9,7 @@ interface CommandState {
   toggle: () => void
 }
 
-export const useCommandStore = create<CommandState>((set) => ({
+export const useCommand = create<CommandState>((set) => ({
   pages: ['root'],
   open: false,
   pushPage: (page: string) =>
@@ -31,4 +31,4 @@ export const useCommandStore = create<CommandState>((set) => ({
 }))
 
 export const useActivePage = () =>
-  useCommandStore((state) => state.pages[state.pages.length - 1])
+  useCommand((state) => state.pages[state.pages.length - 1])

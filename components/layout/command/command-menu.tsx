@@ -6,16 +6,17 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react'
-import { useActivePage, useCommandStore, useDeviceStore } from '@/stores'
+import { useActivePage, useCommand } from '@/stores/use-command'
+import { useDevice } from '@/stores/use-device'
 
 interface CommandMenuProps {
   children: ReactNode
 }
 
 export const CommandMenu = ({ children }: CommandMenuProps) => {
-  const { pages, popPage, setOpen, open } = useCommandStore()
+  const { pages, popPage, setOpen, open } = useCommand()
   const activePage = useActivePage()
-  const isMobile = useDeviceStore((s) => s.isMobile)
+  const isMobile = useDevice((s) => s.isMobile)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleKeyDown = useCallback(

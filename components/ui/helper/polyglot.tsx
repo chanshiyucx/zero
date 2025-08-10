@@ -1,10 +1,10 @@
 'use client'
 
-import { usePolyglotStore } from '@/stores'
+import { usePolyglot } from '@/stores/use-polyglot'
 import { TinyButton } from './tiny-button'
 
 export function Polyglot() {
-  const { language, toggleLanguage, hasMultipleLanguage } = usePolyglotStore()
+  const { language, toggleLanguage, hasMultipleLanguage } = usePolyglot()
 
   return (
     <TinyButton

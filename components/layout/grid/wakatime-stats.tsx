@@ -1,7 +1,7 @@
 import { CodeIcon } from '@phosphor-icons/react/dist/ssr'
 import { Cursor } from '@/components/icons'
 import { Card } from '@/components/ui/card'
-import { getCodingHrs } from '@/lib/api'
+import { getCodingHrs } from '@/lib/api/waka-time'
 import { siteConfig } from '@/lib/constants/config'
 
 export async function WakatimeStats() {

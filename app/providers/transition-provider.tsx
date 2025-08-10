@@ -4,7 +4,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { usePathname } from 'next/navigation'
 import { useContext, useRef, type ReactNode } from 'react'
-import { useDeviceListener } from '@/hooks'
+import { useDeviceListener } from '@/hooks/use-device-listener'
 
 function FrozenRouter(props: { children: ReactNode }) {
   const context = useContext(LayoutRouterContext ?? {})

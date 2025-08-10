@@ -3,7 +3,7 @@
 import { MDXContent } from '@content-collections/mdx/react'
 import { useEffect, useMemo } from 'react'
 import { cn } from '@/lib/utils/style'
-import { usePolyglotStore } from '@/stores'
+import { usePolyglot } from '@/stores/use-polyglot'
 import { Audio } from './audio'
 import { Figure } from './figure'
 import { Image } from './image'
@@ -25,7 +25,7 @@ interface MDXProps {
 }
 
 export function MDX({ contentCode, classname }: MDXProps) {
-  const { language, setHasMultipleLanguage } = usePolyglotStore()
+  const { language, setHasMultipleLanguage } = usePolyglot()
 
   const displayLanguage = useMemo(() => {
     return contentCode[language] ? language : 'en'

@@ -1,7 +1,7 @@
 import { CoffeeIcon, DownloadSimpleIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { Github } from '@/components/ui/github'
-import { getGithubRepo } from '@/lib/api'
+import { getGithubRepo } from '@/lib/api/github'
 import { siteConfig } from '@/lib/constants/config'
 
 export async function CV() {

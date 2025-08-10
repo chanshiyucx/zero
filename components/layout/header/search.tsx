@@ -2,10 +2,10 @@ import {
   CommandIcon,
   MagnifyingGlassIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { useCommandStore } from '@/stores'
+import { useCommand } from '@/stores/use-command'
 
 export function Search() {
-  const { toggle } = useCommandStore()
+  const { toggle } = useCommand()
 
   return (
     <button
