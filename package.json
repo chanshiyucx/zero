@@ -88,6 +88,10 @@
     "typescript": "^5.9.2"
   },
   "browserslist": [
-    "defaults and fully supports es6-module"
+    "last 2 chrome versions",
+    "last 2 firefox versions",
+    "last 2 safari versions",
+    "last 2 edge versions",
+    "not dead"
   ]
 }
