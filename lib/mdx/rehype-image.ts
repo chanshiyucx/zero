@@ -1,7 +1,7 @@
 import path from 'path'
-import type { Element, Root } from 'hast'
+import { type Element, type Root } from 'hast'
 import { imageSizeFromFile } from 'image-size/fromFile'
-import type { Plugin } from 'unified'
+import { type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 interface Options {

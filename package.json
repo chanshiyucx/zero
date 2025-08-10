@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "predev": "node syncBlog.js",
     "prebuild": "node syncBlog.js",
     "prepare": "husky"

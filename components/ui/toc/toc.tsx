@@ -3,7 +3,7 @@
 import { ListIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
-import { TocEntry } from '@/lib/mdx/rehype-toc'
+import { type TocEntry } from '@/lib/mdx/rehype-toc'
 import { debounce } from '@/lib/utils/lodash'
 import { cn } from '@/lib/utils/style'
 

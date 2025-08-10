@@ -1,6 +1,6 @@
-import type { Metadata, Viewport } from 'next'
+import { type Metadata, type Viewport } from 'next'
 import { Fira_Code, Merriweather } from 'next/font/google'
-import type { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Command } from '@/components/layout/command'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'

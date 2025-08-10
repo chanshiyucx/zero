@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { type Metadata } from 'next'
 import { List } from '@/components/ui/list'
 import { groupByYear, sortedPosts } from '@/lib/utils/content'
 

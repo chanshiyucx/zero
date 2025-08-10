@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import type { ContentType } from '@/lib/utils/content'
+import { type ContentType } from '@/lib/utils/content'
 import { APIError, fetchData } from './fetch'
 
 export interface User {

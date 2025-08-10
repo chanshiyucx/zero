@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Date } from '@/components/ui/date'
-import type { Content, ContentGroup } from '@/lib/utils/content'
+import { type Content, type ContentGroup } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
 export interface ExtraInfo {

@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+import { type MetadataRoute } from 'next'
 import { siteConfig } from '@/lib/constants/config'
 import { sortedContent } from '@/lib/utils/content'
 

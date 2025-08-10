@@ -1,5 +1,5 @@
 import { CalendarBlankIcon } from '@phosphor-icons/react/dist/ssr'
-import type { Metadata } from 'next'
+import { type Metadata } from 'next'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
 import { sortedAlbums } from '@/lib/utils/content'
