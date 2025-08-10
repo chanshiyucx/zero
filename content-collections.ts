@@ -90,61 +90,68 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       level: z.enum(['Easy', 'Medium', 'Hard']).optional(), // Only for leetcode
     }),
     transform: async (document, context) => {
-      const title = document.title
-      const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
-      const [, no] = match
-      const slug = slugger.slug(title)
-      const contentCode = { en: '', de: '' }
-      const titleCode = { en: '', de: '' }
+      try {
+        const title = document.title
+        const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
+        const [, no] = match
+        const slug = slugger.slug(title)
+        const contentCode = { en: '', de: '' }
+        const titleCode = { en: '', de: '' }
 
-      const isPolyglot = prefixPath === '/polyglot'
-      // handle polyglot url
-      let url = ''
-      if (isPolyglot) {
-        const language = document.tags[0].split('/')[0].toLowerCase()
-        url = path.join(prefixPath, language, slug)
-      } else {
-        url = path.join(prefixPath, slug)
-      }
+        const isPolyglot = prefixPath === '/polyglot'
+        // handle polyglot url
+        let url = ''
+        if (isPolyglot) {
+          const language = document.tags[0].split('/')[0].toLowerCase()
+          url = path.join(prefixPath, language, slug)
+        } else {
+          url = path.join(prefixPath, slug)
+        }
 
-      // only German writing is currently bilingual
-      const isGermanWriting =
-        isPolyglot && document.tags.some((e) => e === 'German/Writing')
-      if (isGermanWriting) {
-        const sections = extractLanguageSections(document.content)
-        contentCode.de = await compileMDX(
-          context,
-          { ...document, content: sections.de.content },
-          options,
+        // only German writing is currently bilingual
+        const isGermanWriting =
+          isPolyglot && document.tags.some((e) => e === 'German/Writing')
+        if (isGermanWriting) {
+          const sections = extractLanguageSections(document.content)
+          contentCode.de = await compileMDX(
+            context,
+            { ...document, content: sections.de.content },
+            options,
+          )
+          contentCode.en = await compileMDX(
+            context,
+            {
+              ...document,
+              content: sections.en.content,
+            },
+            options,
+          )
+          titleCode.de = sections.de.title
+          titleCode.en = sections.en.title
+        } else {
+          contentCode.en = await compileMDX(context, document, options)
+          titleCode.en = title
+        }
+
+        // @ts-expect-error: toc injected at runtime and is not typed in Meta
+        // lib/mdx/rehype-toc.ts
+        // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
+        const toc = document._meta?.toc ?? []
+
+        return {
+          ...document,
+          no,
+          slug,
+          url,
+          toc,
+          contentCode,
+          titleCode,
+        }
+      } catch (error) {
+        console.error(
+          `GetCollection transform error in file: ${document._meta.fileName}`,
+          error instanceof Error ? error.message : error,
         )
-        contentCode.en = await compileMDX(
-          context,
-          {
-            ...document,
-            content: sections.en.content,
-          },
-          options,
-        )
-        titleCode.de = sections.de.title
-        titleCode.en = sections.en.title
-      } else {
-        contentCode.en = await compileMDX(context, document, options)
-        titleCode.en = title
-      }
-
-      // @ts-expect-error: toc injected at runtime and is not typed in Meta
-      // lib/mdx/rehype-toc.ts
-      // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
-      const toc = document._meta?.toc ?? []
-
-      return {
-        ...document,
-        no,
-        slug,
-        url,
-        toc,
-        contentCode,
-        titleCode,
       }
     },
   })
