@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import {
   memo,
@@ -12,6 +11,7 @@ import {
 import { type ImageProps } from '@/components/ui/mdx/image'
 import { Spinner } from '@/components/ui/spinner'
 import { formatFileSize } from '@/lib/utils/helper'
+import { cn } from '@/lib/utils/style'
 
 interface Bounds {
   x: number
@@ -328,7 +328,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           height={height}
           draggable={false}
           loading="lazy"
-          className={clsx(
+          className={cn(
             'absolute m-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
             zoomState !== 0 && 'z-101 rounded-none!',

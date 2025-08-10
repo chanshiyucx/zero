@@ -1,8 +1,8 @@
 'use client'
 
 import { MDXContent } from '@content-collections/mdx/react'
-import clsx from 'clsx'
 import { useEffect, useMemo } from 'react'
+import { cn } from '@/lib/utils/style'
 import { usePolyglotStore } from '@/stores'
 import { Audio } from './audio'
 import { Figure } from './figure'
@@ -40,7 +40,7 @@ export function MDX({ contentCode, classname }: MDXProps) {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         classname,
         'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none',
       )}

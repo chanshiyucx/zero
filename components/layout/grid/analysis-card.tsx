@@ -3,11 +3,11 @@ import {
   ScrollIcon,
   TerminalWindowIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { Meow } from '@/components/ui/meow'
 import { summary } from '@/lib/utils/content'
+import { cn } from '@/lib/utils/style'
 
 type StatProps = {
   icon: ReactNode
@@ -19,7 +19,7 @@ type StatProps = {
 
 function Stat({ icon, label, value, className, href }: StatProps) {
   return (
-    <div className={clsx('flex items-center', className)}>
+    <div className={cn('flex items-center', className)}>
       {icon}
       <Link href={href} className="link-hover">
         <span className="mx-1 text-sm">{label}:</span>

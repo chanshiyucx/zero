@@ -4,9 +4,9 @@ import {
   GlobeIcon,
   StarIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import { Date } from '@/components/ui/date'
 import type { Repository } from '@/lib/api'
+import { cn } from '@/lib/utils/style'
 
 interface GithubProps {
   repo: Repository
@@ -16,7 +16,7 @@ interface GithubProps {
 export function Github({ repo, className }: GithubProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         'bg-muted/10 flex flex-col justify-between space-y-3 rounded-lg p-3 duration-300',
         className,
       )}

@@ -1,6 +1,6 @@
-import clsx from 'clsx'
 import { Command } from 'cmdk'
 import { useCallback, type ReactNode } from 'react'
+import { cn } from '@/lib/utils/style'
 import { useCommandStore } from '@/stores'
 
 interface CommandItemProps {
@@ -37,7 +37,7 @@ export const CommandItem = ({
       <div className="flex shrink-0 items-center">
         {icon}
         <span
-          className={clsx(
+          className={cn(
             'inline-block overflow-hidden text-ellipsis whitespace-nowrap',
             className,
           )}

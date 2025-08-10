@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import type { ReactNode } from 'react'
+import { cn } from '@/lib/utils/style'
 
 interface TinyButtonProps {
   show: boolean
@@ -18,7 +18,7 @@ export function TinyButton({
     <button
       aria-label={label}
       onClick={onClick}
-      className={clsx(
+      className={cn(
         'bg-surface rounded-lg p-2 transition-opacity duration-300',
         show ? 'opacity-100' : 'pointer-events-none opacity-0',
       )}
