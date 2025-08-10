@@ -1,6 +1,6 @@
 'use client'
 
-import type { IconProps } from '@phosphor-icons/react/dist/lib/types'
+import { type IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
   BriefcaseIcon,
   CameraIcon,

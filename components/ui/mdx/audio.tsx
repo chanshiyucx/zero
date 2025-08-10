@@ -1,4 +1,4 @@
-import type { AudioHTMLAttributes, DetailedHTMLProps } from 'react'
+import { type AudioHTMLAttributes, type DetailedHTMLProps } from 'react'
 import { AudioPlayer } from '@/components/ui/audio-player'
 
 export function Audio(

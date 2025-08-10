@@ -1,5 +1,5 @@
-import type { Leetcode } from 'content-collections'
-import type { Metadata } from 'next'
+import { type Leetcode } from 'content-collections'
+import { type Metadata } from 'next'
 import { List, type ExtraInfo } from '@/components/ui/list'
 import { groupByYear, sortedLeetcodes } from '@/lib/utils/content'
 

@@ -1,5 +1,5 @@
-import type { Element, Root } from 'hast'
-import type { Plugin } from 'unified'
+import { type Element, type Root } from 'hast'
+import { type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 interface CodeElement extends Element {

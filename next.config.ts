@@ -1,6 +1,6 @@
-import type { NextConfig } from 'next'
 import { withContentCollections } from '@content-collections/next'
 import withBundleAnalyzer from '@next/bundle-analyzer'
+import { type NextConfig } from 'next'
 
 let nextConfig: NextConfig = {
   images: {

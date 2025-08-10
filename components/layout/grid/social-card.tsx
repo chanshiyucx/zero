@@ -1,5 +1,5 @@
 import { LinkedinLogoIcon, XLogoIcon } from '@phosphor-icons/react/dist/ssr'
-import type { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Card } from '@/components/ui/card'
 import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'

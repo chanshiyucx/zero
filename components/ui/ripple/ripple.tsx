@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { type CSSProperties } from 'react'
 import { cn } from '@/lib/utils/style'
 
 const NUM_CIRCLES = 6

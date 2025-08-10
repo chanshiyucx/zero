@@ -1,5 +1,5 @@
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react/dist/ssr'
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { cn } from '@/lib/utils/style'
 

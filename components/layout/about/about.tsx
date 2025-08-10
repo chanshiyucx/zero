@@ -1,6 +1,6 @@
 import { HandWavingIcon } from '@phosphor-icons/react/dist/ssr'
-import NextLink, { LinkProps } from 'next/link'
-import type { JSX, SVGProps } from 'react'
+import NextLink, { type LinkProps } from 'next/link'
+import { type JSX, type SVGProps } from 'react'
 import {
   Java,
   JavaScript,

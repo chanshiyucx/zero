@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { type Metadata } from 'next'
 import { Card } from '@/components/ui/card'
 import { Github } from '@/components/ui/github'
 import { getGithubRepositories } from '@/lib/api/github'

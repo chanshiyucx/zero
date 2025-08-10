@@ -1,5 +1,5 @@
-import type { Element, Root, Text } from 'hast'
-import type { Plugin } from 'unified'
+import { type Element, type Root, type Text } from 'hast'
+import { type Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 export const rehypeCallout: Plugin<[], Root> = () => {

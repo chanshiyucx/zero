@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, DetailedHTMLProps } from 'react'
+import { type AnchorHTMLAttributes, type DetailedHTMLProps } from 'react'
 
 export function Link(
   props: DetailedHTMLProps<

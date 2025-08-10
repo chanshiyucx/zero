@@ -1,4 +1,4 @@
-import type { JSX, ReactNode, SVGProps } from 'react'
+import { type JSX, type ReactNode, type SVGProps } from 'react'
 import {
   Bash,
   Cloudflare,
