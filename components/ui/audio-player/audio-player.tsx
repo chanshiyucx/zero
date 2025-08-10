@@ -6,7 +6,7 @@ import {
   RepeatOnceIcon,
   RewindIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { parseBlob } from 'music-metadata'
+import parse from 'id3-parser'
 import Image from 'next/image'
 import {
   memo,
@@ -87,7 +87,8 @@ function Player({ src }: AudioPlayerProps) {
   }, [])
 
   useEffect(() => {
-    let isCancelled = false
+    const controller = new AbortController()
+    const signal = controller.signal
 
     async function fetchMetadata() {
       try {
@@ -98,32 +99,41 @@ function Player({ src }: AudioPlayerProps) {
           return null
         })
 
-        const response = await fetch(src)
+        const response = await fetch(src, {
+          headers: {
+            Range: 'bytes=0-65536', // 64 * 1024
+          },
+          signal,
+        })
 
-        if (!response.ok) {
+        if (!response.ok && response.status !== 206) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         }
 
-        const blob = await response.blob()
-        const metadata = await parseBlob(blob)
+        const arrayBuffer = await response.arrayBuffer()
 
-        if (isCancelled) return
+        if (signal.aborted) return
 
-        const picture = metadata.common.picture?.[0]
-        if (picture) {
-          const coverBlob = new Blob([new Uint8Array(picture.data)], {
-            type: picture.format,
-          })
-          const url = URL.createObjectURL(coverBlob)
-          setCoverUrl(url)
+        const tags = parse(new Uint8Array(arrayBuffer))
+        if (tags) {
+          if (tags?.image?.data) {
+            const { data, mime } = tags.image
+
+            const blob = new Blob([new Uint8Array(data)], { type: mime })
+            const url = URL.createObjectURL(blob)
+            setCoverUrl(url)
+          }
+
+          setTitle(tags?.title ?? 'Unknown title')
+        } else {
+          setTitle('Unknown title')
         }
-
-        setTitle(metadata.common.title || 'Unknown title')
       } catch (err) {
+        if (signal.aborted) return
         console.error('Failed to fetch audio metadata:', err)
         setTitle('Unknown title')
       } finally {
-        if (!isCancelled) {
+        if (!signal.aborted) {
           setIsLoading(false)
         }
       }
@@ -132,7 +142,7 @@ function Player({ src }: AudioPlayerProps) {
     fetchMetadata()
 
     return () => {
-      isCancelled = true
+      controller.abort()
     }
   }, [src, cleanupCoverUrl])
 
