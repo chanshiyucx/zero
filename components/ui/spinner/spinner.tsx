@@ -15,7 +15,7 @@ interface LineProps {
 
 const Line = ({ order, size }: LineProps) => {
   const style: CSSProperties = { animationDelay: `${order * 0.1}s` }
-  const h = size === 'small' ? 'h-6' : 'h-12'
+  const h = size === 'small' ? 'h-6' : 'h-10'
 
   return (
     <span

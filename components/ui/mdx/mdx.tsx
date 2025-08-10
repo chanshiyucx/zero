@@ -1,19 +1,35 @@
 'use client'
 
 import { MDXContent } from '@content-collections/mdx/react'
-import { useEffect, useMemo } from 'react'
+import { lazy, Suspense, useEffect, useMemo, type ComponentProps } from 'react'
+import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/utils/style'
 import { usePolyglot } from '@/stores/use-polyglot'
-import { Audio } from './audio'
 import { Figure } from './figure'
 import { Image } from './image'
 import { Link } from './link'
+
+const LazyAudio = lazy(() =>
+  import('./audio').then((module) => ({ default: module.Audio })),
+)
+
+const SuspendedAudio = (props: ComponentProps<typeof LazyAudio>) => (
+  <Suspense
+    fallback={
+      <div className="bg-surface flex h-20 items-center justify-center rounded-lg">
+        <Spinner size="large" />
+      </div>
+    }
+  >
+    <LazyAudio {...props} />
+  </Suspense>
+)
 
 const components = {
   img: Image,
   a: Link,
   figure: Figure,
-  audio: Audio,
+  audio: SuspendedAudio,
 }
 
 interface MDXProps {

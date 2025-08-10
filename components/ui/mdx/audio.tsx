@@ -7,5 +7,6 @@ export function Audio(
     HTMLAudioElement
   >,
 ) {
+  if (!props.src) return null
   return <AudioPlayer src={props.src as string} />
 }
