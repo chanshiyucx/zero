@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import Typed from 'typed.js'
+import { TypeAnimation } from 'react-type-animation'
 
 const SENTENCES = [
   'Tech stuff enthusiast',
@@ -10,25 +9,17 @@ const SENTENCES = [
   'Full stack developer',
 ]
 
-const TYPED_OPTIONS = {
-  strings: SENTENCES,
-  typeSpeed: 80,
-  backSpeed: 50,
-  startDelay: 0,
-  backDelay: 2000,
-  shuffle: false,
-  loop: true,
-}
+const sequenceWithPauses = SENTENCES.flatMap((text) => [text, 3000])
 
 export function TypedWriter() {
-  const typedElementRef = useRef<HTMLSpanElement>(null)
-
-  useEffect(() => {
-    if (!typedElementRef.current) return
-
-    const typed = new Typed(typedElementRef.current, TYPED_OPTIONS)
-    return () => typed.destroy()
-  }, [])
-
-  return <span ref={typedElementRef} className="italic" />
+  return (
+    <TypeAnimation
+      sequence={sequenceWithPauses}
+      wrapper="span"
+      speed={20}
+      deletionSpeed={40}
+      className="italic"
+      repeat={Infinity}
+    />
+  )
 }
