@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import type { Metadata, Viewport } from 'next'
 import { Fira_Code, Merriweather } from 'next/font/google'
 import type { ReactNode } from 'react'
@@ -7,6 +6,7 @@ import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
 import { siteConfig } from '@/lib/constants/config'
+import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
 import { ThemeProvider } from 'next-themes'
 import PageTransitionEffect from './effect'
@@ -74,7 +74,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={clsx(merriweather.variable, fira.variable)}
+      className={cn(merriweather.variable, fira.variable)}
     >
       <body>
         <ThemeProvider defaultTheme="light">

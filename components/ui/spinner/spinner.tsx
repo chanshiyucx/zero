@@ -1,6 +1,6 @@
-import clsx from 'clsx'
 import type { CSSProperties } from 'react'
 import { range } from '@/lib/utils/helper'
+import { cn } from '@/lib/utils/style'
 
 type Size = 'small' | 'large'
 
@@ -20,7 +20,7 @@ const Line = ({ order, size }: LineProps) => {
   return (
     <span
       style={style}
-      className={clsx(
+      className={cn(
         h,
         'animate-spinner-scale bg-muted inline-block w-1 rounded-lg duration-1000',
       )}
@@ -31,7 +31,7 @@ const Line = ({ order, size }: LineProps) => {
 export function Spinner({ size = 'small' }: SpinnerProps) {
   const gap = size === 'small' ? 'gap-0.5' : 'gap-2'
   return (
-    <span className={clsx(gap, 'flex')}>
+    <span className={cn(gap, 'flex')}>
       {range(0, 5).map((i) => (
         <Line key={i} order={i} size={size} />
       ))}

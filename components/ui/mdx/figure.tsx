@@ -1,7 +1,7 @@
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import { ReactNode } from 'react'
 import { useCopyToClipboard } from '@/hooks'
+import { cn } from '@/lib/utils/style'
 
 const LanguageMap = {
   typescript: 'TS',
@@ -26,7 +26,7 @@ const CopyButton = ({ text }: { text: string }) => {
       disabled={isCopied}
       onClick={handleCopy}
       aria-label="Copy"
-      className={clsx(
+      className={cn(
         'absolute top-0 right-0 flex items-center rounded-bl-lg p-2 leading-none duration-300 group-hover:opacity-100',
         isCopied ? 'bg-overlay' : 'bg-base cursor-pointer opacity-0',
       )}

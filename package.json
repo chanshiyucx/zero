@@ -25,12 +25,10 @@
     ]
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^15.4.5",
     "@phosphor-icons/react": "^2.1.10",
     "@t3-oss/env-nextjs": "^0.13.8",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
-    "color": "^5.0.0",
     "date-fns": "^4.1.0",
     "feed": "^5.1.0",
     "framer-motion": "^12.23.12",
@@ -52,6 +50,7 @@
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "remark-rehype": "^11.1.2",
+    "tailwind-merge": "^3.3.1",
     "typed.js": "^2.1.0",
     "zod": "^4.0.14",
     "zustand": "^5.0.7"
@@ -64,6 +63,7 @@
     "@content-collections/next": "^0.2.6",
     "@eslint/js": "^9.32.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.5.1",
+    "@next/bundle-analyzer": "^15.4.5",
     "@next/eslint-plugin-next": "^15.4.5",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",

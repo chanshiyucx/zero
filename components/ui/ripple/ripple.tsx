@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import type { CSSProperties } from 'react'
+import { cn } from '@/lib/utils/style'
 
 const NUM_CIRCLES = 6
 const MAIN_CIRCLE_SIZE = 100
@@ -33,7 +33,7 @@ export function Ripple({
       {Array.from({ length: numCircles }, (_, i) => (
         <div
           key={i}
-          className={clsx(
+          className={cn(
             'animate-ripple bg-love/80 absolute z-0 rounded-full',
             className,
           )}

@@ -27,3 +27,11 @@ export const getIsMobile = (breakpoint = 768): boolean => {
 
   return isSmallScreen && hasTouchSupport
 }
+
+export const toggleFullscreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.()
+  } else {
+    document.exitFullscreen?.()
+  }
+}

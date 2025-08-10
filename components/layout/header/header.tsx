@@ -1,12 +1,12 @@
 'use client'
 
-import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useIsMounted } from '@/hooks'
+import { cn } from '@/lib/utils/style'
 import { Map } from './map'
 import { Search } from './search'
 import { ThemeSwitcher } from './theme-switcher'
@@ -29,7 +29,7 @@ function MenuItem({ name, path, className, isActive }: MenuItemProps) {
     <Link
       href={path}
       data-isactive={finalIsActive}
-      className={clsx('menu-button', className)}
+      className={cn('menu-button', className)}
     >
       {name}
     </Link>

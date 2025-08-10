@@ -1,6 +1,6 @@
-import clsx from 'clsx'
 import { Logo } from '@/components/ui/logo'
 import { random } from '@/lib/utils/helper'
+import { cn } from '@/lib/utils/style'
 import { Explore } from './explore'
 import { TypedWriter } from './typed-writer'
 
@@ -18,7 +18,7 @@ export function Main() {
           </div>
         </div>
         <div className="relative h-36 w-72 max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 max-md:opacity-10">
-          <div className={clsx('city-cat', action)}></div>
+          <div className={cn('city-cat', action)}></div>
         </div>
       </div>
       <Explore />

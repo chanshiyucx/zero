@@ -1,8 +1,8 @@
 import { LinkedinLogoIcon, XLogoIcon } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import type { ReactNode } from 'react'
 import { Card } from '@/components/ui/card'
 import { siteConfig } from '@/lib/constants/config'
+import { cn } from '@/lib/utils/style'
 
 interface SocialLinkProps {
   className: string
@@ -16,7 +16,7 @@ function SocialLink({ children, className, href }: SocialLinkProps) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={clsx(
+      className={cn(
         className,
         'flex h-[4.125rem] w-full flex-col items-center justify-center overflow-hidden rounded-lg text-base',
       )}

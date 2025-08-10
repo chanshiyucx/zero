@@ -1,11 +1,11 @@
 'use client'
 
 import { ListIcon } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { TocEntry } from '@/lib/mdx/rehype-toc'
 import { debounce } from '@/lib/utils/lodash'
+import { cn } from '@/lib/utils/style'
 
 interface TocProps {
   toc: TocEntry[]
@@ -187,7 +187,7 @@ export function Toc({ toc }: TocProps) {
             <li key={item.id} className="my-2">
               <Link
                 href={`#${item.id}`}
-                className={clsx(
+                className={cn(
                   'text-muted decoration-muted/40 hover:text-text hover:decoration-muted inline-block underline underline-offset-2 duration-300',
                   getIndent(item.depth),
                 )}

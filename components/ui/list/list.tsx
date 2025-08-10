@@ -1,8 +1,8 @@
-import clsx from 'clsx'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { Date } from '@/components/ui/date'
 import type { Content, ContentGroup } from '@/lib/utils/content'
+import { cn } from '@/lib/utils/style'
 
 export interface ExtraInfo {
   color: string
@@ -19,7 +19,7 @@ interface ListProps {
 function renderExtraInfo(extraInfo: ExtraInfo) {
   return (
     <span
-      className={clsx(
+      className={cn(
         'ml-6 inline-block w-16 text-sm max-md:ml-3',
         extraInfo.color,
       )}

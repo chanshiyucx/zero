@@ -14,7 +14,6 @@ import {
   TerminalWindowIcon,
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
 import { English, German } from '@/components/icons'
@@ -26,6 +25,7 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
+import { cn } from '@/lib/utils/style'
 import { useCommandStore } from '@/stores'
 import { CommandGroup } from './command-group'
 import { CommandItem } from './command-item'
@@ -58,12 +58,12 @@ function PolyglotIcon({ language }: { language: string }) {
       {language === 'english' ? (
         <English
           {...iconProps}
-          className={clsx(iconProps.className, 'text-subtle text-base')}
+          className={cn(iconProps.className, 'text-subtle text-base')}
         />
       ) : (
         <German
           {...iconProps}
-          className={clsx(iconProps.className, 'text-subtle text-base')}
+          className={cn(iconProps.className, 'text-subtle text-base')}
         />
       )}
     </>
