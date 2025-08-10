@@ -1,6 +1,6 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion'
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { usePathname } from 'next/navigation'
 import { useContext, useRef, type ReactNode } from 'react'
@@ -32,19 +32,21 @@ const PageTransitionEffect = ({ children }: { children: ReactNode }) => {
   useDeviceListener()
 
   return (
-    <AnimatePresence mode="popLayout">
-      <motion.div
-        key={key}
-        initial="hidden"
-        animate="enter"
-        exit="exit"
-        className="flex flex-1"
-        variants={variants}
-        transition={{ ease: 'easeInOut', duration: 0.5 }}
-      >
-        <FrozenRouter>{children}</FrozenRouter>
-      </motion.div>
-    </AnimatePresence>
+    <LazyMotion features={domAnimation} strict>
+      <AnimatePresence mode="popLayout">
+        <m.div
+          key={key}
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          className="flex flex-1"
+          variants={variants}
+          transition={{ ease: 'easeInOut', duration: 0.5 }}
+        >
+          <FrozenRouter>{children}</FrozenRouter>
+        </m.div>
+      </AnimatePresence>
+    </LazyMotion>
   )
 }
 

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import {
   memo,
   useCallback,
@@ -281,7 +281,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
     <>
       <AnimatePresence>
         {isOpen && (
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -294,7 +294,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
       <AnimatePresence>
         {isOpen && isLoading && (
-          <motion.span
+          <m.span
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -312,7 +312,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
                 </span>
               </span>
             </span>
-          </motion.span>
+          </m.span>
         )}
       </AnimatePresence>
 
@@ -320,7 +320,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
         className="relative block"
         style={{ aspectRatio: `${width}/${height}` }}
       >
-        <motion.img
+        <m.img
           ref={imageRef}
           src={currentSrc}
           alt={alt}

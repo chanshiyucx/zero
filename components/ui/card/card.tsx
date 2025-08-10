@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-} from 'framer-motion'
+import { m, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
 import {
   useCallback,
   useEffect,
@@ -125,7 +120,7 @@ export function Card({
   }, [])
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       className={`will-change-transform transform-3d ${className}`}
       style={{ transform: isMobile ? '' : transform }}
@@ -134,6 +129,6 @@ export function Card({
       onMouseLeave={handleMouseLeave}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
