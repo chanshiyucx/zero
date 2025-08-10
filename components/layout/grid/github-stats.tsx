@@ -20,6 +20,7 @@ export function GithubStats() {
           width={362}
           height={144}
           priority
+          fetchPriority="high"
           className="object-cover"
         />
       </a>
