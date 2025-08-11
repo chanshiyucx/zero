@@ -7,10 +7,10 @@ export function LatestStats() {
   const article = sortedContent()[0]
 
   return (
-    <Card className="flex-1">
+    <Card className="overflow-hidden">
       <Link
         href={article.url}
-        className="bg-overlay flex flex-col gap-3 overflow-hidden rounded-lg p-3"
+        className="bg-overlay flex flex-col gap-3 rounded-lg p-3"
       >
         <span>Latest stat</span>
         <span className="w-full border-b" />
