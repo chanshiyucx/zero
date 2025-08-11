@@ -6,7 +6,7 @@ export async function DiscordStatus() {
   const { data } = await getDiscordData()
 
   return (
-    <div className="flex h-36 w-fit items-center justify-center overflow-hidden rounded-lg p-2">
+    <div className="flex h-36 w-fit shrink-0 items-center justify-center overflow-hidden rounded-lg p-2">
       <a
         href={siteConfig.links.discord}
         target="_blank"
