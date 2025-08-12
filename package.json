@@ -86,6 +86,9 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.2"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "browserslist": [
     "last 2 chrome versions",
     "last 2 firefox versions",
