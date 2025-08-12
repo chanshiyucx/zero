@@ -1,7 +1,11 @@
 import { type Polyglot } from 'content-collections'
 import { type Metadata } from 'next'
 import { List, type ExtraInfo } from '@/components/ui/list'
-import { groupByYear, sortedPolyglots } from '@/lib/utils/content'
+import {
+  groupByYear,
+  sortedPolyglotsEnglish,
+  sortedPolyglotsGerman,
+} from '@/lib/utils/content'
 
 export const metadata: Metadata = {
   title: 'Polyglot',
@@ -35,7 +39,8 @@ const extractInfo = (article: Polyglot): ExtraInfo => {
 
 export default async function Page({ params }: PageProps) {
   const { language } = await params
-  const polyglotList = sortedPolyglots(language)
+  const polyglotList =
+    language === 'english' ? sortedPolyglotsEnglish : sortedPolyglotsGerman
   const polyglotGroupList = groupByYear(polyglotList)
 
   return (

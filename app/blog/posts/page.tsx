@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  const postList = sortedPosts()
+  const postList = sortedPosts
   const postGroupList = groupByYear(postList)
 
   return <List title="Life is a burning chaos." groups={postGroupList} />

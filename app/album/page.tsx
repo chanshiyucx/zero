@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  const albumList = sortedAlbums()
+  const albumList = sortedAlbums
 
   return (
     <main className="page">

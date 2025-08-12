@@ -27,55 +27,75 @@ export interface BlogSummary {
   leetcodes: number
 }
 
-type SortableContent = { date: string }
-type SortableByNo = { no: string }
+export const content: Content[] = [
+  ...allPosts,
+  ...allNotes,
+  ...allLeetcodes,
+  ...allPolyglots,
+]
 
-const sortByDate = <T extends SortableContent>(items: T[]): T[] =>
+const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
 
-const sortByNo = <T extends SortableByNo>(items: T[]): T[] =>
-  [...items].sort((a, b) => Number(b.no) - Number(a.no))
+const sortedByPriority = <T extends { priority: number }>(
+  items: readonly T[],
+): T[] =>
+  [...items]
+    .filter((a) => a.priority > 0)
+    .sort((a, b) => b.priority - a.priority)
 
-export const sortedPosts = (): Post[] => sortByDate(allPosts)
-
-export const sortedNotes = (): Note[] => sortByDate(allNotes)
-
-export const sortedLeetcodes = (sortBy: 'no' | 'date' = 'date'): Leetcode[] =>
-  sortBy === 'no' ? sortByNo(allLeetcodes) : sortByDate(allLeetcodes)
-
-export const sortedContent = (): Content[] =>
-  sortByDate([...allPosts, ...allNotes, ...allLeetcodes, ...allPolyglots])
+const filterByLanguage = <T extends { tags?: readonly string[] }>(
+  items: readonly T[],
+  language: 'english' | 'german',
+): T[] =>
+  [...items].filter((a) =>
+    a.tags?.some((tag) => tag.toLowerCase().startsWith(language)),
+  )
 
 export const groupByYear = (items: Content[]): ContentGroup[] => {
-  const contentGroup: ContentGroup[] = []
-  items.forEach((post) => {
-    const year = getYear(post.date)
-    const lastGroup = contentGroup.at(-1)
-    if (!lastGroup || lastGroup.year !== year) {
-      contentGroup.push({ year, list: [] })
+  const groups: Record<number, Content[]> = {}
+
+  items.forEach((item) => {
+    const year = getYear(item.date)
+    if (!groups[year]) {
+      groups[year] = []
     }
-    contentGroup.at(-1)?.list.push(post)
+    groups[year].push(item)
   })
-  return contentGroup
+
+  return Object.entries(groups)
+    .map(([year, list]) => ({
+      year: Number(year),
+      list,
+    }))
+    .sort((a, b) => b.year - a.year)
 }
 
-export const summary = (): BlogSummary => {
-  const posts = allPosts.length
-  const notes = allNotes.length
-  const leetcodes = allLeetcodes.length
-  return { posts, notes, leetcodes }
-}
+export const sortedAlbums: Album[] = sortByDate(allAlbums)
 
-export const sortedPolyglots = (
-  filterByLanguage?: 'english' | 'german',
-): Polyglot[] => {
-  let filteredList = allPolyglots
-  if (filterByLanguage) {
-    filteredList = allPolyglots.filter((polyglot) =>
-      polyglot.tags[0].toLowerCase().startsWith(filterByLanguage),
-    )
-  }
-  return sortByDate(filteredList)
-}
+export const sortedPosts: Post[] = sortByDate(allPosts)
 
-export const sortedAlbums = (): Album[] => sortByDate(allAlbums)
+export const sortedNotes: Note[] = sortByDate(allNotes)
+
+export const sortedLeetcodes: Leetcode[] = sortByDate(allLeetcodes)
+
+export const sortedPolyglots: Polyglot[] = sortByDate(allPolyglots)
+
+export const sortedPolyglotsEnglish: Polyglot[] = filterByLanguage(
+  sortedPolyglots,
+  'english',
+)
+
+export const sortedPolyglotsGerman: Polyglot[] = filterByLanguage(
+  sortedPolyglots,
+  'german',
+)
+export const sortedContent: Content[] = sortByDate(content)
+
+export const sortedPriorityContent: Content[] = sortedByPriority(content)
+
+export const summary: BlogSummary = {
+  posts: allPosts.length,
+  notes: allNotes.length,
+  leetcodes: allLeetcodes.length,
+}

@@ -50,9 +50,8 @@ function NoteItem({ note }: NoteItemProps) {
 }
 
 export default function Page() {
-  const noteList = sortedNotes()
-
-  const toc = sortedNotes().map((note) => ({
+  const noteList = sortedNotes
+  const toc = noteList.map((note) => ({
     id: note.slug,
     title: note.title,
     depth: 2,

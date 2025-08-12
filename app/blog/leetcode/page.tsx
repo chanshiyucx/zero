@@ -29,7 +29,7 @@ const renderTitle = (article: Leetcode) => {
 }
 
 export default function Page() {
-  const leetcodeList = sortedLeetcodes()
+  const leetcodeList = sortedLeetcodes
   const leetcodeGroupList = groupByYear(leetcodeList)
 
   return (
