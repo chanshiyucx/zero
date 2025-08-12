@@ -16,7 +16,8 @@ import {
   rehypeAudio,
   rehypeCallout,
   rehypeCode,
-  rehypeImage,
+  rehypeImageGallery,
+  rehypeImageSize,
   rehypeToc,
 } from './lib/mdx'
 
@@ -47,7 +48,8 @@ const options: Options = {
         },
       },
     ],
-    [rehypeImage, { root: 'public' }],
+    [rehypeImageSize, { root: 'public' }],
+    rehypeImageGallery,
     rehypeAudio,
     rehypeCallout,
     rehypeToc,

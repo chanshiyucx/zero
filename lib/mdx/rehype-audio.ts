@@ -1,7 +1,7 @@
 import { type Element, type Root } from 'hast'
 import { type MdxJsxAttribute } from 'mdast-util-mdx'
 import { type Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
+import { SKIP, visit } from 'unist-util-visit'
 
 export const rehypeAudio: Plugin<[], Root> = () => {
   return (tree) => {
@@ -22,6 +22,7 @@ export const rehypeAudio: Plugin<[], Root> = () => {
       }
 
       parent.children.splice(index, 1, audioNode)
+      return [SKIP, index]
     })
   }
 }

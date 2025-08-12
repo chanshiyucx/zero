@@ -20,7 +20,7 @@ export default async function Page() {
           Code flows like pure poetry.
         </h1>
       </header>
-      <ul className="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-3 max-md:grid-cols-[repeat(2,minmax(0,1fr))] max-sm:grid-cols-[repeat(1,minmax(0,1fr))]">
+      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {repositories.map((repo) => (
           <li key={repo.name}>
             <Card>

@@ -1,3 +1,4 @@
+import { CameraIcon, SlideshowIcon } from '@phosphor-icons/react/dist/ssr'
 import { AnimatePresence, m } from 'framer-motion'
 import {
   memo,
@@ -278,7 +279,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   }, [isOpen, transform])
 
   return (
-    <>
+    <figure>
       <AnimatePresence>
         {isOpen && (
           <m.span
@@ -350,7 +351,21 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           {!isReady && <Spinner />}
         </span>
       </span>
-    </>
+
+      {alt && (
+        <figcaption className="text-subtle my-2 block text-center text-sm italic">
+          {originalsrc ? (
+            <CameraIcon weight="duotone" className="fill-subtle mr-1 inline" />
+          ) : (
+            <SlideshowIcon
+              weight="duotone"
+              className="fill-subtle mr-1 inline"
+            />
+          )}
+          <span className="align-text-top">{alt}</span>
+        </figcaption>
+      )}
+    </figure>
   )
 }
 
