@@ -30,7 +30,7 @@ function Stat({ icon, label, value, className, href }: StatProps) {
 }
 
 export function AnalysisCard() {
-  const { posts, notes, leetcodes } = summary()
+  const { posts, notes, leetcodes } = summary
 
   const stats = [
     {

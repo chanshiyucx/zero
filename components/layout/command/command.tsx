@@ -76,10 +76,10 @@ export function Command() {
   const { push } = useRouter()
   const contentLists = useMemo(
     () => ({
-      posts: sortedPosts(),
-      notes: sortedNotes(),
-      leetcodes: sortedLeetcodes(),
-      polyglots: sortedPolyglots(),
+      posts: sortedPosts,
+      notes: sortedNotes,
+      leetcodes: sortedLeetcodes,
+      polyglots: sortedPolyglots,
     }),
     [],
   )

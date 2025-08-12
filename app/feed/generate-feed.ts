@@ -4,8 +4,8 @@ import { sortedContent } from '@/lib/utils/content'
 import { markdownToHtml } from './markdown-to-html'
 
 export function generateFeed() {
+  const list = sortedContent
   const date = new Date()
-  const list = sortedContent()
   const feed = new Feed({
     title: siteConfig.metadata.title,
     description: siteConfig.metadata.description,

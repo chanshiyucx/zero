@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Date } from '@/components/ui/date'
-import { sortedContent } from '@/lib/utils/content'
+import { sortedPriorityContent } from '@/lib/utils/content'
 
 export function LatestStats() {
-  const article = sortedContent()[0]
+  const article = sortedPriorityContent[0]
 
   return (
     <Card className="overflow-hidden">
