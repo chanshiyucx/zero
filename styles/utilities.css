@@ -43,12 +43,6 @@
   @apply w-full flex-1 space-y-20 py-20 max-md:space-y-12 max-md:py-12;
 }
 
-@utility album {
-  p {
-    @apply m-0;
-  }
-}
-
 @utility menu-button {
   @apply text-subtle hover:bg-muted/20 inline-block w-full cursor-pointer rounded-lg p-2 text-center leading-none font-semibold transition-all duration-300;
   @apply data-[isactive='true']:text-rose;
@@ -117,6 +111,23 @@
     &::before {
       @apply bg-overlay absolute -bottom-2 -left-2 h-2 w-2 rounded-full content-[''];
     }
+  }
+}
+
+@utility photo-gallery {
+  @apply grid grid-cols-3 gap-3 max-md:grid-cols-2;
+
+  &[data-total='1'] {
+    @apply grid-cols-1;
+  }
+
+  &[data-total='2'],
+  &[data-total='4'] {
+    @apply grid-cols-2;
+  }
+
+  figure {
+    @apply m-0;
   }
 }
 

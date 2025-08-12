@@ -2,7 +2,7 @@ import path from 'path'
 import { type Element, type Root } from 'hast'
 import { imageSizeFromFile } from 'image-size/fromFile'
 import { type Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
+import { SKIP, visit } from 'unist-util-visit'
 
 interface Options {
   root?: string
@@ -24,10 +24,11 @@ const calcImageSize = async (imageSrc: string, options?: Options) => {
 const getThumbnail = (src: string) =>
   src.replace('/raw?', '/thumbnail?') + '&size=large'
 
-export const rehypeImage: Plugin<[Options?], Root> = (options) => {
+export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
   return async (tree) => {
     const imageNodes: Element[] = []
 
+    // Calculate image size
     visit(tree, { type: 'element', tagName: 'img' }, (node: Element) => {
       if (!node.properties || typeof node.properties.src !== 'string') return
       if (node.properties.src.startsWith('http')) {
@@ -44,6 +45,7 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
       }
     })
 
+    // Wiki image will be recognized as text
     visit(tree, 'text', (node, index, parent) => {
       if (!parent || typeof index !== 'number') return
       const match = node.value.match(/^!\[\[(.+?)\]\]$/)
@@ -65,6 +67,7 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
       }
       imageNodes.push(imgNode)
       parent.children.splice(index, 1, imgNode)
+      return [SKIP, index]
     })
 
     await Promise.all(
@@ -77,5 +80,39 @@ export const rehypeImage: Plugin<[Options?], Root> = (options) => {
         node.properties.height = imageSize.height
       }),
     )
+  }
+}
+
+export const rehypeImageGallery: Plugin<[], Root> = () => {
+  return (tree) => {
+    visit(tree, { type: 'element', tagName: 'p' }, (node, index, parent) => {
+      if (!parent || typeof index !== 'number') return
+
+      const isGalleryParagraph = node.children.every(
+        (child) =>
+          (child.type === 'element' &&
+            (child.tagName === 'img' || child.tagName === 'br')) ||
+          (child.type === 'text' &&
+            (child.value.trim() === '' || child.value.trim() === '\n')),
+      )
+      if (!isGalleryParagraph) return
+
+      const imageNodes = node.children.filter(
+        (child) => child.type === 'element' && child.tagName === 'img',
+      )
+      if (imageNodes.length === 0) return
+
+      const galleryNode: Element = {
+        type: 'element',
+        tagName: 'div',
+        properties: {
+          className: ['photo-gallery'],
+          dataTotal: imageNodes.length,
+        },
+        children: imageNodes,
+      }
+      parent.children.splice(index, 1, galleryNode)
+      return [SKIP, index]
+    })
   }
 }
