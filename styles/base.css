@@ -66,7 +66,7 @@
   }
 
   span[data-highlighted-line] {
-    @apply border-muted bg-base border-l-2;
+    @apply bg-base border-l-2;
   }
 
   blockquote {
