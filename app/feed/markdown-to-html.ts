@@ -5,13 +5,13 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 
-export function markdownToHtml(markdown: string) {
-  const file = unified()
+export async function markdownToHtml(markdown: string) {
+  const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkBreaks)
     .use(remarkRehype)
     .use(rehypeStringify)
-    .processSync(markdown)
+    .process(markdown)
   return String(file)
 }
