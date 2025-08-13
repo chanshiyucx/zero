@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { isClientSide } from '@/lib/utils/env'
 
-const handleError = (error: unknown) => {
-  console.error('useLocalStorage Error:', error)
-}
-
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
@@ -26,7 +22,7 @@ export function useLocalStorage<T>(
       const item = window.localStorage.getItem(key)
       return item ? JSON.parse(item) : initialValue
     } catch (error) {
-      handleError(error)
+      console.error('useLocalStorage Error:', error)
       return initialValue
     }
   })
@@ -41,7 +37,7 @@ export function useLocalStorage<T>(
         window.localStorage.setItem(expireKey, expireDate)
       }
     } catch (error) {
-      handleError(error)
+      console.error('useLocalStorage Error:', error)
     }
   }
 
