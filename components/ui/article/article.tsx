@@ -82,13 +82,13 @@ export async function Article({
         </StaggeredFadeInItem>
         <StaggeredFadeInItem as="section">
           <MDX contentCode={article.contentCode} />
-          {article.toc.length > 0 && <Toc toc={article.toc} />}
         </StaggeredFadeInItem>
         <StaggeredFadeInItem as="footer" className="flex flex-col gap-2">
           {!hideDiscussion && <Discussion label={type} title={article.title} />}
           <Backward />
         </StaggeredFadeInItem>
       </article>
+      {article.toc.length > 0 && <Toc toc={article.toc} />}
     </StaggeredFadeInContainer>
   )
 }
