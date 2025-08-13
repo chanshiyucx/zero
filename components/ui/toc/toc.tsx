@@ -198,13 +198,10 @@ export function Toc({ toc }: TocProps) {
             </li>
           ))}
         </ul>
-        <svg
-          className="toc-marker absolute inset-0 -z-10 h-full w-full"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg className="absolute inset-0 -z-10 h-full w-full">
           <path
             ref={pathRef}
-            stroke="var(--color-subtle)"
+            stroke="var(--color-muted)"
             strokeWidth="3"
             fill="transparent"
             strokeDasharray="0, 0, 0, 1000"
