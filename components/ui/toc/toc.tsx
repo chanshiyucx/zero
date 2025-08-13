@@ -3,6 +3,7 @@
 import { ListIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { type TocEntry } from '@/lib/mdx/rehype-toc'
 import { debounce } from '@/lib/utils/lodash'
 import { cn } from '@/lib/utils/style'
@@ -175,7 +176,7 @@ export function Toc({ toc }: TocProps) {
   }, [toc])
 
   return (
-    <aside className="group hidden w-0 xl:block">
+    <StaggeredFadeInItem as="aside" className="group hidden w-0 xl:block">
       <nav className="sticky top-24 mt-12 w-64 translate-x-6">
         <ListIcon
           size="1.2em"
@@ -214,6 +215,6 @@ export function Toc({ toc }: TocProps) {
           />
         </svg>
       </nav>
-    </aside>
+    </StaggeredFadeInItem>
   )
 }
