@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process'
 const REPO_URL = 'https://github.com/chanshiyucx/blog.git'
 const CONTENT_PATH = './public/blog'
 
-const runBashCommand = (command) =>
+const runBashCommand = (command: string) =>
   new Promise((resolve, reject) => {
     console.log(`Run bash command: ${command}`)
     const child = spawn(command, [], { shell: true })
@@ -21,7 +21,7 @@ const runBashCommand = (command) =>
     })
   })
 
-const syncContentFromGit = async (repoUrl, contentPath) => {
+const syncContentFromGit = async (repoUrl: string, contentPath: string) => {
   console.log('Syncing content files from git')
   if (fs.existsSync(contentPath)) {
     await runBashCommand(`cd ${contentPath} && git pull`)
