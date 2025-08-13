@@ -1,6 +1,10 @@
 import { type Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { friends, type Friend } from '@/lib/constants/friends'
 
 export const metadata: Metadata = {
@@ -38,19 +42,22 @@ const FriendCard = ({ friend }: { friend: Friend }) => {
 
 export default function Page() {
   return (
-    <main className="page">
-      <header>
+    <StaggeredFadeInContainer as="main" className="page">
+      <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">
           Souls connected through time.
         </h1>
-      </header>
-      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2">
+      </StaggeredFadeInItem>
+      <StaggeredFadeInItem
+        as="ul"
+        className="grid grid-cols-3 gap-3 max-md:grid-cols-2"
+      >
         {friends.map((friend) => (
           <li key={friend.name}>
             <FriendCard friend={friend} />
           </li>
         ))}
-      </ul>
-    </main>
+      </StaggeredFadeInItem>
+    </StaggeredFadeInContainer>
   )
 }

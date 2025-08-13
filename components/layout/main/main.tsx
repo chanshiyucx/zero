@@ -1,4 +1,5 @@
 import { Logo } from '@/components/ui/logo'
+import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { random } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 import { Explore } from './explore'
@@ -8,7 +9,7 @@ export function Main() {
   const action = random(0, 1) === 0 ? 'walk' : 'run'
 
   return (
-    <div className="flex h-fit w-full flex-col gap-20 max-md:gap-12">
+    <StaggeredFadeInItem className="flex h-fit w-full flex-col gap-20 max-md:gap-12">
       <div className="relative flex items-center justify-between max-md:justify-center">
         <div className="z-10 flex flex-col items-start gap-4">
           <Logo />
@@ -22,6 +23,6 @@ export function Main() {
         </div>
       </div>
       <Explore />
-    </div>
+    </StaggeredFadeInItem>
   )
 }

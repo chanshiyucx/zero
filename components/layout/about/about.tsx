@@ -9,6 +9,7 @@ import {
   TypeScript,
   VueJS,
 } from '@/components/icons'
+import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { CV } from './cv'
 
 interface LinkElementProps {
@@ -69,7 +70,7 @@ const Link = ({ label, ...props }: { label: string } & LinkProps) => (
 
 export function About() {
   return (
-    <div className="prose prose-rosepine w-full max-w-none">
+    <StaggeredFadeInItem className="prose prose-rosepine w-full max-w-none">
       <h2 className="text-subtle text-xs">Full-Stack Developer</h2>
 
       <p>
@@ -111,6 +112,6 @@ export function About() {
         </div>
         <CV />
       </div>
-    </div>
+    </StaggeredFadeInItem>
   )
 }

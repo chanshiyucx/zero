@@ -1,3 +1,5 @@
+// It may be better to not use page fade and fade-in effects at the same time
+
 'use client'
 
 import { AnimatePresence, m } from 'framer-motion'

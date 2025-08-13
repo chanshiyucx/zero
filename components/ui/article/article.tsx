@@ -5,6 +5,10 @@ import { Backward } from '@/components/ui/backward'
 import { Date } from '@/components/ui/date'
 import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
 import { type Content, type ContentType } from '@/lib/utils/content'
@@ -61,9 +65,9 @@ export async function Article({
   }
 
   return (
-    <main className="page flex flex-row">
+    <StaggeredFadeInContainer as="main" className="page flex flex-row">
       <article className="w-full space-y-12">
-        <header>
+        <StaggeredFadeInItem as="header">
           <Title titleCode={article.titleCode} />
           <div className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex shrink-0 items-center gap-1">
@@ -75,16 +79,16 @@ export async function Article({
               {article.tags.at(-1)}
             </span>
           </div>
-        </header>
-        <section>
+        </StaggeredFadeInItem>
+        <StaggeredFadeInItem as="section">
           <MDX contentCode={article.contentCode} />
-        </section>
-        <footer className="flex flex-col gap-2">
+          {article.toc.length > 0 && <Toc toc={article.toc} />}
+        </StaggeredFadeInItem>
+        <StaggeredFadeInItem as="footer" className="flex flex-col gap-2">
           {!hideDiscussion && <Discussion label={type} title={article.title} />}
           <Backward />
-        </footer>
+        </StaggeredFadeInItem>
       </article>
-      {article.toc.length > 0 && <Toc toc={article.toc} />}
-    </main>
+    </StaggeredFadeInContainer>
   )
 }
