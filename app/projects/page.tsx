@@ -1,6 +1,10 @@
 import { type Metadata } from 'next'
 import { Card } from '@/components/ui/card'
 import { Github } from '@/components/ui/github'
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { getGithubRepositories } from '@/lib/api/github'
 
 export const metadata: Metadata = {
@@ -14,13 +18,16 @@ export default async function Page() {
   const repositories = await getGithubRepositories()
 
   return (
-    <main className="page">
-      <header>
+    <StaggeredFadeInContainer as="main" className="page">
+      <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">
           Code flows like pure poetry.
         </h1>
-      </header>
-      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+      </StaggeredFadeInItem>
+      <StaggeredFadeInItem
+        as="ul"
+        className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
+      >
         {repositories.map((repo) => (
           <li key={repo.name}>
             <Card>
@@ -31,7 +38,7 @@ export default async function Page() {
             </Card>
           </li>
         ))}
-      </ul>
-    </main>
+      </StaggeredFadeInItem>
+    </StaggeredFadeInContainer>
   )
 }

@@ -5,6 +5,10 @@ import Link from 'next/link'
 import { Date } from '@/components/ui/date'
 import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { Toc } from '@/components/ui/toc'
 import { sortedNotes } from '@/lib/utils/content'
 
@@ -58,11 +62,11 @@ export default function Page() {
   }))
 
   return (
-    <main className="page">
-      <header>
+    <StaggeredFadeInContainer as="main" className="page">
+      <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
-      </header>
-      <section className="flex flex-row">
+      </StaggeredFadeInItem>
+      <StaggeredFadeInItem as="section" className="flex flex-row">
         <article className="w-full">
           <div className="flex flex-col gap-8">
             {noteList.map((note, index) => (
@@ -74,7 +78,7 @@ export default function Page() {
           </div>
         </article>
         {toc.length > 0 && <Toc toc={toc} />}
-      </section>
-    </main>
+      </StaggeredFadeInItem>
+    </StaggeredFadeInContainer>
   )
 }

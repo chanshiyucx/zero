@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
 import { ThemeProvider } from 'next-themes'
 import MotionProvider from './providers/motion-provider'
-import TransitionProvider from './providers/transition-provider'
 
 const merriweather = Merriweather({
   subsets: ['latin'],
@@ -81,7 +80,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="light">
           <MotionProvider>
             <Header />
-            <TransitionProvider>{children}</TransitionProvider>
+            {children}
             <Command />
             <Helper />
             <Footer />

@@ -2,6 +2,10 @@ import { CalendarBlankIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { Date } from '@/components/ui/date'
 import { MDX } from '@/components/ui/mdx'
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { sortedAlbums } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -15,11 +19,11 @@ export default function Page() {
   const albumList = sortedAlbums
 
   return (
-    <main className="page">
-      <header>
+    <StaggeredFadeInContainer as="main" className="page">
+      <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
-      </header>
-      <section className="space-y-8">
+      </StaggeredFadeInItem>
+      <StaggeredFadeInItem as="section" className="space-y-8">
         {albumList.map((album) => (
           <article key={album.title}>
             <header className="bg-base sticky top-0 z-10 flex flex-row items-center justify-between py-3">
@@ -34,7 +38,7 @@ export default function Page() {
             </section>
           </article>
         ))}
-      </section>
-    </main>
+      </StaggeredFadeInItem>
+    </StaggeredFadeInContainer>
   )
 }

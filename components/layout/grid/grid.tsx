@@ -1,3 +1,7 @@
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { AlbumCard } from './album-card'
 import { AnalysisCard } from './analysis-card'
 import { CatCard } from './cat-card'
@@ -8,23 +12,21 @@ import { SocialCard } from './social-card'
 import { StacksCard } from './stacks-card'
 import { WakatimeStats } from './wakatime-stats'
 
-// import { StarsCard } from './stars-card'
-
 export function Grid() {
   return (
-    <div>
-      <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
-        <div className="col-span-3">
-          <CatCard />
-        </div>
-        <div className="col-span-3">
-          <GithubStats />
-        </div>
-      </div>
+    <StaggeredFadeInItem>
+      <StaggeredFadeInContainer>
+        <StaggeredFadeInItem className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
+          <div className="col-span-3">
+            <CatCard />
+          </div>
+          <div className="col-span-3">
+            <GithubStats />
+          </div>
+        </StaggeredFadeInItem>
 
-      <div className="mt-3 grid grid-cols-6 gap-3 max-md:grid-cols-3">
-        <div className="col-span-3 flex flex-col gap-3">
-          <div className="flex gap-2">
+        <StaggeredFadeInItem className="mt-3 grid grid-cols-6 gap-3 max-md:grid-cols-3">
+          <div className="col-span-3 flex gap-2">
             <div className="w-24">
               <AlbumCard />
             </div>
@@ -33,17 +35,21 @@ export function Grid() {
               <WakatimeStats />
             </div>
           </div>
-          <AnalysisCard />
-        </div>
-
-        <div className="col-span-3 flex flex-col gap-3">
-          <div className="flex gap-2">
+          <div className="col-span-3 flex gap-2">
             <DiscordStatus />
             <LatestStats />
           </div>
-          <StacksCard />
-        </div>
-      </div>
-    </div>
+        </StaggeredFadeInItem>
+
+        <StaggeredFadeInItem className="mt-3 grid grid-cols-6 gap-3 max-md:grid-cols-3">
+          <div className="col-span-3">
+            <AnalysisCard />
+          </div>
+          <div className="col-span-3">
+            <StacksCard />
+          </div>
+        </StaggeredFadeInItem>
+      </StaggeredFadeInContainer>
+    </StaggeredFadeInItem>
   )
 }

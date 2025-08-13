@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import { type ReactNode } from 'react'
 import { Date } from '@/components/ui/date'
+import {
+  StaggeredFadeInContainer,
+  StaggeredFadeInItem,
+} from '@/components/ui/stagger'
 import { type Content, type ContentGroup } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
@@ -31,11 +35,11 @@ function renderExtraInfo(extraInfo: ExtraInfo) {
 
 export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
-    <main className="page">
-      <header>
+    <StaggeredFadeInContainer as="main" className="page">
+      <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">{title}</h1>
-      </header>
-      <section className="space-y-2">
+      </StaggeredFadeInItem>
+      <StaggeredFadeInItem as="section" className="space-y-2">
         {groups.map((group) => (
           <div key={group.year}>
             <p className="text-right text-3xl font-extrabold">{group.year}</p>
@@ -62,7 +66,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
             </ul>
           </div>
         ))}
-      </section>
-    </main>
+      </StaggeredFadeInItem>
+    </StaggeredFadeInContainer>
   )
 }
