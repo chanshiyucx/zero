@@ -42,3 +42,5 @@ next-env.d.ts
 # contentlayer
 .content-collections
 /public/blog
+feed.xml
+sitemap.xml
