@@ -18,3 +18,5 @@ export function generateMeta() {
 
   console.log('✅ All metadata generated successfully.')
 }
+
+generateMeta()
