@@ -332,7 +332,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           className={cn(
             'absolute m-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
-            zoomState === 0 ? 'z-100' : 'z-101 rounded-none!',
+            zoomState === 0 ? 'z-10' : 'z-101 rounded-none!',
             isInteracting && 'will-change-transform',
           )}
           transition={{
