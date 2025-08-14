@@ -21,15 +21,15 @@ const runBashCommand = (command: string) =>
     })
   })
 
-const syncContentFromGit = async (repoUrl: string, contentPath: string) => {
+export async function syncBlogFromGit() {
   console.log('Syncing content files from git')
-  if (fs.existsSync(contentPath)) {
-    await runBashCommand(`cd ${contentPath} && git pull`)
+  if (fs.existsSync(CONTENT_PATH)) {
+    await runBashCommand(`cd ${CONTENT_PATH} && git pull`)
   } else {
     await runBashCommand(
-      `git clone --depth 1 --single-branch ${repoUrl} ${contentPath}`,
+      `git clone --depth 1 --single-branch ${REPO_URL} ${CONTENT_PATH}`,
     )
   }
 }
 
-syncContentFromGit(REPO_URL, CONTENT_PATH)
+syncBlogFromGit()

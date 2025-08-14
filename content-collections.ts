@@ -57,7 +57,7 @@ const options: Options = {
   remarkPlugins: [remarkGfm, remarkBreaks, remarkMath],
 }
 
-function extractLanguageSections(content: string) {
+const extractLanguageSections = (content: string) => {
   const parts = content
     .split(/^##\s+/gm)
     .filter(Boolean)

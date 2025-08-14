@@ -3,7 +3,7 @@ import { siteConfig } from '@/lib/constants/config'
 import { sortedContent } from '@/lib/utils/content'
 import { markdownToHtml } from './markdown-to-html'
 
-export async function generateFeed() {
+export function generateFeed() {
   const list = sortedContent
   const date = new Date()
   const feed = new Feed({
@@ -22,23 +22,19 @@ export async function generateFeed() {
     author: siteConfig.author,
   })
 
-  await Promise.all(
-    list.map(async (item) => {
-      const link = `${siteConfig.webserver.host}${item.url}`
-      const content = await markdownToHtml(item.content)
-
-      feed.addItem({
-        link,
-        title: item.title,
-        id: item.slug,
-        description: item.description,
-        content: content,
-        author: [siteConfig.author],
-        date: new Date(item.date),
-        category: item.tags.map((tag) => ({ name: tag })),
-      })
-    }),
-  )
+  list.forEach((item) => {
+    const link = `${siteConfig.webserver.host}${item.url}`
+    feed.addItem({
+      link,
+      title: item.title,
+      id: item.slug,
+      description: item.description,
+      content: markdownToHtml(item.content),
+      author: [siteConfig.author],
+      date: new Date(item.date),
+      category: item.tags.map((tag) => ({ name: tag })),
+    })
+  })
 
   return feed.rss2()
 }
