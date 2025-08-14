@@ -35,7 +35,11 @@
 
   body {
     @apply bg-base text-text mx-auto! flex min-h-screen max-w-3xl flex-col px-4 font-sans font-medium tabular-nums antialiased;
-    @apply selection:bg-muted/20;
+    @apply selection:bg-muted/20 noise-bg;
+
+    &::before {
+      @apply fixed inset-0;
+    }
   }
 
   kbd {

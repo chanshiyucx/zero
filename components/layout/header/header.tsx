@@ -65,7 +65,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
       <MenuItem name={name} path={path} isActive={isActive} />
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute top-full left-1/2 z-10 -translate-x-1/2 p-2">
+          <div className="absolute top-full left-1/2 -translate-x-1/2 p-2">
             <m.div
               initial="hidden"
               animate="enter"
@@ -76,18 +76,17 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
                 stiffness: 500,
                 damping: 30,
               }}
+              className="bg-surface overflow-hidden rounded-lg shadow-lg"
             >
-              <div className="bg-surface overflow-hidden rounded-lg shadow-lg">
-                {items.map((item) => (
-                  <MenuItem
-                    key={item.path}
-                    name={item.name}
-                    path={item.path}
-                    isActive={pathname.startsWith(item.path)}
-                    className="rounded-none py-3"
-                  />
-                ))}
-              </div>
+              {items.map((item) => (
+                <MenuItem
+                  key={item.path}
+                  name={item.name}
+                  path={item.path}
+                  isActive={pathname.startsWith(item.path)}
+                  className="rounded-none py-3"
+                />
+              ))}
             </m.div>
           </div>
         )}

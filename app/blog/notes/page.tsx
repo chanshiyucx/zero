@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 function NoteItem({ note }: NoteItemProps) {
   return (
     <div>
-      <header className="bg-base sticky top-0 z-10 flex flex-1 flex-row items-center justify-between py-3 max-md:flex-col max-md:items-start">
+      <header className="flex flex-1 flex-row items-center justify-between py-3 max-md:flex-col max-md:items-start">
         <Link className="link-hover text-2xl font-bold" href={note.url}>
           <h2 className="text-text inline" id={note.slug}>
             {note.title}

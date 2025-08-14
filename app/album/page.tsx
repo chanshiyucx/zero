@@ -26,7 +26,7 @@ export default function Page() {
       <StaggeredFadeInItem as="section" className="space-y-8">
         {albumList.map((album) => (
           <article key={album.title}>
-            <header className="bg-base sticky top-0 z-10 flex flex-row items-center justify-between py-3">
+            <header className="flex flex-row items-center justify-between py-3">
               <h2 className="text-2xl font-bold">{album.title}</h2>
               <span className="text-subtle inline-flex shrink-0 items-center gap-1">
                 <CalendarBlankIcon weight="bold" />
