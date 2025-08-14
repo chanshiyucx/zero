@@ -1,7 +1,6 @@
 import { Feed } from 'feed'
 import { siteConfig } from '@/lib/constants/config'
 import { sortedContent } from '@/lib/utils/content'
-import { markdownToHtml } from './markdown-to-html'
 
 export function generateFeed() {
   const list = sortedContent
@@ -15,7 +14,7 @@ export function generateFeed() {
     copyright: `All rights reserved ${date.getFullYear()}, Chanshiyu.`,
     updated: list.length > 0 ? new Date(list[0].date) : date,
     feedLinks: {
-      rss2: `${siteConfig.webserver.host}/blog/feed`,
+      rss2: `${siteConfig.webserver.host}/feed`,
     },
     docs: siteConfig.links.repo,
     generator: 'Feed for Node.js',
@@ -29,7 +28,7 @@ export function generateFeed() {
       title: item.title,
       id: item.slug,
       description: item.description,
-      content: markdownToHtml(item.content),
+      content: item.contentHtml,
       author: [siteConfig.author],
       date: new Date(item.date),
       category: item.tags.map((tag) => ({ name: tag })),
