@@ -14,7 +14,7 @@ export function Main() {
         <div className="flex flex-col items-start gap-4 max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:-translate-1/2">
           <Logo />
 
-          <div className="text-subtle min-h-9 text-2xl italic">
+          <div className="text-subtle min-h-9 text-2xl whitespace-nowrap italic">
             <TypedWriter />
           </div>
         </div>
