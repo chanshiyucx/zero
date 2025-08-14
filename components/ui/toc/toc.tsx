@@ -198,7 +198,7 @@ export function Toc({ toc }: TocProps) {
             </li>
           ))}
         </ul>
-        <svg className="absolute inset-0 -z-10 h-full w-full">
+        <svg className="pointer-events-none absolute inset-0 h-full w-full">
           <path
             ref={pathRef}
             stroke="var(--color-muted)"

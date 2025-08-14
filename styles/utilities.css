@@ -98,6 +98,16 @@
   text-shadow: 1px 1px 3px hsl(var(--color-text) / 0.3);
 }
 
+@utility noise-bg {
+  &::before {
+    @apply pointer-events-none absolute inset-0 z-10 bg-repeat;
+    content: '';
+    opacity: 0.035;
+    background-image: url(/assets/noise.png);
+    background-size: 180px;
+  }
+}
+
 @utility photo-view-mask {
   @apply bg-surface!;
 }
@@ -212,7 +222,7 @@
   --cat-body-light: #777;
   --cat-body-dark: #444;
 
-  @apply relative z-10 block h-[var(--cat-size)] w-[var(--cat-size)] cursor-pointer overflow-hidden rounded-full border-[calc(var(--cat-size)*0.034)] border-[var(--cat-border)] bg-[var(--cat-bg-light)] shadow-inner transition-colors duration-1000;
+  @apply relative block h-[var(--cat-size)] w-[var(--cat-size)] cursor-pointer overflow-hidden rounded-full border-[calc(var(--cat-size)*0.034)] border-[var(--cat-border)] bg-[var(--cat-bg-light)] shadow-inner transition-colors duration-1000;
 
   .the-sun,
   .the-moon {

@@ -41,12 +41,12 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
 
   return (
     <div
-      className="bg-muted/20 fixed inset-0 z-50 backdrop-blur-xs"
+      className="bg-muted/20 fixed inset-0 z-100 backdrop-blur-xs"
       onClick={() => setOpen(false)}
     >
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <div
-          className="relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
+          className="noise-bg relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <Command
