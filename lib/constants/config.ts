@@ -1,6 +1,6 @@
 export const siteConfig = {
   webserver: {
-    host: 'http://shiyui.vercel.app',
+    host: 'https://shiyui.vercel.app',
   },
   metadata: {
     title: "Shiyu's Hideout",
