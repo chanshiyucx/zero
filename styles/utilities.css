@@ -102,9 +102,11 @@
   &::before {
     @apply pointer-events-none absolute inset-0 z-10 bg-repeat;
     content: '';
-    opacity: 0.035;
-    background-image: url(/assets/noise.png);
-    background-size: 180px;
+    background-image: var(--noise-texture-light);
+  }
+
+  [data-theme='dark'] &::before {
+    background-image: var(--noise-texture-dark);
   }
 }
 

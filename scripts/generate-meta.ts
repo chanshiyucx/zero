@@ -8,13 +8,13 @@ export function generateMeta() {
 
   const feed = generateFeed()
   fs.writeFileSync(path.join(publicPath, 'feed.xml'), feed)
-  console.log('✓ Feed Generated')
+  console.log('✅ Feed Generated')
 
   const sitemap = generateSitemap()
   fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), sitemap)
-  console.log('✓ Sitemap Generated')
+  console.log('✅ Sitemap Generated')
 
-  console.log('✓ All metadata generated successfully.')
+  console.log('✅ All metadata generated successfully.')
 }
 
 generateMeta()
