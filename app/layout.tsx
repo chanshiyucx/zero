@@ -57,9 +57,19 @@ export const metadata: Metadata = {
     type: 'website',
     url: '/',
     emails: [siteConfig.author.email],
+    images: [
+      {
+        url: '/og/home',
+        width: 1200,
+        height: 630,
+        alt: siteConfig.metadata.title,
+      },
+    ],
   },
   twitter: {
     ...siteConfig.metadata,
+    creator: siteConfig.author.name,
+    images: ['/og/home'],
     card: 'summary_large_image',
   },
 }

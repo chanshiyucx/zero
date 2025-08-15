@@ -41,11 +41,20 @@ export async function generateArticleMetadata({
       authors: publisher,
       type: 'article',
       url: article.url,
+      images: [
+        {
+          url: `/og/${slug}`,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.metadata.title,
+        },
+      ],
     },
     twitter: {
       ...siteConfig.metadata,
       card: 'summary_large_image',
       creator: publisher,
+      images: [`/og/${slug}`],
     },
   }
 }
