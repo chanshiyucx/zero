@@ -11,23 +11,21 @@ import {
 } from '@/components/ui/stagger'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
-import { type Content, type ContentType } from '@/lib/utils/content'
+import { findContentBySlug, type ContentType } from '@/lib/utils/content'
 import { Title } from './title'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
-  collection: Content[]
   type: ContentType
   hideDiscussion?: boolean
 }
 
 export async function generateArticleMetadata({
   params,
-  collection,
 }: ArticleProps): Promise<Metadata> {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
-  const article = collection.find((item) => item.slug === decodedSlug)
+  const article = findContentBySlug(decodedSlug)
   if (!article) return {}
   const publisher = `${siteConfig.author.name} ${siteConfig.author.link}`
 
@@ -61,13 +59,12 @@ export async function generateArticleMetadata({
 
 export async function Article({
   params,
-  collection,
   type,
   hideDiscussion = false,
 }: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
-  const article = collection.find((item) => item.slug === decodedSlug)
+  const article = findContentBySlug(decodedSlug)
 
   if (!article) {
     return notFound()

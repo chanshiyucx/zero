@@ -99,3 +99,6 @@ export const summary: BlogSummary = {
   notes: allNotes.length,
   leetcodes: allLeetcodes.length,
 }
+
+export const findContentBySlug = (slug: string): Content | undefined =>
+  content.find((c) => c.slug === slug)
