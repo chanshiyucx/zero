@@ -100,8 +100,7 @@
 
 @utility noise-bg {
   &::before {
-    @apply pointer-events-none absolute inset-0 z-10 bg-repeat;
-    content: '';
+    @apply pointer-events-none absolute inset-0 z-10 bg-repeat content-[''];
     background-image: var(--noise-texture-light);
   }
 
@@ -171,8 +170,7 @@
 
   &::before,
   &::after {
-    @apply absolute -top-20 left-1/2 aspect-square w-sm;
-    content: '';
+    @apply absolute -top-20 left-1/2 aspect-square w-sm content-[''];
   }
 
   &::before {

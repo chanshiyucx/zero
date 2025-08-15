@@ -128,9 +128,9 @@ function Player({ src }: AudioPlayerProps) {
         } else {
           setTitle('Unknown title')
         }
-      } catch (err) {
+      } catch (error) {
         if (signal.aborted) return
-        console.error('Failed to fetch audio metadata:', err)
+        console.error('Failed to fetch audio metadata:', error)
         setTitle('Unknown title')
       } finally {
         if (!signal.aborted) {

@@ -13,8 +13,8 @@ const calcImageSize = async (imageSrc: string, options?: Options) => {
   try {
     const dimensions = await imageSizeFromFile(imagePath)
     return { width: dimensions.width, height: dimensions.height }
-  } catch (err) {
-    console.error(`Failed to get image size for ${imagePath}`, err)
+  } catch (error) {
+    console.error(`Failed to get image size for ${imagePath}`, error)
     return { width: 0, height: 0 }
   }
 }
