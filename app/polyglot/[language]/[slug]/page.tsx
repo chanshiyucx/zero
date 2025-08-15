@@ -1,4 +1,3 @@
-import { allPolyglots } from 'content-collections'
 import { type Metadata } from 'next'
 import { Article, generateArticleMetadata } from '@/components/ui/article'
 
@@ -8,7 +7,6 @@ interface PageProps {
 
 const pageData = {
   type: 'Polyglot',
-  collection: allPolyglots,
 } as const
 
 export async function generateMetadata({

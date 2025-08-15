@@ -1,4 +1,3 @@
-import { allLeetcodes } from 'content-collections'
 import { type Metadata } from 'next'
 import { Article, generateArticleMetadata } from '@/components/ui/article'
 
@@ -8,7 +7,6 @@ interface PageProps {
 
 const pageData = {
   type: 'Leetcode',
-  collection: allLeetcodes,
 } as const
 
 export async function generateMetadata({

@@ -1,9 +1,11 @@
 import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 import { siteConfig } from '@/lib/constants/config'
-import { content } from '@/lib/utils/content'
+import { findContentBySlug } from '@/lib/utils/content'
 
 export const runtime = 'edge'
+
+export const revalidate = 86400 // 24 hours
 
 export async function GET(
   req: NextRequest,
@@ -11,7 +13,7 @@ export async function GET(
 ) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
-  const article = content.find((item) => item.slug === decodedSlug)
+  const article = findContentBySlug(decodedSlug)
   const title = article?.title ?? siteConfig.metadata.title
   const encodedTitle = encodeURIComponent(title)
 
