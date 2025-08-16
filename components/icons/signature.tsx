@@ -11,7 +11,7 @@ export function Signature(props: SVGProps<SVGSVGElement>) {
       <g
         strokeLinecap="round"
         fillRule="evenodd"
-        strokeWidth="2px"
+        strokeWidth={props.strokeWidth ?? '2px'}
         stroke={props.stroke ?? 'var(--color-muted)'}
         fill={props.fill ?? 'none'}
       >
