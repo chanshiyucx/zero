@@ -3,6 +3,8 @@ import { createDiscussion, getDiscussions } from '@/lib/api/github'
 
 export const runtime = 'edge'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
   try {
     const searchParams = new URL(request.url).searchParams
@@ -29,5 +31,3 @@ export async function POST(request: Request) {
     return NextResponse.json(null, { status: 500 })
   }
 }
-
-export const dynamic = 'force-dynamic'

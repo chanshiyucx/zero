@@ -1,7 +1,7 @@
+import { host } from '@/lib/utils/edge'
+
 export const siteConfig = {
-  webserver: {
-    host: 'https://shiyui.vercel.app',
-  },
+  host,
   metadata: {
     title: "Shiyu's Hideout",
     description:
@@ -10,7 +10,7 @@ export const siteConfig = {
   author: {
     name: 'Shiyu',
     email: 'chanshiyucx@gmail.com',
-    link: 'https://shiyui.vercel.app',
+    link: host,
   },
   links: {
     github: 'http://github.com/chanshiyucx',
