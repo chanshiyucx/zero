@@ -73,6 +73,19 @@ const mdxToHtmlProcessor = unified()
   .use(rehypePlugins.filter((p) => p !== rehypeToc))
   .use(rehypeStringify)
 
+const extractDescription = (content: string): string => {
+  const paragraphs = content
+    .trim()
+    .split(/\n\s*\n/)
+    .filter(Boolean)
+
+  const firstParagraph = paragraphs.find(
+    (p) => p.trim() && !p.trim().startsWith('#'),
+  )
+
+  return firstParagraph ?? ''
+}
+
 const extractLanguageSections = (content: string) => {
   const parts = content
     .split(/^##\s+/gm)
@@ -110,6 +123,8 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     }),
     transform: async (document, context) => {
       const title = document.title
+      const description =
+        document.description ?? extractDescription(document.content)
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const [, no] = match
       const slug = slugger.slug(title)
@@ -167,6 +182,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         slug,
         url,
         toc,
+        description,
         contentCode,
         titleCode,
         contentHtml,

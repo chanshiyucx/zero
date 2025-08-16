@@ -34,7 +34,8 @@ export async function generateArticleMetadata({
     keywords: article.tags,
     publisher: publisher,
     openGraph: {
-      ...siteConfig.metadata,
+      title: article.title,
+      description: article.description,
       tags: article.tags,
       authors: publisher,
       type: 'article',
@@ -49,7 +50,8 @@ export async function generateArticleMetadata({
       ],
     },
     twitter: {
-      ...siteConfig.metadata,
+      title: article.title,
+      description: article.description,
       card: 'summary_large_image',
       creator: publisher,
       images: [`/og/${slug}`],
