@@ -1,4 +1,4 @@
-import { host } from '@/lib/utils/edge'
+const host = 'https://shiyui.vercel.app/'
 
 export const siteConfig = {
   host,
