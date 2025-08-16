@@ -16,6 +16,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified, type Pluggable } from 'unified'
 import { z } from 'zod'
+import { isProd } from '@/lib/utils/env'
 import {
   rehypeAudio,
   rehypeCallout,
@@ -30,8 +31,6 @@ interface CollectionProps {
   directory: string
   prefixPath: string
 }
-
-const isProd = process.env.NODE_ENV === 'production'
 
 const slugger = new GithubSlugger()
 

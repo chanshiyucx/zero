@@ -1,7 +1,8 @@
-export const host = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000'
+import { siteConfig } from '@/lib/constants/config'
+import { isProd } from '@/lib/utils/env'
+
+const baseUrl = isProd ? siteConfig : 'http://localhost:3000'
 
 export const getAbsoluteUrl = (path: string) => {
-  return `${host}${path}`
+  return `${baseUrl}${path}`
 }

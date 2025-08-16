@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 import { Signature } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
-import { getAbsoluteUrl, host } from '@/lib/utils/edge'
+import { getAbsoluteUrl } from '@/lib/utils/edge'
 
 export const runtime = 'edge'
 
@@ -14,15 +14,14 @@ export async function GET(
 ) {
   const { slug } = await params
 
-  const metaApiUrl = getAbsoluteUrl(`/api/content?slug=${slug}`)
-  const response = await fetch(metaApiUrl)
+  const response = await fetch(getAbsoluteUrl(`/api/content?slug=${slug}`))
   if (!response.ok) {
     return new Response('Failed to fetch article metadata', { status: 500 })
   }
   const meta: { title: string } | null = await response.json()
   const title = meta?.title ?? siteConfig.metadata.title
 
-  const fontData = await fetch(new URL('/assets/merriweather.ttf', host)).then(
+  const fontData = await fetch(getAbsoluteUrl('/assets/merriweather.ttf')).then(
     (res) => res.arrayBuffer(),
   )
 
