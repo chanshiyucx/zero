@@ -288,6 +288,14 @@ export function Command() {
     })
   }, [register, actionGroups, openSearchPage])
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'initial'
+    }
+  }, [open])
+
   if (!open) return null
 
   return (

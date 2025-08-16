@@ -37,7 +37,7 @@ export async function GET(
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            padding: '20px',
+            padding: '20px 40px',
             backgroundImage:
               'linear-gradient(to bottom right, #f6c177, #eb6f92)',
           }}
@@ -51,7 +51,7 @@ export async function GET(
               paddingBottom: '70px',
             }}
           >
-            <Signature stroke="#b4637a" fill="#ea9d34" />
+            <Signature stroke="#b4637a" fill="#ea9d34" strokeWidth="3px" />
           </div>
           <div
             style={{
