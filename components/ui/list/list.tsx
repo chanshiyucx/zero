@@ -39,9 +39,9 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
       <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">{title}</h1>
       </StaggeredFadeInItem>
-      <StaggeredFadeInItem as="section" className="space-y-2">
+      <div className="space-y-2">
         {groups.map((group) => (
-          <div key={group.year}>
+          <StaggeredFadeInItem key={group.year}>
             <p className="text-right text-3xl font-extrabold">{group.year}</p>
             <ul className="space-y-2 max-md:space-y-4">
               {group.list.map((article) => (
@@ -64,9 +64,9 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                 </li>
               ))}
             </ul>
-          </div>
+          </StaggeredFadeInItem>
         ))}
-      </StaggeredFadeInItem>
+      </div>
     </StaggeredFadeInContainer>
   )
 }
