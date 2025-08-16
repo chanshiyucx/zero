@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 import { siteConfig } from '@/lib/constants/config'
-import { findContentBySlug } from '@/lib/utils/content'
+
+// import { findContentBySlug } from '@/lib/utils/content'
 
 const getAbsoluteUrl = (path: string) => {
   const baseUrl = process.env.VERCEL_URL
@@ -20,8 +21,9 @@ export async function GET(
 ) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
-  const article = findContentBySlug(decodedSlug)
-  const title = article?.title ?? siteConfig.metadata.title
+  // const article = findContentBySlug(decodedSlug)
+  // const title = article?.title ?? siteConfig.metadata.title
+  const title = decodedSlug ?? siteConfig.metadata.title
   const encodedTitle = encodeURIComponent(title)
 
   const googleFontsCss = await fetch(
