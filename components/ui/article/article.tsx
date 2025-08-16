@@ -75,9 +75,9 @@ export async function Article({
   return (
     <StaggeredFadeInContainer as="main" className="page flex flex-row">
       <article className="w-full space-y-12">
-        <StaggeredFadeInItem as="header">
+        <header>
           <Title titleCode={article.titleCode} />
-          <div className="text-subtle mt-3 flex gap-5">
+          <StaggeredFadeInItem className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" />
               <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
@@ -86,8 +86,8 @@ export async function Article({
               <TagIcon weight="bold" />
               {article.tags.at(-1)}
             </span>
-          </div>
-        </StaggeredFadeInItem>
+          </StaggeredFadeInItem>
+        </header>
         <StaggeredFadeInItem as="section">
           <MDX contentCode={article.contentCode} />
         </StaggeredFadeInItem>

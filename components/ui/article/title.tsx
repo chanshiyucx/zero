@@ -1,5 +1,6 @@
 'use client'
 
+import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { usePolyglot } from '@/stores/use-polyglot'
 
 interface TitleProps {
@@ -14,5 +15,9 @@ export function Title({ titleCode }: TitleProps) {
   const displayLanguage = titleCode[language] ? language : 'en'
   const title = titleCode[displayLanguage]
 
-  return <h1 className="text-4xl font-extrabold">{title}</h1>
+  return (
+    <StaggeredFadeInItem as="h1" className="text-4xl font-extrabold">
+      {title}
+    </StaggeredFadeInItem>
+  )
 }
