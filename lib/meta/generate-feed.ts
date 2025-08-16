@@ -6,24 +6,24 @@ export function generateFeed() {
   const list = sortedContent
   const date = new Date()
   const feed = new Feed({
-    id: siteConfig.webserver.host,
-    link: siteConfig.webserver.host,
+    id: siteConfig.host,
+    link: siteConfig.host,
     title: siteConfig.metadata.title,
     description: siteConfig.metadata.description,
     author: siteConfig.author,
-    favicon: `${siteConfig.webserver.host}/icon.svg`,
-    image: `${siteConfig.webserver.host}/icon.svg`,
+    favicon: `${siteConfig.host}/icon.svg`,
+    image: `${siteConfig.host}/icon.svg`,
     copyright: `All rights reserved ${date.getFullYear()}, Chanshiyu.`,
     updated: list.length > 0 ? new Date(list[0].date) : date,
     docs: siteConfig.links.repo,
     feedLinks: {
-      rss2: `${siteConfig.webserver.host}/feed`,
+      rss2: `${siteConfig.host}/feed`,
     },
     generator: 'https://github.com/jpmonette/feed',
   })
 
   list.forEach((item) => {
-    const link = `${siteConfig.webserver.host}${item.url}`
+    const link = `${siteConfig.host}${item.url}`
     feed.addItem({
       link,
       title: item.title,
