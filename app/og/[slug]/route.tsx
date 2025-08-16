@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 import { Signature } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
-import { getAbsoluteUrl } from '@/lib/utils/edge'
+import { getAbsoluteUrl, host } from '@/lib/utils/edge'
 
 export const runtime = 'edge'
 
@@ -22,21 +22,9 @@ export async function GET(
   const meta: { title: string } | null = await response.json()
   const title = meta?.title ?? siteConfig.metadata.title
 
-  const encodedTitle = encodeURIComponent(title)
-  const googleFontsCss = await fetch(
-    `https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@1,18..144,700&text=${encodedTitle}`,
-  ).then((res) => res.text())
-
-  const fontUrlMatch = googleFontsCss.match(
-    /src: url\((.+)\) format\('truetype'\)/,
+  const fontData = await fetch(new URL('/assets/merriweather.ttf', host)).then(
+    (res) => res.arrayBuffer(),
   )
-
-  if (!fontUrlMatch) {
-    throw new Error('Could not find font URL in Google Fonts CSS response.')
-  }
-
-  const fontUrl = fontUrlMatch[1]
-  const fontData = await fetch(fontUrl).then((res) => res.arrayBuffer())
 
   try {
     return new ImageResponse(
