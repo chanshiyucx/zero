@@ -14,7 +14,7 @@ export async function WakatimeStats() {
         href={siteConfig.links.wakatime}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-rose dark:bg-rose/75 relative flex h-[4.125rem] flex-col items-center justify-center overflow-hidden rounded-lg text-base"
+        className="from-rose to-rose/40 dark:to-love/80 relative flex h-[4.125rem] flex-col items-center justify-center overflow-hidden rounded-lg bg-gradient-to-t text-base dark:bg-gradient-to-b"
       >
         <Cursor className="absolute top-2 left-3 -rotate-45 animate-spin text-5xl opacity-80 duration-10000" />
         <span className="inline-flex -rotate-2 items-center gap-1 font-mono text-3xl font-semibold">
