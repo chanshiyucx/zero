@@ -12,7 +12,7 @@ export function Explore() {
       as="button"
       onClick={toggle}
       aria-label="Open menu"
-      className="group flex w-full items-center justify-center gap-1 text-sm tracking-widest opacity-60 hover:opacity-100 active:opacity-100"
+      className="group text-subtle flex w-full items-center justify-center gap-1 text-sm tracking-widest opacity-60 hover:opacity-100 active:opacity-100"
     >
       <span className="inline-block max-md:hidden">Press</span>
       <kbd className="flex tracking-normal max-md:hidden">
@@ -23,7 +23,7 @@ export function Explore() {
       <ArrowRightIcon
         size="1em"
         weight="bold"
-        className="-translate-x-full opacity-0 duration-300 group-hover:translate-x-0 group-hover:opacity-100 max-md:translate-x-0 max-md:opacity-100"
+        className="max-md:animate-shake-right -translate-x-full opacity-0 duration-300 group-hover:translate-x-0 group-hover:opacity-100 max-md:-translate-x-0.5 max-md:opacity-100"
       />
     </StaggeredFadeInItem>
   )
