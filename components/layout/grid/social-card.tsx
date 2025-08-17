@@ -30,7 +30,10 @@ export function SocialCard() {
   return (
     <div className="grid grid-cols-2 gap-2">
       <Card tiltStrength={6}>
-        <SocialLink href={siteConfig.links.linkedIn} className="bg-pine wave">
+        <SocialLink
+          href={siteConfig.links.linkedIn}
+          className="wave from-pine to-pine/40 bg-gradient-to-t"
+        >
           <LinkedinLogoIcon size="1em" className="text-2xl" />
           <p className="-rotate-3 text-xs">(serious stuff)</p>
         </SocialLink>
@@ -38,7 +41,7 @@ export function SocialCard() {
       <Card tiltStrength={6}>
         <SocialLink
           href={siteConfig.links.twitter}
-          className="bg-iris dark:bg-iris/75 wave wave-reverse"
+          className="wave wave-reverse from-iris to-iris/40 bg-gradient-to-t"
         >
           <XLogoIcon size="1em" className="text-2xl" />
           <p className="text-xs">(share memes ;)</p>
