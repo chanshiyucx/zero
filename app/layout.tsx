@@ -8,9 +8,9 @@ import { Helper } from '@/components/ui/helper'
 import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
-import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from 'next-themes'
 import MotionProvider from './providers/motion-provider'
+import VercelProvider from './providers/vercel-provider'
 
 const merriweather = Merriweather({
   subsets: ['latin'],
@@ -90,12 +90,13 @@ export default function RootLayout({
       <body>
         <ThemeProvider defaultTheme="light">
           <MotionProvider>
-            <Header />
-            {children}
-            <Command />
-            <Helper />
-            <Footer />
-            <Analytics />
+            <VercelProvider>
+              <Header />
+              {children}
+              <Command />
+              <Helper />
+              <Footer />
+            </VercelProvider>
           </MotionProvider>
         </ThemeProvider>
       </body>
