@@ -100,7 +100,7 @@ export function Header() {
     <header className="my-3 flex items-center justify-between rounded-lg">
       <Link
         href="/"
-        className="flex items-center gap-1 py-3 text-xl font-bold italic"
+        className="flex items-center gap-1 text-xl font-bold italic"
       >
         <Image
           src="/icon.svg"
