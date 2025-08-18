@@ -8,6 +8,7 @@ import { Helper } from '@/components/ui/helper'
 import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
+import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from 'next-themes'
 import MotionProvider from './providers/motion-provider'
 
@@ -94,6 +95,7 @@ export default function RootLayout({
             <Command />
             <Helper />
             <Footer />
+            <Analytics />
           </MotionProvider>
         </ThemeProvider>
       </body>
