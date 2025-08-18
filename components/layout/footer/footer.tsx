@@ -7,7 +7,6 @@ import {
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import Link from 'next/link'
 import { siteConfig } from '@/lib/constants/config'
 
 const socialLinks = [
@@ -46,25 +45,19 @@ export function Footer() {
       </div>
       <div className="text-muted flex gap-5 text-lg">
         {socialLinks.map(({ href, icon: Icon, label }, index) => {
-          const external = href.startsWith('http')
-          const linkProps = external
-            ? { target: '_blank', rel: 'noopener noreferrer' }
-            : {}
-
-          const LinkComponent = external ? 'a' : Link
-
           return (
-            <LinkComponent
+            <a
               key={index}
+              target="_blank"
+              rel="noopener noreferrer"
               href={href}
               aria-label={label}
-              {...linkProps}
             >
               <Icon
                 weight="fill"
                 className="hover:text-subtle transition-colors duration-300"
               />
-            </LinkComponent>
+            </a>
           )
         })}
       </div>
