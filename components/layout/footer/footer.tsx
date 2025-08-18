@@ -29,7 +29,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="my-3 flex items-center justify-between gap-5 text-sm max-md:flex-col-reverse max-md:gap-3">
+    <footer className="my-3 flex items-center justify-between gap-5 text-sm max-md:flex-col-reverse">
       <div className="flex gap-1">
         <Image
           src="/icon.svg"

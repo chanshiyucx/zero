@@ -1,5 +1,5 @@
 import { type Metadata, type Viewport } from 'next'
-import { Fira_Code, Merriweather } from 'next/font/google'
+import { JetBrains_Mono, Merriweather } from 'next/font/google'
 import { type ReactNode } from 'react'
 import { Command } from '@/components/layout/command'
 import { Footer } from '@/components/layout/footer'
@@ -20,10 +20,10 @@ const merriweather = Merriweather({
   display: 'swap',
 })
 
-const fira = Fira_Code({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-fira',
+  variable: '--font-jetbrains-mono',
   display: 'swap',
 })
 
@@ -85,7 +85,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={cn(merriweather.variable, fira.variable)}
+      className={cn(merriweather.variable, jetbrainsMono.variable)}
     >
       <body>
         <ThemeProvider defaultTheme="light">
