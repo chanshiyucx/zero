@@ -73,17 +73,27 @@ const mdxToHtmlProcessor = unified()
   .use(rehypePlugins.filter((p) => p !== rehypeToc))
   .use(rehypeStringify, { allowDangerousHtml: true })
 
+const stripHtml = (html: string): string => html.replace(/<[^>]*>/g, '')
+
 const extractDescription = (content: string): string => {
   const paragraphs = content
     .trim()
-    .split(/\n\s*\n/)
+    .split(/\r?\n\s*\r?\n/)
     .filter(Boolean)
 
-  const firstParagraph = paragraphs.find(
-    (p) => p.trim() && !p.trim().startsWith('#'),
-  )
+  for (const p of paragraphs) {
+    const trimmedParagraph = p.trim()
+    if (trimmedParagraph.startsWith('#')) {
+      continue
+    }
 
-  return firstParagraph ?? ''
+    const textContent = stripHtml(trimmedParagraph).trim()
+    if (textContent) {
+      return textContent
+    }
+  }
+
+  return ''
 }
 
 const extractLanguageSections = (content: string) => {
