@@ -30,7 +30,8 @@ export async function generateArticleMetadata({
   const publisher = `${siteConfig.author.name} ${siteConfig.author.link}`
 
   return {
-    ...siteConfig.metadata,
+    title: article.title,
+    description: article.description,
     keywords: article.tags,
     publisher: publisher,
     openGraph: {
