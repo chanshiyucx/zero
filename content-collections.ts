@@ -71,7 +71,7 @@ const mdxToHtmlProcessor = unified()
   .use(remarkPlugins)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypePlugins.filter((p) => p !== rehypeToc))
-  .use(rehypeStringify)
+  .use(rehypeStringify, { allowDangerousHtml: true })
 
 const extractDescription = (content: string): string => {
   const paragraphs = content
