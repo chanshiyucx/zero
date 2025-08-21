@@ -1,17 +1,11 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { Cat } from '@/components/icons'
-import { random } from '@/lib/utils/helper'
 
-interface MeowProps {
-  links: string[]
-}
-
-export function Meow({ links }: MeowProps) {
+export function Meow() {
   const catRef = useRef<HTMLDivElement>(null)
-  const { push } = useRouter()
 
   useEffect(() => {
     const pupils = catRef.current?.getElementsByClassName('pupil') || []
@@ -30,27 +24,16 @@ export function Meow({ links }: MeowProps) {
 
     document.addEventListener('mousemove', handleMouseMove)
 
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-    }
+    return () => document.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  const handleClick = () => {
-    const randomPath = links[random(0, links.length - 1)]
-    push(randomPath)
-  }
-
   return (
-    <div
-      ref={catRef}
-      onClick={handleClick}
-      className="group relative cursor-pointer"
-    >
+    <Link href="/blog/vibes" className="group relative cursor-pointer">
       <Cat />
       <div className="meow-bubble group-hover:opacity-100">
         <span>meow</span>
         <div className="tail"></div>
       </div>
-    </div>
+    </Link>
   )
 }

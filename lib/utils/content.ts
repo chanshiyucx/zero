@@ -4,11 +4,13 @@ import {
   allNotes,
   allPolyglots,
   allPosts,
+  allVibes,
   type Album,
   type Leetcode,
   type Note,
   type Polyglot,
   type Post,
+  type Vibe,
 } from 'content-collections'
 import { compareDesc, getYear } from 'date-fns'
 
@@ -76,6 +78,8 @@ export const sortedAlbums: Album[] = sortByDate(allAlbums)
 export const sortedPosts: Post[] = sortByDate(allPosts)
 
 export const sortedNotes: Note[] = sortByDate(allNotes)
+
+export const sortedVibes: Vibe[] = sortByDate(allVibes)
 
 export const sortedLeetcodes: Leetcode[] = sortByDate(allLeetcodes)
 

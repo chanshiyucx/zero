@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Leetcode',
   description:
     'A collection of my LeetCode solutions with explanations and optimizations, showcasing my approach to coding challenges.',
-  keywords: ['leetcode', 'code', 'programming'],
+  keywords: ['blog', 'leetcode', 'code', 'programming'],
 }
 
 const colors = {
