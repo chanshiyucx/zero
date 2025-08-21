@@ -12,7 +12,6 @@ import {
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
 import { findContentBySlug, type ContentType } from '@/lib/utils/content'
-import { Title } from './title'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -77,7 +76,9 @@ export async function Article({
     <StaggeredFadeInContainer as="main" className="page flex flex-row">
       <article className="w-full space-y-12">
         <header>
-          <Title titleCode={article.titleCode} />
+          <StaggeredFadeInItem as="h1" className="text-4xl font-extrabold">
+            {article.title}
+          </StaggeredFadeInItem>
           <StaggeredFadeInItem className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" />
