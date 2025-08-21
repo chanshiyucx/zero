@@ -32,16 +32,12 @@ const defaultComponents: MDXComponents = {
 } as const
 
 interface MDXProps {
-  contentCode: {
-    de: string
-    en: string
-  }
+  contentCode: string
   classname?: string
   components?: MDXComponents
 }
 
 export function MDX({ contentCode, classname, components }: MDXProps) {
-  const code = contentCode['en']
   const mergedComponents = {
     ...defaultComponents,
     ...components,
@@ -55,7 +51,7 @@ export function MDX({ contentCode, classname, components }: MDXProps) {
       )}
       data-lang={'en'}
     >
-      <MDXContent components={mergedComponents} code={code} />
+      <MDXContent components={mergedComponents} code={contentCode} />
     </div>
   )
 }

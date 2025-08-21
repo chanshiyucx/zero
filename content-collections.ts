@@ -96,23 +96,6 @@ const extractDescription = (content: string): string => {
   return ''
 }
 
-const extractLanguageSections = (content: string) => {
-  const parts = content
-    .split(/^##\s+/gm)
-    .filter(Boolean)
-    .map((section) => {
-      const lines = section.split('\n')
-      const title = lines.shift()!
-      const content = lines.join('\n').trim()
-      return { title, content }
-    })
-
-  return {
-    de: parts[0],
-    en: parts[1],
-  }
-}
-
 const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
   defineCollection({
     name,
@@ -138,43 +121,16 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const [, no] = match
       const slug = slugger.slug(title)
-      const contentCode = { en: '', de: '' }
-      const titleCode = { en: '', de: '' }
+      const contentCode = await compileMDX(context, document, options)
 
-      const isPolyglot = prefixPath === '/polyglot'
       // handle polyglot url
-      let url = ''
-      if (isPolyglot) {
-        const language = document.tags[0].split('/')[0].toLowerCase()
-        url = path.join(prefixPath, language, slug)
-      } else {
-        url = path.join(prefixPath, slug)
-      }
-
-      // only German writing is currently bilingual
-      const isGermanWriting =
-        isPolyglot && document.tags.some((e) => e === 'German/Writing')
-      if (isGermanWriting) {
-        const sections = extractLanguageSections(document.content)
-        contentCode.de = await compileMDX(
-          context,
-          { ...document, content: sections.de.content },
-          options,
-        )
-        contentCode.en = await compileMDX(
-          context,
-          {
-            ...document,
-            content: sections.en.content,
-          },
-          options,
-        )
-        titleCode.de = sections.de.title
-        titleCode.en = sections.en.title
-      } else {
-        contentCode.en = await compileMDX(context, document, options)
-        titleCode.en = title
-      }
+      const isPolyglot = prefixPath === '/polyglot'
+      const language = isPolyglot
+        ? document.tags[0].split('/')[0].toLowerCase()
+        : null
+      const url = language
+        ? path.join(prefixPath, language, slug)
+        : path.join(prefixPath, slug)
 
       // rss feed only for production
       const contentHtml = isProd
@@ -194,7 +150,6 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         toc,
         description,
         contentCode,
-        titleCode,
         contentHtml,
       }
     },
