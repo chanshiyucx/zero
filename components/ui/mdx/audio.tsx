@@ -1,3 +1,5 @@
+'use client'
+
 import { type AudioHTMLAttributes, type DetailedHTMLProps } from 'react'
 import { AudioPlayer } from '@/components/ui/audio-player'
 

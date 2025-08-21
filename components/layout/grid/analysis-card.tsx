@@ -56,12 +56,10 @@ export function AnalysisCard() {
     },
   ]
 
-  const links = stats.map((stat) => stat.href)
-
   return (
     <div className="relative block h-24 w-full">
       <div className="absolute bottom-0 left-4 h-fit w-20">
-        <Meow links={links} />
+        <Meow />
       </div>
       <div
         className="bg-surface absolute right-0 bottom-0 flex h-full w-2/3 flex-col justify-center gap-1 overflow-hidden rounded-lg pl-2 font-bold"

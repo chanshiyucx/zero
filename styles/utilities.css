@@ -43,8 +43,31 @@
   @apply w-full flex-1 space-y-20 py-20 max-md:space-y-12 max-md:py-12;
 }
 
+@utility vibes {
+  @apply relative;
+
+  &::before {
+    @apply bg-muted/20 absolute top-3 bottom-0 left-4 -z-10 w-0.5 -translate-x-1/2 content-[''];
+  }
+
+  h2 {
+    @apply relative mb-2 pl-7 text-sm;
+
+    &::before {
+      @apply bg-overlay absolute top-1/2 left-2.5 h-3 w-3 -translate-y-1/2 rounded-full border border-2 content-[''];
+    }
+
+    a::before {
+      @apply hidden;
+    }
+  }
+  p {
+    @apply bg-overlay mb-12 rounded-lg px-4 py-3;
+  }
+}
+
 @utility menu-button {
-  @apply text-subtle hover:bg-muted/20 inline-block w-full cursor-pointer rounded-lg p-2 text-center leading-none font-semibold transition-all duration-300;
+  @apply text-subtle hover:bg-muted/20 inline-block w-full cursor-pointer rounded-lg px-3 py-2 text-center leading-none font-semibold transition-all duration-300;
   @apply data-[isactive='true']:text-rose;
 }
 
@@ -56,19 +79,19 @@
 
 @utility link {
   @apply text-iris relative inline w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
-  @apply after:absolute after:-top-1.5 after:-right-0.5 after:inline-block after:h-full after:text-xs after:leading-[normal] after:whitespace-pre after:transition-all after:duration-300 after:content-['┓'];
+  @apply before:absolute before:-top-1.5 before:-right-0.5 before:inline-block before:h-full before:text-xs before:leading-[normal] before:whitespace-pre before:transition-all before:duration-300 before:content-['┓'];
 
   &[href^='#'] {
     @apply text-text font-bold no-underline;
-    @apply after:text-muted after:top-0 after:-left-6 after:opacity-0 after:content-['#'] hover:after:opacity-100;
-    &::after {
+    @apply before:text-muted before:top-0 before:-left-6 before:opacity-0 before:content-['#'] hover:before:opacity-100;
+    &::before {
       font-size: inherit;
     }
   }
 }
 
 @utility link-hover {
-  @apply link after:opacity-0 hover:after:opacity-100;
+  @apply link before:opacity-0 hover:before:opacity-100;
 }
 
 @utility hr-twill {

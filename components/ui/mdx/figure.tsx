@@ -1,5 +1,7 @@
+'use client'
+
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react/dist/ssr'
-import { type ReactNode } from 'react'
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { cn } from '@/lib/utils/style'
 
@@ -10,7 +12,7 @@ const LanguageMap = {
   shell: 'SH',
 } as const
 
-interface FigureProps extends React.ComponentPropsWithoutRef<'figure'> {
+interface FigureProps extends ComponentPropsWithoutRef<'figure'> {
   children?: ReactNode
   raw?: string
   'data-rehype-pretty-code-figure'?: boolean

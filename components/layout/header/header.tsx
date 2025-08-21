@@ -121,6 +121,7 @@ export function Header() {
             items={[
               { name: 'Posts', path: '/blog/posts' },
               { name: 'Notes', path: '/blog/notes' },
+              { name: 'Vibes', path: '/blog/vibes' },
               { name: 'Leetcode', path: '/blog/leetcode' },
             ]}
           />
