@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Card } from '@/components/ui/card'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import { sortedPriorityContent } from '@/lib/utils/content'
 
 export function LatestStats() {
@@ -18,7 +18,7 @@ export function LatestStats() {
           {article.title}
         </span>
         <span className="w-full border-b" />
-        <Date
+        <DateTime
           dateString={article.date}
           dateFormat="LLL dd, yyyy"
           className="text-subtle"

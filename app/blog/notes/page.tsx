@@ -2,7 +2,7 @@ import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Note } from 'content-collections'
 import { type Metadata } from 'next'
 import Link from 'next/link'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
 import {
@@ -34,7 +34,7 @@ function NoteItem({ note }: NoteItemProps) {
         <div className="text-subtle mt-1 flex shrink-0 gap-5">
           <span className="inline-flex items-center gap-1">
             <CalendarBlankIcon weight="bold" />
-            <Date dateString={note.date} dateFormat="LLL dd, yyyy" />
+            <DateTime dateString={note.date} dateFormat="LLL dd, yyyy" />
           </span>
           <span className="flex gap-3">
             {note.tags.map((tag) => (

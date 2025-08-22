@@ -2,7 +2,7 @@ import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Backward } from '@/components/ui/backward'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
 import {
@@ -11,11 +11,10 @@ import {
 } from '@/components/ui/stagger'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
-import { findContentBySlug, type ContentType } from '@/lib/utils/content'
+import { findContentBySlug } from '@/lib/utils/content'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
-  type: ContentType
   hideDiscussion?: boolean
 }
 
@@ -61,7 +60,6 @@ export async function generateArticleMetadata({
 
 export async function Article({
   params,
-  type,
   hideDiscussion = false,
 }: ArticleProps) {
   const { slug } = await params
@@ -82,7 +80,7 @@ export async function Article({
           <StaggeredFadeInItem className="text-subtle mt-3 flex gap-5">
             <span className="inline-flex shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" />
-              <Date dateString={article.date} dateFormat="LLL dd, yyyy" />
+              <DateTime dateString={article.date} dateFormat="LLL dd, yyyy" />
             </span>
             <span className="inline-flex items-center gap-1">
               <TagIcon weight="bold" />
@@ -94,7 +92,9 @@ export async function Article({
           <MDX contentCode={article.contentCode} />
         </StaggeredFadeInItem>
         <StaggeredFadeInItem as="footer" className="flex flex-col gap-2">
-          {!hideDiscussion && <Discussion label={type} title={article.title} />}
+          {!hideDiscussion && (
+            <Discussion label={article.type} title={article.title} />
+          )}
           <Backward />
         </StaggeredFadeInItem>
       </article>

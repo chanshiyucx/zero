@@ -1,3 +1,4 @@
+import { Heatmap } from '@/components/ui/heatmap'
 import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { AlbumCard } from './album-card'
 import { AnalysisCard } from './analysis-card'
@@ -11,7 +12,7 @@ import { WakatimeStats } from './wakatime-stats'
 
 export function Grid() {
   return (
-    <div>
+    <div className="space-y-3">
       <StaggeredFadeInItem className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <CatCard />
@@ -20,8 +21,7 @@ export function Grid() {
           <GithubStats />
         </div>
       </StaggeredFadeInItem>
-
-      <StaggeredFadeInItem className="mt-3 grid grid-cols-6 gap-3 max-md:grid-cols-3">
+      <StaggeredFadeInItem className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3 flex gap-2">
           <div className="w-24">
             <AlbumCard />
@@ -36,14 +36,16 @@ export function Grid() {
           <LatestStats />
         </div>
       </StaggeredFadeInItem>
-
-      <StaggeredFadeInItem className="mt-3 grid grid-cols-6 gap-3 max-md:grid-cols-3">
+      <StaggeredFadeInItem className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <AnalysisCard />
         </div>
         <div className="col-span-3">
           <StacksCard />
         </div>
+      </StaggeredFadeInItem>
+      <StaggeredFadeInItem>
+        <Heatmap />
       </StaggeredFadeInItem>
     </div>
   )

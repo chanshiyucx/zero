@@ -34,6 +34,13 @@ export const formatTime = (timeInSeconds: number): string => {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
 
+export const formatDate = (date: Date): string => {
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 export const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 B'
   const k = 1024

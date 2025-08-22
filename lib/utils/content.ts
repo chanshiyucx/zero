@@ -16,8 +16,6 @@ import { compareDesc, getYear } from 'date-fns'
 
 export type Content = Post | Note | Leetcode | Polyglot
 
-export type ContentType = 'Post' | 'Note' | 'Leetcode' | 'Polyglot'
-
 export interface ContentGroup {
   year: number
   list: Content[]
@@ -106,3 +104,37 @@ export const summary: BlogSummary = {
 
 export const findContentBySlug = (slug: string): Content | undefined =>
   content.find((c) => c.slug === slug)
+
+const formatDateWithoutTime = (date: string) => date.split(' ')[0]
+
+// Heatmap Data
+const getHeatmapData = () => {
+  const data = sortedContent.reduce((map, currentContent) => {
+    const key = formatDateWithoutTime(currentContent.date)
+    if (!map.has(key)) {
+      map.set(key, [])
+    }
+
+    const type =
+      currentContent.type === 'polyglot'
+        ? currentContent.tags[0].split('/')[0]
+        : currentContent.type
+    map.get(key)?.push({
+      title: currentContent.title,
+      url: currentContent.url,
+      type: type.toLowerCase(),
+    })
+
+    return map
+  }, new Map<string, Pick<Content, 'title' | 'url' | 'type'>[]>())
+
+  return {
+    data,
+    startDate: formatDateWithoutTime(
+      sortedContent[sortedContent.length - 1].date,
+    ),
+    endDate: formatDateWithoutTime(sortedContent[0].date),
+  }
+}
+
+export const heatmapData = getHeatmapData()

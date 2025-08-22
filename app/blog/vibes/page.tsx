@@ -1,7 +1,7 @@
 import { CalendarBlankIcon, MapPinIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { type AnchorHTMLAttributes, type DetailedHTMLProps } from 'react'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import { MDX } from '@/components/ui/mdx'
 import {
   StaggeredFadeInContainer,
@@ -26,7 +26,7 @@ export function Link(
   return (
     <a className="link text-subtle! flex items-center" {...props}>
       <CalendarBlankIcon weight="bold" className="mr-0.5" />
-      <Date dateString={date} dateFormat="LLL dd, yyyy" />
+      <DateTime dateString={date} dateFormat="LLL dd, yyyy" />
       <MapPinIcon weight="bold" className="mr-0.5 ml-3" />
       {local}
     </a>

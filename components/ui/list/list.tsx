@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { type ReactNode } from 'react'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import {
   StaggeredFadeInContainer,
   StaggeredFadeInItem,
@@ -51,7 +51,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                     href={article.url}
                   >
                     <span className="shrink-0 max-md:text-sm">
-                      <Date
+                      <DateTime
                         dateString={article.date}
                         className="text-subtle inline-block w-16 shrink-0"
                       />

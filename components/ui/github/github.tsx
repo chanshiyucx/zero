@@ -4,7 +4,7 @@ import {
   GlobeIcon,
   StarIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import { type Repository } from '@/lib/api/github'
 import { cn } from '@/lib/utils/style'
 
@@ -24,7 +24,10 @@ export function Github({ repo, className }: GithubProps) {
       <div className="flex items-start justify-between gap-1">
         <div>
           <div className="text-lg font-bold">{repo.name}</div>
-          <Date dateString={repo.updated_at} className="text-subtle text-xs" />
+          <DateTime
+            dateString={repo.updated_at}
+            className="text-subtle text-xs"
+          />
         </div>
         <div className="inline-flex items-center text-lg">
           <a

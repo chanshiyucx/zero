@@ -4,6 +4,7 @@ import { type IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
   BriefcaseIcon,
   CameraIcon,
+  GhostIcon,
   GithubLogoIcon,
   HouseIcon,
   LaptopIcon,
@@ -147,6 +148,12 @@ export function Command() {
             label: 'Notes',
             shortcut: ['n'],
             onSelect: () => navigateAndClose('/blog/notes'),
+          },
+          {
+            icon: <GhostIcon {...iconProps} />,
+            label: 'Vibes',
+            shortcut: ['v'],
+            onSelect: () => navigateAndClose('/blog/vibes'),
           },
           {
             icon: <TerminalWindowIcon {...iconProps} />,
