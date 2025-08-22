@@ -49,7 +49,7 @@ const variants = {
   hidden: { opacity: 0, y: -10 },
   enter: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
-}
+} as const
 
 function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -65,7 +65,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
       <MenuItem name={name} path={path} isActive={isActive} />
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute top-full left-1/2 z-1 -translate-x-1/2 p-2">
+          <div className="absolute top-full left-1/2 z-5 -translate-x-1/2 p-2">
             <m.div
               initial="hidden"
               animate="enter"

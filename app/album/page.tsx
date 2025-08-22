@@ -1,6 +1,6 @@
 import { CalendarBlankIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
-import { Date } from '@/components/ui/date'
+import { DateTime } from '@/components/ui/datetime'
 import { MDX } from '@/components/ui/mdx'
 import {
   StaggeredFadeInContainer,
@@ -30,7 +30,7 @@ export default function Page() {
               <h2 className="text-2xl font-bold">{album.title}</h2>
               <span className="text-subtle inline-flex shrink-0 items-center gap-1">
                 <CalendarBlankIcon weight="bold" />
-                <Date dateString={album.date} dateFormat="LLL dd, yyyy" />
+                <DateTime dateString={album.date} dateFormat="LLL dd, yyyy" />
               </span>
             </header>
             <section className="pt-2">

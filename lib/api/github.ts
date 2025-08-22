@@ -1,5 +1,4 @@
 import { env } from '@/env'
-import { type ContentType } from '@/lib/utils/content'
 import { APIError, fetchData } from './fetch'
 
 export interface User {
@@ -45,10 +44,10 @@ const DISCUSSION_REPO = 'blog'
 const DISCUSSION_REPO_ID = 'R_kgDOCP9Avw'
 const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
 const DISCUSSION_LABEL_IDS = {
-  Post: 'LA_kwDOCP9Av88AAAAB20f9KA',
-  Note: 'LA_kwDOCP9Av88AAAAB20f-sQ',
-  Leetcode: 'LA_kwDOCP9Av88AAAAB20gAmQ',
-  Polyglot: 'LA_kwDOCP9Av88AAAAB3hXPdQ',
+  post: 'LA_kwDOCP9Av88AAAAB20f9KA',
+  note: 'LA_kwDOCP9Av88AAAAB20f-sQ',
+  leetcode: 'LA_kwDOCP9Av88AAAAB20gAmQ',
+  polyglot: 'LA_kwDOCP9Av88AAAAB3hXPdQ',
 }
 
 const headers = new Headers({
@@ -102,7 +101,7 @@ export function getDiscussions() {
 
 export async function createDiscussion(
   title: string,
-  label: ContentType,
+  label: string,
 ): Promise<Discussion> {
   try {
     const createDiscussionQuery = `mutation {

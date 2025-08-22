@@ -4,10 +4,9 @@ import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { useLoading } from '@/hooks/use-loading'
 import { type Discussion as DiscussionType } from '@/lib/api/github'
-import { type ContentType } from '@/lib/utils/content'
 
 interface DiscussionProps {
-  label: ContentType
+  label: string
   title: string
 }
 

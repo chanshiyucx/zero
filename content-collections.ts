@@ -102,6 +102,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     directory,
     include: '**/*.md',
     schema: z.object({
+      type: z.string().default(name),
       title: z.string(),
       date: z
         .string()
@@ -157,17 +158,17 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
 
 const collectionConfigs: CollectionProps[] = [
   {
-    name: 'posts',
+    name: 'post',
     directory: 'public/blog/posts',
     prefixPath: '/blog/posts',
   },
   {
-    name: 'notes',
+    name: 'note',
     directory: 'public/blog/notes',
     prefixPath: '/blog/notes',
   },
   {
-    name: 'vibes',
+    name: 'vibe',
     directory: 'public/blog/vibes',
     prefixPath: '/blog/vibes',
   },

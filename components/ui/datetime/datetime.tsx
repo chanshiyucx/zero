@@ -1,16 +1,16 @@
 import { format, parseISO } from 'date-fns'
 
-interface DateProps {
+interface DateTimeProps {
   dateString: string
   dateFormat?: string
   className?: string
 }
 
-export function Date({
+export function DateTime({
   dateString,
   dateFormat = 'LLL dd', // LLL dd, yyyy
   className,
-}: DateProps) {
+}: DateTimeProps) {
   const date = format(parseISO(dateString), dateFormat)
   return (
     <time dateTime={dateString} className={className}>
