@@ -438,9 +438,9 @@ export function Heatmap() {
 
       tempCalendar[year][month].push({
         type: 'day',
-        day: day,
+        day,
         date: currentDateString,
-        posts: posts,
+        posts,
         color: HEATMAP_COLORS[colorIndex],
       })
     }
@@ -451,7 +451,7 @@ export function Heatmap() {
       for (const month in tempCalendar[year]) {
         const days = tempCalendar[year][month]
         finalCalendar[year][month] = {
-          days: days,
+          days,
           width: Math.ceil(days.length / 7) * SQUARE_SIZE,
         }
       }

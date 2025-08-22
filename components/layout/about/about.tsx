@@ -107,7 +107,7 @@ export function About() {
 
           <p>
             I listen to my <PageLink label="vibes" href="/blog/vibes" />, they
-            guide me when words can&apos;t. Life is short, code is long.
+            guide me through silence. Life is short, code is long.
           </p>
         </div>
         <CV />
