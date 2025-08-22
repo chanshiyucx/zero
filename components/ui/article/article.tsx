@@ -18,7 +18,7 @@ interface ArticleProps {
   hideDiscussion?: boolean
 }
 
-export async function generateArticleMetadata({
+export async function generateMetadata({
   params,
 }: ArticleProps): Promise<Metadata> {
   const { slug } = await params
