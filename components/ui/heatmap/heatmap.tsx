@@ -271,19 +271,15 @@ const HeatmapMonth = memo(function HeatmapMonth({
   return (
     <div
       className={cn(
-        'inline-flex flex-col transition-all duration-300',
-        {
-          '-mr-3': isSeamless,
-          'mr-3': !isSeamless,
-        },
-        'last:mr-0',
+        'inline-flex flex-col transition-all duration-300 last:mr-0',
+        isSeamless ? '-mr-3' : 'mr-3',
       )}
     >
-      <div className="mb-3 max-h-9 text-center text-xs uppercase opacity-60">
+      <div className="mb-3 text-center text-xs uppercase opacity-60">
         {MONTH_NAMES[Number(month) - 1]}
       </div>
       <div
-        className="relative inline-flex h-[84px] flex-col flex-wrap"
+        className="relative inline-flex h-21 flex-col flex-wrap"
         style={{ width: `${monthData.width}px` }}
       >
         {monthData.days.map((dayInfo, index) => (
@@ -317,7 +313,7 @@ function HeatmapControls({ isSeamless, onToggleMode }: HeatmapControlsProps) {
           <ArrowsInLineHorizontalIcon weight="bold" />
         )}
       </div>
-      <div className="text-2xs flex h-[84px] w-8 shrink-0 flex-col items-center justify-evenly opacity-60">
+      <div className="text-2xs flex h-21 w-8 shrink-0 flex-col items-center justify-evenly opacity-60">
         {WEEKDAY_LABELS.map(
           (day, i) => i % 2 !== 0 && <span key={i}>{day}</span>,
         )}

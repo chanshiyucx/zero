@@ -1,5 +1,5 @@
 import { HandWavingIcon } from '@phosphor-icons/react/dist/ssr'
-import NextLink, { type LinkProps } from 'next/link'
+import Link, { type LinkProps } from 'next/link'
 import { type JSX, type SVGProps } from 'react'
 import {
   Java,
@@ -62,10 +62,10 @@ const JavaLink = () => (
   <LinkElement href="https://www.java.com/" title="Java" icon={Java} />
 )
 
-const Link = ({ label, ...props }: { label: string } & LinkProps) => (
-  <NextLink {...props} className="link mx-1">
+const PageLink = ({ label, ...props }: { label: string } & LinkProps) => (
+  <Link {...props} className="link mx-1 leading-[1.2]">
     {label}
-  </NextLink>
+  </Link>
 )
 
 export function About() {
@@ -91,23 +91,23 @@ export function About() {
         <div>
           <p className="mt-0">
             Maybe you will find something interesting in my
-            <Link label="blog posts" href="/blog/posts" /> or
-            <Link label="study notes" href="/blog/notes" />! Feel free to
-            explore <Link label="the projects" href="/projects" /> I&apos;ve
+            <PageLink label="blog posts" href="/blog/posts" /> or
+            <PageLink label="study notes" href="/blog/notes" />! Feel free to
+            explore <PageLink label="the projects" href="/projects" /> I&apos;ve
             poured my effort into.
           </p>
 
           <p>
             I aspire to become a polyglot , dedicating myself to refining my{' '}
-            <Link label="English" href="/polyglot/english" /> proficiency while
-            also starting to learn{' '}
-            <Link label="German" href="/polyglot/german" /> . Though
+            <PageLink label="English" href="/polyglot/english" /> proficiency
+            while also starting to learn{' '}
+            <PageLink label="German" href="/polyglot/german" /> . Though
             challenging, I believe the journey will be deeply rewarding.
           </p>
 
           <p>
-            I hope my work can inspire or assist you in some way. I&apos;d love
-            to hear your ideas and contribute whenever possible.
+            I listen to my <PageLink label="vibes" href="/blog/vibes" />, they
+            guide me when words can&apos;t. Life is short, code is long.
           </p>
         </div>
         <CV />

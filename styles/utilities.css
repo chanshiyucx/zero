@@ -78,7 +78,7 @@
 }
 
 @utility link {
-  @apply text-iris relative inline w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
+  @apply text-iris relative inline-block w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
   @apply before:absolute before:-top-1.5 before:-right-0.5 before:inline-block before:h-full before:text-xs before:leading-[normal] before:whitespace-pre before:transition-all before:duration-300 before:content-['┓'];
 
   &[href^='#'] {
