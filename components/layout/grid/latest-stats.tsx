@@ -14,9 +14,7 @@ export function LatestStats() {
       >
         <span>Latest stat</span>
         <span className="w-full border-b" />
-        <span className="overflow-x-hidden font-bold text-ellipsis whitespace-nowrap">
-          {article.title}
-        </span>
+        <span className="truncate font-bold">{article.title}</span>
         <span className="w-full border-b" />
         <DateTime
           dateString={article.date}
