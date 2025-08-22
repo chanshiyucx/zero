@@ -131,12 +131,14 @@ export async function createDiscussion(
     const result = await response.json()
     const discussion = result.data.createDiscussion.discussion
     discussion.html_url = discussion.url
+    const labelIds =
+      DISCUSSION_LABEL_IDS[label as keyof typeof DISCUSSION_LABEL_IDS]
 
     const addLabelQuery = `
       mutation {
         addLabelsToLabelable(input: {
           labelableId: "${result.data.createDiscussion.discussion.id}",
-          labelIds: ["${DISCUSSION_LABEL_IDS[label]}"]
+          labelIds: ["${labelIds}"]
         }) {
           clientMutationId
         }
