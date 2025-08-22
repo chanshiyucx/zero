@@ -108,6 +108,13 @@ export const findContentBySlug = (slug: string): Content | undefined =>
 const formatDateWithoutTime = (date: string) => date.split(' ')[0]
 
 // Heatmap Data
+
+export interface HeatmapData {
+  title: string
+  url: string
+  type: 'post' | 'note' | 'leetcode' | 'english' | 'german'
+}
+
 const getHeatmapData = () => {
   const data = sortedContent.reduce((map, currentContent) => {
     const key = formatDateWithoutTime(currentContent.date)
@@ -115,18 +122,20 @@ const getHeatmapData = () => {
       map.set(key, [])
     }
 
-    const type =
+    const type = (
       currentContent.type === 'polyglot'
         ? currentContent.tags[0].split('/')[0]
         : currentContent.type
-    map.get(key)?.push({
+    ).toLowerCase() as HeatmapData['type']
+
+    const data: HeatmapData = {
       title: currentContent.title,
       url: currentContent.url,
-      type: type.toLowerCase(),
-    })
-
+      type,
+    }
+    map.get(key)?.push(data)
     return map
-  }, new Map<string, Pick<Content, 'title' | 'url' | 'type'>[]>())
+  }, new Map<string, HeatmapData[]>())
 
   return {
     data,

@@ -1,85 +1,90 @@
 'use client'
 
 import {
+  ArrowsInLineHorizontalIcon,
+  ArrowsOutLineHorizontalIcon,
   CalendarBlankIcon,
   NotebookIcon,
   ScrollIcon,
   TerminalWindowIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m, type Variants } from 'framer-motion'
 import Link from 'next/link'
 import {
+  memo,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
   useState,
   type CSSProperties,
+  type MouseEvent,
   type ReactElement,
+  type Ref,
 } from 'react'
 import { English, German } from '@/components/icons'
 import { DateTime } from '@/components/ui/datetime'
-import { heatmapData } from '@/lib/utils/content'
+import { heatmapData, type HeatmapData } from '@/lib/utils/content'
 import { formatDate } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 
 const MONTH_NAMES = [
-  'jan',
-  'fev',
-  'mar',
-  'abr',
-  'mai',
-  'jun',
-  'jul',
-  'ago',
-  'set',
-  'out',
-  'nov',
-  'dez',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ] as const
 
 const HEATMAP_COLORS = [
   'bg-overlay',
-  'bg-rose/20',
   'bg-rose/40',
   'bg-rose/60',
   'bg-rose/80',
   'bg-rose',
 ] as const
 
-const variants = {
+const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const SQUARE_SIZE = 12
+
+const animationVariants: Variants = {
   hidden: { opacity: 0, y: -10, scale: 0.95 },
   enter: { opacity: 1, y: 0, scale: 1 },
   exit: { opacity: 0, y: -10, scale: 0.95 },
 } as const
 
-const SQUARE_SIZE = 12
-const WEEKDAY_LABELS = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-
-interface Post {
-  title: string
-  url: string
-  type: string
-}
-
 type DayInfo =
   | { type: 'placeholder' }
-  | { type: 'day'; day: number; date: string; posts: Post[]; color: string }
+  | {
+      type: 'day'
+      day: number
+      date: string
+      posts: HeatmapData[]
+      color: string
+    }
 
-type MonthlyData = Record<string, DayInfo[]>
-type CalendarData = Record<string, MonthlyData>
-
-interface HeatmapProps {
-  isSeamless?: boolean
+interface MonthlyData {
+  days: DayInfo[]
+  width: number
 }
+type YearlyData = Record<string, MonthlyData>
+type CalendarData = Record<string, YearlyData>
 
 interface HoveredDayInfo {
-  posts: Post[]
+  posts: HeatmapData[]
   date: string
   triggerElement: HTMLDivElement
 }
 
-const icon: Record<string, ReactElement> = {
+const iconMap: Record<HeatmapData['type'], ReactElement> = {
   post: <ScrollIcon className="shrink-0" />,
   note: <NotebookIcon className="shrink-0" />,
   leetcode: <TerminalWindowIcon className="shrink-0" />,
@@ -87,14 +92,264 @@ const icon: Record<string, ReactElement> = {
   german: <German className="shrink-0" />,
 }
 
-export function Heatmap({ isSeamless = false }: HeatmapProps) {
+function useHeatmapTooltip() {
   const [hoveredDay, setHoveredDay] = useState<HoveredDayInfo | null>(null)
   const [tooltipStyle, setTooltipStyle] = useState<CSSProperties>({})
-
   const containerRef = useRef<HTMLDivElement>(null)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
   const hideTimeoutRef = useRef<number | null>(null)
+
+  const clearHideTimeout = () => {
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current)
+      hideTimeoutRef.current = null
+    }
+  }
+
+  useLayoutEffect(() => {
+    if (hoveredDay && tooltipRef.current && containerRef.current) {
+      const { triggerElement } = hoveredDay
+      const containerRect = containerRef.current.getBoundingClientRect()
+      const squareRect = triggerElement.getBoundingClientRect()
+      const tooltipRect = tooltipRef.current.getBoundingClientRect()
+
+      const SCREEN_RIGHT_MARGIN = 24
+      const viewportWidth = document.documentElement.clientWidth
+
+      const top = squareRect.bottom - containerRect.top
+      let left = squareRect.left - containerRect.left
+
+      const potentialRightEdgeX = left + tooltipRect.width
+      const safeAreaRightX = viewportWidth - SCREEN_RIGHT_MARGIN
+
+      if (potentialRightEdgeX > safeAreaRightX) {
+        left = safeAreaRightX - tooltipRect.width - containerRect.left
+      }
+
+      setTooltipStyle({
+        position: 'absolute',
+        top: `${top}px`,
+        left: `${left}px`,
+        opacity: 1,
+      })
+    }
+  }, [hoveredDay])
+
+  const handleDayMouseEnter = useCallback(
+    (e: MouseEvent<HTMLDivElement>, dayInfo: DayInfo) => {
+      clearHideTimeout()
+      if (dayInfo.type !== 'day' || dayInfo.posts.length === 0) {
+        setHoveredDay(null)
+        return
+      }
+      setHoveredDay({
+        posts: dayInfo.posts,
+        date: dayInfo.date,
+        triggerElement: e.currentTarget,
+      })
+    },
+    [],
+  )
+
+  const handleDayMouseLeave = useCallback(() => {
+    hideTimeoutRef.current = window.setTimeout(() => {
+      setHoveredDay(null)
+    }, 200)
+  }, [])
+
+  return {
+    hoveredDay,
+    tooltipStyle,
+    containerRef,
+    tooltipRef,
+    handleDayMouseEnter,
+    handleDayMouseLeave,
+    handleTooltipInteraction: {
+      onMouseEnter: clearHideTimeout,
+      onMouseLeave: handleDayMouseLeave,
+    },
+  }
+}
+
+interface HeatmapTooltipProps {
+  hoveredDay: HoveredDayInfo | null
+  style: CSSProperties
+  tooltipRef: Ref<HTMLDivElement>
+  interactionHandlers: {
+    onMouseEnter: () => void
+    onMouseLeave: () => void
+  }
+}
+
+function HeatmapTooltip({
+  hoveredDay,
+  style,
+  tooltipRef,
+  interactionHandlers,
+}: HeatmapTooltipProps) {
+  return (
+    <AnimatePresence>
+      {hoveredDay && (
+        <m.div
+          ref={tooltipRef}
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          variants={animationVariants}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+          className="absolute z-10"
+          style={style}
+          {...interactionHandlers}
+        >
+          <div className="bg-surface w-max max-w-xs overflow-hidden rounded-sm px-4 py-3 text-sm shadow-lg">
+            <p className="mb-2 inline-flex w-full shrink-0 items-center gap-1">
+              <CalendarBlankIcon weight="bold" className="mr-1" />
+              <DateTime
+                dateString={hoveredDay.date}
+                dateFormat="LLL dd, yyyy"
+              />
+            </p>
+            <ul className="flex flex-col gap-1">
+              {hoveredDay.posts.map((post, i) => (
+                <li key={i} className="inline-flex items-center gap-2">
+                  {iconMap[post.type]}
+                  <Link
+                    className="link-hover text-text truncate"
+                    href={post.url}
+                  >
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </m.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+interface HeatmapDayProps {
+  dayInfo: DayInfo
+  onMouseEnter: (e: MouseEvent<HTMLDivElement>, dayInfo: DayInfo) => void
+  onMouseLeave: () => void
+}
+
+const HeatmapDay = memo(function HeatmapDay({
+  dayInfo,
+  onMouseEnter,
+  onMouseLeave,
+}: HeatmapDayProps) {
+  return (
+    <div
+      className={cn(
+        'border-base bg-overlay flex h-3 w-3 flex-shrink-0 cursor-pointer items-center justify-center border-r border-b text-transparent select-none',
+        dayInfo.type === 'placeholder' && 'invisible',
+        dayInfo.type === 'day' && dayInfo.color,
+      )}
+      onMouseEnter={(e) => onMouseEnter(e, dayInfo)}
+      onMouseLeave={onMouseLeave}
+    />
+  )
+})
+
+interface HeatmapMonthProps {
+  month: string
+  monthData: MonthlyData
+  isSeamless: boolean
+  onDayMouseEnter: (e: MouseEvent<HTMLDivElement>, dayInfo: DayInfo) => void
+  onDayMouseLeave: () => void
+}
+
+const HeatmapMonth = memo(function HeatmapMonth({
+  month,
+  monthData,
+  isSeamless,
+  onDayMouseEnter,
+  onDayMouseLeave,
+}: HeatmapMonthProps) {
+  return (
+    <div
+      className={cn(
+        'inline-flex flex-col transition-all duration-300',
+        {
+          '-mr-3': isSeamless,
+          'mr-3': !isSeamless,
+        },
+        'last:mr-0',
+      )}
+    >
+      <div className="mb-3 max-h-9 text-center text-xs uppercase opacity-60">
+        {MONTH_NAMES[Number(month) - 1]}
+      </div>
+      <div
+        className="relative inline-flex h-[84px] flex-col flex-wrap"
+        style={{ width: `${monthData.width}px` }}
+      >
+        {monthData.days.map((dayInfo, index) => (
+          <HeatmapDay
+            key={index}
+            dayInfo={dayInfo}
+            onMouseEnter={onDayMouseEnter}
+            onMouseLeave={onDayMouseLeave}
+          />
+        ))}
+      </div>
+    </div>
+  )
+})
+
+interface HeatmapControlsProps {
+  isSeamless: boolean
+  onToggleMode: () => void
+}
+
+function HeatmapControls({ isSeamless, onToggleMode }: HeatmapControlsProps) {
+  return (
+    <div>
+      <div
+        onClick={onToggleMode}
+        className="text-muted mb-3 flex cursor-pointer items-center justify-center"
+      >
+        {isSeamless ? (
+          <ArrowsOutLineHorizontalIcon weight="bold" />
+        ) : (
+          <ArrowsInLineHorizontalIcon weight="bold" />
+        )}
+      </div>
+      <div className="text-2xs flex h-[84px] w-8 shrink-0 flex-col items-center justify-evenly opacity-60">
+        {WEEKDAY_LABELS.map(
+          (day, i) => i % 2 !== 0 && <span key={i}>{day}</span>,
+        )}
+      </div>
+    </div>
+  )
+}
+
+interface HeatmapGridProps {
+  calendarData: CalendarData
+  isSeamless: boolean
+  onDayMouseEnter: (e: MouseEvent<HTMLDivElement>, dayInfo: DayInfo) => void
+  onDayMouseLeave: () => void
+}
+
+function HeatmapGrid({
+  calendarData,
+  isSeamless,
+  onDayMouseEnter,
+  onDayMouseLeave,
+}: HeatmapGridProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const flattenedMonths = useMemo(() => {
+    return Object.entries(calendarData).flatMap(([year, months]) =>
+      Object.entries(months).map(([month, monthData]) => ({
+        key: `${year}-${month}`,
+        month,
+        monthData,
+      })),
+    )
+  }, [calendarData])
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -103,227 +358,135 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
     }
   }, [])
 
-  useLayoutEffect(() => {
-    if (hoveredDay && tooltipRef.current && containerRef.current) {
-      const { triggerElement } = hoveredDay
+  return (
+    <div
+      className="scrollbar-hide flex flex-row overflow-x-auto"
+      ref={scrollContainerRef}
+    >
+      <figure className="relative inline-flex flex-row">
+        {flattenedMonths.map(({ key, month, monthData }) => (
+          <HeatmapMonth
+            key={key}
+            month={month}
+            monthData={monthData}
+            isSeamless={isSeamless}
+            onDayMouseEnter={onDayMouseEnter}
+            onDayMouseLeave={onDayMouseLeave}
+          />
+        ))}
+      </figure>
+    </div>
+  )
+}
 
-      const squareRect = triggerElement.getBoundingClientRect()
-      const containerRect = containerRef.current.getBoundingClientRect()
-      const tooltipWidth = tooltipRef.current.getBoundingClientRect().width
+export function Heatmap() {
+  const [isSeamless, setIsSeamless] = useState(false)
+  const {
+    hoveredDay,
+    tooltipStyle,
+    containerRef,
+    tooltipRef,
+    handleDayMouseEnter,
+    handleDayMouseLeave,
+    handleTooltipInteraction,
+  } = useHeatmapTooltip()
 
-      const SCREEN_RIGHT_MARGIN = 24
-      const viewportWidth = document.documentElement.clientWidth
-
-      const top = squareRect.bottom - containerRect.top - 12
-      let left = squareRect.right - containerRect.left
-
-      const potentialRightEdgeX = squareRect.right + tooltipWidth
-      const safeAreaRightX = viewportWidth - SCREEN_RIGHT_MARGIN
-
-      if (potentialRightEdgeX > safeAreaRightX) {
-        const targetLeftX = safeAreaRightX - tooltipWidth
-        left = targetLeftX - containerRect.left
-      }
-
-      setTooltipStyle({
-        position: 'absolute',
-        top: `${top}px`,
-        left: `${left}px`,
-      })
-    }
-  }, [hoveredDay])
-
-  const calendarData: CalendarData = useMemo(() => {
+  const calendarData = useMemo(() => {
     const { data, startDate, endDate } = heatmapData
-    const calendar: CalendarData = {}
+    const tempCalendar: Record<string, Record<string, DayInfo[]>> = {}
 
-    const start = new Date(startDate)
-    const end = new Date(endDate)
-    const loopStartDate = new Date(start.getFullYear(), start.getMonth(), 1)
-    const loopEndDate = new Date(end.getFullYear(), end.getMonth() + 1, 0)
+    const startObj = new Date(startDate)
+    const endObj = new Date(endDate)
 
-    for (let d = loopStartDate; d <= loopEndDate; d.setDate(d.getDate() + 1)) {
+    const startDateString = formatDate(startObj)
+    const endDateString = formatDate(endObj)
+
+    const loopStartDate = new Date(
+      startObj.getFullYear(),
+      startObj.getMonth(),
+      1,
+    )
+    const loopEndDate = new Date(endObj.getFullYear(), endObj.getMonth() + 1, 0)
+
+    for (
+      let d = new Date(loopStartDate);
+      d <= loopEndDate;
+      d.setDate(d.getDate() + 1)
+    ) {
       const year = d.getFullYear().toString()
       const month = (d.getMonth() + 1).toString()
       const day = d.getDate()
-      const dayOfWeek = d.getDay()
+      const currentDateString = formatDate(d)
 
-      if (!calendar[year]) {
-        calendar[year] = {}
-      }
-      if (!calendar[year][month]) {
-        calendar[year][month] = []
-      }
-
-      if (day === 1) {
-        for (let i = 0; i < dayOfWeek; i++) {
-          calendar[year][month].push({ type: 'placeholder' })
+      if (!tempCalendar[year]) tempCalendar[year] = {}
+      if (!tempCalendar[year][month]) {
+        tempCalendar[year][month] = []
+        if (day === 1) {
+          const firstDayOfWeek = d.getDay()
+          for (let i = 0; i < firstDayOfWeek; i++) {
+            tempCalendar[year][month].push({ type: 'placeholder' })
+          }
         }
       }
 
-      const dateString = formatDate(d)
-      const posts = data.get(dateString) ?? []
-      const colorIndex = Math.min(posts.length, HEATMAP_COLORS.length - 1)
-      const color = HEATMAP_COLORS[colorIndex]
+      let posts: HeatmapData[] = []
+      let colorIndex = 0
 
-      calendar[year][month].push({
+      if (
+        currentDateString >= startDateString &&
+        currentDateString <= endDateString
+      ) {
+        posts = data.get(currentDateString) ?? []
+        colorIndex = Math.min(posts.length, HEATMAP_COLORS.length - 1)
+      }
+
+      tempCalendar[year][month].push({
         type: 'day',
         day: day,
-        date: dateString,
+        date: currentDateString,
         posts: posts,
-        color: color,
+        color: HEATMAP_COLORS[colorIndex],
       })
     }
-    return calendar
+
+    const finalCalendar: CalendarData = {}
+    for (const year in tempCalendar) {
+      finalCalendar[year] = {}
+      for (const month in tempCalendar[year]) {
+        const days = tempCalendar[year][month]
+        finalCalendar[year][month] = {
+          days: days,
+          width: Math.ceil(days.length / 7) * SQUARE_SIZE,
+        }
+      }
+    }
+
+    return finalCalendar
   }, [])
 
-  const getWeekCount = (year: string, month: string): number => {
-    const firstOfMonth = new Date(Number(year), Number(month) - 1, 1)
-    const lastOfMonth = new Date(Number(year), Number(month), 0)
-    const usedDays = firstOfMonth.getDay() + lastOfMonth.getDate()
-    return Math.ceil(usedDays / 7)
-  }
-
-  const handleMouseEnter = (
-    e: React.MouseEvent<HTMLDivElement>,
-    dayInfo: DayInfo,
-  ) => {
-    if (hideTimeoutRef.current) {
-      clearTimeout(hideTimeoutRef.current)
-      hideTimeoutRef.current = null
-    }
-
-    if (dayInfo.type !== 'day' || dayInfo.posts.length === 0) {
-      return
-    }
-
-    setHoveredDay({
-      posts: dayInfo.posts,
-      date: dayInfo.date,
-      triggerElement: e.currentTarget,
-    })
-  }
-
-  const handleMouseLeave = () => {
-    hideTimeoutRef.current = window.setTimeout(() => {
-      setHoveredDay(null)
-    }, 200)
-  }
-
-  const handleTooltipEnter = () => {
-    if (hideTimeoutRef.current) {
-      clearTimeout(hideTimeoutRef.current)
-      hideTimeoutRef.current = null
-    }
-  }
+  const handleToggleMode = () => setIsSeamless((v) => !v)
 
   return (
-    <div className="relative w-full" ref={containerRef}>
-      <div className="flex w-full flex-row items-end">
-        <div className="text-2xs flex h-[84px] w-6 shrink-0 flex-col justify-between text-right leading-none opacity-60">
-          {WEEKDAY_LABELS.map((day, i) => (
-            <span
-              key={i}
-              className="inline-flex h-3 w-3 items-center justify-center"
-            >
-              {day}
-            </span>
-          ))}
-        </div>
-        <div
-          className="scrollbar-hide flex flex-row overflow-x-auto"
-          ref={scrollContainerRef}
-        >
-          <figure className="relative inline-flex flex-row">
-            {Object.entries(calendarData).map(([year, months]) => (
-              <div key={year} className="inline-flex flex-col">
-                <div className="inline-flex flex-row">
-                  {Object.entries(months).map(([month, days]) => {
-                    const monthWidth = getWeekCount(year, month) * SQUARE_SIZE
-                    return (
-                      <div
-                        key={`${year}-${month}`}
-                        className={cn(
-                          'inline-flex flex-col',
-                          isSeamless ? '-mr-3' : 'mr-3',
-                        )}
-                      >
-                        <div className="mb-3 max-h-9 text-center text-xs uppercase opacity-60">
-                          {MONTH_NAMES[Number(month) - 1]}
-                        </div>
-                        <div
-                          className="relative inline-flex h-[84px] flex-col flex-wrap"
-                          style={{ width: `${monthWidth}px` }}
-                        >
-                          {days.map((dayInfo, index) => (
-                            <div
-                              key={index}
-                              className={cn(
-                                'border-base bg-overlay flex h-3 w-3 flex-shrink-0 cursor-pointer items-center justify-center border-r border-b text-transparent select-none',
-                                dayInfo.type === 'placeholder' && 'invisible',
-                                dayInfo.type === 'day' && dayInfo.color,
-                              )}
-                              onMouseEnter={(e) => handleMouseEnter(e, dayInfo)}
-                              onMouseLeave={handleMouseLeave}
-                            ></div>
-                          ))}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
-          </figure>
-        </div>
+    <div className="relative mt-5 w-full" ref={containerRef}>
+      <div className="flex w-full flex-row">
+        <HeatmapControls
+          isSeamless={isSeamless}
+          onToggleMode={handleToggleMode}
+        />
+        <HeatmapGrid
+          calendarData={calendarData}
+          isSeamless={isSeamless}
+          onDayMouseEnter={handleDayMouseEnter}
+          onDayMouseLeave={handleDayMouseLeave}
+        />
       </div>
 
-      <AnimatePresence>
-        {hoveredDay && (
-          <m.div
-            ref={tooltipRef}
-            initial="hidden"
-            animate="enter"
-            exit="exit"
-            variants={variants}
-            transition={{
-              type: 'spring',
-              stiffness: 500,
-              damping: 30,
-            }}
-            className="absolute z-10"
-            style={tooltipStyle}
-            onMouseEnter={handleTooltipEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <div className="bg-surface w-max max-w-xs overflow-hidden rounded-sm px-4 py-3 text-sm shadow-lg">
-              <p className="mb-2 inline-flex w-full shrink-0 items-center gap-1">
-                <CalendarBlankIcon weight="bold" className="mr-1" />
-                <DateTime
-                  dateString={hoveredDay.date}
-                  dateFormat="LLL dd, yyyy"
-                />
-              </p>
-              <ul className="flex flex-col gap-1">
-                {hoveredDay.posts.map((post, i) => {
-                  const PostIcon = icon[post.type]
-                  return (
-                    <li key={i} className="inline-flex items-center gap-2">
-                      {PostIcon}
-                      <Link
-                        className="link-hover text-text truncate"
-                        href={post.url}
-                      >
-                        {post.title}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </m.div>
-        )}
-      </AnimatePresence>
+      <HeatmapTooltip
+        hoveredDay={hoveredDay}
+        style={tooltipStyle}
+        tooltipRef={tooltipRef}
+        interactionHandlers={handleTooltipInteraction}
+      />
     </div>
   )
 }
