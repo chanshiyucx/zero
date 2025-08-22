@@ -8,7 +8,15 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { AnimatePresence, m } from 'framer-motion'
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState, type ReactElement } from 'react'
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactElement,
+} from 'react'
 import { English, German } from '@/components/icons'
 import { DateTime } from '@/components/ui/datetime'
 import { heatmapData } from '@/lib/utils/content'
@@ -65,6 +73,12 @@ interface HeatmapProps {
   isSeamless?: boolean
 }
 
+interface HoveredDayInfo {
+  posts: Post[]
+  date: string
+  triggerElement: HTMLDivElement
+}
+
 const icon: Record<string, ReactElement> = {
   post: <ScrollIcon className="shrink-0" />,
   note: <NotebookIcon className="shrink-0" />,
@@ -74,14 +88,12 @@ const icon: Record<string, ReactElement> = {
 }
 
 export function Heatmap({ isSeamless = false }: HeatmapProps) {
-  const [hoveredDay, setHoveredDay] = useState<{
-    posts: Post[]
-    date: string
-    style: React.CSSProperties
-  } | null>(null)
+  const [hoveredDay, setHoveredDay] = useState<HoveredDayInfo | null>(null)
+  const [tooltipStyle, setTooltipStyle] = useState<CSSProperties>({})
 
   const containerRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const tooltipRef = useRef<HTMLDivElement>(null)
   const hideTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -91,7 +103,35 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
     }
   }, [])
 
-  console.log('heatmapData:', heatmapData)
+  useLayoutEffect(() => {
+    if (hoveredDay && tooltipRef.current && containerRef.current) {
+      const { triggerElement } = hoveredDay
+
+      const squareRect = triggerElement.getBoundingClientRect()
+      const containerRect = containerRef.current.getBoundingClientRect()
+      const tooltipWidth = tooltipRef.current.getBoundingClientRect().width
+
+      const SCREEN_RIGHT_MARGIN = 24
+      const viewportWidth = document.documentElement.clientWidth
+
+      const top = squareRect.bottom - containerRect.top - 12
+      let left = squareRect.right - containerRect.left
+
+      const potentialRightEdgeX = squareRect.right + tooltipWidth
+      const safeAreaRightX = viewportWidth - SCREEN_RIGHT_MARGIN
+
+      if (potentialRightEdgeX > safeAreaRightX) {
+        const targetLeftX = safeAreaRightX - tooltipWidth
+        left = targetLeftX - containerRect.left
+      }
+
+      setTooltipStyle({
+        position: 'absolute',
+        top: `${top}px`,
+        left: `${left}px`,
+      })
+    }
+  }, [hoveredDay])
 
   const calendarData: CalendarData = useMemo(() => {
     const { data, startDate, endDate } = heatmapData
@@ -150,37 +190,17 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
   ) => {
     if (hideTimeoutRef.current) {
       clearTimeout(hideTimeoutRef.current)
+      hideTimeoutRef.current = null
     }
-    if (
-      dayInfo.type !== 'day' ||
-      dayInfo.posts.length === 0 ||
-      !containerRef.current
-    ) {
+
+    if (dayInfo.type !== 'day' || dayInfo.posts.length === 0) {
       return
-    }
-
-    const squareRect = e.currentTarget.getBoundingClientRect()
-    const containerRect = containerRef.current.getBoundingClientRect()
-    const estimatedWidth = 280
-    const margin = 24
-
-    const top = squareRect.bottom - containerRect.top
-    let left = squareRect.right - containerRect.left
-
-    const tooltipRightEdge = squareRect.right + estimatedWidth
-    if (tooltipRightEdge > window.innerWidth - margin) {
-      left = window.innerWidth - containerRect.left - estimatedWidth - margin
     }
 
     setHoveredDay({
       posts: dayInfo.posts,
       date: dayInfo.date,
-      style: {
-        position: 'absolute',
-        top: `${top}px`,
-        left: `${left}px`,
-        maxWidth: `${estimatedWidth}px`,
-      },
+      triggerElement: e.currentTarget,
     })
   }
 
@@ -188,6 +208,13 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
     hideTimeoutRef.current = window.setTimeout(() => {
       setHoveredDay(null)
     }, 200)
+  }
+
+  const handleTooltipEnter = () => {
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current)
+      hideTimeoutRef.current = null
+    }
   }
 
   return (
@@ -232,15 +259,13 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
                             <div
                               key={index}
                               className={cn(
-                                'border-base bg-overlay flex h-3 w-3 flex-shrink-0 cursor-pointer items-center justify-center border-r border-b text-[6px] text-transparent select-none',
+                                'border-base bg-overlay flex h-3 w-3 flex-shrink-0 cursor-pointer items-center justify-center border-r border-b text-transparent select-none',
                                 dayInfo.type === 'placeholder' && 'invisible',
                                 dayInfo.type === 'day' && dayInfo.color,
                               )}
                               onMouseEnter={(e) => handleMouseEnter(e, dayInfo)}
                               onMouseLeave={handleMouseLeave}
-                            >
-                              {dayInfo.type === 'day' ? dayInfo.day : null}
-                            </div>
+                            ></div>
                           ))}
                         </div>
                       </div>
@@ -256,6 +281,7 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
       <AnimatePresence>
         {hoveredDay && (
           <m.div
+            ref={tooltipRef}
             initial="hidden"
             animate="enter"
             exit="exit"
@@ -265,38 +291,36 @@ export function Heatmap({ isSeamless = false }: HeatmapProps) {
               stiffness: 500,
               damping: 30,
             }}
-            className="bg-surface absolute z-10 w-max overflow-hidden rounded-lg px-4 py-3 text-sm shadow-lg"
-            style={hoveredDay.style}
-            onMouseEnter={() => {
-              if (hideTimeoutRef.current) {
-                clearTimeout(hideTimeoutRef.current)
-              }
-            }}
+            className="absolute z-10"
+            style={tooltipStyle}
+            onMouseEnter={handleTooltipEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <p className="mb-2 inline-flex w-full shrink-0 items-center gap-1">
-              <CalendarBlankIcon weight="bold" className="mr-1" />
-              <DateTime
-                dateString={hoveredDay.date}
-                dateFormat="LLL dd, yyyy"
-              />
-            </p>
-            <ul className="flex flex-col gap-1">
-              {hoveredDay.posts.map((post, i) => {
-                const PostIcon = icon[post.type]
-                return (
-                  <li key={i} className="inline-flex items-center gap-2">
-                    {PostIcon}
-                    <Link
-                      href={post.url}
-                      className="pointer-events-auto truncate hover:underline"
-                    >
-                      {post.title}
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
+            <div className="bg-surface w-max max-w-xs overflow-hidden rounded-sm px-4 py-3 text-sm shadow-lg">
+              <p className="mb-2 inline-flex w-full shrink-0 items-center gap-1">
+                <CalendarBlankIcon weight="bold" className="mr-1" />
+                <DateTime
+                  dateString={hoveredDay.date}
+                  dateFormat="LLL dd, yyyy"
+                />
+              </p>
+              <ul className="flex flex-col gap-1">
+                {hoveredDay.posts.map((post, i) => {
+                  const PostIcon = icon[post.type]
+                  return (
+                    <li key={i} className="inline-flex items-center gap-2">
+                      {PostIcon}
+                      <Link
+                        className="link-hover text-text truncate"
+                        href={post.url}
+                      >
+                        {post.title}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
           </m.div>
         )}
       </AnimatePresence>
