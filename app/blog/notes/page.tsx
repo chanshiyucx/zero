@@ -64,7 +64,9 @@ export default function Page() {
   return (
     <StaggeredFadeInContainer as="main" className="page">
       <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold">Notes are memory anchors.</h1>
+        <h1 className="text-4xl font-extrabold max-md:text-3xl">
+          Notes are memory anchors.
+        </h1>
       </StaggeredFadeInItem>
       <StaggeredFadeInItem as="section" className="flex flex-row">
         <article className="w-full">

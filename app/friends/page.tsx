@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   keywords: ['friend', 'friendship', 'connection', 'memories'],
 }
 
-const FriendCard = ({ friend }: { friend: Friend }) => {
+function FriendCard({ friend }: { friend: Friend }) {
   const avatar = `/friends/${friend.name.toLowerCase()}.jpg`
   return (
     <Link
@@ -44,7 +44,7 @@ export default function Page() {
   return (
     <StaggeredFadeInContainer as="main" className="page">
       <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold">
+        <h1 className="text-4xl font-extrabold max-md:text-3xl">
           Souls connected through time.
         </h1>
       </StaggeredFadeInItem>

@@ -74,7 +74,10 @@ export async function Article({
     <StaggeredFadeInContainer as="main" className="page flex flex-row">
       <article className="w-full space-y-12">
         <header>
-          <StaggeredFadeInItem as="h1" className="text-4xl font-extrabold">
+          <StaggeredFadeInItem
+            as="h1"
+            className="text-4xl font-extrabold max-md:text-3xl"
+          >
             {article.title}
           </StaggeredFadeInItem>
           <StaggeredFadeInItem className="text-subtle mt-3 flex gap-5">
