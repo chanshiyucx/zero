@@ -52,3 +52,5 @@ export const formatFileSize = (bytes: number): string => {
 export const clamp = (value: number, min: number, max: number) => {
   return Math.min(Math.max(value, min), max)
 }
+
+export const isExternalLink = (url: string): boolean => /^https?:\/\//.test(url)
