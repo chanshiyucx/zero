@@ -79,12 +79,15 @@
 
 @utility link {
   @apply text-iris relative inline-block w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
-  @apply before:absolute before:-top-1.5 before:-right-0.5 before:inline-block before:h-full before:text-xs before:leading-[normal] before:whitespace-pre before:transition-all before:duration-300 before:content-['┓'];
+
+  &::before {
+    @apply absolute top-1/2 -right-0.5 -translate-y-[1.3em] text-xs transition-all duration-300 content-['┓'];
+  }
 
   &[href^='#'] {
     @apply text-text font-bold no-underline;
-    @apply before:text-muted before:top-0 before:-left-6 before:opacity-0 before:content-['#'] hover:before:opacity-100;
     &::before {
+      @apply text-muted top-0 -left-6 opacity-0 content-['#'] hover:opacity-100;
       font-size: inherit;
     }
   }
