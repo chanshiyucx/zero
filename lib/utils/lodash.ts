@@ -1,18 +1,16 @@
-type AnyFunction = (...args: unknown[]) => unknown
-
 interface ThrottleOptions {
   leading?: boolean
   trailing?: boolean
 }
 
-export const debounce = <F extends AnyFunction>(
-  func: F,
+export const debounce = <T, A extends unknown[], R>(
+  func: (this: T, ...args: A) => R,
   wait: number,
   immediate = false,
-): ((...args: Parameters<F>) => void) => {
+): ((this: T, ...args: A) => void) => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined
 
-  return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
+  return function (this: T, ...args: A) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this
     const later = () => {
@@ -28,26 +26,28 @@ export const debounce = <F extends AnyFunction>(
   }
 }
 
-export const throttle = <F extends AnyFunction>(
-  func: F,
+export const throttle = <T, A extends unknown[], R>(
+  func: (this: T, ...args: A) => R,
   wait: number,
   { leading = true, trailing = true }: ThrottleOptions = {},
-): ((...args: Parameters<F>) => void) => {
+): ((this: T, ...args: A) => void) => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined
   let lastTime = 0
 
-  const invoke = (context: ThisParameterType<F>, args: Parameters<F>) => {
+  const invoke = (context: T, args: A) => {
     func.apply(context, args)
     lastTime = Date.now()
   }
 
-  return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
+  return function (this: T, ...args: A) {
     const now = Date.now()
     const remaining = wait - (now - lastTime)
 
     if (remaining <= 0) {
-      clearTimeout(timeoutId)
-      timeoutId = undefined
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = undefined
+      }
       lastTime = now
       invoke(this, args)
     } else if (!timeoutId && trailing) {

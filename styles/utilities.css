@@ -326,9 +326,8 @@
     }
 
     .eyes .pupil {
-      @apply relative mx-auto block h-full bg-[var(--cat-border)] transition-all duration-500;
+      @apply relative mx-auto block h-full rounded-full bg-[var(--cat-border)] transition-all duration-500;
       width: calc(var(--cat-size) * 0.021);
-      border-radius: 100%;
     }
 
     .nose {
