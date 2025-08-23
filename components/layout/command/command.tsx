@@ -113,11 +113,11 @@ export function Command() {
   )
 
   const handleOnSelect = useCallback(
-    ({ path, page }: { path?: string; page?: string }) => {
-      if (path) {
-        navigateAndClose(path)
-      } else if (page) {
-        pushPage(page)
+    (item: Pick<Action, 'path' | 'page'>) => {
+      if (item.path) {
+        navigateAndClose(item.path)
+      } else if (item.page) {
+        pushPage(item.page)
       }
     },
     [navigateAndClose, pushPage],
@@ -339,9 +339,7 @@ export function Command() {
             <CommandItem
               key={`${item.label}-${group.page}`}
               icon={item.icon}
-              onSelect={() =>
-                handleOnSelect({ path: item.path, page: item.page })
-              }
+              onSelect={() => handleOnSelect(item)}
               shortcut={item.shortcut}
               className={item.className}
             >

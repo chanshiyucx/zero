@@ -21,7 +21,9 @@ export default function Page() {
   return (
     <StaggeredFadeInContainer as="main" className="page">
       <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold">Photography freezes time.</h1>
+        <h1 className="text-4xl font-extrabold max-md:text-3xl">
+          Photography freezes time.
+        </h1>
       </StaggeredFadeInItem>
       <StaggeredFadeInItem as="section" className="space-y-8">
         {albumList.map((album) => (

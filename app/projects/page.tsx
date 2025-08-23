@@ -20,7 +20,7 @@ export default async function Page() {
   return (
     <StaggeredFadeInContainer as="main" className="page">
       <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold">
+        <h1 className="text-4xl font-extrabold max-md:text-3xl">
           Code flows like pure poetry.
         </h1>
       </StaggeredFadeInItem>

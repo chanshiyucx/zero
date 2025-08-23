@@ -37,12 +37,14 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
     <StaggeredFadeInContainer as="main" className="page">
       <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold">{title}</h1>
+        <h1 className="text-4xl font-extrabold max-md:text-3xl">{title}</h1>
       </StaggeredFadeInItem>
       <div className="space-y-8">
         {groups.map((group) => (
           <StaggeredFadeInItem key={group.year}>
-            <p className="text-right text-3xl font-extrabold">{group.year}</p>
+            <p className="text-right text-3xl font-extrabold max-md:text-2xl">
+              {group.year}
+            </p>
             <ul className="space-y-2 max-md:space-y-4">
               {group.list.map((article) => (
                 <li key={article.title}>
@@ -57,7 +59,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                       />
                       {extractInfo && renderExtraInfo(extractInfo(article))}
                     </span>
-                    <span className="link-hover text-text overflow-x-hidden text-ellipsis whitespace-nowrap max-md:whitespace-normal">
+                    <span className="link-hover text-text truncate max-sm:whitespace-normal">
                       {renderTitle ? renderTitle(article) : article.title}
                     </span>
                   </Link>
