@@ -59,13 +59,19 @@ function PolyglotIcon({ language }: { language: string }) {
     <>
       {language === 'english' ? (
         <English
-          {...iconProps}
-          className={cn(iconProps.className, 'text-subtle text-base')}
+          weight="duotone"
+          className={cn(
+            iconProps.className,
+            'text-subtle h-4.5 w-4.5 text-base',
+          )}
         />
       ) : (
         <German
-          {...iconProps}
-          className={cn(iconProps.className, 'text-subtle text-base')}
+          weight="duotone"
+          className={cn(
+            iconProps.className,
+            'text-subtle h-4.5 w-4.5 text-base',
+          )}
         />
       )}
     </>
@@ -303,11 +309,11 @@ export function Command() {
     allActions.forEach((action) => {
       if (action.shortcut.length === 0) return
 
-      // if (action.path) {
-      //   register(action.shortcut, () => navigateAndClose(action.path))
-      // } else if (action.page) {
-      //   register(action.shortcut, () => openSearchPage(action.page))
-      // }
+      if (action.path) {
+        register(action.shortcut, () => navigateAndClose(action.path!))
+      } else if (action.page) {
+        register(action.shortcut, () => openSearchPage(action.page!))
+      }
     })
   }, [register, actionGroups, openSearchPage, navigateAndClose])
 

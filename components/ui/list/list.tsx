@@ -39,7 +39,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
       <StaggeredFadeInItem as="header">
         <h1 className="text-4xl font-extrabold">{title}</h1>
       </StaggeredFadeInItem>
-      <div className="space-y-2">
+      <div className="space-y-8">
         {groups.map((group) => (
           <StaggeredFadeInItem key={group.year}>
             <p className="text-right text-3xl font-extrabold">{group.year}</p>
