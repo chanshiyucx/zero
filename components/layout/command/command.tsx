@@ -26,6 +26,7 @@ import {
   sortedPolyglots,
   sortedPosts,
 } from '@/lib/utils/content'
+import { isExternalLink } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 import { useCommand } from '@/stores/use-command'
 import { CommandGroup } from './command-group'
@@ -42,7 +43,7 @@ interface Action {
   icon: ReactNode
   label: string
   shortcut: string[]
-  onSelect?: () => void
+  path?: string
   page?: string
   className?: string
 }
@@ -87,8 +88,12 @@ export function Command() {
 
   const navigateAndClose = useCallback(
     (path: string) => {
-      push(path)
-      setOpen(false)
+      if (isExternalLink(path)) {
+        window.open(path, '_blank')
+      } else {
+        push(path)
+        setOpen(false)
+      }
     },
     [push, setOpen],
   )
@@ -101,6 +106,17 @@ export function Command() {
     [setOpen, pushPage],
   )
 
+  const handleOnSelect = useCallback(
+    ({ path, page }: { path?: string; page?: string }) => {
+      if (path) {
+        navigateAndClose(path)
+      } else if (page) {
+        pushPage(page)
+      }
+    },
+    [navigateAndClose, pushPage],
+  )
+
   const actionGroups: ActionGroup[] = useMemo(
     () => [
       {
@@ -111,19 +127,19 @@ export function Command() {
             icon: <HouseIcon {...iconProps} />,
             label: 'Home',
             shortcut: ['h'],
-            onSelect: () => navigateAndClose('/'),
+            path: '/',
           },
           {
             icon: <BriefcaseIcon {...iconProps} />,
             label: 'Projects',
             shortcut: ['p'],
-            onSelect: () => navigateAndClose('/projects'),
+            path: '/projects',
           },
           {
             icon: <CameraIcon {...iconProps} />,
             label: 'Album',
             shortcut: ['a'],
-            onSelect: () => navigateAndClose('/album'),
+            path: '/album',
           },
           {
             icon: <MagnifyingGlassIcon {...iconProps} />,
@@ -141,25 +157,25 @@ export function Command() {
             icon: <ScrollIcon {...iconProps} />,
             label: 'Posts',
             shortcut: ['b'],
-            onSelect: () => navigateAndClose('/blog/posts'),
+            path: '/blog/posts',
           },
           {
             icon: <NotebookIcon {...iconProps} />,
             label: 'Notes',
             shortcut: ['n'],
-            onSelect: () => navigateAndClose('/blog/notes'),
+            path: '/blog/notes',
           },
           {
             icon: <GhostIcon {...iconProps} />,
             label: 'Vibes',
             shortcut: ['v'],
-            onSelect: () => navigateAndClose('/blog/vibes'),
+            path: '/blog/vibes',
           },
           {
             icon: <TerminalWindowIcon {...iconProps} />,
             label: 'Leetcode',
             shortcut: ['l'],
-            onSelect: () => navigateAndClose('/blog/leetcode'),
+            path: '/blog/leetcode',
           },
         ],
       },
@@ -171,13 +187,13 @@ export function Command() {
             icon: <PolyglotIcon language="english" />,
             label: 'English',
             shortcut: ['e'],
-            onSelect: () => navigateAndClose('/polyglot/english'),
+            path: '/polyglot/english',
           },
           {
             icon: <PolyglotIcon language="german" />,
             label: 'German',
             shortcut: ['g'],
-            onSelect: () => navigateAndClose('/polyglot/german'),
+            path: '/polyglot/german',
           },
         ],
       },
@@ -190,33 +206,33 @@ export function Command() {
             label: 'Github',
             shortcut: [],
             className: 'link',
-            onSelect: () => window.open(siteConfig.links.repo, '_blank'),
+            path: siteConfig.links.repo,
           },
           {
             icon: <XLogoIcon {...iconProps} />,
             label: 'Twitter',
             shortcut: [],
             className: 'link',
-            onSelect: () => window.open(siteConfig.links.twitter, '_blank'),
+            path: siteConfig.links.twitter,
           },
           {
             icon: <LinkedinLogoIcon {...iconProps} />,
             label: 'LinkedIn',
             shortcut: [],
             className: 'link',
-            onSelect: () => window.open(siteConfig.links.linkedIn, '_blank'),
+            path: siteConfig.links.linkedIn,
           },
           {
             icon: <LaptopIcon {...iconProps} />,
             label: 'Wakatime',
             shortcut: [],
             className: 'link',
-            onSelect: () => window.open(siteConfig.links.wakatime, '_blank'),
+            path: siteConfig.links.wakatime,
           },
         ],
       },
     ],
-    [navigateAndClose],
+    [],
   )
 
   const searchGroups: ActionGroup[] = useMemo(
@@ -229,19 +245,19 @@ export function Command() {
             icon: <ScrollIcon {...iconProps} />,
             label: post.title,
             shortcut: [],
-            onSelect: () => navigateAndClose(post.url),
+            path: post.url,
           })),
           ...contentLists.notes.map((note) => ({
             icon: <NotebookIcon {...iconProps} />,
             label: note.title,
             shortcut: [],
-            onSelect: () => navigateAndClose(note.url),
+            path: note.url,
           })),
           ...contentLists.leetcodes.map((leetcode) => ({
             icon: <TerminalWindowIcon {...iconProps} />,
             label: `${leetcode.no}-${leetcode.title}`,
             shortcut: [],
-            onSelect: () => navigateAndClose(leetcode.url),
+            path: leetcode.url,
           })),
           ...contentLists.polyglots.map((polyglot) => {
             const language = polyglot.tags[0].split('/')[0].toLowerCase()
@@ -249,13 +265,13 @@ export function Command() {
               icon: <PolyglotIcon language={language} />,
               label: polyglot.title,
               shortcut: [],
-              onSelect: () => navigateAndClose(polyglot.url),
+              path: polyglot.url,
             }
           }),
         ],
       },
     ],
-    [contentLists, navigateAndClose],
+    [contentLists],
   )
 
   const allGroups = useMemo(
@@ -287,13 +303,13 @@ export function Command() {
     allActions.forEach((action) => {
       if (action.shortcut.length === 0) return
 
-      if (action.onSelect) {
-        register(action.shortcut, action.onSelect)
-      } else if (action.page) {
-        register(action.shortcut, () => openSearchPage(action.page!))
-      }
+      // if (action.path) {
+      //   register(action.shortcut, () => navigateAndClose(action.path))
+      // } else if (action.page) {
+      //   register(action.shortcut, () => openSearchPage(action.page))
+      // }
     })
-  }, [register, actionGroups, openSearchPage])
+  }, [register, actionGroups, openSearchPage, navigateAndClose])
 
   useEffect(() => {
     if (open) {
@@ -317,9 +333,10 @@ export function Command() {
             <CommandItem
               key={`${item.label}-${group.page}`}
               icon={item.icon}
+              onSelect={() =>
+                handleOnSelect({ path: item.path, page: item.page })
+              }
               shortcut={item.shortcut}
-              onSelect={item.onSelect}
-              page={item.page}
               className={item.className}
             >
               {item.label}
