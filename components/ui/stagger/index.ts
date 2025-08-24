@@ -1,1 +1,1 @@
-export * from './Stagger'
+export * from './stagger'

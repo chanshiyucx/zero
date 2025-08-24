@@ -43,13 +43,13 @@ export default function Page() {
           Time flows like gentle rivers.
         </h1>
       </StaggeredFadeInItem>
-      <StaggeredFadeInItem as="section" className="vibes space-y-8">
+      <section className="vibes space-y-8">
         {vibeList.map((vibe) => (
-          <div key={vibe.title}>
+          <StaggeredFadeInItem key={vibe.title}>
             <MDX contentCode={vibe.contentCode} components={{ a: Link }} />
-          </div>
+          </StaggeredFadeInItem>
         ))}
-      </StaggeredFadeInItem>
+      </section>
     </StaggeredFadeInContainer>
   )
 }

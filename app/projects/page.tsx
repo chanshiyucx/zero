@@ -24,21 +24,18 @@ export default async function Page() {
           Code flows like pure poetry.
         </h1>
       </StaggeredFadeInItem>
-      <StaggeredFadeInItem
-        as="ul"
-        className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
-      >
+      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {repositories.map((repo) => (
-          <li key={repo.name}>
+          <StaggeredFadeInItem as="li" key={repo.name}>
             <Card>
               <Github
                 repo={repo}
                 className="bg-surface hover:bg-muted/10 transition"
               />
             </Card>
-          </li>
+          </StaggeredFadeInItem>
         ))}
-      </StaggeredFadeInItem>
+      </ul>
     </StaggeredFadeInContainer>
   )
 }

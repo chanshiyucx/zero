@@ -48,16 +48,13 @@ export default function Page() {
           Souls connected through time.
         </h1>
       </StaggeredFadeInItem>
-      <StaggeredFadeInItem
-        as="ul"
-        className="grid grid-cols-3 gap-3 max-md:grid-cols-2"
-      >
+      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2">
         {friends.map((friend) => (
-          <li key={friend.name}>
+          <StaggeredFadeInItem as="li" key={friend.name}>
             <FriendCard friend={friend} />
-          </li>
+          </StaggeredFadeInItem>
         ))}
-      </StaggeredFadeInItem>
+      </ul>
     </StaggeredFadeInContainer>
   )
 }
