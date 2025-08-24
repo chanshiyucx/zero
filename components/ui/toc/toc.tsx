@@ -157,15 +157,12 @@ export function Toc({ toc }: TocProps) {
       })
     }
 
-    // Update toc items
     updateTocItems()
 
-    // Initial draw
     drawPath()
 
     const debouncedDrawPath = debounce(drawPath, 100)
 
-    // Add event listeners
     window.addEventListener('resize', debouncedDrawPath)
     window.addEventListener('scroll', sync)
 

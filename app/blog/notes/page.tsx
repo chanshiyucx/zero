@@ -33,12 +33,10 @@ function NoteItem({ note }: { note: Note }) {
             <DateTime dateString={note.date} dateFormat="LLL dd, yyyy" />
           </span>
           <span className="flex gap-3">
-            {note.tags.map((tag) => (
-              <span key={tag} className="inline-flex items-center gap-1">
-                <TagIcon weight="bold" />
-                {tag}
-              </span>
-            ))}
+            <span className="inline-flex items-center gap-1">
+              <TagIcon weight="bold" />
+              {note.tags.at(-1)}
+            </span>
           </span>
         </div>
       </header>
