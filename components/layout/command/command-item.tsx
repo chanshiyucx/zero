@@ -22,11 +22,9 @@ export const CommandItem = ({
       onSelect={onSelect}
       className="text-subtle m-0 flex cursor-pointer items-center justify-between gap-5 rounded-lg p-2 transition-colors"
     >
-      <div className="flex w-full shrink-0 items-center">
+      <div className="flex max-w-full items-center">
         {icon}
-        <span className={cn('inline-block truncate', className)}>
-          {children}
-        </span>
+        <span className={cn('truncate', className)}>{children}</span>
       </div>
       {shortcut && (
         <div className="flex gap-1">
