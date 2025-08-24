@@ -51,7 +51,7 @@
   }
 
   h2 {
-    @apply relative mb-2 pl-7 text-sm;
+    @apply relative mb-3 pl-7 text-sm;
 
     &::before {
       @apply bg-overlay absolute top-1/2 left-2.5 h-3 w-3 -translate-y-1/2 rounded-full border border-2 content-[''];
@@ -61,8 +61,13 @@
       @apply hidden;
     }
   }
+
   p {
-    @apply bg-overlay mb-12 rounded-lg px-4 py-3;
+    @apply bg-overlay mt-0 mb-12 rounded-lg px-4 py-3;
+  }
+
+  blockquote {
+    @apply border-none bg-transparent p-0;
   }
 }
 
@@ -230,20 +235,20 @@
   @apply animate-cat-cycle h-full w-full bg-center bg-no-repeat;
   background-size: var(--cat-width) var(--cat-height);
   background-image: var(--cat-image);
-}
 
-@utility walk {
-  --cat-height: 1728px;
-  --cat-width: 289px;
-  --cat-steps: 12;
-  --cat-image: url(/assets/cat_walk.png);
-}
+  &.walk {
+    --cat-height: 1728px;
+    --cat-width: 289px;
+    --cat-steps: 12;
+    --cat-image: url(/assets/cat_walk.png);
+  }
 
-@utility run {
-  --cat-height: 1872px;
-  --cat-width: 289px;
-  --cat-steps: 13;
-  --cat-image: url(/assets/cat_run.png);
+  &.run {
+    --cat-height: 1872px;
+    --cat-width: 289px;
+    --cat-steps: 13;
+    --cat-image: url(/assets/cat_run.png);
+  }
 }
 
 /* Cute Cat, https://codepen.io/AngelaVelasquez/pen/AWyNYb */
@@ -326,8 +331,9 @@
     }
 
     .eyes .pupil {
-      @apply relative mx-auto block h-full rounded-full bg-[var(--cat-border)] transition-all duration-500;
+      @apply relative mx-auto block h-full bg-[var(--cat-border)] transition-all duration-500;
       width: calc(var(--cat-size) * 0.021);
+      border-radius: 100%;
     }
 
     .nose {
