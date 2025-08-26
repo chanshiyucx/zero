@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format, isValid, parseISO } from 'date-fns'
 
 interface DateTimeProps {
   dateString: string
@@ -11,10 +11,16 @@ export function DateTime({
   dateFormat = 'LLL dd', // LLL dd, yyyy
   className,
 }: DateTimeProps) {
-  const date = format(parseISO(dateString), dateFormat)
+  if (!dateString) return null
+
+  const date = parseISO(dateString)
+  if (!isValid(date)) return null
+
+  const formattedDate = format(date, dateFormat)
+
   return (
     <time dateTime={dateString} className={className}>
-      {date}
+      {formattedDate}
     </time>
   )
 }

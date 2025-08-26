@@ -47,7 +47,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
             </p>
             <ul className="space-y-2 max-md:space-y-4">
               {group.list.map((article) => (
-                <li key={article.title}>
+                <li key={article.slug}>
                   <Link
                     className="flex gap-6 max-sm:flex-col max-sm:gap-0"
                     href={article.url}

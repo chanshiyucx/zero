@@ -12,7 +12,7 @@ type BaseProps<C extends ElementType> = {
   children: ReactNode
 } & MotionProps
 
-type PolymorphicComponentProps<C extends ElementType> = BaseProps<C> &
+export type PolymorphicComponentProps<C extends ElementType> = BaseProps<C> &
   Omit<ComponentPropsWithoutRef<C>, keyof BaseProps<C>>
 
 const containerVariants: Variants = {

@@ -57,7 +57,7 @@ export default function Page() {
       </StaggeredFadeInItem>
       <section className="space-y-8">
         {sortedNotes.map((note, index) => (
-          <Fragment key={note.title}>
+          <Fragment key={note.slug}>
             <NoteItem note={note} />
             {index < sortedNotes.length - 1 && <Divider />}
           </Fragment>
