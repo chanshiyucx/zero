@@ -18,6 +18,7 @@ const config = {
         'vercel',
       ],
     ],
+    'scope-case': [2, 'always', 'kebab-case'],
   },
 }
 
