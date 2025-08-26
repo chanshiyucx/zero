@@ -137,17 +137,6 @@
   @apply text-[10px];
 }
 
-@utility noise-bg {
-  &::before {
-    @apply pointer-events-none absolute inset-0 z-10 bg-repeat content-[''];
-    background-image: var(--noise-texture-light);
-  }
-
-  [data-theme='dark'] &::before {
-    background-image: var(--noise-texture-dark);
-  }
-}
-
 @utility photo-view-mask {
   @apply bg-surface!;
 }

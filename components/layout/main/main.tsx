@@ -11,7 +11,7 @@ export function Main() {
   return (
     <div className="flex h-fit w-full flex-col gap-20 max-md:gap-12">
       <StaggeredFadeInItem className="relative flex items-center justify-between max-md:justify-center">
-        <div className="z-1 flex flex-col items-start gap-4 max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:-translate-1/2">
+        <div className="z-10 flex flex-col items-start gap-4 max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:-translate-1/2">
           <Logo />
 
           <div className="text-subtle min-h-9 text-2xl whitespace-nowrap italic max-md:w-full max-md:text-center max-md:text-xl">
