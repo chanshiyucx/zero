@@ -18,7 +18,7 @@ type BaseProps<C extends ElementType> = {
 export type PolymorphicComponentProps<C extends ElementType> = BaseProps<C> &
   Omit<ComponentPropsWithoutRef<C>, keyof BaseProps<C>>
 
-const staggerChildren = 0.08
+const staggerChildren = 0.1
 
 const containerVariants: Variants = {
   hidden: {},
