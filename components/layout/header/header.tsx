@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useDeviceListener } from '@/hooks/use-device-listener'
 import { useIsMounted } from '@/hooks/use-is-mounted'
 import { cn } from '@/lib/utils/style'
 import { Map } from './map'
@@ -52,6 +53,8 @@ const variants = {
 } as const
 
 function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
+  useDeviceListener()
+
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const isActive = items.some((item) => pathname.startsWith(item.path))

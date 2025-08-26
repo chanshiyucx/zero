@@ -1,7 +1,7 @@
 'use client'
 
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react/dist/ssr'
-import { type ComponentPropsWithoutRef, type ReactNode } from 'react'
+import { type ComponentPropsWithoutRef } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { cn } from '@/lib/utils/style'
 
@@ -13,7 +13,6 @@ const LanguageMap = {
 } as const
 
 interface FigureProps extends ComponentPropsWithoutRef<'figure'> {
-  children?: ReactNode
   raw?: string
   'data-rehype-pretty-code-figure'?: boolean
   'data-language'?: string
@@ -49,12 +48,12 @@ const Language = ({ language }: { language: string }) => {
   )
 }
 
-export function Figure({ children, raw, ...props }: FigureProps) {
-  const showCopyButton = raw && 'data-rehype-pretty-code-figure' in props
-  const language = props['data-language']
+export function Figure({ children, raw, ...rest }: FigureProps) {
+  const showCopyButton = raw && 'data-rehype-pretty-code-figure' in rest
+  const language = rest['data-language']
 
   return (
-    <figure {...props} className="group relative">
+    <figure className="group relative" {...rest}>
       {children}
       {showCopyButton && <CopyButton text={raw} />}
       {language && <Language language={language} />}

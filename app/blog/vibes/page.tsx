@@ -6,7 +6,6 @@ import { MDX, type MDXComponents } from '@/components/ui/mdx'
 import {
   StaggeredFadeInContainer,
   StaggeredFadeInItem,
-  type PolymorphicComponentProps,
 } from '@/components/ui/stagger'
 import { sortedVibes } from '@/lib/utils/content'
 
@@ -29,32 +28,8 @@ export function Link(props: ComponentPropsWithoutRef<'a'>) {
   )
 }
 
-export function H2({
-  children,
-  ...rest
-}: Omit<PolymorphicComponentProps<'h2'>, 'as'>) {
-  return (
-    <StaggeredFadeInItem as="h2" {...rest}>
-      {children}
-    </StaggeredFadeInItem>
-  )
-}
-
-export function P({
-  children,
-  ...rest
-}: Omit<PolymorphicComponentProps<'p'>, 'as'>) {
-  return (
-    <StaggeredFadeInItem as="p" {...rest}>
-      {children}
-    </StaggeredFadeInItem>
-  )
-}
-
 const customComponents: MDXComponents = {
   a: Link,
-  p: P,
-  h2: H2,
 } as const
 
 export default function Page() {
