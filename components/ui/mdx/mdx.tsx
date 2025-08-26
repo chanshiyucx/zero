@@ -1,6 +1,7 @@
 import { MDXContent } from '@content-collections/mdx/react'
 import { lazy, Suspense, type ComponentProps } from 'react'
 import { Spinner } from '@/components/ui/spinner'
+import { StaggeredFadeInWrap } from '@/components/ui/stagger'
 import { cn } from '@/lib/utils/style'
 import { Figure } from './figure'
 import { Image } from './image'
@@ -51,7 +52,9 @@ export function MDX({ contentCode, classname, components }: MDXProps) {
       )}
       data-lang={'en'}
     >
-      <MDXContent components={mergedComponents} code={contentCode} />
+      <StaggeredFadeInWrap>
+        <MDXContent components={mergedComponents} code={contentCode} />
+      </StaggeredFadeInWrap>
     </div>
   )
 }

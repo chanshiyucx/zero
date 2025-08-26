@@ -2,8 +2,11 @@
 
 import { m, type MotionProps, type Variants } from 'framer-motion'
 import {
+  Children,
+  isValidElement,
   type ComponentPropsWithoutRef,
   type ElementType,
+  type HTMLAttributes,
   type ReactNode,
 } from 'react'
 
@@ -62,4 +65,25 @@ export function StaggeredFadeInItem<C extends ElementType = 'div'>({
   const MotionComponent = m(Component as ElementType)
 
   return <MotionComponent variants={itemVariants} {...props} />
+}
+
+export function StaggeredFadeInWrap({ children }: { children: ReactNode }) {
+  return (
+    <>
+      {Children.map(children, (child) => {
+        if (!isValidElement(child)) {
+          return child
+        }
+
+        const props = child.props as MotionProps & HTMLAttributes<HTMLElement>
+        const { children: grandChildren, ...restProps } = props
+
+        return (
+          <StaggeredFadeInItem as={child.type as ElementType} {...restProps}>
+            {grandChildren}
+          </StaggeredFadeInItem>
+        )
+      })}
+    </>
+  )
 }
