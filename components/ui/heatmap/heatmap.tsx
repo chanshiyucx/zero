@@ -202,7 +202,7 @@ function HeatmapTooltip({
           {...interactionHandlers}
         >
           <div className="bg-surface w-max max-w-xs overflow-hidden rounded-sm px-4 py-3 text-sm shadow-lg">
-            <p className="mb-2 inline-flex w-full shrink-0 items-center gap-1">
+            <p className="text-subtle mb-2 inline-flex w-full shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" className="mr-1" />
               <DateTime
                 dateString={hoveredDay.date}

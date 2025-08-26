@@ -1,10 +1,5 @@
-import { type AnchorHTMLAttributes, type DetailedHTMLProps } from 'react'
+import { type ComponentPropsWithoutRef } from 'react'
 
-export function Link(
-  props: DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  >,
-) {
+export function Link(props: ComponentPropsWithoutRef<'a'>) {
   return <a className="link" {...props}></a>
 }

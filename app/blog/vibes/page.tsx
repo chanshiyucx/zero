@@ -1,11 +1,12 @@
 import { CalendarBlankIcon, MapPinIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
-import { type AnchorHTMLAttributes, type DetailedHTMLProps } from 'react'
+import { type ComponentPropsWithoutRef } from 'react'
 import { DateTime } from '@/components/ui/datetime'
-import { MDX } from '@/components/ui/mdx'
+import { MDX, type MDXComponents } from '@/components/ui/mdx'
 import {
   StaggeredFadeInContainer,
   StaggeredFadeInItem,
+  type PolymorphicComponentProps,
 } from '@/components/ui/stagger'
 import { sortedVibes } from '@/lib/utils/content'
 
@@ -15,12 +16,7 @@ export const metadata: Metadata = {
   keywords: ['blog', 'vibes', 'thoughts', 'feelings', 'moods', 'musings'],
 }
 
-export function Link(
-  props: DetailedHTMLProps<
-    AnchorHTMLAttributes<HTMLAnchorElement>,
-    HTMLAnchorElement
-  >,
-) {
+export function Link(props: ComponentPropsWithoutRef<'a'>) {
   const linkText = props.children as string
   const [date, local] = linkText.split(' ')
   return (
@@ -32,6 +28,34 @@ export function Link(
     </a>
   )
 }
+
+export function H2({
+  children,
+  ...rest
+}: Omit<PolymorphicComponentProps<'h2'>, 'as'>) {
+  return (
+    <StaggeredFadeInItem as="h2" {...rest}>
+      {children}
+    </StaggeredFadeInItem>
+  )
+}
+
+export function P({
+  children,
+  ...rest
+}: Omit<PolymorphicComponentProps<'p'>, 'as'>) {
+  return (
+    <StaggeredFadeInItem as="p" {...rest}>
+      {children}
+    </StaggeredFadeInItem>
+  )
+}
+
+const customComponents: MDXComponents = {
+  a: Link,
+  p: P,
+  h2: H2,
+} as const
 
 export default function Page() {
   const vibeList = sortedVibes
@@ -45,9 +69,9 @@ export default function Page() {
       </StaggeredFadeInItem>
       <section className="vibes space-y-8">
         {vibeList.map((vibe) => (
-          <StaggeredFadeInItem key={vibe.title}>
-            <MDX contentCode={vibe.contentCode} components={{ a: Link }} />
-          </StaggeredFadeInItem>
+          <div key={vibe.title}>
+            <MDX contentCode={vibe.contentCode} components={customComponents} />
+          </div>
         ))}
       </section>
     </StaggeredFadeInContainer>

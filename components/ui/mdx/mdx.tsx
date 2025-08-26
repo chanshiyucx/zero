@@ -6,7 +6,7 @@ import { Figure } from './figure'
 import { Image } from './image'
 import { Link } from './link'
 
-type MDXComponents = ComponentProps<typeof MDXContent>['components']
+export type MDXComponents = ComponentProps<typeof MDXContent>['components']
 
 const LazyAudio = lazy(() =>
   import('./audio').then((module) => ({ default: module.Audio })),
