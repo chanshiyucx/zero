@@ -3,13 +3,11 @@ import { type Note } from 'content-collections'
 import { type Metadata } from 'next'
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
-import {
-  StaggeredFadeInContainer,
-  StaggeredFadeInItem,
-} from '@/components/ui/stagger'
+import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { sortedNotes } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -49,12 +47,7 @@ function NoteItem({ note }: { note: Note }) {
 
 export default function Page() {
   return (
-    <StaggeredFadeInContainer as="main" className="page">
-      <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold max-md:text-3xl">
-          Notes are memory anchors.
-        </h1>
-      </StaggeredFadeInItem>
+    <PageLayout title=" Notes are memory anchors.">
       <section className="space-y-8">
         {sortedNotes.map((note, index) => (
           <Fragment key={note.slug}>
@@ -63,6 +56,6 @@ export default function Page() {
           </Fragment>
         ))}
       </section>
-    </StaggeredFadeInContainer>
+    </PageLayout>
   )
 }

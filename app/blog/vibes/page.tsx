@@ -1,12 +1,9 @@
 import { CalendarBlankIcon, MapPinIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { type ComponentPropsWithoutRef } from 'react'
+import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { MDX, type MDXComponents } from '@/components/ui/mdx'
-import {
-  StaggeredFadeInContainer,
-  StaggeredFadeInItem,
-} from '@/components/ui/stagger'
 import { sortedVibes } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -36,12 +33,7 @@ export default function Page() {
   const vibeList = sortedVibes
 
   return (
-    <StaggeredFadeInContainer as="main" className="page">
-      <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold max-md:text-3xl">
-          Time flows like gentle rivers.
-        </h1>
-      </StaggeredFadeInItem>
+    <PageLayout title="Time flows like gentle rivers.">
       <section className="vibes space-y-8">
         {vibeList.map((vibe) => (
           <div key={vibe.title}>
@@ -49,6 +41,6 @@ export default function Page() {
           </div>
         ))}
       </section>
-    </StaggeredFadeInContainer>
+    </PageLayout>
   )
 }

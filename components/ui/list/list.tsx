@@ -1,10 +1,8 @@
 import Link from 'next/link'
 import { type ReactNode } from 'react'
+import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
-import {
-  StaggeredFadeInContainer,
-  StaggeredFadeInItem,
-} from '@/components/ui/stagger'
+import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { type Content, type ContentGroup } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
@@ -35,17 +33,17 @@ function renderExtraInfo(extraInfo: ExtraInfo) {
 
 export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
-    <StaggeredFadeInContainer as="main" className="page">
-      <StaggeredFadeInItem as="header">
-        <h1 className="text-4xl font-extrabold max-md:text-3xl">{title}</h1>
-      </StaggeredFadeInItem>
-      <div className="space-y-8">
+    <PageLayout title={title}>
+      <section className="space-y-8">
         {groups.map((group) => (
-          <StaggeredFadeInItem key={group.year}>
-            <p className="py-3 text-right text-3xl font-extrabold max-md:text-2xl">
+          <div key={group.year}>
+            <StaggeredFadeInItem
+              as="p"
+              className="py-3 text-right text-3xl font-extrabold max-md:text-2xl"
+            >
               {group.year}
-            </p>
-            <ul className="space-y-2 max-md:space-y-4">
+            </StaggeredFadeInItem>
+            <StaggeredFadeInItem as="ul" className="space-y-2 max-md:space-y-4">
               {group.list.map((article) => (
                 <li key={article.slug}>
                   <Link
@@ -65,10 +63,10 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </StaggeredFadeInItem>
+            </StaggeredFadeInItem>
+          </div>
         ))}
-      </div>
-    </StaggeredFadeInContainer>
+      </section>
+    </PageLayout>
   )
 }

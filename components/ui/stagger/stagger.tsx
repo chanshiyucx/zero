@@ -18,11 +18,13 @@ type BaseProps<C extends ElementType> = {
 export type PolymorphicComponentProps<C extends ElementType> = BaseProps<C> &
   Omit<ComponentPropsWithoutRef<C>, keyof BaseProps<C>>
 
+const staggerChildren = 0.08
+
 const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren,
     },
   },
 } as const
@@ -33,9 +35,11 @@ const itemVariants: Variants = {
     y: 0,
     opacity: 1,
     transition: {
-      ease: 'easeOut',
-      duration: 0.4,
-      staggerChildren: 0.1,
+      type: 'spring',
+      stiffness: 100,
+      damping: 15,
+      mass: 0.5,
+      staggerChildren,
     },
   },
 } as const
