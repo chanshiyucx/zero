@@ -46,7 +46,7 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
     >
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <div
-          className="noise-bg relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
+          className="relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <Command
