@@ -41,5 +41,5 @@ export function useLocalStorage<T>(
     }
   }
 
-  return [storedValue, setValue] as const
+  return [storedValue, setValue]
 }

@@ -25,6 +25,8 @@ interface AudioPlayerProps {
   src: string
 }
 
+const StepDuration = 5
+
 function Player({ src }: AudioPlayerProps) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
@@ -178,7 +180,7 @@ function Player({ src }: AudioPlayerProps) {
     const audio = audioRef.current
     if (!audio) return
 
-    const newTime = Math.max(0, audio.currentTime - 10)
+    const newTime = Math.max(0, audio.currentTime - StepDuration)
     audio.currentTime = newTime
     setCurrentTime(newTime)
   }, [])
@@ -187,7 +189,7 @@ function Player({ src }: AudioPlayerProps) {
     const audio = audioRef.current
     if (!audio) return
 
-    const newTime = Math.min(duration, audio.currentTime + 10)
+    const newTime = Math.min(duration, audio.currentTime + StepDuration)
     audio.currentTime = newTime
     setCurrentTime(newTime)
   }, [duration])
