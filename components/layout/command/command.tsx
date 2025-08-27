@@ -37,7 +37,7 @@ const iconProps: Partial<IconProps> = {
   size: '1em',
   weight: 'duotone',
   className: 'inline-block text-xl mr-3 shrink-0',
-} as const
+}
 
 interface Action {
   icon: ReactNode
@@ -324,8 +324,6 @@ export function Command() {
       document.body.style.overflow = 'initial'
     }
   }, [open])
-
-  if (!open) return null
 
   return (
     <CommandMenu>

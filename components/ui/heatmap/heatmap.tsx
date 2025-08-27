@@ -8,7 +8,12 @@ import {
   ScrollIcon,
   TerminalWindowIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { AnimatePresence, m, type Variants } from 'framer-motion'
+import {
+  AnimatePresence,
+  m,
+  type Transition,
+  type Variants,
+} from 'framer-motion'
 import Link from 'next/link'
 import {
   memo,
@@ -55,11 +60,12 @@ const HEATMAP_COLORS = [
 const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const SQUARE_SIZE = 12
 
+const transition: Transition = { type: 'spring', stiffness: 500, damping: 30 }
+
 const animationVariants: Variants = {
   hidden: { opacity: 0, y: -10, scale: 0.95 },
   enter: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: -10, scale: 0.95 },
-} as const
+}
 
 type DayInfo =
   | { type: 'placeholder' }
@@ -191,13 +197,13 @@ function HeatmapTooltip({
     <AnimatePresence>
       {hoveredDay && (
         <m.div
+          className="absolute z-10"
           ref={tooltipRef}
+          variants={animationVariants}
+          transition={transition}
           initial="hidden"
           animate="enter"
-          exit="exit"
-          variants={animationVariants}
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          className="absolute z-10"
+          exit="hidden"
           style={style}
           {...interactionHandlers}
         >

@@ -187,7 +187,7 @@ const collectionConfigs: CollectionProps[] = [
     directory: 'public/blog/polyglot',
     prefixPath: '/polyglot',
   },
-] as const
+]
 
 const collections = collectionConfigs.map(getCollection)
 

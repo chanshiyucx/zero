@@ -1,5 +1,10 @@
 import { CameraIcon, SlideshowIcon } from '@phosphor-icons/react/dist/ssr'
-import { AnimatePresence, m } from 'framer-motion'
+import {
+  AnimatePresence,
+  m,
+  type Transition,
+  type Variants,
+} from 'framer-motion'
 import {
   memo,
   useCallback,
@@ -33,6 +38,26 @@ interface Transform {
 interface LoadProgress {
   loaded: number
   total: number
+}
+
+const transition: Transition = { type: 'spring', stiffness: 500, damping: 30 }
+
+const backdropVariants: Variants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+
+const progressVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+  },
 }
 
 const isBlobSrc = (src: string | Blob | undefined): src is string => {
@@ -283,11 +308,12 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
       <AnimatePresence>
         {isOpen && (
           <m.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="fixed inset-0 z-100 backdrop-blur-xs"
+            variants={backdropVariants}
+            transition={transition}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             onClick={handleClose}
           />
         )}
@@ -296,11 +322,12 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
       <AnimatePresence>
         {isOpen && isLoading && (
           <m.span
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-xl px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
+            variants={progressVariants}
+            transition={transition}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
           >
             <span className="border-t-text border-overlay h-4 w-4 animate-spin rounded-full border-2"></span>
             <span className="inline-flex flex-col gap-1">
