@@ -48,12 +48,12 @@ const Language = ({ language }: { language: string }) => {
   )
 }
 
-export function Figure({ children, raw, ...rest }: FigureProps) {
+export function Figure({ children, raw, className, ...rest }: FigureProps) {
   const showCopyButton = raw && 'data-rehype-pretty-code-figure' in rest
   const language = rest['data-language']
 
   return (
-    <figure className="group relative" {...rest}>
+    <figure className={cn('group relative', className)} {...rest}>
       {children}
       {showCopyButton && <CopyButton text={raw} />}
       {language && <Language language={language} />}
