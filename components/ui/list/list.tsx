@@ -33,7 +33,7 @@ function renderExtraInfo(extraInfo: ExtraInfo) {
 
 export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
-    <PageLayout title={title}>
+    <PageLayout title={title} staggerChildren={0.04}>
       <section className="space-y-8">
         {groups.map((group) => (
           <div key={group.year}>
@@ -43,9 +43,9 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
             >
               {group.year}
             </StaggeredFadeInItem>
-            <StaggeredFadeInItem as="ul" className="space-y-2 max-md:space-y-4">
+            <ul className="space-y-2 max-md:space-y-4">
               {group.list.map((article) => (
-                <li key={article.slug}>
+                <StaggeredFadeInItem as="li" key={article.slug}>
                   <Link
                     className="flex gap-6 max-sm:flex-col max-sm:gap-0"
                     href={article.url}
@@ -61,9 +61,9 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                       {renderTitle ? renderTitle(article) : article.title}
                     </span>
                   </Link>
-                </li>
+                </StaggeredFadeInItem>
               ))}
-            </StaggeredFadeInItem>
+            </ul>
           </div>
         ))}
       </section>
