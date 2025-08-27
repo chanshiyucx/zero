@@ -70,13 +70,6 @@
   }
 
   blockquote {
-    @apply bg-surface block rounded-lg px-3 py-1;
-
-    p {
-      &:first-child::before,
-      &:last-child::after {
-        content: none !important;
-      }
-    }
+    @apply text-subtle!;
   }
 }
