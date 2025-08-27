@@ -90,9 +90,9 @@
   }
 
   &[href^='#'] {
-    @apply text-text font-bold no-underline;
+    @apply text-text font-bold no-underline hover:before:opacity-100;
     &::before {
-      @apply text-muted top-0 -left-6 opacity-0 content-['#'] hover:opacity-100;
+      @apply text-muted top-0 -left-6 translate-none opacity-0 content-['#'];
       font-size: inherit;
     }
   }
