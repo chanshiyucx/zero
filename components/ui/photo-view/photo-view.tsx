@@ -364,8 +364,8 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           )}
           transition={{
             type: 'tween',
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            duration: 0.5,
+            ease: [0.16, 1, 0.3, 1],
           }}
           animate={animate}
           onLoad={() => setIsReady(true)}
