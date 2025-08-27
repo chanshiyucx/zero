@@ -16,7 +16,6 @@ import { useActivePage, useCommand } from '@/stores/use-command'
 import { useDevice } from '@/stores/use-device'
 
 interface CommandMenuProps {
-  open: boolean
   children: ReactNode
 }
 
