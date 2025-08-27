@@ -30,7 +30,7 @@ const defaultComponents: MDXComponents = {
   a: Link,
   figure: Figure,
   audio: SuspendedAudio,
-} as const
+}
 
 interface MDXProps {
   contentCode: string

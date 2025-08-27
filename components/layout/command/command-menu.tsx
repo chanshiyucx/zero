@@ -1,5 +1,11 @@
 import { Command } from 'cmdk'
 import {
+  AnimatePresence,
+  m,
+  type Transition,
+  type Variants,
+} from 'framer-motion'
+import {
   useCallback,
   useEffect,
   useRef,
@@ -10,7 +16,28 @@ import { useActivePage, useCommand } from '@/stores/use-command'
 import { useDevice } from '@/stores/use-device'
 
 interface CommandMenuProps {
+  open: boolean
   children: ReactNode
+}
+
+const transition: Transition = { type: 'spring', stiffness: 500, damping: 30 }
+
+const backdropVariants: Variants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+
+const modalVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.95,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+  },
 }
 
 export const CommandMenu = ({ children }: CommandMenuProps) => {
@@ -40,35 +67,49 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
   }, [activePage, open, isMobile])
 
   return (
-    <div
-      className="bg-muted/20 fixed inset-0 z-100 backdrop-blur-xs"
-      onClick={() => setOpen(false)}
-    >
-      <div className="fixed inset-0 flex items-center justify-center p-4">
-        <div
-          className="relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
-          onClick={(e) => e.stopPropagation()}
+    <AnimatePresence>
+      {open && (
+        <m.div
+          className="bg-muted/20 fixed inset-0 z-100 backdrop-blur-xs"
+          variants={backdropVariants}
+          transition={transition}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          onClick={() => setOpen(false)}
         >
-          <Command
-            className="bg-surface rounded-lg shadow-lg"
-            onKeyDown={handleKeyDown}
-          >
-            <div className="border-b p-4">
-              <Command.Input
-                autoFocus={!isMobile}
-                ref={inputRef}
-                className="w-full border-none bg-transparent outline-hidden"
-                placeholder="Type a command or search..."
-              />
-            </div>
+          <div className="fixed inset-0 flex items-center justify-center p-4">
+            <m.div
+              className="relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
+              onClick={(e) => e.stopPropagation()}
+              variants={modalVariants}
+              transition={transition}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <Command
+                className="bg-surface rounded-lg shadow-lg"
+                onKeyDown={handleKeyDown}
+              >
+                <div className="border-b p-4">
+                  <Command.Input
+                    autoFocus={!isMobile}
+                    ref={inputRef}
+                    className="w-full border-none bg-transparent outline-hidden"
+                    placeholder="Type a command or search..."
+                  />
+                </div>
 
-            <Command.List className="max-h-[60vh] overflow-auto p-3">
-              <Command.Empty>No results found.</Command.Empty>
-              {children}
-            </Command.List>
-          </Command>
-        </div>
-      </div>
-    </div>
+                <Command.List className="max-h-[60vh] overflow-auto p-3">
+                  <Command.Empty>No results found.</Command.Empty>
+                  {children}
+                </Command.List>
+              </Command>
+            </m.div>
+          </div>
+        </m.div>
+      )}
+    </AnimatePresence>
   )
 }

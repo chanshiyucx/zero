@@ -27,7 +27,7 @@ export function Link(props: ComponentPropsWithoutRef<'a'>) {
 
 const customComponents: MDXComponents = {
   a: Link,
-} as const
+}
 
 export default function Page() {
   const vibeList = sortedVibes

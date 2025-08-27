@@ -1,6 +1,11 @@
 'use client'
 
-import { AnimatePresence, m } from 'framer-motion'
+import {
+  AnimatePresence,
+  m,
+  type Transition,
+  type Variants,
+} from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -46,11 +51,12 @@ interface DropdownItemProps {
   }>
 }
 
-const variants = {
+const transition: Transition = { type: 'spring', stiffness: 500, damping: 30 }
+
+const variants: Variants = {
   hidden: { opacity: 0, y: -10 },
   enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
-} as const
+}
 
 function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
   useDeviceListener()
@@ -70,16 +76,12 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
         {isOpen && (
           <div className="absolute top-full left-1/2 z-10 -translate-x-1/2 p-2">
             <m.div
+              className="bg-surface overflow-hidden rounded-lg shadow-lg"
+              variants={variants}
+              transition={transition}
               initial="hidden"
               animate="enter"
-              exit="exit"
-              variants={variants}
-              transition={{
-                type: 'spring',
-                stiffness: 500,
-                damping: 30,
-              }}
-              className="bg-surface overflow-hidden rounded-lg shadow-lg"
+              exit="hidden"
             >
               {items.map((item) => (
                 <MenuItem
