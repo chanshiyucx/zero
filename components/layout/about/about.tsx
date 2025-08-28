@@ -108,14 +108,14 @@ export function About() {
       </StaggeredFadeInItem>
 
       <div className="flex flex-row gap-3 max-md:flex-col">
-        <StaggeredFadeInItem>
-          <p className="mt-0">
-            I aspire to become a polyglot, dedicating myself to refining my{' '}
+        <div>
+          <StaggeredFadeInItem as="p" className="mt-0">
+            I aspire to become a polyglot, dedicating myself to refining my
             <PageLink label="English" href="/polyglot/english" /> proficiency
-            while also starting to learn{' '}
+            while also starting to learn
             <PageLink label="German" href="/polyglot/german" />. Though
             challenging, I believe this path will be deeply rewarding.
-          </p>
+          </StaggeredFadeInItem>
 
           <StaggeredFadeInItem as="p">
             As a budding photographer, I collect fragments of my journey in my
@@ -123,11 +123,11 @@ export function About() {
             moments I hold dear.
           </StaggeredFadeInItem>
 
-          <p>
+          <StaggeredFadeInItem as="p">
             I listen to my <PageLink label="vibes" href="/vibes" />, they guide
             me through silence. Life is short, code is long.
-          </p>
-        </StaggeredFadeInItem>
+          </StaggeredFadeInItem>
+        </div>
         <CV />
       </div>
     </div>

@@ -6,13 +6,13 @@ export function Cat(props: SVGProps<SVGSVGElement>) {
       <circle className="eye fill-[#ffee94]" cx={320.377} cy={151.203} r={44} />
       <circle className="eye fill-[#ffee94]" cx={429.549} cy={151.203} r={44} />
       <circle
-        className="pupil translate-x-6 translate-y-4 fill-[#ffb399]"
+        className="pupil fill-[#ffb399]"
         cx={301.377}
         cy={120.203}
         r={25}
       />
       <circle
-        className="pupil translate-x-6 translate-y-4 fill-[#ffb399]"
+        className="pupil fill-[#ffb399]"
         cx={410.549}
         cy={120.203}
         r={25}
