@@ -71,5 +71,12 @@
 
   blockquote {
     @apply text-subtle!;
+
+    p {
+      &:first-child::before,
+      &:last-child::after {
+        content: none !important;
+      }
+    }
   }
 }

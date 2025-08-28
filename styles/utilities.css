@@ -219,27 +219,6 @@
   }
 }
 
-/* City Cat, https://codepen.io/rachelnabors/pen/ApvavZ */
-@utility city-cat {
-  @apply animate-cat-cycle h-full w-full bg-center bg-no-repeat;
-  background-size: var(--cat-width) var(--cat-height);
-  background-image: var(--cat-image);
-
-  &.walk {
-    --cat-height: 1728px;
-    --cat-width: 289px;
-    --cat-steps: 12;
-    --cat-image: url(/assets/cat_walk.png);
-  }
-
-  &.run {
-    --cat-height: 1872px;
-    --cat-width: 289px;
-    --cat-steps: 13;
-    --cat-image: url(/assets/cat_run.png);
-  }
-}
-
 /* Cute Cat, https://codepen.io/AngelaVelasquez/pen/AWyNYb */
 @utility cute-cat {
   --cat-border: #ffb399;

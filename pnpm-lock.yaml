@@ -50,9 +50,6 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
-      react-type-animation:
-        specifier: ^3.2.0
-        version: 3.2.0(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -3029,13 +3026,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  react-type-animation@3.2.0:
-    resolution: {integrity: sha512-WXTe0i3rRNKjmggPvT5ntye1QBt0ATGbijeW6V3cQe2W0jaMABXXlPPEdtofnS9tM7wSRHchEvI9SUw+0kUohw==}
-    peerDependencies:
-      prop-types: ^15.5.4
-      react: '>= 15.0.0'
-      react-dom: '>= 15.0.0'
 
   react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
@@ -6786,12 +6776,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.1.10
-
-  react-type-animation@3.2.0(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
-    dependencies:
-      prop-types: 15.8.1
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
 
   react@19.1.1: {}
 

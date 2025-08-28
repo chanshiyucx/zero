@@ -30,7 +30,6 @@
   --animate-ripple: ripple 3400ms ease infinite;
   --animate-cat-cycle: cat-cycle 1s steps(var(--cat-steps)) infinite;
   --animate-wave: wave var(--duration, 10s) linear infinite;
-  --animate-shake-right: shake-right 2s ease-in-out infinite;
 
   @keyframes turnOn {
     0% {
@@ -131,15 +130,5 @@
   100% {
     stroke-dashoffset: var(--path-length);
     fill: var(--color-muted);
-  }
-}
-
-@keyframes shake-right {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(4px);
   }
 }

@@ -2,8 +2,14 @@
 
 import { useEffect, useRef } from 'react'
 import { Signature } from '@/components/icons'
+import { cn } from '@/lib/utils/style'
 
-const SignatureBox = ({ animate }: { animate?: boolean }) => {
+interface SignatureBoxProps {
+  animate?: boolean
+  className?: string
+}
+
+const SignatureBox = ({ animate, className }: SignatureBoxProps) => {
   const svgGroupRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
@@ -24,15 +30,15 @@ const SignatureBox = ({ animate }: { animate?: boolean }) => {
   return (
     <Signature
       ref={svgGroupRef}
-      className="absolute top-0 left-0 h-36 w-60 drop-shadow-lg"
+      className={cn('h-auto w-50 drop-shadow-lg max-md:w-40', className)}
     />
   )
 }
 
 export function Logo() {
   return (
-    <div className="relative h-36 w-60 max-md:m-auto">
-      <SignatureBox />
+    <div className="relative">
+      <SignatureBox className="absolute top-0 left-0" />
       <SignatureBox animate={true} />
     </div>
   )

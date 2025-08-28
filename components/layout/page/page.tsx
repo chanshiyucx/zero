@@ -3,18 +3,25 @@ import {
   StaggeredFadeInContainer,
   StaggeredFadeInItem,
 } from '@/components/ui/stagger'
+import { cn } from '@/lib/utils/style'
 
 interface PageProps {
   children: ReactNode
   title?: string
+  className?: string
   staggerChildren?: number
 }
 
-export function PageLayout({ children, title, staggerChildren }: PageProps) {
+export function PageLayout({
+  children,
+  title,
+  className,
+  staggerChildren,
+}: PageProps) {
   return (
     <StaggeredFadeInContainer
       as="main"
-      className="page"
+      className={cn('page', className)}
       staggerChildren={staggerChildren}
     >
       {title && (

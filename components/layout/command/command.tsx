@@ -6,7 +6,6 @@ import {
   CameraIcon,
   GhostIcon,
   GithubLogoIcon,
-  HouseIcon,
   LaptopIcon,
   LinkedinLogoIcon,
   MagnifyingGlassIcon,
@@ -130,16 +129,16 @@ export function Command() {
         page: 'root',
         items: [
           {
-            icon: <HouseIcon {...iconProps} />,
-            label: 'Home',
-            shortcut: ['h'],
-            path: '/',
-          },
-          {
             icon: <BriefcaseIcon {...iconProps} />,
             label: 'Projects',
             shortcut: ['p'],
             path: '/projects',
+          },
+          {
+            icon: <GhostIcon {...iconProps} />,
+            label: 'Vibes',
+            shortcut: ['v'],
+            path: '/vibes',
           },
           {
             icon: <CameraIcon {...iconProps} />,
@@ -170,12 +169,6 @@ export function Command() {
             label: 'Notes',
             shortcut: ['n'],
             path: '/blog/notes',
-          },
-          {
-            icon: <GhostIcon {...iconProps} />,
-            label: 'Vibes',
-            shortcut: ['v'],
-            path: '/blog/vibes',
           },
           {
             icon: <TerminalWindowIcon {...iconProps} />,
