@@ -15,7 +15,7 @@ export async function DiscordStatus() {
       >
         <DiscordLogoIcon
           size="1em"
-          className="text-overlay absolute -bottom-8 -z-10 h-32 w-32 -rotate-45 brightness-95 dark:brightness-110"
+          className="text-overlay absolute -bottom-8 -z-10 h-32 w-32 -rotate-45"
         />
 
         <p className="flex flex-col text-xl font-semibold">

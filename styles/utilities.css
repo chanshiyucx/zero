@@ -6,17 +6,17 @@
   --tw-prose-bold: var(--color-text);
   --tw-prose-counters: var(--color-subtle);
   --tw-prose-bullets: var(--color-subtle);
-  --tw-prose-hr: --alpha(var(--color-muted) / 20%);
+  --tw-prose-hr: var(--color-overlay);
   --tw-prose-quotes: var(--color-text);
-  --tw-prose-quote-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-quote-borders: var(--color-overlay);
   --tw-prose-kbd: var(--color-text);
   --tw-prose-kbd-shadows: var(--color-text);
   --tw-prose-captions: var(--color-text);
   --tw-prose-code: var(--color-rose);
   --tw-prose-pre-code: var(--color-muted);
   --tw-prose-pre-bg: var(--color-surface);
-  --tw-prose-th-borders: --alpha(var(--color-muted) / 20%);
-  --tw-prose-td-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-th-borders: var(--color-overlay);
+  --tw-prose-td-borders: var(--color-overlay);
 
   /* invert mode */
   --tw-prose-invert-body: var(--color-text);
@@ -26,17 +26,17 @@
   --tw-prose-invert-bold: var(--color-text);
   --tw-prose-invert-counters: var(--color-subtle);
   --tw-prose-invert-bullets: var(--color-subtle);
-  --tw-prose-invert-hr: --alpha(var(--color-muted) / 20%);
+  --tw-prose-invert-hr: var(--color-overlay);
   --tw-prose-invert-quotes: var(--color-text);
-  --tw-prose-invert-quote-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-invert-quote-borders: var(--color-overlay);
   --tw-prose-invert-kbd: var(--color-text);
   --tw-prose-invert-kbd-shadows: var(--color-text);
   --tw-prose-invert-captions: var(--color-text);
   --tw-prose-invert-code: var(--color-rose);
   --tw-prose-invert-pre-code: var(--color-muted);
   --tw-prose-invert-pre-bg: var(--color-surface);
-  --tw-prose-invert-th-borders: --alpha(var(--color-muted) / 20%);
-  --tw-prose-invert-td-borders: --alpha(var(--color-muted) / 20%);
+  --tw-prose-invert-th-borders: var(--color-overlay);
+  --tw-prose-invert-td-borders: var(--color-overlay);
 }
 
 @utility page {
@@ -47,14 +47,14 @@
   @apply relative;
 
   &::before {
-    @apply bg-muted/20 absolute top-3 bottom-0 left-4 -z-10 w-0.5 -translate-x-1/2 content-[''];
+    @apply bg-overlay absolute top-3 bottom-0 left-4 -z-10 w-1 -translate-x-1/2 content-[''];
   }
 
   h2 {
-    @apply relative mb-3 pl-7 text-sm;
+    @apply relative pl-7 text-sm;
 
     &::before {
-      @apply bg-overlay absolute top-1/2 left-2.5 h-3 w-3 -translate-y-1/2 rounded-full border border-2 content-[''];
+      @apply bg-base absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 rounded-full border border-4 content-[''];
     }
 
     a::before {
