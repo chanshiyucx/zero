@@ -35,11 +35,11 @@
 
   body {
     @apply bg-base text-text mx-auto! flex min-h-screen max-w-3xl flex-col px-4 font-sans font-medium tabular-nums antialiased;
-    @apply selection:bg-muted/20;
+    @apply selection:bg-overlay;
   }
 
   kbd {
-    @apply border-muted/20 bg-muted/10 text-subtle hover:bg-muted/20 flex items-center gap-1 rounded-lg border px-1.5 py-1 leading-none font-semibold uppercase transition;
+    @apply bg-overlay text-subtle flex items-center gap-1 rounded-lg border px-1.5 py-1 leading-none font-semibold uppercase transition hover:brightness-95;
   }
 
   h2,

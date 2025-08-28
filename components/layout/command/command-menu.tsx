@@ -69,7 +69,7 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
     <AnimatePresence>
       {open && (
         <m.div
-          className="bg-muted/20 fixed inset-0 z-100 backdrop-blur-xs"
+          className="bg-overlay/60 fixed inset-0 z-100 backdrop-blur-xs"
           variants={backdropVariants}
           transition={transition}
           initial="hidden"
