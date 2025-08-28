@@ -74,7 +74,7 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
       <MenuItem name={name} path={path} isActive={isActive} />
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute top-full left-1/2 z-10 -translate-x-1/2 p-2">
+          <div className="absolute top-full left-1/2 z-20 -translate-x-1/2 p-2">
             <m.div
               className="bg-surface overflow-hidden rounded-lg shadow-lg"
               variants={variants}
