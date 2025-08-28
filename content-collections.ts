@@ -168,14 +168,14 @@ const collectionConfigs: CollectionProps[] = [
     prefixPath: '/blog/notes',
   },
   {
-    name: 'vibe',
-    directory: 'public/blog/vibes',
-    prefixPath: '/blog/vibes',
-  },
-  {
     name: 'leetcode',
     directory: 'public/blog/leetcode',
     prefixPath: '/blog/leetcode',
+  },
+  {
+    name: 'vibe',
+    directory: 'public/blog/vibes',
+    prefixPath: '/vibes',
   },
   {
     name: 'album',

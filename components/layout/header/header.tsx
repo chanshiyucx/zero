@@ -119,14 +119,12 @@ export function Header() {
       </Link>
       <div className="flex items-center gap-3">
         <nav className="flex items-center justify-center gap-1 max-md:hidden">
-          <MenuItem name="Home" path="/" />
           <DropdownMenuItem
             name="Blog"
             path="/blog/posts"
             items={[
               { name: 'Posts', path: '/blog/posts' },
               { name: 'Notes', path: '/blog/notes' },
-              { name: 'Vibes', path: '/blog/vibes' },
               { name: 'Leetcode', path: '/blog/leetcode' },
             ]}
           />
@@ -139,6 +137,7 @@ export function Header() {
             ]}
           />
           <MenuItem name="Projects" path="/projects" />
+          <MenuItem name="Vibes" path="/vibes" />
           <MenuItem name="Album" path="/album" />
         </nav>
         <Search />

@@ -9,6 +9,7 @@ import {
   TypeScript,
   VueJS,
 } from '@/components/icons'
+import { Logo } from '@/components/ui/logo'
 import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { CV } from './cv'
 
@@ -70,25 +71,37 @@ const PageLink = ({ label, ...props }: { label: string } & LinkProps) => (
 
 export function About() {
   return (
-    <StaggeredFadeInItem className="prose prose-rosepine w-full max-w-none">
-      <h2 className="text-subtle text-xs">Full-Stack Developer</h2>
+    <div className="prose prose-rosepine w-full max-w-none">
+      <div className="flex flex-row items-end gap-6 max-md:flex-col max-md:gap-0">
+        <StaggeredFadeInItem className="max-md:self-center">
+          <Logo />
+        </StaggeredFadeInItem>
 
-      <p>
-        <HandWavingIcon weight="duotone" className="mr-1 inline text-xl" />
-        <span>Hello, welcome to my little corner on the web!</span>
-      </p>
+        <StaggeredFadeInItem>
+          <h2 className="text-subtle text-xs">
+            Full-Stack Developer / Budding Photographer.
+          </h2>
 
-      <p>
+          <p className="mb-0">
+            <HandWavingIcon weight="duotone" className="mr-1 inline text-xl" />
+            <span>
+              Hello, I&apos;m Shiyu. Welcome to my little corner on the web!
+            </span>
+          </p>
+        </StaggeredFadeInItem>
+      </div>
+
+      <StaggeredFadeInItem as="p">
         I&apos;m a self-taught programmer passionate about crafting clean,
         maintainable, and well-architected code solutions. My love for
         programming drives me to continuously explore modern technologies in the
         <JavaScriptLink />,<TypeScriptLink />,<VueLink />, and <ReactJSLink />
         ecosystems. Additionally, I have some basic knowledge of <JavaLink />
         and <PythonLink />.
-      </p>
+      </StaggeredFadeInItem>
 
       <div className="flex flex-row gap-3 max-md:flex-col">
-        <div>
+        <StaggeredFadeInItem>
           <p className="mt-0">
             Maybe you will find something interesting in my
             <PageLink label="blog posts" href="/blog/posts" /> or
@@ -106,12 +119,12 @@ export function About() {
           </p>
 
           <p>
-            I listen to my <PageLink label="vibes" href="/blog/vibes" />, they
-            guide me through silence. Life is short, code is long.
+            I listen to my <PageLink label="vibes" href="/vibes" />, they guide
+            me through silence. Life is short, code is long.
           </p>
-        </div>
+        </StaggeredFadeInItem>
         <CV />
       </div>
-    </StaggeredFadeInItem>
+    </div>
   )
 }

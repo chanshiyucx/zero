@@ -29,7 +29,7 @@ export function Meow() {
   }, [handleMouseMove])
 
   return (
-    <Link href="/blog/vibes" className="group relative cursor-pointer">
+    <Link href="/vibes" className="group relative cursor-pointer">
       <Cat ref={catRef} />
       <div className="meow-bubble group-hover:opacity-100">
         <span>meow</span>
