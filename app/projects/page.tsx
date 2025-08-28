@@ -23,7 +23,7 @@ export default async function Page() {
             <Card>
               <Github
                 repo={repo}
-                className="bg-surface hover:bg-muted/10 transition"
+                className="bg-surface hover:bg-overlay transition"
               />
             </Card>
           </StaggeredFadeInItem>
