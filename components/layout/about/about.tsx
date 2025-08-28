@@ -119,7 +119,7 @@ export function About() {
 
           <StaggeredFadeInItem as="p">
             As a budding photographer, I collect fragments of my journey in my
-            <PageLink label="album" href="/album" /> , where you can glimpse the
+            <PageLink label="album" href="/album" />, where you can glimpse the
             moments I hold dear.
           </StaggeredFadeInItem>
 
