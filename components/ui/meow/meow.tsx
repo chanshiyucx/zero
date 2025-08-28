@@ -23,7 +23,6 @@ export function Meow() {
 
   useEffect(() => {
     const throttledHandler = throttle(handleMouseMove, 16)
-
     document.addEventListener('mousemove', throttledHandler)
     return () => document.removeEventListener('mousemove', throttledHandler)
   }, [handleMouseMove])
