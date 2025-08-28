@@ -48,11 +48,11 @@ const TypeScriptLink = () => (
 )
 
 const VueLink = () => (
-  <LinkElement href="https://vuejs.org/" title="VueJS" icon={VueJS} />
+  <LinkElement href="https://vuejs.org/" title="Vue.js" icon={VueJS} />
 )
 
 const ReactJSLink = () => (
-  <LinkElement href="https://react.dev/" title="ReactJS" icon={ReactJS} />
+  <LinkElement href="https://react.dev/" title="React" icon={ReactJS} />
 )
 
 const PythonLink = () => (
@@ -72,7 +72,7 @@ const PageLink = ({ label, ...props }: { label: string } & LinkProps) => (
 export function About() {
   return (
     <div className="prose prose-rosepine w-full max-w-none">
-      <div className="flex flex-row items-end gap-6 max-md:flex-col max-md:gap-0">
+      <div className="flex flex-row items-end gap-6 max-md:flex-col max-md:items-start max-md:gap-0">
         <StaggeredFadeInItem className="max-md:self-center">
           <Logo />
         </StaggeredFadeInItem>
@@ -92,31 +92,36 @@ export function About() {
       </div>
 
       <StaggeredFadeInItem as="p">
-        I&apos;m a self-taught programmer passionate about crafting clean,
-        maintainable, and well-architected code solutions. My love for
-        programming drives me to continuously explore modern technologies in the
+        I&apos;m a full stack developer passionate about crafting clean and
+        well-architected code. I enjoy exploring modern technologies in the
         <JavaScriptLink />,<TypeScriptLink />,<VueLink />, and <ReactJSLink />
         ecosystems. Additionally, I have some basic knowledge of <JavaLink />
         and <PythonLink />.
       </StaggeredFadeInItem>
 
+      <StaggeredFadeInItem as="p">
+        Maybe you will find something interesting in my
+        <PageLink label="blog posts" href="/blog/posts" /> or
+        <PageLink label="study notes" href="/blog/notes" />! Feel free to
+        explore <PageLink label="the projects" href="/projects" /> I&apos;ve
+        poured my effort into.
+      </StaggeredFadeInItem>
+
       <div className="flex flex-row gap-3 max-md:flex-col">
         <StaggeredFadeInItem>
           <p className="mt-0">
-            Maybe you will find something interesting in my
-            <PageLink label="blog posts" href="/blog/posts" /> or
-            <PageLink label="study notes" href="/blog/notes" />! Feel free to
-            explore <PageLink label="the projects" href="/projects" /> I&apos;ve
-            poured my effort into.
-          </p>
-
-          <p>
-            I aspire to become a polyglot , dedicating myself to refining my{' '}
+            I aspire to become a polyglot, dedicating myself to refining my{' '}
             <PageLink label="English" href="/polyglot/english" /> proficiency
             while also starting to learn{' '}
-            <PageLink label="German" href="/polyglot/german" /> . Though
-            challenging, I believe the journey will be deeply rewarding.
+            <PageLink label="German" href="/polyglot/german" />. Though
+            challenging, I believe this path will be deeply rewarding.
           </p>
+
+          <StaggeredFadeInItem as="p">
+            As a budding photographer, I collect fragments of my journey in my
+            <PageLink label="album" href="/album" /> , where you can glimpse the
+            moments I hold dear.
+          </StaggeredFadeInItem>
 
           <p>
             I listen to my <PageLink label="vibes" href="/vibes" />, they guide
