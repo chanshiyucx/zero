@@ -140,26 +140,38 @@ export async function createDiscussion(
   label: string,
 ): Promise<Discussion> {
   try {
-    const createDiscussionQuery = `mutation {
-      createDiscussion(input: {
-        repositoryId: "${DISCUSSION_REPO_ID}",
-        title: "${title}",
-        body: "# ${title}",
-        categoryId: "${DISCUSSION_CATEGORY_ID}"
-      }) {
-        discussion {
-          id
-          number
-          title
-          url
+    const createDiscussionQuery = `
+      mutation CreateDiscussion($repositoryId: ID!, $title: String!, $body: String!, $categoryId: ID!) {
+        createDiscussion(input: {
+          repositoryId: $repositoryId,
+          title: $title,
+          body: $body,
+          categoryId: $categoryId
+        }) {
+          discussion {
+            id
+            number
+            title
+            url
+          }
         }
       }
-    }`
+    `
+
+    const createDiscussionVariables = {
+      repositoryId: DISCUSSION_REPO_ID,
+      title: title,
+      body: `# ${title}`,
+      categoryId: DISCUSSION_CATEGORY_ID,
+    }
 
     const result = await fetchData<DiscussionResult>(`${GITHUB_API}/graphql`, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ query: createDiscussionQuery }),
+      body: JSON.stringify({
+        query: createDiscussionQuery,
+        variables: createDiscussionVariables,
+      }),
     })
     const discussion = result.data.createDiscussion.discussion
     discussion.html_url = discussion.url
@@ -167,20 +179,27 @@ export async function createDiscussion(
       DISCUSSION_LABEL_IDS[label as keyof typeof DISCUSSION_LABEL_IDS]
 
     const addLabelQuery = `
-      mutation {
+      mutation AddLabels($labelableId: ID!, $labelIds: [ID!]!) {
         addLabelsToLabelable(input: {
-          labelableId: "${result.data.createDiscussion.discussion.id}",
-          labelIds: ["${labelIds}"]
+          labelableId: $labelableId,
+          labelIds: $labelIds
         }) {
           clientMutationId
         }
       }
     `
+    const addLabelVariables = {
+      labelableId: result.data.createDiscussion.discussion.id,
+      labelIds: [labelIds],
+    }
 
     await fetchData(`${GITHUB_API}/graphql`, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ query: addLabelQuery }),
+      body: JSON.stringify({
+        query: addLabelQuery,
+        variables: addLabelVariables,
+      }),
     })
 
     return discussion
@@ -226,7 +245,7 @@ export async function getContribution(
           query: getContributionQuery,
           variables: { from, to },
         }),
-        next: { revalidate: 3600 },
+        next: { revalidate: 3600 * 6 },
       },
     )
     const contributionCalendar =
