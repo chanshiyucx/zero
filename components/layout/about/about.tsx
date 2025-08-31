@@ -79,7 +79,7 @@ export function About() {
 
         <StaggeredFadeInItem>
           <h2 className="text-subtle text-xs">
-            Full-Stack Developer / Budding Photographer.
+            Full-Stack Developer / Budding Photographer
           </h2>
 
           <p className="mb-0">

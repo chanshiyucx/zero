@@ -4,7 +4,7 @@ import { PageLayout } from '@/components/layout/page'
 
 export default function Page() {
   return (
-    <PageLayout className="pb-30">
+    <PageLayout>
       <About />
       <Grid />
     </PageLayout>

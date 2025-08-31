@@ -469,7 +469,7 @@ export function Heatmap() {
   const handleToggleMode = () => setIsSeamless((v) => !v)
 
   return (
-    <div className="relative mt-5 w-full" ref={containerRef}>
+    <div className="relative w-full" ref={containerRef}>
       <div className="flex w-full flex-row">
         <HeatmapControls
           isSeamless={isSeamless}
