@@ -60,19 +60,21 @@ const ContributionSvg = ({
           <g key={i} transform={`translate(${i * 1.7}, ${i})`}>
             {week.contributionDays.map((day, j) => {
               const ratio = day.contributionCount / max || 0
+              const color =
+                day.contributionCount > 0 ? day.color : 'var(--color-overlay)'
               return (
                 <g
                   key={day.date}
                   transform={`translate(${j * -1.7}, ${j + (1 - ratio) * size})`}
                 >
-                  <path fill={day.color} d="M1.7,2 0,1 1.7,0 3.4,1 z" />
+                  <path fill={color} d="M1.7,2 0,1 1.7,0 3.4,1 z" />
                   <path
-                    fill={day.color}
+                    fill={color}
                     filter="url(#brightness1)"
                     d={`M0,1 1.7,2 1.7,${2 + ratio * size} 0,${1 + ratio * size} z`}
                   />
                   <path
-                    fill={day.color}
+                    fill={color}
                     filter="url(#brightness2)"
                     d={`M1.7,2 3.4,1 3.4,${1 + ratio * size} 1.7,${2 + ratio * size} z`}
                   />

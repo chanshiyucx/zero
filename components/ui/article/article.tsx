@@ -72,7 +72,7 @@ export async function Article({
 
   return (
     <StaggeredFadeInContainer as="main" className="page flex flex-row">
-      <article className="w-full space-y-12">
+      <article className="mb-0 w-full space-y-12">
         <header>
           <StaggeredFadeInItem
             as="h1"
