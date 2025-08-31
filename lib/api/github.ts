@@ -32,8 +32,42 @@ export interface Discussion {
   number: number
   title: string
   html_url: string
+  url: string
   comments: number
   labels: { name: string }[]
+}
+
+interface DiscussionResult {
+  data: {
+    createDiscussion: {
+      discussion: Discussion
+    }
+  }
+}
+
+export interface ContributionDay {
+  color: string
+  contributionCount: number
+  date: string
+}
+
+interface ContributionDays {
+  contributionDays: ContributionDay[]
+}
+
+export interface ContributionCalendar {
+  totalContributions: number
+  weeks: ContributionDays[]
+}
+
+interface ContributionResult {
+  data: {
+    viewer: {
+      contributionsCollection: {
+        contributionCalendar: ContributionCalendar
+      }
+    }
+  }
 }
 
 const GITHUB_API = 'https://api.github.com'
@@ -56,14 +90,17 @@ const headers = new Headers({
 })
 
 export function getGithubUserData() {
-  return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, headers)
+  return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, {
+    headers,
+    next: { revalidate: 3600 },
+  })
 }
 
 export function getGithubRepo() {
-  return fetchData<Repository>(
-    `${GITHUB_API}/repos/${USERNAME}/${CODE_REPO}`,
+  return fetchData<Repository>(`${GITHUB_API}/repos/${USERNAME}/${CODE_REPO}`, {
     headers,
-  )
+    next: { revalidate: 3600 },
+  })
 }
 
 export async function getGithubRepositories() {
@@ -77,7 +114,7 @@ export async function getGithubRepositories() {
       Array.from({ length: pages }, (_, i) =>
         fetchData<Repository[]>(
           `${GITHUB_API}/users/${USERNAME}/repos?per_page=${perPage}&page=${i + 1}`,
-          headers,
+          { headers, next: { revalidate: 3600 } },
         ),
       ),
     ).then((results) => results.flat())
@@ -94,8 +131,7 @@ export async function getGithubRepositories() {
 export function getDiscussions() {
   return fetchData<Discussion[]>(
     `${GITHUB_API}/repos/${USERNAME}/${DISCUSSION_REPO}/discussions`,
-    headers,
-    0,
+    { headers },
   )
 }
 
@@ -120,15 +156,11 @@ export async function createDiscussion(
       }
     }`
 
-    const response = await fetch(`${GITHUB_API}/graphql`, {
+    const result = await fetchData<DiscussionResult>(`${GITHUB_API}/graphql`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ query: createDiscussionQuery }),
     })
-    if (!response.ok) {
-      throw new APIError(response.status, response.statusText)
-    }
-    const result = await response.json()
     const discussion = result.data.createDiscussion.discussion
     discussion.html_url = discussion.url
     const labelIds =
@@ -145,7 +177,7 @@ export async function createDiscussion(
       }
     `
 
-    await fetch(`${GITHUB_API}/graphql`, {
+    await fetchData(`${GITHUB_API}/graphql`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ query: addLabelQuery }),
@@ -158,5 +190,53 @@ export async function createDiscussion(
       throw new Error(`Fetch error: ${error.message}`)
     }
     throw new Error('Failed to create discussion')
+  }
+}
+
+export async function getContribution(
+  from: string,
+  to: string,
+): Promise<ContributionCalendar> {
+  try {
+    const getContributionQuery = `
+      query GetContributions($from: DateTime!, $to: DateTime!) {
+        viewer {
+          contributionsCollection(from: $from, to: $to) {
+            contributionCalendar {
+              totalContributions
+              weeks {
+                contributionDays {
+                  contributionCount
+                  color
+                  date
+                }
+              }
+            }
+          }
+        }
+      }
+    `
+
+    const result = await fetchData<ContributionResult>(
+      `${GITHUB_API}/graphql`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          query: getContributionQuery,
+          variables: { from, to },
+        }),
+        next: { revalidate: 3600 },
+      },
+    )
+    const contributionCalendar =
+      result.data.viewer.contributionsCollection.contributionCalendar
+    return contributionCalendar
+  } catch (error) {
+    if (error instanceof APIError) throw error
+    if (error instanceof Error) {
+      throw new Error(`Fetch error: ${error.message}`)
+    }
+    throw new Error('Failed to get contribution')
   }
 }

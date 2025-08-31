@@ -47,9 +47,8 @@ const headers = new Headers({
 })
 
 export function getDiscordData() {
-  return fetchData<Lanyard>(
-    `${LANYARD_API}/users/${DISCORD_USER_ID}`,
+  return fetchData<Lanyard>(`${LANYARD_API}/users/${DISCORD_USER_ID}`, {
     headers,
-    30,
-  )
+    next: { revalidate: 30 },
+  })
 }

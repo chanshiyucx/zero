@@ -1,4 +1,3 @@
-const DEFAULT_REVALIDATE_TIME = 3600 // 1 hour
 const DEFAULT_TIMEOUT = 10000 // 10 seconds
 
 export class APIError extends Error {
@@ -13,21 +12,16 @@ export class APIError extends Error {
 
 export async function fetchData<T>(
   url: string,
-  headers: Headers,
-  revalidate: number = DEFAULT_REVALIDATE_TIME,
+  options: RequestInit,
 ): Promise<T> {
   try {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT)
 
-    const options: RequestInit = {
-      headers,
-      signal: controller.signal,
-      cache: revalidate === 0 ? 'no-store' : 'force-cache',
-    }
+    options.signal = controller.signal
 
-    if (revalidate > 0) {
-      options.next = { revalidate }
+    if (!options.next) {
+      options.cache = 'no-store'
     }
 
     const response = await fetch(url, options)

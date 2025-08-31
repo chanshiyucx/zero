@@ -30,5 +30,8 @@ const WAKATIME_API =
   'https://wakatime.com/api/v1/users/current/all_time_since_today'
 
 export function getCodingHrs() {
-  return fetchData<Wakatime>(WAKATIME_API, headers)
+  return fetchData<Wakatime>(WAKATIME_API, {
+    headers,
+    next: { revalidate: 3600 },
+  })
 }
