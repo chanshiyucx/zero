@@ -13,6 +13,9 @@ import { WakatimeStats } from './wakatime-stats'
 export function Grid() {
   return (
     <div className="space-y-3">
+      <StaggeredFadeInItem>
+        <Heatmap />
+      </StaggeredFadeInItem>
       <StaggeredFadeInItem className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <CatCard />
@@ -43,9 +46,6 @@ export function Grid() {
         <div className="col-span-3">
           <StacksCard />
         </div>
-      </StaggeredFadeInItem>
-      <StaggeredFadeInItem>
-        <Heatmap />
       </StaggeredFadeInItem>
     </div>
   )
