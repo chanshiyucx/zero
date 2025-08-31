@@ -1,9 +1,6 @@
-import Image from 'next/image'
 import { Card } from '@/components/ui/card'
+import { Contribution } from '@/components/ui/contribution'
 import { siteConfig } from '@/lib/constants/config'
-
-const GithubSVG =
-  'https://cdn.jsdelivr.net/gh/chanshiyucx/chanshiyucx@latest/metrics-calendar.svg'
 
 export function GithubStats() {
   return (
@@ -12,17 +9,9 @@ export function GithubStats() {
         href={siteConfig.links.github}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-surface block h-36 overflow-hidden rounded-lg"
+        className="bg-surface border-box block h-36 overflow-hidden rounded-lg p-1"
       >
-        <Image
-          src={GithubSVG}
-          alt="Github Stats"
-          width={362}
-          height={144}
-          priority
-          fetchPriority="high"
-          className="object-cover"
-        />
+        <Contribution />
       </a>
     </Card>
   )
