@@ -12,7 +12,7 @@ import { WakatimeStats } from './wakatime-stats'
 export function Grid() {
   let staggerIndex = 0
   return (
-    <div className="space-y-3">
+    <section className="space-y-3">
       <div style={{ '--stagger': staggerIndex++ }}>
         <Heatmap />
       </div>
@@ -56,6 +56,6 @@ export function Grid() {
           <StacksCard />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
