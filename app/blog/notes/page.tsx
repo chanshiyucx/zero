@@ -56,7 +56,11 @@ export default function Page() {
         {sortedNotes.map((note, index) => (
           <Fragment key={note.slug}>
             <NoteItem note={note} />
-            {index < sortedNotes.length - 1 && <Divider />}
+            {index < sortedNotes.length - 1 && (
+              <div style={{ '--stagger': 0 }}>
+                <Divider />
+              </div>
+            )}
           </Fragment>
         ))}
       </section>
