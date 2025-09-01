@@ -61,24 +61,24 @@ export async function Article({
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const article = findContentBySlug(decodedSlug)
-  let staggerIndex = 0
+  let stagger = 0
 
   if (!article) {
     return notFound()
   }
 
   return (
-    <main className="page slide-container flex flex-row">
+    <main className="page slide-container">
       <article className="mb-0 w-full space-y-12">
         <header>
           <h1
-            style={{ '--stagger': staggerIndex++ }}
+            style={{ '--stagger': stagger++ }}
             className="text-4xl font-extrabold max-md:text-3xl"
           >
             {article.title}
           </h1>
           <div
-            style={{ '--stagger': staggerIndex++ }}
+            style={{ '--stagger': stagger++ }}
             className="text-subtle mt-3 flex gap-5"
           >
             <span className="inline-flex shrink-0 items-center gap-1">
@@ -91,12 +91,12 @@ export async function Article({
             </span>
           </div>
         </header>
-        <MDX
-          staggerStart={staggerIndex * 100}
-          contentCode={article.contentCode}
-        />
+        <section className="flex flex-row">
+          <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
+          {article.toc.length > 0 && <Toc toc={article.toc} />}
+        </section>
         <footer
-          style={{ '--stagger': staggerIndex++ }}
+          style={{ '--stagger': stagger++ }}
           className="flex flex-col gap-2"
         >
           {!hideDiscussion && (
@@ -105,7 +105,6 @@ export async function Article({
           <Backward />
         </footer>
       </article>
-      {article.toc.length > 0 && <Toc toc={article.toc} />}
     </main>
   )
 }

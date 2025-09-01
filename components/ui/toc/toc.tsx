@@ -172,8 +172,8 @@ export function Toc({ toc }: TocProps) {
   }, [toc])
 
   return (
-    <aside className="group hidden w-0 xl:block">
-      <nav className="sticky top-24 mt-12 w-64 translate-x-6">
+    <aside style={{ '--stagger': 2 }} className="group hidden w-0 xl:block">
+      <nav className="sticky top-24 w-64 translate-x-6 -translate-y-8">
         <ListIcon
           size="1.2em"
           weight="bold"

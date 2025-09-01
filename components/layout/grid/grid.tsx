@@ -10,16 +10,12 @@ import { StacksCard } from './stacks-card'
 import { WakatimeStats } from './wakatime-stats'
 
 export function Grid() {
-  let staggerIndex = 0
   return (
-    <section className="space-y-3">
-      <div style={{ '--stagger': staggerIndex++ }}>
+    <section className="slide-auto space-y-3">
+      <div>
         <Heatmap />
       </div>
-      <div
-        style={{ '--stagger': staggerIndex++ }}
-        className="grid grid-cols-6 gap-3 max-md:grid-cols-3"
-      >
+      <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <CatCard />
         </div>
@@ -27,10 +23,7 @@ export function Grid() {
           <GithubStats />
         </div>
       </div>
-      <div
-        style={{ '--stagger': staggerIndex++ }}
-        className="grid grid-cols-6 gap-3 max-md:grid-cols-3"
-      >
+      <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3 flex gap-2">
           <div className="w-24">
             <AlbumCard />
@@ -45,10 +38,7 @@ export function Grid() {
           <LatestStats />
         </div>
       </div>
-      <div
-        style={{ '--stagger': staggerIndex++ }}
-        className="grid grid-cols-6 gap-3 max-md:grid-cols-3"
-      >
+      <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <AnalysisCard />
         </div>
