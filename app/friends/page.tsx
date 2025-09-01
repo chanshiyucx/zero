@@ -2,7 +2,6 @@ import { type Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PageLayout } from '@/components/layout/page'
-import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { friends, type Friend } from '@/lib/constants/friends'
 
 export const metadata: Metadata = {
@@ -41,13 +40,15 @@ function FriendCard({ friend }: { friend: Friend }) {
 export default function Page() {
   return (
     <PageLayout title="Souls connected through time.">
-      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2">
-        {friends.map((friend) => (
-          <StaggeredFadeInItem as="li" key={friend.name}>
-            <FriendCard friend={friend} />
-          </StaggeredFadeInItem>
-        ))}
-      </ul>
+      <section>
+        <ul className="slide-auto grid grid-cols-3 gap-3 max-md:grid-cols-2">
+          {friends.map((friend) => (
+            <li key={friend.name}>
+              <FriendCard friend={friend} />
+            </li>
+          ))}
+        </ul>
+      </section>
     </PageLayout>
   )
 }
