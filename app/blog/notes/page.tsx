@@ -7,7 +7,6 @@ import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
-import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { sortedNotes } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -18,8 +17,11 @@ export const metadata: Metadata = {
 
 function NoteItem({ note }: { note: Note }) {
   return (
-    <StaggeredFadeInItem as="article">
-      <header className="flex flex-1 flex-row items-center justify-between py-3 max-md:flex-col max-md:items-start">
+    <article>
+      <header
+        style={{ '--stagger': 1 }}
+        className="flex flex-1 flex-row items-center justify-between py-3 max-md:flex-col max-md:items-start"
+      >
         <Link className="link-hover text-2xl font-bold" href={note.url}>
           <h2 className="text-text inline" id={note.slug}>
             {note.title}
@@ -38,16 +40,18 @@ function NoteItem({ note }: { note: Note }) {
           </span>
         </div>
       </header>
-      <section className="pt-2 pb-3">
-        <MDX contentCode={note.contentCode} />
-      </section>
-    </StaggeredFadeInItem>
+      <MDX
+        className="pt-2 pb-3"
+        staggerStart={100}
+        contentCode={note.contentCode}
+      />
+    </article>
   )
 }
 
 export default function Page() {
   return (
-    <PageLayout title=" Notes are memory anchors.">
+    <PageLayout title="Notes are memory anchors.">
       <section className="space-y-8">
         {sortedNotes.map((note, index) => (
           <Fragment key={note.slug}>

@@ -36,9 +36,12 @@ export default function Page() {
     <PageLayout title="Time flows like gentle rivers.">
       <section className="vibes space-y-8">
         {vibeList.map((vibe) => (
-          <div key={vibe.title}>
-            <MDX contentCode={vibe.contentCode} components={customComponents} />
-          </div>
+          <MDX
+            key={vibe.title}
+            staggerStart={100}
+            contentCode={vibe.contentCode}
+            components={customComponents}
+          />
         ))}
       </section>
     </PageLayout>

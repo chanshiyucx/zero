@@ -1,6 +1,5 @@
 'use client'
 
-import { type CSSProperties } from 'react'
 import { useThemeTransition } from '@/hooks/use-theme-transition'
 
 interface CatProps {
@@ -10,12 +9,12 @@ interface CatProps {
 export function Cat({ size = 120 }: CatProps) {
   const { toggleTheme } = useThemeTransition()
 
-  const style = {
-    '--cat-size': `${size}px`,
-  } as CSSProperties
-
   return (
-    <div className="cute-cat" style={style} onClick={toggleTheme}>
+    <div
+      className="cute-cat"
+      style={{ '--cat-size': `${size}px` }}
+      onClick={toggleTheme}
+    >
       <span className="the-sun"></span>
       <span className="the-moon"></span>
       <div className="the-cat">

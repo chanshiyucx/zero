@@ -2,7 +2,6 @@ import { type Metadata } from 'next'
 import { PageLayout } from '@/components/layout/page'
 import { Card } from '@/components/ui/card'
 import { Github } from '@/components/ui/github'
-import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { getGithubRepositories } from '@/lib/api/github'
 
 export const metadata: Metadata = {
@@ -17,18 +16,23 @@ export default async function Page() {
 
   return (
     <PageLayout title="Code flows like pure poetry.">
-      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
-        {repositories.map((repo) => (
-          <StaggeredFadeInItem as="li" key={repo.name}>
-            <Card>
-              <Github
-                repo={repo}
-                className="bg-surface hover:bg-overlay transition"
-              />
-            </Card>
-          </StaggeredFadeInItem>
-        ))}
-      </ul>
+      <section>
+        <ul
+          style={{ '--start': '100ms' }}
+          className="slide-auto grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
+        >
+          {repositories.map((repo) => (
+            <li key={repo.name}>
+              <Card>
+                <Github
+                  repo={repo}
+                  className="bg-surface hover:bg-overlay transition"
+                />
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </section>
     </PageLayout>
   )
 }
