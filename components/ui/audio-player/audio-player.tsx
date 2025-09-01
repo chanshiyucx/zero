@@ -15,7 +15,6 @@ import {
   useRef,
   useState,
   type ChangeEvent,
-  type CSSProperties,
 } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { formatTime } from '@/lib/utils/helper'
@@ -274,11 +273,9 @@ function Player({ src }: AudioPlayerProps) {
             onChange={handleProgressChange}
             className="player-progress flex-1"
             // Add 1 to avoid gaps
-            style={
-              {
-                '--progress': `${progressPercentage + 1}%`,
-              } as CSSProperties
-            }
+            style={{
+              '--progress': `${progressPercentage + 1}%`,
+            }}
             disabled={isLoading || !duration}
             aria-label="Audio progress"
           />

@@ -10,7 +10,6 @@ import {
   VueJS,
 } from '@/components/icons'
 import { Logo } from '@/components/ui/logo'
-import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { CV } from './cv'
 
 interface LinkElementProps {
@@ -70,14 +69,19 @@ const PageLink = ({ label, ...props }: { label: string } & LinkProps) => (
 )
 
 export function About() {
+  let staggerIndex = 0
+
   return (
     <div className="prose prose-rosepine w-full max-w-none">
       <div className="flex flex-row items-end gap-6 max-md:flex-col max-md:items-start max-md:gap-0">
-        <StaggeredFadeInItem className="max-md:self-center">
+        <div
+          style={{ '--stagger': staggerIndex++ }}
+          className="max-md:self-center"
+        >
           <Logo />
-        </StaggeredFadeInItem>
+        </div>
 
-        <StaggeredFadeInItem>
+        <div style={{ '--stagger': staggerIndex++ }}>
           <h2 className="text-subtle text-xs">
             Full-Stack Developer / Budding Photographer
           </h2>
@@ -88,47 +92,49 @@ export function About() {
               Hello, I&apos;m Shiyu. Welcome to my little corner on the web!
             </span>
           </p>
-        </StaggeredFadeInItem>
+        </div>
       </div>
 
-      <StaggeredFadeInItem as="p">
+      <p style={{ '--stagger': staggerIndex++ }}>
         I&apos;m a full stack developer passionate about crafting clean and
         well-architected code. I enjoy exploring modern technologies in the
         <JavaScriptLink />,<TypeScriptLink />,<VueLink />, and <ReactJSLink />
         ecosystems. Additionally, I have some basic knowledge of <JavaLink />
         and <PythonLink />.
-      </StaggeredFadeInItem>
+      </p>
 
-      <StaggeredFadeInItem as="p">
+      <p style={{ '--stagger': staggerIndex++ }}>
         Maybe you will find something interesting in my
         <PageLink label="blog posts" href="/blog/posts" /> or
         <PageLink label="study notes" href="/blog/notes" />! Feel free to
         explore <PageLink label="the projects" href="/projects" /> I&apos;ve
         poured my effort into.
-      </StaggeredFadeInItem>
+      </p>
 
       <div className="flex flex-row gap-3 max-md:flex-col">
         <div>
-          <StaggeredFadeInItem as="p" className="mt-0">
+          <p className="mt-0" style={{ '--stagger': staggerIndex++ }}>
             I aspire to become a polyglot, dedicating myself to refining my
             <PageLink label="English" href="/polyglot/english" /> proficiency
             while also starting to learn
             <PageLink label="German" href="/polyglot/german" />. Though
             challenging, I believe this path will be deeply rewarding.
-          </StaggeredFadeInItem>
+          </p>
 
-          <StaggeredFadeInItem as="p">
+          <p style={{ '--stagger': staggerIndex++ }}>
             As a budding photographer, I collect fragments of my journey in my
             <PageLink label="album" href="/album" />, where you can glimpse the
             moments I hold dear.
-          </StaggeredFadeInItem>
+          </p>
 
-          <StaggeredFadeInItem as="p">
+          <p style={{ '--stagger': staggerIndex++ }}>
             I listen to my <PageLink label="vibes" href="/vibes" />, they guide
             me through silence. Life is short, code is long.
-          </StaggeredFadeInItem>
+          </p>
         </div>
-        <CV />
+        <div style={{ '--stagger': staggerIndex++ }}>
+          <CV />
+        </div>
       </div>
     </div>
   )

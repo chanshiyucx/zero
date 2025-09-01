@@ -132,3 +132,15 @@
     fill: var(--color-muted);
   }
 }
+
+@keyframes slide-enter {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 100;
+  }
+}

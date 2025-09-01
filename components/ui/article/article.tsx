@@ -5,10 +5,6 @@ import { Backward } from '@/components/ui/backward'
 import { DateTime } from '@/components/ui/datetime'
 import { Discussion } from '@/components/ui/discussion'
 import { MDX } from '@/components/ui/mdx'
-import {
-  StaggeredFadeInContainer,
-  StaggeredFadeInItem,
-} from '@/components/ui/stagger'
 import { Toc } from '@/components/ui/toc'
 import { siteConfig } from '@/lib/constants/config'
 import { findContentBySlug } from '@/lib/utils/content'
@@ -65,22 +61,26 @@ export async function Article({
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const article = findContentBySlug(decodedSlug)
+  let staggerIndex = 0
 
   if (!article) {
     return notFound()
   }
 
   return (
-    <StaggeredFadeInContainer as="main" className="page flex flex-row">
+    <main className="page slide-container flex flex-row">
       <article className="mb-0 w-full space-y-12">
         <header>
-          <StaggeredFadeInItem
-            as="h1"
+          <h1
+            style={{ '--stagger': staggerIndex++ }}
             className="text-4xl font-extrabold max-md:text-3xl"
           >
             {article.title}
-          </StaggeredFadeInItem>
-          <StaggeredFadeInItem className="text-subtle mt-3 flex gap-5">
+          </h1>
+          <div
+            style={{ '--stagger': staggerIndex++ }}
+            className="text-subtle mt-3 flex gap-5"
+          >
             <span className="inline-flex shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" />
               <DateTime dateString={article.date} dateFormat="LLL dd, yyyy" />
@@ -89,19 +89,23 @@ export async function Article({
               <TagIcon weight="bold" />
               {article.tags.at(-1)}
             </span>
-          </StaggeredFadeInItem>
+          </div>
         </header>
-        <StaggeredFadeInItem as="section">
-          <MDX contentCode={article.contentCode} />
-        </StaggeredFadeInItem>
-        <StaggeredFadeInItem as="footer" className="flex flex-col gap-2">
+        <MDX
+          staggerStart={staggerIndex * 100}
+          contentCode={article.contentCode}
+        />
+        <footer
+          style={{ '--stagger': staggerIndex++ }}
+          className="flex flex-col gap-2"
+        >
           {!hideDiscussion && (
             <Discussion label={article.type} title={article.title} />
           )}
           <Backward />
-        </StaggeredFadeInItem>
+        </footer>
       </article>
       {article.toc.length > 0 && <Toc toc={article.toc} />}
-    </StaggeredFadeInContainer>
+    </main>
   )
 }

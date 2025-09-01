@@ -4,7 +4,6 @@ import { type Metadata } from 'next'
 import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { MDX } from '@/components/ui/mdx'
-import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { sortedAlbums } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
 
 function AlbumItem({ album }: { album: Album }) {
   return (
-    <StaggeredFadeInItem as="article">
+    <article>
       <header className="flex flex-row items-center justify-between py-3">
         <h2 className="text-2xl font-bold">{album.title}</h2>
         <span className="text-subtle inline-flex shrink-0 items-center gap-1">
@@ -24,17 +23,15 @@ function AlbumItem({ album }: { album: Album }) {
           <DateTime dateString={album.date} dateFormat="LLL dd, yyyy" />
         </span>
       </header>
-      <section className="pt-2">
-        <MDX contentCode={album.contentCode} />
-      </section>
-    </StaggeredFadeInItem>
+      <MDX className="pt-2" contentCode={album.contentCode} />
+    </article>
   )
 }
 
 export default function Page() {
   return (
     <PageLayout title="Photography freezes time.">
-      <section className="space-y-8">
+      <section className="slide-auto space-y-8">
         {sortedAlbums.map((album) => (
           <AlbumItem album={album} key={album.title} />
         ))}

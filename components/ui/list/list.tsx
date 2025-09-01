@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { type ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
-import { StaggeredFadeInItem } from '@/components/ui/stagger'
 import { type Content, type ContentGroup } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
@@ -33,19 +32,19 @@ function renderExtraInfo(extraInfo: ExtraInfo) {
 
 export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
-    <PageLayout title={title} staggerChildren={0.04}>
-      <section className="space-y-8">
-        {groups.map((group) => (
-          <div key={group.year}>
-            <StaggeredFadeInItem
-              as="p"
-              className="py-3 text-right text-3xl font-extrabold max-md:text-2xl"
-            >
-              {group.year}
-            </StaggeredFadeInItem>
-            <ul className="space-y-2 max-md:space-y-4">
+    <PageLayout title={title}>
+      <section>
+        <ul
+          className="slide-auto space-y-2 max-md:space-y-4"
+          style={{ '--delay': '50ms', '--start': '100ms' }}
+        >
+          {groups.map((group) => (
+            <Fragment key={group.year}>
+              <li className="my-5 text-right text-3xl font-extrabold first:mt-0 max-md:text-2xl">
+                {group.year}
+              </li>
               {group.list.map((article) => (
-                <StaggeredFadeInItem as="li" key={article.slug}>
+                <li key={article.slug}>
                   <Link
                     className="flex gap-6 max-sm:flex-col max-sm:gap-0"
                     href={article.url}
@@ -61,11 +60,11 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                       {renderTitle ? renderTitle(article) : article.title}
                     </span>
                   </Link>
-                </StaggeredFadeInItem>
+                </li>
               ))}
-            </ul>
-          </div>
-        ))}
+            </Fragment>
+          ))}
+        </ul>
       </section>
     </PageLayout>
   )
