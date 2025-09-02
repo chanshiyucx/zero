@@ -328,7 +328,7 @@ export function Command() {
         >
           {group.items.map((item) => (
             <CommandItem
-              key={`${item.label}-${group.page}`}
+              key={`${item.path}-${group.page}`}
               icon={item.icon}
               onSelect={() => handleOnSelect(item)}
               shortcut={item.shortcut}

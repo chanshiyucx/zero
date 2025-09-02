@@ -19,7 +19,7 @@ interface FigureProps extends ComponentPropsWithoutRef<'figure'> {
 }
 
 const CopyButton = ({ text }: { text: string }) => {
-  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 5000 })
+  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 3000 })
   const handleCopy = () => copyToClipboard(text)
 
   return (
@@ -28,7 +28,7 @@ const CopyButton = ({ text }: { text: string }) => {
       onClick={handleCopy}
       aria-label="Copy"
       className={cn(
-        'bg-base absolute top-0 right-0 flex items-center rounded-bl-lg p-2 leading-none duration-300 group-hover:opacity-100',
+        'bg-base absolute top-0 right-0 z-10 flex items-center rounded-bl-lg p-2 leading-none duration-300 group-hover:opacity-100',
         !isCopied && 'cursor-pointer opacity-0',
       )}
     >
