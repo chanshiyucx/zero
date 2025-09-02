@@ -164,7 +164,7 @@
 
   [style*='--enter-stagger'],
   .slide-auto > * {
-    animation: slide-enter 1s both 1;
+    animation: slide-enter 1s ease-out 1;
     animation-delay: calc(
       var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
     );
