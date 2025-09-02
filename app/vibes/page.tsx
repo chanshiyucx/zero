@@ -16,7 +16,10 @@ export function Link(props: ComponentPropsWithoutRef<'a'>) {
   const linkText = props.children as string
   const [date, local] = linkText.split(' ')
   return (
-    <a className="link text-subtle! flex items-center" {...props}>
+    <a
+      className="link text-subtle! flex items-center text-sm before:hidden"
+      {...props}
+    >
       <CalendarBlankIcon weight="bold" className="mr-0.5" />
       <DateTime dateString={date} />
       <MapPinIcon weight="bold" className="mr-0.5 ml-3" />
