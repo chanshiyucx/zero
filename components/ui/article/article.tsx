@@ -72,18 +72,18 @@ export async function Article({
       <article className="mb-0 w-full space-y-12">
         <header>
           <h1
-            style={{ '--stagger': stagger++ }}
+            style={{ '--enter-stagger': stagger++ }}
             className="text-4xl font-extrabold max-md:text-3xl"
           >
             {article.title}
           </h1>
           <div
-            style={{ '--stagger': stagger++ }}
+            style={{ '--enter-stagger': stagger++ }}
             className="text-subtle mt-3 flex gap-5"
           >
             <span className="inline-flex shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" />
-              <DateTime dateString={article.date} dateFormat="LLL dd, yyyy" />
+              <DateTime dateString={article.date} />
             </span>
             <span className="inline-flex items-center gap-1">
               <TagIcon weight="bold" />
@@ -93,10 +93,14 @@ export async function Article({
         </header>
         <section className="flex flex-row">
           <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
-          {article.toc.length > 0 && <Toc toc={article.toc} />}
+          {article.toc.length > 0 && (
+            <div style={{ '--enter-stagger': stagger++ }}>
+              <Toc toc={article.toc} />
+            </div>
+          )}
         </section>
         <footer
-          style={{ '--stagger': stagger++ }}
+          style={{ '--enter-stagger': stagger++ }}
           className="flex flex-col gap-2"
         >
           {!hideDiscussion && (

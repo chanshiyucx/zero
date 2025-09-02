@@ -55,7 +55,9 @@ export function MDX({
         className,
         'prose slide-auto prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none',
       )}
-      style={staggerStart ? { '--start': `${staggerStart}ms` } : undefined}
+      style={
+        staggerStart ? { '--enter-start': `${staggerStart}ms` } : undefined
+      }
       data-lang={'en'}
     >
       <MDXContent components={mergedComponents} code={contentCode} />

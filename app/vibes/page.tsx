@@ -18,7 +18,7 @@ export function Link(props: ComponentPropsWithoutRef<'a'>) {
   return (
     <a className="link text-subtle! flex items-center" {...props}>
       <CalendarBlankIcon weight="bold" className="mr-0.5" />
-      <DateTime dateString={date} dateFormat="LLL dd, yyyy" />
+      <DateTime dateString={date} />
       <MapPinIcon weight="bold" className="mr-0.5 ml-3" />
       {local}
     </a>

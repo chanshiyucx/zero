@@ -1,4 +1,4 @@
-import { format, isValid, parseISO } from 'date-fns'
+import dayjs from 'dayjs'
 
 interface DateTimeProps {
   dateString: string
@@ -8,15 +8,14 @@ interface DateTimeProps {
 
 export function DateTime({
   dateString,
-  dateFormat = 'LLL dd', // LLL dd, yyyy
+  dateFormat = 'MMM DD, YYYY',
   className,
 }: DateTimeProps) {
   if (!dateString) return null
 
-  const date = parseISO(dateString)
-  if (!isValid(date)) return null
-
-  const formattedDate = format(date, dateFormat)
+  const date = dayjs(dateString)
+  if (!date.isValid()) return null
+  const formattedDate = date.format(dateFormat)
 
   return (
     <time dateTime={dateString} className={className}>
