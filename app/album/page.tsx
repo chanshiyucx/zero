@@ -16,14 +16,19 @@ export const metadata: Metadata = {
 function AlbumItem({ album }: { album: Album }) {
   return (
     <article>
-      <header className="flex flex-row items-center justify-between py-3">
+      <header
+        style={{ '--enter-stagger': 1 }}
+        className="mb-5 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
+      >
         <h2 className="text-2xl font-bold">{album.title}</h2>
-        <span className="text-subtle inline-flex shrink-0 items-center gap-1">
-          <CalendarBlankIcon weight="bold" />
-          <DateTime dateString={album.date} dateFormat="LLL dd, yyyy" />
-        </span>
+        <div className="text-subtle shrink-0">
+          <span className="inline-flex items-center gap-1">
+            <CalendarBlankIcon weight="bold" />
+            <DateTime dateString={album.date} />
+          </span>
+        </div>
       </header>
-      <MDX className="pt-2" contentCode={album.contentCode} />
+      <MDX staggerStart={100} contentCode={album.contentCode} />
     </article>
   )
 }
@@ -31,7 +36,7 @@ function AlbumItem({ album }: { album: Album }) {
 export default function Page() {
   return (
     <PageLayout title="Photography freezes time.">
-      <section className="slide-auto space-y-8">
+      <section className="slide-auto space-y-10">
         {sortedAlbums.map((album) => (
           <AlbumItem album={album} key={album.title} />
         ))}

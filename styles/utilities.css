@@ -154,18 +154,20 @@
 }
 
 @utility slide-container {
-  --start: 0ms;
-  --delay: 100ms;
-  --stagger: 0;
+  --enter-start: 0ms;
+  --enter-delay: 100ms;
+  --enter-stagger: 0;
 
   .slide-auto > * {
-    --stagger: sibling-index();
+    --enter-stagger: sibling-index();
   }
 
-  [style*='--stagger'],
+  [style*='--enter-stagger'],
   .slide-auto > * {
     animation: slide-enter 1s both 1;
-    animation-delay: calc(var(--start) + var(--stagger) * var(--delay));
+    animation-delay: calc(
+      var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
+    );
   }
 }
 

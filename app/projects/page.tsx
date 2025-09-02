@@ -18,7 +18,7 @@ export default async function Page() {
     <PageLayout title="Code flows like pure poetry.">
       <section>
         <ul
-          style={{ '--start': '100ms' }}
+          style={{ '--enter-start': '100ms' }}
           className="slide-auto grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
         >
           {repositories.map((repo) => (

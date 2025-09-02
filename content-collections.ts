@@ -1,7 +1,7 @@
 import path from 'path'
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX, type Options } from '@content-collections/mdx'
-import { isValid, parse } from 'date-fns'
+import dayjs from 'dayjs'
 import GithubSlugger from 'github-slugger'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
@@ -106,10 +106,9 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       title: z.string(),
       date: z
         .string()
-        .refine(
-          (value) => isValid(parse(value, 'yyyy-MM-dd HH:mm:ss', new Date())),
-          { message: 'Invalid datetime format or invalid date value.' },
-        ),
+        .refine((value) => dayjs(value, 'yyyy-MM-dd HH:mm:ss').isValid(), {
+          message: 'Invalid datetime format or invalid date value.',
+        }),
       tags: z.string().array(),
       description: z.string().optional(),
       priority: z.number().default(0),

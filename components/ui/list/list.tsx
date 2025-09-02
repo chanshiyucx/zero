@@ -36,7 +36,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
       <section>
         <ul
           className="slide-auto space-y-2 max-md:space-y-4"
-          style={{ '--delay': '50ms', '--start': '100ms' }}
+          style={{ '--enter-delay': '50ms', '--enter-start': '100ms' }}
         >
           {groups.map((group) => (
             <Fragment key={group.year}>
@@ -52,6 +52,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                     <span className="shrink-0 max-md:text-sm">
                       <DateTime
                         dateString={article.date}
+                        dateFormat="MMM DD"
                         className="text-subtle inline-block w-16 shrink-0"
                       />
                       {extractInfo && renderExtraInfo(extractInfo(article))}

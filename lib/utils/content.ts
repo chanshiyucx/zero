@@ -12,7 +12,7 @@ import {
   type Post,
   type Vibe,
 } from 'content-collections'
-import { compareDesc, getYear } from 'date-fns'
+import dayjs from 'dayjs'
 
 export type Content = Post | Note | Leetcode | Polyglot
 
@@ -35,7 +35,7 @@ export const content: Content[] = [
 ]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
-  [...items].sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+  [...items].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
 
 const sortedByPriority = <T extends { priority: number }>(
   items: readonly T[],
@@ -56,7 +56,7 @@ export const groupByYear = (items: Content[]): ContentGroup[] => {
   const groups: Record<number, Content[]> = {}
 
   items.forEach((item) => {
-    const year = getYear(item.date)
+    const year = dayjs(item.date).year()
     if (!groups[year]) {
       groups[year] = []
     }

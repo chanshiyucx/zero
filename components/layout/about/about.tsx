@@ -74,11 +74,14 @@ export function About() {
   return (
     <section className="prose prose-rosepine w-full max-w-none">
       <div className="flex flex-row items-end gap-6 max-md:flex-col max-md:items-start max-md:gap-0">
-        <div style={{ '--stagger': stagger++ }} className="max-md:self-center">
+        <div
+          style={{ '--enter-stagger': stagger++ }}
+          className="max-md:self-center"
+        >
           <Logo />
         </div>
 
-        <div style={{ '--stagger': stagger++ }}>
+        <div style={{ '--enter-stagger': stagger++ }}>
           <h2 className="text-subtle text-xs">
             Full-Stack Developer / Budding Photographer
           </h2>
@@ -92,7 +95,7 @@ export function About() {
         </div>
       </div>
 
-      <p style={{ '--stagger': stagger++ }}>
+      <p style={{ '--enter-stagger': stagger++ }}>
         I&apos;m a full stack developer passionate about crafting clean and
         well-architected code. I enjoy exploring modern technologies in the
         <JavaScriptLink />,<TypeScriptLink />,<VueLink />, and <ReactJSLink />
@@ -100,7 +103,7 @@ export function About() {
         and <PythonLink />.
       </p>
 
-      <p style={{ '--stagger': stagger++ }}>
+      <p style={{ '--enter-stagger': stagger++ }}>
         Maybe you will find something interesting in my
         <PageLink label="blog posts" href="/blog/posts" /> or
         <PageLink label="study notes" href="/blog/notes" />! Feel free to
@@ -110,7 +113,7 @@ export function About() {
 
       <div className="flex flex-row gap-3 max-md:flex-col">
         <div>
-          <p className="mt-0" style={{ '--stagger': stagger++ }}>
+          <p className="mt-0" style={{ '--enter-stagger': stagger++ }}>
             I aspire to become a polyglot, dedicating myself to refining my
             <PageLink label="English" href="/polyglot/english" /> proficiency
             while also starting to learn
@@ -118,18 +121,18 @@ export function About() {
             challenging, I believe this path will be deeply rewarding.
           </p>
 
-          <p style={{ '--stagger': stagger++ }}>
+          <p style={{ '--enter-stagger': stagger++ }}>
             As a budding photographer, I collect fragments of my journey in my
             <PageLink label="album" href="/album" />, where you can glimpse the
             moments I hold dear.
           </p>
 
-          <p style={{ '--stagger': stagger++ }}>
+          <p style={{ '--enter-stagger': stagger++ }}>
             I listen to my <PageLink label="vibes" href="/vibes" />, they guide
             me through silence. Life is short, code is long.
           </p>
         </div>
-        <div style={{ '--stagger': stagger++ }}>
+        <div style={{ '--enter-stagger': stagger++ }}>
           <CV />
         </div>
       </div>
