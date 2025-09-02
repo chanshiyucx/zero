@@ -19,11 +19,12 @@ const SignatureBox = ({ animate, className }: SignatureBoxProps) => {
     const paths = svgGroupElement.querySelectorAll('path')
     paths.forEach((path: SVGPathElement, i: number) => {
       const length = path.getTotalLength()
-      path.style.setProperty('--path-length', `${length}px`)
       path.style.strokeDasharray = `${length}px`
       path.style.strokeDashoffset = `${length}px`
       path.style.stroke = 'var(--color-text)'
-      path.style.animation = `10s svg-text ${i * 0.1}s infinite ease-in-out`
+      path.style.setProperty('--path-length', `${length}px`)
+      path.style.setProperty('--delay', `${i * 0.1}s`)
+      path.classList.add('animate-svg-text')
     })
   }, [animate])
 

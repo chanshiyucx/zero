@@ -1,18 +1,19 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* https://rosepinetheme.com/zh-cn/palette/ingredients/ */
 @theme {
-  --color-base: light-dark(hsl(32deg 57% 95%), hsl(249deg 22% 12%));
-  --color-surface: light-dark(hsl(35deg 100% 98%), hsl(247deg 23% 15%));
-  --color-overlay: light-dark(hsl(33deg 43% 91%), hsl(248deg 25% 18%));
-  --color-muted: light-dark(hsl(257deg 9% 61%), hsl(249deg 12% 47%));
-  --color-subtle: light-dark(hsl(248deg 12% 52%), hsl(248deg 15% 61%));
-  --color-text: light-dark(hsl(248deg 19% 40%), hsl(245deg 50% 91%));
-  --color-love: light-dark(hsl(343deg 35% 55%), hsl(343deg 76% 68%));
-  --color-gold: light-dark(hsl(35deg 81% 56%), hsl(35deg 88% 72%));
-  --color-rose: light-dark(hsl(3deg 53% 67%), hsl(2deg 55% 83%));
-  --color-pine: light-dark(hsl(197deg 53% 34%), hsl(197deg 49% 38%));
-  --color-foam: light-dark(hsl(189deg 30% 48%), hsl(189deg 43% 73%));
-  --color-iris: light-dark(hsl(268deg 21% 57%), hsl(267deg 57% 78%));
+  --color-base: light-dark(hsl(32deg 57% 95%), hsl(246deg, 24%, 17%));
+  --color-surface: light-dark(hsl(35deg 100% 98%), hsl(248deg, 24%, 20%));
+  --color-overlay: light-dark(hsl(33deg 43% 91%), hsl(248deg, 21%, 26%));
+  --color-muted: light-dark(hsl(257deg 9% 61%), hsl(249deg, 12%, 47%));
+  --color-subtle: light-dark(hsl(248deg 12% 52%), hsl(248deg, 15%, 61%));
+  --color-text: light-dark(hsl(248deg 19% 40%), hsl(245deg, 50%, 91%));
+  --color-love: light-dark(hsl(343deg 35% 55%), hsl(343deg, 76%, 68%));
+  --color-gold: light-dark(hsl(35deg 81% 56%), hsl(35deg, 88%, 72%));
+  --color-rose: light-dark(hsl(3deg 53% 67%), hsl(2deg, 66%, 75%));
+  --color-pine: light-dark(hsl(197deg 53% 34%), hsl(197deg, 48%, 47%));
+  --color-foam: light-dark(hsl(189deg 30% 48%), hsl(189deg, 43%, 73%));
+  --color-iris: light-dark(hsl(268deg 21% 57%), hsl(267deg, 57%, 78%));
 }
 
 @theme inline {
@@ -30,6 +31,7 @@
   --animate-ripple: ripple 3400ms ease infinite;
   --animate-cat-cycle: cat-cycle 1s steps(var(--cat-steps)) infinite;
   --animate-wave: wave var(--duration, 10s) linear infinite;
+  --animate-svg-text: svg-text 10s var(--delay, 0s) infinite ease-in-out;
 
   @keyframes turnOn {
     0% {
@@ -50,19 +52,19 @@
   }
 
   @keyframes marquee-left {
-    from {
+    0% {
       transform: translateX(0);
     }
-    to {
+    100% {
       transform: translateX(calc(-100% - var(--gap)));
     }
   }
 
   @keyframes marquee-up {
-    from {
+    0% {
       transform: translateY(0);
     }
-    to {
+    100% {
       transform: translateY(calc(-100% - var(--gap)));
     }
   }
@@ -97,50 +99,49 @@
       background-position: center calc(-1 * var(--cat-height));
     }
   }
-}
 
-@keyframes wave {
-  0% {
-    transform: translate(-50%, -75%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -75%) rotate(360deg);
-  }
-}
-
-@keyframes svg-text {
-  0% {
-    stroke-dashoffset: var(--path-length);
-    fill: var(--color-muted);
-  }
-  30% {
-    fill: var(--color-text);
-  }
-  40% {
-    stroke-dashoffset: 0;
-    fill: var(--color-text);
-  }
-  50% {
-    fill: var(--color-text);
-  }
-  80% {
-    stroke-dashoffset: var(--path-length);
-    fill: var(--color-muted);
-  }
-  100% {
-    stroke-dashoffset: var(--path-length);
-    fill: var(--color-muted);
-  }
-}
-
-@keyframes slide-enter {
-  0% {
-    transform: translateY(10px);
-    opacity: 0;
+  @keyframes wave {
+    0% {
+      transform: translate(-50%, -75%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -75%) rotate(360deg);
+    }
   }
 
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  @keyframes svg-text {
+    0% {
+      stroke-dashoffset: var(--path-length);
+      fill: var(--color-muted);
+    }
+    30% {
+      fill: var(--color-text);
+    }
+    40% {
+      stroke-dashoffset: 0;
+      fill: var(--color-text);
+    }
+    50% {
+      fill: var(--color-text);
+    }
+    80% {
+      stroke-dashoffset: var(--path-length);
+      fill: var(--color-muted);
+    }
+    100% {
+      stroke-dashoffset: var(--path-length);
+      fill: var(--color-muted);
+    }
+  }
+
+  @keyframes slide-enter {
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
