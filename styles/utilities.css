@@ -44,30 +44,8 @@
 }
 
 @utility vibes {
-  @apply relative;
-
-  &::before {
-    @apply bg-overlay absolute top-3 bottom-0 left-4 -z-10 w-1 -translate-x-1/2 content-[''];
-  }
-
   h2 {
-    @apply relative pl-7 text-sm;
-
-    &::before {
-      @apply bg-base absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 rounded-full border border-4 content-[''];
-    }
-
-    a::before {
-      @apply hidden;
-    }
-  }
-
-  p {
-    @apply text-text bg-overlay mt-0 mb-12 rounded-lg px-4 py-3 last:mb-0;
-  }
-
-  blockquote {
-    @apply border-none bg-transparent p-0;
+    @apply flex justify-end border-t pt-5 first:border-t-0 first:pt-0;
   }
 }
 
