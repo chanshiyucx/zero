@@ -37,7 +37,7 @@ export default function Page() {
 
   return (
     <PageLayout title="Time flows like gentle rivers.">
-      <section className="vibes space-y-8">
+      <section className="vibes space-y-12">
         {vibeList.map((vibe) => (
           <MDX
             key={vibe.title}

@@ -36,7 +36,7 @@ function AlbumItem({ album }: { album: Album }) {
 export default function Page() {
   return (
     <PageLayout title="Photography freezes time.">
-      <section className="slide-auto space-y-10">
+      <section className="slide-auto space-y-12">
         {sortedAlbums.map((album) => (
           <AlbumItem album={album} key={album.title} />
         ))}

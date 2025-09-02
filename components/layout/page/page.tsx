@@ -14,7 +14,7 @@ export function PageLayout({ children, title, className }: PageProps) {
         <header>
           <h1
             style={{ '--enter-stagger': 0 }}
-            className="text-4xl font-extrabold max-md:text-3xl"
+            className="text-3xl font-extrabold"
           >
             {title}
           </h1>
