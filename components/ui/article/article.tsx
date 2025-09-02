@@ -73,7 +73,7 @@ export async function Article({
         <header>
           <h1
             style={{ '--enter-stagger': stagger++ }}
-            className="text-4xl font-extrabold max-md:text-3xl"
+            className="text-3xl font-extrabold"
           >
             {article.title}
           </h1>

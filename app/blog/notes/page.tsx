@@ -44,7 +44,7 @@ function NoteItem({ note }: { note: Note }) {
 export default function Page() {
   return (
     <PageLayout title="Notes are memory anchors.">
-      <section className="space-y-10">
+      <section className="space-y-12">
         {sortedNotes.map((note, index) => (
           <Fragment key={note.slug}>
             <NoteItem note={note} />
