@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Fragment } from 'react'
 import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
-import { Divider } from '@/components/ui/divider'
 import { MDX } from '@/components/ui/mdx'
 import { sortedNotes } from '@/lib/utils/content'
 
@@ -17,7 +16,7 @@ export const metadata: Metadata = {
 
 function NoteItem({ note }: { note: Note }) {
   return (
-    <article>
+    <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
       <header
         style={{ '--enter-stagger': 1 }}
         className="mb-5 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
@@ -49,9 +48,7 @@ export default function Page() {
           <Fragment key={note.slug}>
             <NoteItem note={note} />
             {index < sortedNotes.length - 1 && (
-              <div style={{ '--enter-stagger': 0 }}>
-                <Divider />
-              </div>
+              <div style={{ '--enter-stagger': 0 }}>{/* <Divider /> */}</div>
             )}
           </Fragment>
         ))}

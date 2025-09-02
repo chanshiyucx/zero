@@ -80,17 +80,6 @@
   @apply link before:opacity-0 hover:before:opacity-100;
 }
 
-@utility hr-twill {
-  @apply bg-muted h-1 w-full border-none;
-  mask-image: repeating-linear-gradient(
-    135deg,
-    #000 0px,
-    #000 2px,
-    transparent 2px,
-    transparent 6px
-  );
-}
-
 @utility toc {
   & li.visible > a {
     @apply text-text decoration-muted translate-x-1.5;
