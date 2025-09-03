@@ -72,7 +72,7 @@ export function About() {
   let stagger = 0
 
   return (
-    <section className="prose prose-rosepine w-full max-w-none">
+    <div className="prose prose-rosepine w-full max-w-none">
       <div className="flex flex-row items-end gap-6 max-md:flex-col max-md:items-start max-md:gap-0">
         <div
           style={{ '--enter-stagger': stagger++ }}
@@ -136,6 +136,6 @@ export function About() {
           <CV />
         </div>
       </div>
-    </section>
+    </div>
   )
 }

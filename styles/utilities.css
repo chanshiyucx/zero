@@ -45,7 +45,7 @@
 
 @utility vibes {
   h2 {
-    @apply flex justify-end border-t pt-12 first:border-t-0 first:pt-0;
+    @apply flex justify-end border-t pt-12 first:border-t-0 first:pt-0 max-sm:justify-start;
   }
 }
 

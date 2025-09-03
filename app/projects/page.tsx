@@ -16,23 +16,21 @@ export default async function Page() {
 
   return (
     <PageLayout title="Code flows like pure poetry.">
-      <section>
-        <ul
-          style={{ '--enter-start': '100ms' }}
-          className="slide-auto grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
-        >
-          {repositories.map((repo) => (
-            <li key={repo.name}>
-              <Card>
-                <Github
-                  repo={repo}
-                  className="bg-surface hover:bg-overlay transition"
-                />
-              </Card>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <ul
+        style={{ '--enter-start': '100ms' }}
+        className="slide-auto grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
+      >
+        {repositories.map((repo) => (
+          <li key={repo.name}>
+            <Card>
+              <Github
+                repo={repo}
+                className="bg-surface hover:bg-overlay transition"
+              />
+            </Card>
+          </li>
+        ))}
+      </ul>
     </PageLayout>
   )
 }

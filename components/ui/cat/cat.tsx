@@ -19,12 +19,12 @@ export function Cat({ size = 120 }: CatProps) {
       <span className="the-moon"></span>
       <div className="the-cat">
         <div className="cat-face">
-          <section className="eyes left">
+          <div className="eyes left">
             <span className="pupil"></span>
-          </section>
-          <section className="eyes right">
+          </div>
+          <div className="eyes right">
             <span className="pupil"></span>
-          </section>
+          </div>
           <span className="nose"></span>
         </div>
       </div>

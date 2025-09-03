@@ -33,40 +33,38 @@ function renderExtraInfo(extraInfo: ExtraInfo) {
 export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
     <PageLayout title={title}>
-      <section>
-        <ul
-          className="slide-auto space-y-2 max-md:space-y-4"
-          style={{ '--enter-delay': '50ms', '--enter-start': '100ms' }}
-        >
-          {groups.map((group) => (
-            <Fragment key={group.year}>
-              <li className="my-5 text-right text-3xl font-extrabold first:mt-0 max-md:text-2xl">
-                {group.year}
+      <ul
+        className="slide-auto space-y-2 max-md:space-y-4"
+        style={{ '--enter-delay': '50ms', '--enter-start': '100ms' }}
+      >
+        {groups.map((group) => (
+          <Fragment key={group.year}>
+            <li className="my-5 text-right text-3xl font-extrabold first:mt-0 max-md:text-2xl">
+              {group.year}
+            </li>
+            {group.list.map((article) => (
+              <li key={article.slug}>
+                <Link
+                  className="flex gap-6 max-sm:flex-col max-sm:gap-0"
+                  href={article.url}
+                >
+                  <span className="shrink-0 max-md:text-sm">
+                    <DateTime
+                      dateString={article.date}
+                      dateFormat="MMM DD"
+                      className="text-subtle inline-block w-16 shrink-0"
+                    />
+                    {extractInfo && renderExtraInfo(extractInfo(article))}
+                  </span>
+                  <span className="link-hover text-text truncate max-sm:whitespace-normal">
+                    {renderTitle ? renderTitle(article) : article.title}
+                  </span>
+                </Link>
               </li>
-              {group.list.map((article) => (
-                <li key={article.slug}>
-                  <Link
-                    className="flex gap-6 max-sm:flex-col max-sm:gap-0"
-                    href={article.url}
-                  >
-                    <span className="shrink-0 max-md:text-sm">
-                      <DateTime
-                        dateString={article.date}
-                        dateFormat="MMM DD"
-                        className="text-subtle inline-block w-16 shrink-0"
-                      />
-                      {extractInfo && renderExtraInfo(extractInfo(article))}
-                    </span>
-                    <span className="link-hover text-text truncate max-sm:whitespace-normal">
-                      {renderTitle ? renderTitle(article) : article.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </Fragment>
-          ))}
-        </ul>
-      </section>
+            ))}
+          </Fragment>
+        ))}
+      </ul>
     </PageLayout>
   )
 }

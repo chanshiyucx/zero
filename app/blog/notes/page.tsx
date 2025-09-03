@@ -2,7 +2,6 @@ import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Note } from 'content-collections'
 import { type Metadata } from 'next'
 import Link from 'next/link'
-import { Fragment } from 'react'
 import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { MDX } from '@/components/ui/mdx'
@@ -43,16 +42,11 @@ function NoteItem({ note }: { note: Note }) {
 export default function Page() {
   return (
     <PageLayout title="Notes are memory anchors.">
-      <section className="space-y-12">
-        {sortedNotes.map((note, index) => (
-          <Fragment key={note.slug}>
-            <NoteItem note={note} />
-            {index < sortedNotes.length - 1 && (
-              <div style={{ '--enter-stagger': 0 }}>{/* <Divider /> */}</div>
-            )}
-          </Fragment>
+      <div className="space-y-12">
+        {sortedNotes.map((note) => (
+          <NoteItem key={note.slug} note={note} />
         ))}
-      </section>
+      </div>
     </PageLayout>
   )
 }

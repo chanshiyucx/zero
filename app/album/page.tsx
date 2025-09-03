@@ -14,14 +14,13 @@ export const metadata: Metadata = {
   keywords: ['album', 'photo', 'photography', 'travel'],
 }
 
-function AlbumItem({ album, isFirst }: { album: Album; isFirst: boolean }) {
+function AlbumItem({ album }: { album: Album }) {
   return (
-    <article>
+    <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
       <header
         style={{ '--enter-stagger': 1 }}
         className={cn(
           'mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1',
-          !isFirst && 'border-t pt-12',
         )}
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
@@ -40,11 +39,11 @@ function AlbumItem({ album, isFirst }: { album: Album; isFirst: boolean }) {
 export default function Page() {
   return (
     <PageLayout title="Photography freezes time.">
-      <section className="slide-auto space-y-12">
-        {sortedAlbums.map((album, index) => (
-          <AlbumItem isFirst={index === 0} album={album} key={album.title} />
+      <div className="space-y-12">
+        {sortedAlbums.map((album) => (
+          <AlbumItem album={album} key={album.title} />
         ))}
-      </section>
+      </div>
     </PageLayout>
   )
 }

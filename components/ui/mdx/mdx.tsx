@@ -53,7 +53,7 @@ export function MDX({
     <div
       className={cn(
         className,
-        'prose slide-auto prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none',
+        'prose slide-auto prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none min-w-px',
       )}
       style={
         staggerStart ? { '--enter-start': `${staggerStart}ms` } : undefined
