@@ -11,7 +11,7 @@ import { WakatimeStats } from './wakatime-stats'
 
 export function Grid() {
   return (
-    <section className="slide-auto space-y-3">
+    <div className="slide-auto space-y-3">
       <div>
         <Heatmap />
       </div>
@@ -46,6 +46,6 @@ export function Grid() {
           <StacksCard />
         </div>
       </div>
-    </section>
+    </div>
   )
 }

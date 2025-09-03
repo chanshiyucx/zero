@@ -77,9 +77,9 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
           exit="hidden"
           onClick={() => setOpen(false)}
         >
-          <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="fixed inset-0 flex items-center justify-center">
             <m.div
-              className="relative w-[45vw] min-w-xl max-md:w-[96vw] max-md:min-w-auto"
+              className="relative w-[45vw] min-w-xl max-sm:fixed max-sm:bottom-0 max-sm:w-screen max-sm:min-w-auto"
               onClick={(e) => e.stopPropagation()}
               variants={modalVariants}
               transition={transition}
@@ -88,7 +88,7 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
               exit="hidden"
             >
               <Command
-                className="bg-surface rounded-lg shadow-lg"
+                className="bg-surface rounded-lg shadow-lg max-sm:rounded-b-none"
                 onKeyDown={handleKeyDown}
               >
                 <div className="border-b p-4">
@@ -100,7 +100,7 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
                   />
                 </div>
 
-                <Command.List className="max-h-[60vh] overflow-auto p-3">
+                <Command.List className="p-3">
                   <Command.Empty>No results found.</Command.Empty>
                   {children}
                 </Command.List>

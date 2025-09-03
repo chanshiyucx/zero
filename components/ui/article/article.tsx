@@ -68,8 +68,8 @@ export async function Article({
   }
 
   return (
-    <main className="page slide-container">
-      <article className="mb-0 w-full space-y-12">
+    <main className="page slide-container space-y-12">
+      <article className="space-y-12">
         <header>
           <h1
             style={{ '--enter-stagger': stagger++ }}
@@ -91,22 +91,19 @@ export async function Article({
             </span>
           </div>
         </header>
-        <section className="flex flex-row">
+        <div className="flex flex-row">
           <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
           {article.toc.length > 0 && (
             <Toc stagger={stagger++} toc={article.toc} />
           )}
-        </section>
-        <footer
-          style={{ '--enter-stagger': stagger++ }}
-          className="flex flex-col gap-2"
-        >
-          {!hideDiscussion && (
-            <Discussion label={article.type} title={article.title} />
-          )}
-          <Backward />
-        </footer>
+        </div>
       </article>
+      <div style={{ '--enter-stagger': stagger++ }} className="space-y-2">
+        {!hideDiscussion && (
+          <Discussion label={article.type} title={article.title} />
+        )}
+        <Backward />
+      </div>
     </main>
   )
 }

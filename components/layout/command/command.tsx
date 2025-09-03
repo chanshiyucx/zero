@@ -5,20 +5,15 @@ import {
   BriefcaseIcon,
   CameraIcon,
   GhostIcon,
-  GithubLogoIcon,
-  LaptopIcon,
-  LinkedinLogoIcon,
   MagnifyingGlassIcon,
   NotebookIcon,
   ScrollIcon,
   TerminalWindowIcon,
-  XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
 import { English, German } from '@/components/icons'
 import { useShortcut } from '@/hooks/use-shortcut'
-import { siteConfig } from '@/lib/constants/config'
 import {
   sortedLeetcodes,
   sortedNotes,
@@ -193,40 +188,6 @@ export function Command() {
             label: 'German',
             shortcut: ['g'],
             path: '/polyglot/german',
-          },
-        ],
-      },
-      {
-        heading: 'Website',
-        page: 'root',
-        items: [
-          {
-            icon: <GithubLogoIcon {...iconProps} />,
-            label: 'Github',
-            shortcut: [],
-            className: 'link',
-            path: siteConfig.links.repo,
-          },
-          {
-            icon: <XLogoIcon {...iconProps} />,
-            label: 'Twitter',
-            shortcut: [],
-            className: 'link',
-            path: siteConfig.links.twitter,
-          },
-          {
-            icon: <LinkedinLogoIcon {...iconProps} />,
-            label: 'LinkedIn',
-            shortcut: [],
-            className: 'link',
-            path: siteConfig.links.linkedIn,
-          },
-          {
-            icon: <LaptopIcon {...iconProps} />,
-            label: 'Wakatime',
-            shortcut: [],
-            className: 'link',
-            path: siteConfig.links.wakatime,
           },
         ],
       },
