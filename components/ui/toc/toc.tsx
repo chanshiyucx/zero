@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils/style'
 
 interface TocProps {
   toc: TocEntry[]
+  stagger: number
 }
 
 interface TocItem {
@@ -25,7 +26,7 @@ const getIndent = (depth: number) => {
   return 'ml-0'
 }
 
-export function Toc({ toc }: TocProps) {
+export function Toc({ toc, stagger }: TocProps) {
   const tocRef = useRef<HTMLUListElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
   const lastPathStart = useRef<number>(0)
@@ -172,7 +173,10 @@ export function Toc({ toc }: TocProps) {
   }, [toc])
 
   return (
-    <aside className="group hidden w-0 xl:block">
+    <aside
+      style={{ '--enter-stagger': stagger }}
+      className="group hidden w-0 xl:block"
+    >
       <nav className="sticky top-24 w-64 translate-x-6 -translate-y-8">
         <ListIcon
           size="1.2em"

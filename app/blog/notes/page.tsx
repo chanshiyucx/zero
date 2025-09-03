@@ -19,7 +19,7 @@ function NoteItem({ note }: { note: Note }) {
     <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
       <header
         style={{ '--enter-stagger': 1 }}
-        className="mb-5 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
+        className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
       >
         <Link className="link-hover text-2xl font-bold" href={note.url}>
           <h2 id={note.slug}>{note.title}</h2>

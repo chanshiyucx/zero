@@ -94,9 +94,7 @@ export async function Article({
         <section className="flex flex-row">
           <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
           {article.toc.length > 0 && (
-            <div style={{ '--enter-stagger': stagger++ }}>
-              <Toc toc={article.toc} />
-            </div>
+            <Toc stagger={stagger++} toc={article.toc} />
           )}
         </section>
         <footer

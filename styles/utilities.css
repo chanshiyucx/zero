@@ -45,7 +45,7 @@
 
 @utility vibes {
   h2 {
-    @apply flex justify-end border-t pt-5 first:border-t-0 first:pt-0;
+    @apply flex justify-end border-t pt-12 first:border-t-0 first:pt-0;
   }
 }
 
@@ -82,12 +82,6 @@
 
 @utility toc {
   & li.visible > a {
-    @apply text-text decoration-muted translate-x-1.5;
-  }
-}
-
-@utility visible {
-  .toc &li > a {
     @apply text-text decoration-muted translate-x-1.5;
   }
 }
