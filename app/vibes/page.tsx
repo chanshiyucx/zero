@@ -17,7 +17,7 @@ export function Link(props: ComponentPropsWithoutRef<'a'>) {
   const [date, local] = linkText.split(' ')
   return (
     <a
-      className="link text-subtle! flex items-center text-sm before:hidden"
+      className="link text-subtle! text-normal flex items-center font-medium! before:hidden"
       {...props}
     >
       <CalendarBlankIcon weight="bold" className="mr-0.5" />

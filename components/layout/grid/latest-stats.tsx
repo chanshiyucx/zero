@@ -16,11 +16,7 @@ export function LatestStats() {
         <span className="border-base w-full border-b" />
         <span className="truncate font-bold">{article.title}</span>
         <span className="border-base w-full border-b" />
-        <DateTime
-          dateString={article.date}
-          dateFormat="LLL dd, yyyy"
-          className="text-subtle"
-        />
+        <DateTime dateString={article.date} className="text-subtle" />
       </Link>
     </Card>
   )
