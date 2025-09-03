@@ -36,6 +36,7 @@ interface MDXProps {
   className?: string
   components?: MDXComponents
   staggerStart?: number
+  slideAuto?: boolean
 }
 
 export function MDX({
@@ -43,6 +44,7 @@ export function MDX({
   className,
   components,
   staggerStart,
+  slideAuto = true,
 }: MDXProps) {
   const mergedComponents = {
     ...defaultComponents,
@@ -52,8 +54,9 @@ export function MDX({
   return (
     <div
       className={cn(
+        'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none min-w-px',
         className,
-        'prose slide-auto prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none min-w-px',
+        slideAuto && 'slide-auto',
       )}
       style={
         staggerStart ? { '--enter-start': `${staggerStart}ms` } : undefined
