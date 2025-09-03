@@ -100,8 +100,14 @@
   text-shadow: 1px 1px 3px hsl(var(--color-text) / 0.3);
 }
 
+@utility text-normal {
+  font-size: 1rem;
+  line-height: calc(1.5 / 1);
+}
+
 @utility text-2xs {
-  @apply text-[10px];
+  font-size: 0.625rem;
+  line-height: calc(0.75 / 0.625);
 }
 
 @utility photo-view-mask {
