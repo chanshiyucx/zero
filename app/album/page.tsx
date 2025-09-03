@@ -18,7 +18,7 @@ function AlbumItem({ album }: { album: Album }) {
     <article>
       <header
         style={{ '--enter-stagger': 1 }}
-        className="mb-5 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
+        className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
         <div className="text-subtle shrink-0">
