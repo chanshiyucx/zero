@@ -5,6 +5,7 @@ import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { MDX } from '@/components/ui/mdx'
 import { sortedAlbums } from '@/lib/utils/content'
+import { cn } from '@/lib/utils/style'
 
 export const metadata: Metadata = {
   title: 'Album',
@@ -13,12 +14,15 @@ export const metadata: Metadata = {
   keywords: ['album', 'photo', 'photography', 'travel'],
 }
 
-function AlbumItem({ album }: { album: Album }) {
+function AlbumItem({ album, isFirst }: { album: Album; isFirst: boolean }) {
   return (
     <article>
       <header
         style={{ '--enter-stagger': 1 }}
-        className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
+        className={cn(
+          'mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1',
+          !isFirst && 'border-t pt-12',
+        )}
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
         <div className="text-subtle shrink-0">
@@ -37,8 +41,8 @@ export default function Page() {
   return (
     <PageLayout title="Photography freezes time.">
       <section className="slide-auto space-y-12">
-        {sortedAlbums.map((album) => (
-          <AlbumItem album={album} key={album.title} />
+        {sortedAlbums.map((album, index) => (
+          <AlbumItem isFirst={index === 0} album={album} key={album.title} />
         ))}
       </section>
     </PageLayout>
