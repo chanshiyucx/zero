@@ -5,7 +5,6 @@ import { PageLayout } from '@/components/layout/page'
 import { DateTime } from '@/components/ui/datetime'
 import { MDX } from '@/components/ui/mdx'
 import { sortedAlbums } from '@/lib/utils/content'
-import { cn } from '@/lib/utils/style'
 
 export const metadata: Metadata = {
   title: 'Album',
@@ -19,9 +18,7 @@ function AlbumItem({ album }: { album: Album }) {
     <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
       <header
         style={{ '--enter-stagger': 1 }}
-        className={cn(
-          'mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1',
-        )}
+        className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
         <div className="text-subtle shrink-0">
@@ -31,7 +28,7 @@ function AlbumItem({ album }: { album: Album }) {
           </span>
         </div>
       </header>
-      <MDX staggerStart={100} contentCode={album.contentCode} />
+      <MDX staggerStart={2 * 150} contentCode={album.contentCode} />
     </article>
   )
 }
@@ -41,7 +38,7 @@ export default function Page() {
     <PageLayout title="Photography freezes time.">
       <div className="space-y-12">
         {sortedAlbums.map((album) => (
-          <AlbumItem album={album} key={album.title} />
+          <AlbumItem key={album.title} album={album} />
         ))}
       </div>
     </PageLayout>

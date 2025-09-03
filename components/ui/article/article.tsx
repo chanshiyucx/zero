@@ -92,7 +92,7 @@ export async function Article({
           </div>
         </header>
         <div className="flex flex-row">
-          <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
+          <MDX staggerStart={stagger * 150} contentCode={article.contentCode} />
           {article.toc.length > 0 && (
             <Toc stagger={stagger++} toc={article.toc} />
           )}

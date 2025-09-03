@@ -41,7 +41,7 @@ export default function Page() {
         {vibeList.map((vibe) => (
           <MDX
             key={vibe.title}
-            staggerStart={100}
+            staggerStart={150}
             contentCode={vibe.contentCode}
             components={customComponents}
           />

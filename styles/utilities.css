@@ -122,7 +122,7 @@
 
 @utility slide-container {
   --enter-start: 0ms;
-  --enter-delay: 100ms;
+  --enter-delay: 150ms;
   --enter-stagger: 0;
 
   .slide-auto > * {

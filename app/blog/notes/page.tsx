@@ -34,7 +34,7 @@ function NoteItem({ note }: { note: Note }) {
           </span>
         </div>
       </header>
-      <MDX staggerStart={100} contentCode={note.contentCode} />
+      <MDX staggerStart={2 * 150} contentCode={note.contentCode} />
     </article>
   )
 }
