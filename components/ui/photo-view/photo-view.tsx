@@ -1,3 +1,5 @@
+'use client'
+
 import { CameraIcon, SlideshowIcon } from '@phosphor-icons/react/dist/ssr'
 import {
   AnimatePresence,
