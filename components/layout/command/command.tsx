@@ -43,7 +43,7 @@ interface Action {
 }
 
 interface ActionGroup {
-  heading: string
+  heading?: string
   page: string
   items: Action[]
 }
@@ -198,7 +198,6 @@ export function Command() {
   const searchGroups: ActionGroup[] = useMemo(
     () => [
       {
-        heading: 'Navigation',
         page: 'search',
         items: [
           ...contentLists.posts.map((post) => ({

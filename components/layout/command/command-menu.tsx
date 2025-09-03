@@ -100,7 +100,7 @@ export const CommandMenu = ({ children }: CommandMenuProps) => {
                   />
                 </div>
 
-                <Command.List className="p-3">
+                <Command.List className="max-h-120 overflow-auto p-3">
                   <Command.Empty>No results found.</Command.Empty>
                   {children}
                 </Command.List>
