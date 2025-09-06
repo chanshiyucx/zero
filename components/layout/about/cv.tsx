@@ -18,16 +18,13 @@ export async function CV() {
           Projects
         </Link>
       </header>
-      <Github
-        repo={repo}
-        className="bg-overlay/60 dark:bg-overlay hover:brightness-95"
-      />
+      <Github repo={repo} className="bg-base hover:brightness-95" />
       <div className="flex items-center gap-5">
         <a
           href={siteConfig.links.cvPdf}
           target="_blank"
           rel="noopener noreferrer"
-          className="tiny-button bg-overlay/60 dark:bg-overlay flex flex-1 items-center justify-center gap-2 border-none py-3 no-underline"
+          className="tiny-button bg-base flex flex-1 items-center justify-center gap-2 border-none py-3 no-underline"
         >
           Download CV <DownloadSimpleIcon size="1em" weight="bold" />
         </a>

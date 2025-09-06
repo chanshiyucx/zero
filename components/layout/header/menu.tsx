@@ -181,7 +181,7 @@ export function Menu() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="hidden max-sm:block"
+        className="hidden max-md:block"
       >
         <MapTrifoldIcon weight="duotone" className="text-xl" />
       </button>

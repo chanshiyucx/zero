@@ -210,10 +210,7 @@ function HeatmapTooltip({
           <div className="bg-surface w-max max-w-xs overflow-hidden rounded-sm px-4 py-3 text-sm shadow-lg">
             <p className="text-subtle mb-2 inline-flex w-full shrink-0 items-center gap-1">
               <CalendarBlankIcon weight="bold" className="mr-1" />
-              <DateTime
-                dateString={hoveredDay.date}
-                dateFormat="LLL dd, yyyy"
-              />
+              <DateTime dateString={hoveredDay.date} />
             </p>
             <ul className="flex flex-col gap-1">
               {hoveredDay.posts.map((post, i) => (
