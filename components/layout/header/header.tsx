@@ -13,8 +13,7 @@ import { useState } from 'react'
 import { useDeviceListener } from '@/hooks/use-device-listener'
 import { useIsMounted } from '@/hooks/use-is-mounted'
 import { cn } from '@/lib/utils/style'
-import { Map } from './map'
-import { Search } from './search'
+import { Menu } from './menu'
 import { ThemeSwitcher } from './theme-switcher'
 
 interface MenuItemProps {
@@ -102,22 +101,21 @@ function DropdownMenuItem({ name, path, items }: DropdownItemProps) {
 
 export function Header() {
   return (
-    <header className="my-3 flex items-center justify-between rounded-lg">
-      <Link
-        href="/"
-        className="flex items-center gap-1 text-xl font-bold italic"
-      >
-        <Image
-          src="/icon.svg"
-          alt="Site Logo"
-          width={16}
-          height={16}
-          priority
-          className="mb-0.5 animate-spin duration-3000"
-        />
-        Shiyu
-      </Link>
+    <header className="mt-8 flex items-center justify-between rounded-lg">
       <div className="flex items-center gap-3">
+        <Link
+          href="/"
+          className="flex items-center gap-1 text-xl font-bold italic"
+        >
+          <Image
+            src="/icon.svg"
+            alt="Site Logo"
+            width={16}
+            height={16}
+            priority
+            className="mb-0.5 animate-spin duration-3000"
+          />
+        </Link>
         <nav className="flex items-center justify-center gap-1 max-md:hidden">
           <DropdownMenuItem
             name="Blog"
@@ -140,8 +138,9 @@ export function Header() {
           <MenuItem name="Vibes" path="/vibes" />
           <MenuItem name="Album" path="/album" />
         </nav>
-        <Search />
-        <Map />
+      </div>
+      <div className="flex items-center gap-3">
+        <Menu />
         <ThemeSwitcher />
       </div>
     </header>
