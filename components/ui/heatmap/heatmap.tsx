@@ -216,10 +216,7 @@ function HeatmapTooltip({
               {hoveredDay.posts.map((post, i) => (
                 <li key={i} className="inline-flex items-center gap-2">
                   {iconMap[post.type]}
-                  <Link
-                    className="link-hover text-text truncate"
-                    href={post.url}
-                  >
+                  <Link className="link text-text truncate" href={post.url}>
                     {post.title}
                   </Link>
                 </li>

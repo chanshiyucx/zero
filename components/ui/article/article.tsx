@@ -97,7 +97,7 @@ export async function Article({
           </h1>
           <div
             style={{ '--enter-stagger': stagger++ }}
-            className="text-subtle mt-3 flex items-center text-sm"
+            className="text-subtle mt-1 flex items-center text-sm"
           >
             <DateTime dateString={article.date} />
             <DotIcon size={24} />
@@ -105,7 +105,7 @@ export async function Article({
           </div>
         </header>
         <div className="flex flex-row">
-          <MDX staggerStart={stagger * 150} contentCode={article.contentCode} />
+          <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
           {article.toc.length > 0 && (
             <Toc stagger={stagger++} toc={article.toc} />
           )}

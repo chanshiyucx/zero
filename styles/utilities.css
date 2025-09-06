@@ -61,10 +61,11 @@
 }
 
 @utility link {
-  @apply relative inline-block w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300 hover:decoration-current!;
+  @apply relative inline-block w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300;
+  @apply hover:decoration-current! hover:before:opacity-100;
 
   &::before {
-    @apply absolute top-1/2 -right-0.5 -translate-y-[1.3em] text-xs transition-all duration-300 content-['┓'];
+    @apply absolute top-1/2 -right-1 -translate-y-[1.4em] text-xs opacity-0 transition-all duration-300 content-['┓'];
   }
 
   &[href^='#'] {
@@ -74,10 +75,10 @@
       font-size: inherit;
     }
   }
-}
 
-@utility link-hover {
-  @apply link before:opacity-0 hover:before:opacity-100;
+  &.link-active {
+    @apply before:opacity-100;
+  }
 }
 
 @utility toc {
@@ -122,7 +123,7 @@
 
 @utility slide-container {
   --enter-start: 0ms;
-  --enter-delay: 150ms;
+  --enter-delay: 100ms;
   --enter-stagger: 0;
 
   .slide-auto > * {

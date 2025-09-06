@@ -118,6 +118,12 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const title = document.title
       const description =
         document.description ?? extractDescription(document.content)
+      const descriptionCode = await compileMDX(
+        context,
+        { ...document, content: description },
+        options,
+      )
+
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const [, no] = match
       const slug = slugger.slug(title)
@@ -149,6 +155,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         url,
         toc,
         description,
+        descriptionCode,
         contentCode,
         contentHtml,
       }

@@ -35,7 +35,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
     <PageLayout title={title}>
       <ul
         className="slide-auto space-y-2 max-md:space-y-4"
-        style={{ '--enter-delay': '50ms', '--enter-start': '150ms' }}
+        style={{ '--enter-delay': '50ms', '--enter-start': '100ms' }}
       >
         {groups.map((group) => (
           <Fragment key={group.year}>
@@ -56,7 +56,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                     />
                     {extractInfo && renderExtraInfo(extractInfo(article))}
                   </span>
-                  <span className="link-hover text-text truncate max-sm:whitespace-normal">
+                  <span className="link text-text truncate max-sm:whitespace-normal">
                     {renderTitle ? renderTitle(article) : article.title}
                   </span>
                 </Link>

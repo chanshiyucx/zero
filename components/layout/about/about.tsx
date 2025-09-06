@@ -63,7 +63,7 @@ const JavaLink = () => (
 )
 
 const PageLink = ({ label, ...props }: { label: string } & LinkProps) => (
-  <Link {...props} className="link mx-1">
+  <Link {...props} className="link link-active mx-1">
     {label}
   </Link>
 )

@@ -1,7 +1,10 @@
 import { type Snippet } from 'content-collections'
 import { type Metadata } from 'next'
-import { List } from '@/components/ui/list'
-import { groupByYear, sortedSnippets } from '@/lib/utils/content'
+import Link from 'next/link'
+import { PageLayout } from '@/components/layout/page'
+import { DateTime } from '@/components/ui/datetime'
+import { MDX } from '@/components/ui/mdx'
+import { sortedSnippets } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
   title: 'Snippets',
@@ -9,33 +12,33 @@ export const metadata: Metadata = {
   keywords: ['blog', 'snippets', 'learn', 'study', 'skills', 'code'],
 }
 
-const colors = {
-  JavaScript: 'text-love',
-  CSS: 'text-gold',
-  React: 'text-foam',
-  Vue: 'text-iris',
-} as const
-
-const extractInfo = (article: Snippet) => {
-  const lastTag = article.tags.at(-1)
-  const meta = lastTag?.split('/') ?? []
-  const category = meta[0] as keyof typeof colors
-
-  return {
-    className: `${colors[category]} w-20`,
-    text: meta[0],
-  }
+function SnippetItem({ snippet }: { snippet: Snippet }) {
+  return (
+    <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
+      <header
+        style={{ '--enter-stagger': 1 }}
+        className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
+      >
+        <Link className="link text-2xl font-bold" href={snippet.url}>
+          <h2 id={snippet.slug}>{snippet.title}</h2>
+        </Link>
+        <div className="text-subtle flex shrink-0 text-sm">
+          <DateTime dateString={snippet.date} />
+        </div>
+      </header>
+      <MDX staggerStart={2 * 100} contentCode={snippet.descriptionCode} />
+    </article>
+  )
 }
 
 export default function Page() {
-  const snippetList = sortedSnippets
-  const snippetGroupList = groupByYear(snippetList)
-
   return (
-    <List
-      title="Snippets are memory anchors."
-      groups={snippetGroupList}
-      extractInfo={extractInfo}
-    />
+    <PageLayout title="Snippets are memory anchors.">
+      <div className="space-y-12">
+        {sortedSnippets.map((snippet) => (
+          <SnippetItem key={snippet.slug} snippet={snippet} />
+        ))}
+      </div>
+    </PageLayout>
   )
 }

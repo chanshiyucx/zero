@@ -25,7 +25,7 @@ function AlbumItem({ album }: { album: Album }) {
           className="text-subtle shrink-0 text-sm"
         />
       </header>
-      <MDX staggerStart={2 * 150} contentCode={album.contentCode} />
+      <MDX staggerStart={2 * 100} contentCode={album.contentCode} />
     </article>
   )
 }

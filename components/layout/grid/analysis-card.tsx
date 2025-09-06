@@ -21,7 +21,7 @@ function Stat({ icon, label, value, className, href }: StatProps) {
   return (
     <div className={cn('flex items-center', className)}>
       {icon}
-      <Link href={href} className="link-hover">
+      <Link href={href} className="link">
         <span className="mx-1 text-sm">{label}:</span>
         {value}
       </Link>
