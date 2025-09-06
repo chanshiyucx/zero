@@ -162,9 +162,9 @@ const collectionConfigs: CollectionProps[] = [
     prefixPath: '/blog/posts',
   },
   {
-    name: 'note',
-    directory: 'public/blog/notes',
-    prefixPath: '/blog/notes',
+    name: 'snippet',
+    directory: 'public/blog/snippets',
+    prefixPath: '/blog/snippets',
   },
   {
     name: 'leetcode',

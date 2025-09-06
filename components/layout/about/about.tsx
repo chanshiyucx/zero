@@ -106,7 +106,7 @@ export function About() {
       <p style={{ '--enter-stagger': stagger++ }}>
         Maybe you will find something interesting in my
         <PageLink label="blog posts" href="/blog/posts" /> or
-        <PageLink label="study notes" href="/blog/notes" />! Feel free to
+        <PageLink label="study snippets" href="/blog/snippets" />! Feel free to
         explore <PageLink label="the projects" href="/projects" /> I&apos;ve
         poured my effort into.
       </p>

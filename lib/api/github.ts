@@ -79,7 +79,7 @@ const DISCUSSION_REPO_ID = 'R_kgDOCP9Avw'
 const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
 const DISCUSSION_LABEL_IDS = {
   post: 'LA_kwDOCP9Av88AAAAB20f9KA',
-  note: 'LA_kwDOCP9Av88AAAAB20f-sQ',
+  snippet: 'LA_kwDOCP9Av88AAAAB20f-sQ',
   leetcode: 'LA_kwDOCP9Av88AAAAB20gAmQ',
   polyglot: 'LA_kwDOCP9Av88AAAAB3hXPdQ',
 }

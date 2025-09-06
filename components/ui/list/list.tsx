@@ -5,8 +5,8 @@ import { DateTime } from '@/components/ui/datetime'
 import { type Content, type ContentGroup } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
-export interface ExtraInfo {
-  color: string
+interface ExtraInfo {
+  className: string
   text: string
 }
 
@@ -22,7 +22,7 @@ function renderExtraInfo(extraInfo: ExtraInfo) {
     <span
       className={cn(
         'ml-6 inline-block w-16 text-sm max-md:ml-3',
-        extraInfo.color,
+        extraInfo.className,
       )}
     >
       {extraInfo.text}
