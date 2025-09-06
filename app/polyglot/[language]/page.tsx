@@ -1,6 +1,6 @@
 import { type Polyglot } from 'content-collections'
 import { type Metadata } from 'next'
-import { List, type ExtraInfo } from '@/components/ui/list'
+import { List } from '@/components/ui/list'
 import {
   groupByYear,
   sortedPolyglotsEnglish,
@@ -29,10 +29,10 @@ const title = {
   german: 'Deutsch ist ein Fenster weiter.',
 } as const
 
-const extractInfo = (article: Polyglot): ExtraInfo => {
+const extractInfo = (article: Polyglot) => {
   const tag = article.tags[0].split('/')[1] as keyof typeof colors
   return {
-    color: colors[tag],
+    className: colors[tag],
     text: tag,
   }
 }

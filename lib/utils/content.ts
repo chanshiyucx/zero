@@ -1,20 +1,20 @@
 import {
   allAlbums,
   allLeetcodes,
-  allNotes,
   allPolyglots,
   allPosts,
+  allSnippets,
   allVibes,
   type Album,
   type Leetcode,
-  type Note,
   type Polyglot,
   type Post,
+  type Snippet,
   type Vibe,
 } from 'content-collections'
 import dayjs from 'dayjs'
 
-export type Content = Post | Note | Leetcode | Polyglot
+export type Content = Post | Snippet | Leetcode | Polyglot
 
 export interface ContentGroup {
   year: number
@@ -23,13 +23,13 @@ export interface ContentGroup {
 
 export interface BlogSummary {
   posts: number
-  notes: number
+  snippets: number
   leetcodes: number
 }
 
 export const content: Content[] = [
   ...allPosts,
-  ...allNotes,
+  ...allSnippets,
   ...allLeetcodes,
   ...allPolyglots,
 ]
@@ -75,7 +75,7 @@ export const sortedAlbums: Album[] = sortByDate(allAlbums)
 
 export const sortedPosts: Post[] = sortByDate(allPosts)
 
-export const sortedNotes: Note[] = sortByDate(allNotes)
+export const sortedSnippets: Snippet[] = sortByDate(allSnippets)
 
 export const sortedVibes: Vibe[] = sortByDate(allVibes)
 
@@ -98,7 +98,7 @@ export const sortedPriorityContent: Content[] = sortedByPriority(content)
 
 export const summary: BlogSummary = {
   posts: allPosts.length,
-  notes: allNotes.length,
+  snippets: allSnippets.length,
   leetcodes: allLeetcodes.length,
 }
 
@@ -108,11 +108,10 @@ export const findContentBySlug = (slug: string): Content | undefined =>
 const formatDateWithoutTime = (date: string) => date.split(' ')[0]
 
 // Heatmap Data
-
 export interface HeatmapData {
   title: string
   url: string
-  type: 'post' | 'note' | 'leetcode' | 'english' | 'german'
+  type: 'post' | 'snippet' | 'leetcode' | 'english' | 'german'
 }
 
 const getHeatmapData = () => {

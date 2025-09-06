@@ -1,6 +1,6 @@
 import { type Leetcode } from 'content-collections'
 import { type Metadata } from 'next'
-import { List, type ExtraInfo } from '@/components/ui/list'
+import { List } from '@/components/ui/list'
 import { groupByYear, sortedLeetcodes } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -16,10 +16,10 @@ const colors = {
   Hard: 'text-love',
 } as const
 
-const extractInfo = (article: Leetcode): ExtraInfo => {
+const extractInfo = (article: Leetcode) => {
   const level = article.level!
   return {
-    color: colors[level],
+    className: colors[level],
     text: level,
   }
 }

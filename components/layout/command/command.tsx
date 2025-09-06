@@ -16,9 +16,9 @@ import { English, German } from '@/components/icons'
 import { useShortcut } from '@/hooks/use-shortcut'
 import {
   sortedLeetcodes,
-  sortedNotes,
   sortedPolyglots,
   sortedPosts,
+  sortedSnippets,
 } from '@/lib/utils/content'
 import { isExternalLink } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
@@ -79,7 +79,7 @@ export function Command() {
   const contentLists = useMemo(
     () => ({
       posts: sortedPosts,
-      notes: sortedNotes,
+      snippets: sortedSnippets,
       leetcodes: sortedLeetcodes,
       polyglots: sortedPolyglots,
     }),
@@ -161,9 +161,9 @@ export function Command() {
           },
           {
             icon: <NotebookIcon {...iconProps} />,
-            label: 'Notes',
+            label: 'Snippets',
             shortcut: ['n'],
-            path: '/blog/notes',
+            path: '/blog/snippets',
           },
           {
             icon: <TerminalWindowIcon {...iconProps} />,
@@ -206,11 +206,11 @@ export function Command() {
             shortcut: [],
             path: post.url,
           })),
-          ...contentLists.notes.map((note) => ({
+          ...contentLists.snippets.map((snippet) => ({
             icon: <NotebookIcon {...iconProps} />,
-            label: note.title,
+            label: snippet.title,
             shortcut: [],
-            path: note.url,
+            path: snippet.url,
           })),
           ...contentLists.leetcodes.map((leetcode) => ({
             icon: <TerminalWindowIcon {...iconProps} />,
