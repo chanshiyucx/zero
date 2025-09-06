@@ -1,4 +1,4 @@
-import { CalendarBlankIcon, MapPinIcon } from '@phosphor-icons/react/dist/ssr'
+import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { type ComponentPropsWithoutRef } from 'react'
 import { PageLayout } from '@/components/layout/page'
@@ -20,10 +20,9 @@ export function Link(props: ComponentPropsWithoutRef<'a'>) {
       className="link text-subtle! flex items-center text-sm font-medium! before:hidden"
       {...props}
     >
-      <CalendarBlankIcon weight="bold" className="mr-0.5" />
       <DateTime dateString={date} />
-      <MapPinIcon weight="bold" className="mr-0.5 ml-3" />
-      {local}
+      <DotIcon size={24} />
+      <span>{local}</span>
     </a>
   )
 }
