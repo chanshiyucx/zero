@@ -1,7 +1,6 @@
 import { type Metadata, type Viewport } from 'next'
 import { JetBrains_Mono, Merriweather } from 'next/font/google'
 import { type ReactNode } from 'react'
-import { Command } from '@/components/layout/command'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
@@ -93,7 +92,6 @@ export default function RootLayout({
             <VercelProvider>
               <Header />
               {children}
-              <Command />
               <Helper />
               <Footer />
             </VercelProvider>
