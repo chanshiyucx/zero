@@ -54,7 +54,7 @@ export function MDX({
   return (
     <div
       className={cn(
-        'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg max-w-none min-w-px',
+        'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-lg w-full max-w-none min-w-px',
         className,
         slideAuto && 'slide-auto',
       )}
