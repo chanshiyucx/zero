@@ -1,4 +1,4 @@
-import { CalendarBlankIcon, TagIcon } from '@phosphor-icons/react/dist/ssr'
+import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Backward } from '@/components/ui/backward'
@@ -12,6 +12,24 @@ import { findContentBySlug } from '@/lib/utils/content'
 interface ArticleProps {
   params: Promise<{ slug: string }>
   hideDiscussion?: boolean
+}
+
+const calculateMediumReadingTime = (content: string): string => {
+  if (!content || content.trim() === '') {
+    return '1 min read'
+  }
+
+  const wordsPerMinute = 200
+  const wordMatches = content.match(/\S+/g)
+  const wordCount = wordMatches ? wordMatches.length : 0
+
+  const textReadTime = wordCount / wordsPerMinute
+  const totalReadTimeInMinutes = textReadTime
+
+  const roundedMinutes = Math.ceil(totalReadTimeInMinutes)
+  const finalMinutes = Math.max(1, roundedMinutes)
+
+  return `${finalMinutes} min read`
 }
 
 export async function generateMetadata({
@@ -79,16 +97,11 @@ export async function Article({
           </h1>
           <div
             style={{ '--enter-stagger': stagger++ }}
-            className="text-subtle mt-3 flex gap-5"
+            className="text-subtle mt-3 flex items-center text-sm"
           >
-            <span className="inline-flex shrink-0 items-center gap-1">
-              <CalendarBlankIcon weight="bold" />
-              <DateTime dateString={article.date} />
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <TagIcon weight="bold" />
-              {article.tags.at(-1)}
-            </span>
+            <DateTime dateString={article.date} />
+            <DotIcon size={24} />
+            <span>{calculateMediumReadingTime(article.content)}</span>
           </div>
         </header>
         <div className="flex flex-row">
