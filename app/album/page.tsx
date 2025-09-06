@@ -1,4 +1,3 @@
-import { CalendarBlankIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Album } from 'content-collections'
 import { type Metadata } from 'next'
 import { PageLayout } from '@/components/layout/page'
@@ -21,12 +20,10 @@ function AlbumItem({ album }: { album: Album }) {
         className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
-        <div className="text-subtle shrink-0 text-sm">
-          <span className="inline-flex items-center gap-1">
-            <CalendarBlankIcon weight="bold" />
-            <DateTime dateString={album.date} />
-          </span>
-        </div>
+        <DateTime
+          dateString={album.date}
+          className="text-subtle shrink-0 text-sm"
+        />
       </header>
       <MDX staggerStart={2 * 150} contentCode={album.contentCode} />
     </article>
