@@ -10,19 +10,20 @@ export const metadata: Metadata = {
 }
 
 const colors = {
-  JavaScript: 'text-iris',
+  JavaScript: 'text-love',
   CSS: 'text-gold',
-  React: 'text-love',
-  Vue: 'text-foam',
+  React: 'text-foam',
+  Vue: 'text-iris',
 } as const
 
 const extractInfo = (article: Snippet) => {
   const lastTag = article.tags.at(-1)
-  const category = lastTag?.split('/')[0] as keyof typeof colors
+  const meta = lastTag?.split('/') ?? []
+  const category = meta[0] as keyof typeof colors
 
   return {
-    className: `${colors[category]} w-36`,
-    text: lastTag ?? '',
+    className: `${colors[category]} w-20`,
+    text: meta[0],
   }
 }
 
