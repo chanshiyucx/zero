@@ -105,7 +105,7 @@ export function Header() {
       <div className="flex items-center gap-3">
         <Link
           href="/"
-          className="flex items-center gap-1 text-xl font-bold italic"
+          className="flex items-center gap-1 p-2 text-xl font-bold italic"
         >
           <Image
             src="/icon.svg"

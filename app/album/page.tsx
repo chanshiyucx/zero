@@ -21,7 +21,7 @@ function AlbumItem({ album }: { album: Album }) {
         className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
-        <div className="text-subtle shrink-0">
+        <div className="text-subtle shrink-0 text-sm">
           <span className="inline-flex items-center gap-1">
             <CalendarBlankIcon weight="bold" />
             <DateTime dateString={album.date} />
