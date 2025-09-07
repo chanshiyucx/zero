@@ -88,11 +88,6 @@ function Marquee({
               direction,
             )}, transparent 0%, rgba(0, 0, 0, 1.0) 10%, rgba(0, 0, 0, 1.0) 90%, transparent 100%)`
           : undefined,
-        WebkitMaskImage: fade
-          ? `linear-gradient(${ifToRightOrToBottom(
-              direction,
-            )}, transparent 0%, rgba(0, 0, 0, 1.0) 10%, rgba(0, 0, 0, 1.0) 90%, transparent 100%)`
-          : undefined,
       }}
     >
       {range(0, 3).map((i) => (
