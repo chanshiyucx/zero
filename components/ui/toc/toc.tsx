@@ -1,6 +1,5 @@
 'use client'
 
-import { ListIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { type TocEntry } from '@/lib/mdx/rehype-toc'
@@ -28,6 +27,7 @@ const getIndent = (depth: number) => {
 
 export function Toc({ toc, stagger }: TocProps) {
   const tocRef = useRef<HTMLUListElement>(null)
+  const navRef = useRef<HTMLElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
   const lastPathStart = useRef<number>(0)
   const lastPathEnd = useRef<number>(0)
@@ -100,12 +100,14 @@ export function Toc({ toc, stagger }: TocProps) {
 
       requestAnimationFrame(() => {
         const path = pathRef.current
-        if (!path) return
+        const nav = navRef.current
+        if (!path || !nav) return
 
         const windowHeight = window.innerHeight
         let pathStart = Number.MAX_VALUE
         let pathEnd = 0
         let visibleItems = 0
+        let activeItem: TocItem | undefined
 
         tocItemsRef.current.forEach((item, index) => {
           const targetBounds = item.target.getBoundingClientRect()
@@ -128,10 +130,32 @@ export function Toc({ toc, stagger }: TocProps) {
             pathEnd = Math.max(item.pathEnd || 0, pathEnd)
             visibleItems += 1
             item.listItem.classList.add('visible')
+
+            if (targetBounds.top <= margin) {
+              activeItem = item
+            }
           } else {
             item.listItem.classList.remove('visible')
           }
         })
+
+        if (activeItem) {
+          const navBounds = nav.getBoundingClientRect()
+          const activeItemBounds = activeItem.listItem.getBoundingClientRect()
+
+          if (
+            activeItemBounds.top < navBounds.top ||
+            activeItemBounds.bottom > navBounds.bottom
+          ) {
+            nav.scrollTo({
+              top:
+                activeItem.listItem.offsetTop -
+                nav.clientHeight / 2 +
+                activeItem.listItem.clientHeight / 2,
+              behavior: 'smooth',
+            })
+          }
+        }
 
         if (visibleItems > 0 && pathStart < pathEnd) {
           if (
@@ -177,15 +201,13 @@ export function Toc({ toc, stagger }: TocProps) {
       style={{ '--enter-stagger': stagger }}
       className="group hidden w-0 xl:block"
     >
-      <nav className="sticky top-24 w-64 translate-x-6 -translate-y-8">
-        <ListIcon
-          size="1.2em"
-          weight="bold"
-          className="text-muted ml-2 opacity-40 transition-opacity duration-500 group-hover:opacity-100"
-        />
-        <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
+      <nav
+        ref={navRef}
+        className="scrollbar-hide sticky top-24 max-h-[60vh] w-64 translate-x-6 -translate-y-1.5 overflow-auto"
+      >
+        <ul ref={tocRef} className="toc space-y-2 p-2 pr-4 text-sm">
           {toc.map((item) => (
-            <li key={item.id} className="my-2">
+            <li key={item.id}>
               <Link
                 href={`#${item.id}`}
                 className={cn(
@@ -198,7 +220,7 @@ export function Toc({ toc, stagger }: TocProps) {
             </li>
           ))}
         </ul>
-        <svg className="pointer-events-none absolute inset-0 h-full w-full">
+        <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
           <path
             ref={pathRef}
             stroke="var(--color-muted)"

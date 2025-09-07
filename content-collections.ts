@@ -147,6 +147,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       // lib/mdx/rehype-toc.ts
       // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
       const toc = document._meta?.toc ?? []
+      // console.log('toc:', toc)
 
       return {
         ...document,
