@@ -28,7 +28,6 @@ import {
   type ReactElement,
   type Ref,
 } from 'react'
-import { English, German } from '@/components/icons'
 import { DateTime } from '@/components/ui/datetime'
 import { heatmapData, type HeatmapData } from '@/lib/utils/content'
 import { formatDate } from '@/lib/utils/helper'
@@ -94,8 +93,6 @@ const iconMap: Record<HeatmapData['type'], ReactElement> = {
   post: <ScrollIcon className="shrink-0" />,
   snippet: <NotebookIcon className="shrink-0" />,
   leetcode: <TerminalWindowIcon className="shrink-0" />,
-  english: <English className="shrink-0" />,
-  german: <German className="shrink-0" />,
 }
 
 function useHeatmapTooltip() {

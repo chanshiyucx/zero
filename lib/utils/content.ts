@@ -1,20 +1,18 @@
 import {
   allAlbums,
   allLeetcodes,
-  allPolyglots,
   allPosts,
   allSnippets,
   allVibes,
   type Album,
   type Leetcode,
-  type Polyglot,
   type Post,
   type Snippet,
   type Vibe,
 } from 'content-collections'
 import dayjs from 'dayjs'
 
-export type Content = Post | Snippet | Leetcode | Polyglot
+export type Content = Post | Snippet | Leetcode
 
 export interface ContentGroup {
   year: number
@@ -27,30 +25,14 @@ export interface BlogSummary {
   leetcodes: number
 }
 
-export const content: Content[] = [
-  ...allPosts,
-  ...allSnippets,
-  ...allLeetcodes,
-  ...allPolyglots,
-]
+export const content: Content[] = [...allPosts, ...allSnippets, ...allLeetcodes]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
 
 const sortedByPriority = <T extends { priority: number }>(
   items: readonly T[],
-): T[] =>
-  [...items]
-    .filter((a) => a.priority > 0)
-    .sort((a, b) => b.priority - a.priority)
-
-const filterByLanguage = <T extends { tags?: readonly string[] }>(
-  items: readonly T[],
-  language: 'english' | 'german',
-): T[] =>
-  [...items].filter((a) =>
-    a.tags?.some((tag) => tag.toLowerCase().startsWith(language)),
-  )
+): T[] => [...items].sort((a, b) => b.priority - a.priority)
 
 export const groupByYear = (items: Content[]): ContentGroup[] => {
   const groups: Record<number, Content[]> = {}
@@ -81,20 +63,9 @@ export const sortedVibes: Vibe[] = sortByDate(allVibes)
 
 export const sortedLeetcodes: Leetcode[] = sortByDate(allLeetcodes)
 
-export const sortedPolyglots: Polyglot[] = sortByDate(allPolyglots)
-
-export const sortedPolyglotsEnglish: Polyglot[] = filterByLanguage(
-  sortedPolyglots,
-  'english',
-)
-
-export const sortedPolyglotsGerman: Polyglot[] = filterByLanguage(
-  sortedPolyglots,
-  'german',
-)
 export const sortedContent: Content[] = sortByDate(content)
 
-export const sortedPriorityContent: Content[] = sortedByPriority(content)
+export const sortedPriorityContent: Content[] = sortedByPriority(sortedContent)
 
 export const summary: BlogSummary = {
   posts: allPosts.length,
@@ -111,7 +82,7 @@ const formatDateWithoutTime = (date: string) => date.split(' ')[0]
 export interface HeatmapData {
   title: string
   url: string
-  type: 'post' | 'snippet' | 'leetcode' | 'english' | 'german'
+  type: 'post' | 'snippet' | 'leetcode'
 }
 
 const getHeatmapData = () => {
@@ -121,11 +92,7 @@ const getHeatmapData = () => {
       map.set(key, [])
     }
 
-    const type = (
-      currentContent.type === 'polyglot'
-        ? currentContent.tags[0].split('/')[0]
-        : currentContent.type
-    ).toLowerCase() as HeatmapData['type']
+    const type = currentContent.type.toLowerCase() as HeatmapData['type']
 
     const data: HeatmapData = {
       title: currentContent.title,

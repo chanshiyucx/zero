@@ -103,22 +103,14 @@ export function About() {
         and <PythonLink />.
       </p>
 
-      <p style={{ '--enter-stagger': stagger++ }}>
-        Maybe you will find something interesting in my
-        <PageLink label="blog posts" href="/blog/posts" /> or
-        <PageLink label="study snippets" href="/blog/snippets" />! Feel free to
-        explore <PageLink label="the projects" href="/projects" /> I&apos;ve
-        poured my effort into.
-      </p>
-
       <div className="flex flex-row gap-3 max-md:flex-col">
         <div>
-          <p className="mt-0" style={{ '--enter-stagger': stagger++ }}>
-            I aspire to become a polyglot, dedicating myself to refining my
-            <PageLink label="English" href="/polyglot/english" /> proficiency
-            while also starting to learn
-            <PageLink label="German" href="/polyglot/german" />. Though
-            challenging, I believe this path will be deeply rewarding.
+          <p style={{ '--enter-stagger': stagger++ }} className="mt-2">
+            Maybe you will find something interesting in my
+            <PageLink label="blog posts" href="/blog/posts" /> or
+            <PageLink label="study snippets" href="/blog/snippets" />! Feel free
+            to explore <PageLink label="the projects" href="/projects" />{' '}
+            I&apos;ve poured my effort into.
           </p>
 
           <p style={{ '--enter-stagger': stagger++ }}>
