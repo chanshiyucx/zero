@@ -16,7 +16,7 @@ interface MenuItemProps {
 function MenuItem({ name, path }: MenuItemProps) {
   const pathname = usePathname()
   const mounted = useIsMounted()
-  const isActive = mounted && path === pathname
+  const isActive = mounted && pathname.startsWith(path)
 
   return (
     <Link href={path} className={cn('menu-button', isActive && 'text-rose')}>

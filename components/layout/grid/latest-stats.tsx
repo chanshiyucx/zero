@@ -7,7 +7,7 @@ export function LatestStats() {
   const article = sortedPriorityContent[0]
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="flex-1 overflow-hidden">
       <Link
         href={article.url}
         className="bg-overlay flex flex-col gap-3 rounded-lg p-3"
