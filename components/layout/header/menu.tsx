@@ -18,9 +18,7 @@ import {
 } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
-import { English, German } from '@/components/icons'
 import { isExternalLink } from '@/lib/utils/helper'
-import { cn } from '@/lib/utils/style'
 
 const iconProps: Partial<IconProps> = {
   size: '1em',
@@ -61,31 +59,27 @@ const modalVariants: Variants = {
   },
 }
 
-function PolyglotIcon({ language }: { language: string }) {
-  return (
-    <>
-      {language === 'english' ? (
-        <English
-          weight="duotone"
-          className={cn(
-            iconProps.className,
-            'text-subtle h-4.5 w-4.5 text-base',
-          )}
-        />
-      ) : (
-        <German
-          weight="duotone"
-          className={cn(
-            iconProps.className,
-            'text-subtle h-4.5 w-4.5 text-base',
-          )}
-        />
-      )}
-    </>
-  )
-}
-
 const actionGroups: ActionGroup[] = [
+  {
+    heading: 'Blog',
+    items: [
+      {
+        icon: <ScrollIcon {...iconProps} />,
+        label: 'Posts',
+        path: '/posts',
+      },
+      {
+        icon: <NotebookIcon {...iconProps} />,
+        label: 'Snippets',
+        path: '/snippets',
+      },
+      {
+        icon: <TerminalWindowIcon {...iconProps} />,
+        label: 'Leetcode',
+        path: '/leetcode',
+      },
+    ],
+  },
   {
     heading: 'Navigation',
     items: [
@@ -103,41 +97,6 @@ const actionGroups: ActionGroup[] = [
         icon: <CameraIcon {...iconProps} />,
         label: 'Album',
         path: '/album',
-      },
-    ],
-  },
-  {
-    heading: 'Blog',
-    items: [
-      {
-        icon: <ScrollIcon {...iconProps} />,
-        label: 'Posts',
-        path: '/blog/posts',
-      },
-      {
-        icon: <NotebookIcon {...iconProps} />,
-        label: 'Snippets',
-        path: '/blog/snippets',
-      },
-      {
-        icon: <TerminalWindowIcon {...iconProps} />,
-        label: 'Leetcode',
-        path: '/blog/leetcode',
-      },
-    ],
-  },
-  {
-    heading: 'Polyglot',
-    items: [
-      {
-        icon: <PolyglotIcon language="english" />,
-        label: 'English',
-        path: '/polyglot/english',
-      },
-      {
-        icon: <PolyglotIcon language="german" />,
-        label: 'German',
-        path: '/polyglot/german',
       },
     ],
   },

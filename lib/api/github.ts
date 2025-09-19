@@ -81,7 +81,6 @@ const DISCUSSION_LABEL_IDS = {
   post: 'LA_kwDOCP9Av88AAAAB20f9KA',
   snippet: 'LA_kwDOCP9Av88AAAAB20f-sQ',
   leetcode: 'LA_kwDOCP9Av88AAAAB20gAmQ',
-  polyglot: 'LA_kwDOCP9Av88AAAAB3hXPdQ',
 }
 
 const headers = new Headers({

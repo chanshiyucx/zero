@@ -127,16 +127,8 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
       const [, no] = match
       const slug = slugger.slug(title)
+      const url = path.join(prefixPath, slug)
       const contentCode = await compileMDX(context, document, options)
-
-      // handle polyglot url
-      const isPolyglot = prefixPath === '/polyglot'
-      const language = isPolyglot
-        ? document.tags[0].split('/')[0].toLowerCase()
-        : null
-      const url = language
-        ? path.join(prefixPath, language, slug)
-        : path.join(prefixPath, slug)
 
       // rss feed only for production
       const contentHtml = isProd
@@ -188,11 +180,6 @@ const collectionConfigs: CollectionProps[] = [
     name: 'album',
     directory: 'public/blog/album',
     prefixPath: '/album',
-  },
-  {
-    name: 'polyglot',
-    directory: 'public/blog/polyglot',
-    prefixPath: '/polyglot',
   },
 ]
 
