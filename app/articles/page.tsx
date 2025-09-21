@@ -1,6 +1,6 @@
 import { type Metadata } from 'next'
 import { List } from '@/components/ui/list'
-import { groupByYear, sortedPosts } from '@/lib/utils/content'
+import { groupByYear, sortedArticles } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
   title: 'Posts',
@@ -10,8 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  const postList = sortedPosts
-  const postGroupList = groupByYear(postList)
+  const groupList = groupByYear(sortedArticles)
 
-  return <List title="Life is a burning chaos." groups={postGroupList} />
+  return <List title="Life is a burning chaos." groups={groupList} />
 }

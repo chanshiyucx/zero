@@ -157,29 +157,29 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
 
 const collectionConfigs: CollectionProps[] = [
   {
-    name: 'post',
-    directory: 'public/blog/posts',
-    prefixPath: '/posts',
-  },
-  {
-    name: 'snippet',
-    directory: 'public/blog/snippets',
-    prefixPath: '/snippets',
-  },
-  {
-    name: 'leetcode',
-    directory: 'public/blog/leetcode',
-    prefixPath: '/leetcode',
-  },
-  {
-    name: 'vibe',
-    directory: 'public/blog/vibes',
-    prefixPath: '/vibes',
-  },
-  {
     name: 'album',
     directory: 'public/blog/album',
     prefixPath: '/album',
+  },
+  {
+    name: 'article',
+    directory: 'public/blog/article',
+    prefixPath: '/articles',
+  },
+  {
+    name: 'journal',
+    directory: 'public/blog/journal',
+    prefixPath: '/journal',
+  },
+  {
+    name: 'snippet',
+    directory: 'public/blog/snippet',
+    prefixPath: '/snippets',
+  },
+  {
+    name: 'vibe',
+    directory: 'public/blog/vibe',
+    prefixPath: '/vibe',
   },
 ]
 

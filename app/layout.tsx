@@ -2,7 +2,7 @@ import { type Metadata, type Viewport } from 'next'
 import { JetBrains_Mono, Merriweather } from 'next/font/google'
 import { type ReactNode } from 'react'
 import { Footer } from '@/components/layout/footer'
-import { Header } from '@/components/layout/header'
+// import { Header } from '@/components/layout/header'
 import { Helper } from '@/components/ui/helper'
 import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'
@@ -90,7 +90,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="light">
           <MotionProvider>
             <VercelProvider>
-              <Header />
+              {/* <Header /> */}
               {children}
               <Helper />
               <Footer />

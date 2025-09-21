@@ -1,18 +1,18 @@
 import {
   allAlbums,
-  allLeetcodes,
-  allPosts,
+  allArticles,
+  allJournals,
   allSnippets,
   allVibes,
   type Album,
-  type Leetcode,
-  type Post,
+  type Article,
+  type Journal,
   type Snippet,
   type Vibe,
 } from 'content-collections'
 import dayjs from 'dayjs'
 
-export type Content = Post | Snippet | Leetcode
+export type Content = Article | Snippet | Journal
 
 export interface ContentGroup {
   year: number
@@ -20,12 +20,16 @@ export interface ContentGroup {
 }
 
 export interface BlogSummary {
-  posts: number
+  articles: number
   snippets: number
-  leetcodes: number
+  journals: number
 }
 
-export const content: Content[] = [...allPosts, ...allSnippets, ...allLeetcodes]
+export const content: Content[] = [
+  ...allArticles,
+  ...allSnippets,
+  ...allJournals,
+]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
@@ -55,61 +59,23 @@ export const groupByYear = (items: Content[]): ContentGroup[] => {
 
 export const sortedAlbums: Album[] = sortByDate(allAlbums)
 
-export const sortedPosts: Post[] = sortByDate(allPosts)
+export const sortedArticles: Article[] = sortByDate(allArticles)
+
+export const sortedJournals: Journal[] = sortByDate(allJournals)
 
 export const sortedSnippets: Snippet[] = sortByDate(allSnippets)
 
 export const sortedVibes: Vibe[] = sortByDate(allVibes)
-
-export const sortedLeetcodes: Leetcode[] = sortByDate(allLeetcodes)
 
 export const sortedContent: Content[] = sortByDate(content)
 
 export const sortedPriorityContent: Content[] = sortedByPriority(sortedContent)
 
 export const summary: BlogSummary = {
-  posts: allPosts.length,
+  articles: allArticles.length,
   snippets: allSnippets.length,
-  leetcodes: allLeetcodes.length,
+  journals: allJournals.length,
 }
 
 export const findContentBySlug = (slug: string): Content | undefined =>
   content.find((c) => c.slug === slug)
-
-const formatDateWithoutTime = (date: string) => date.split(' ')[0]
-
-// Heatmap Data
-export interface HeatmapData {
-  title: string
-  url: string
-  type: 'post' | 'snippet' | 'leetcode'
-}
-
-const getHeatmapData = () => {
-  const data = sortedContent.reduce((map, currentContent) => {
-    const key = formatDateWithoutTime(currentContent.date)
-    if (!map.has(key)) {
-      map.set(key, [])
-    }
-
-    const type = currentContent.type.toLowerCase() as HeatmapData['type']
-
-    const data: HeatmapData = {
-      title: currentContent.title,
-      url: currentContent.url,
-      type,
-    }
-    map.get(key)?.push(data)
-    return map
-  }, new Map<string, HeatmapData[]>())
-
-  return {
-    data,
-    startDate: formatDateWithoutTime(
-      sortedContent[sortedContent.length - 1].date,
-    ),
-    endDate: formatDateWithoutTime(sortedContent[0].date),
-  }
-}
-
-export const heatmapData = getHeatmapData()
