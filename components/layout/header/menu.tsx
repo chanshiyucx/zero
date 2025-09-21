@@ -70,8 +70,8 @@ const actionGroups: ActionGroup[] = [
       },
       {
         icon: <NotebookIcon {...iconProps} />,
-        label: 'Snippets',
-        path: '/snippets',
+        label: 'Notes',
+        path: '/notes',
       },
       {
         icon: <TerminalWindowIcon {...iconProps} />,

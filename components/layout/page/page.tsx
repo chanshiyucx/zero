@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { cn } from '@/lib/utils/style'
+import { Nav } from './nav'
 
 interface PageProps {
   children: ReactNode
@@ -10,6 +11,8 @@ interface PageProps {
 export function PageLayout({ children, title, className }: PageProps) {
   return (
     <main className={cn('page slide-container', className)}>
+      <Nav />
+
       {title && (
         <header>
           <h1
@@ -20,6 +23,7 @@ export function PageLayout({ children, title, className }: PageProps) {
           </h1>
         </header>
       )}
+
       {children}
     </main>
   )

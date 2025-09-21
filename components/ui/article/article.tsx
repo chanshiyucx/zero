@@ -1,6 +1,7 @@
 import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { PageLayout } from '@/components/layout/page'
 import { Backward } from '@/components/ui/backward'
 import { DateTime } from '@/components/ui/datetime'
 import { Discussion } from '@/components/ui/discussion'
@@ -86,7 +87,7 @@ export async function Article({
   }
 
   return (
-    <main className="page slide-container space-y-12">
+    <PageLayout>
       <article className="space-y-12">
         <header>
           <h1
@@ -117,6 +118,6 @@ export async function Article({
         )}
         <Backward />
       </div>
-    </main>
+    </PageLayout>
   )
 }

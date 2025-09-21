@@ -43,9 +43,9 @@ export function Header() {
           />
         </Link>
         <nav className="flex items-center justify-center gap-1 max-md:hidden">
-          <MenuItem name="Posts" path="/posts" />
-          <MenuItem name="Snippets" path="/snippets" />
-          <MenuItem name="Leetcode" path="/leetcode" />
+          <MenuItem name="Tech" path="/tech" />
+          <MenuItem name="Notes" path="/notes" />
+          <MenuItem name="Life" path="/life" />
           <MenuItem name="Projects" path="/projects" />
           <MenuItem name="Vibes" path="/vibes" />
           <MenuItem name="Album" path="/album" />

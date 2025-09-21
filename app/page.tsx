@@ -1,12 +1,25 @@
-import { About } from '@/components/layout/about'
-import { Grid } from '@/components/layout/grid'
+import {
+  About,
+  Album,
+  Article,
+  Journal,
+  Snippet,
+} from '@/components/layout/info'
 import { PageLayout } from '@/components/layout/page'
 
 export default function Page() {
   return (
     <PageLayout>
       <About />
-      <Grid />
+      <div
+        className="slide-auto space-y-12"
+        style={{ '--enter-start': '200ms' }}
+      >
+        <Journal />
+        <Article />
+        <Album />
+        <Snippet />
+      </div>
     </PageLayout>
   )
 }

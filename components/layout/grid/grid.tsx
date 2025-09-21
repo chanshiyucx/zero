@@ -1,4 +1,3 @@
-import { Heatmap } from '@/components/ui/heatmap'
 import { AlbumCard } from './album-card'
 import { AnalysisCard } from './analysis-card'
 import { CatCard } from './cat-card'
@@ -12,9 +11,6 @@ import { WakatimeStats } from './wakatime-stats'
 export function Grid() {
   return (
     <div className="slide-auto space-y-3">
-      <div>
-        <Heatmap />
-      </div>
       <div className="grid grid-cols-6 gap-3 max-md:grid-cols-3">
         <div className="col-span-3">
           <CatCard />

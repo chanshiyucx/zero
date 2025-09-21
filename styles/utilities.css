@@ -40,7 +40,7 @@
 }
 
 @utility page {
-  @apply w-full flex-1 space-y-20 py-20 max-md:space-y-12 max-md:py-12;
+  @apply w-full flex-1 space-y-12 py-20 max-md:py-12;
 }
 
 @utility vibes {
@@ -64,7 +64,7 @@
   @apply hover:decoration-current! hover:before:opacity-100;
 
   &::before {
-    @apply absolute top-1/2 -right-1 -translate-y-[1.4em] text-xs opacity-0 transition-all duration-300 content-['┓'];
+    @apply absolute top-1/2 -right-1 -translate-y-[1.6em] text-xs opacity-0 transition-all duration-300 content-['┓'];
   }
 
   &[href^='#'] {

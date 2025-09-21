@@ -1,0 +1,44 @@
+'use client'
+
+import { ArrowBendUpLeftIcon } from '@phosphor-icons/react/dist/ssr'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useMemo } from 'react'
+
+export function Nav() {
+  const pathname = usePathname()
+
+  const backPath = useMemo(() => {
+    const segments = pathname.split('/').filter(Boolean)
+
+    if (segments.length === 0) return null
+
+    const parentHref =
+      segments.length === 1 ? '/' : `/${segments.slice(0, -1).join('/')}`
+
+    let parentName = ''
+    if (parentHref === '/') {
+      parentName = 'Index'
+    } else {
+      const parentKey = parentHref.split('/').pop() as string
+      parentName = parentKey.charAt(0).toUpperCase() + parentKey.slice(1)
+    }
+
+    if (!parentName) return null
+    return { name: parentName, href: parentHref }
+  }, [pathname])
+
+  if (!backPath) {
+    return null
+  }
+
+  return (
+    <Link
+      href={backPath.href}
+      className="sticky top-25 m-0 flex h-0 w-auto -translate-x-36 items-center gap-1 italic"
+    >
+      <ArrowBendUpLeftIcon weight="bold" size="18" />
+      <span className="text-lg font-bold">{backPath.name}</span>
+    </Link>
+  )
+}
