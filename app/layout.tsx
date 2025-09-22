@@ -1,9 +1,8 @@
 import { type Metadata, type Viewport } from 'next'
 import { JetBrains_Mono, Merriweather } from 'next/font/google'
 import { type ReactNode } from 'react'
-import { Footer } from '@/components/layout/footer'
-// import { Header } from '@/components/layout/header'
-import { Helper } from '@/components/ui/helper'
+import { Footer } from '@/components/footer'
+import { Helper } from '@/components/helper'
 import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
@@ -87,10 +86,9 @@ export default function RootLayout({
       className={cn(merriweather.variable, jetbrainsMono.variable)}
     >
       <body>
-        <ThemeProvider defaultTheme="light">
+        <ThemeProvider defaultTheme="system" enableSystem>
           <MotionProvider>
             <VercelProvider>
-              {/* <Header /> */}
               {children}
               <Helper />
               <Footer />

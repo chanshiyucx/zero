@@ -1,8 +1,8 @@
 import { type Album } from 'content-collections'
 import { type Metadata } from 'next'
-import { PageLayout } from '@/components/layout/page'
-import { DateTime } from '@/components/ui/datetime'
-import { MDX } from '@/components/ui/mdx'
+import { DateTime } from '@/components/datetime'
+import { MDX } from '@/components/mdx'
+import { PageLayout } from '@/components/page'
 import { sortedAlbums } from '@/lib/utils/content'
 
 export const metadata: Metadata = {

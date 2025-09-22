@@ -1,5 +1,5 @@
 import { type Metadata } from 'next'
-import { List } from '@/components/ui/list'
+import { List } from '@/components/list'
 import { groupByYear, sortedJournals } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
