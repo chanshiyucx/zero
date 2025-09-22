@@ -9,18 +9,19 @@ export const Theme = {
 }
 
 export function useThemeTransition() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme, resolvedTheme } = useTheme()
 
   const toggleTheme = useCallback(() => {
     transitionViewIfSupported(() => {
       flushSync(() =>
-        setTheme(theme === Theme.Light ? Theme.Dark : Theme.Light),
+        setTheme(resolvedTheme === Theme.Light ? Theme.Dark : Theme.Light),
       )
     })
-  }, [theme, setTheme])
+  }, [resolvedTheme, setTheme])
 
   return {
     theme,
+    resolvedTheme,
     toggleTheme,
   }
 }

@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
-import { PageLayout } from '@/components/layout/page'
-import { Card } from '@/components/ui/card'
-import { Github } from '@/components/ui/github'
+import { Card } from '@/components/card'
+import { Github } from '@/components/github'
+import { PageLayout } from '@/components/page'
 import { getGithubRepositories } from '@/lib/api/github'
 
 export const metadata: Metadata = {
