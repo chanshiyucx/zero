@@ -43,16 +43,6 @@
   @apply w-full flex-1 space-y-12 py-20 max-md:py-12;
 }
 
-@utility menu-button {
-  @apply text-subtle hover:bg-overlay inline-block w-full cursor-pointer rounded-lg px-3 py-2 text-center leading-none font-semibold transition-all duration-300;
-}
-
-@utility tiny-button {
-  @apply text-subtle inline-block cursor-pointer rounded-lg leading-none font-semibold transition-all duration-300;
-  @apply hover:brightness-95;
-  @apply bg-overlay border px-2 py-1;
-}
-
 @utility link {
   @apply relative inline-block w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300;
   @apply hover:decoration-current! hover:before:opacity-100;
@@ -84,24 +74,6 @@
   scrollbar-width: none;
 }
 
-@utility text-shadow {
-  text-shadow: 1px 1px 3px hsl(var(--color-text) / 0.3);
-}
-
-@utility text-normal {
-  font-size: 1rem;
-  line-height: calc(1.5 / 1);
-}
-
-@utility text-2xs {
-  font-size: 0.625rem;
-  line-height: calc(0.75 / 0.625);
-}
-
-@utility photo-view-mask {
-  @apply bg-surface!;
-}
-
 @utility slide-container {
   --enter-start: 0ms;
   --enter-delay: 100ms;
@@ -118,6 +90,10 @@
       var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
     );
   }
+}
+
+@utility photo-view-mask {
+  @apply bg-surface!;
 }
 
 @utility photo-gallery {
