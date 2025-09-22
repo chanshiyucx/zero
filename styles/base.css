@@ -38,10 +38,6 @@
     @apply selection:bg-overlay;
   }
 
-  kbd {
-    @apply bg-overlay text-subtle flex items-center gap-1 rounded-lg px-2 py-1 leading-none font-semibold uppercase transition hover:brightness-95;
-  }
-
   h2,
   h3 {
     @apply scroll-mt-8;
