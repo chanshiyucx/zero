@@ -53,8 +53,8 @@ const DISCUSSION_REPO_ID = 'R_kgDOCP9Avw'
 const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
 const DISCUSSION_LABEL_IDS = {
   article: 'LA_kwDOCP9Av88AAAAB20f9KA',
-  snippet: 'LA_kwDOCP9Av88AAAACK_lFRA',
-  journal: 'LA_kwDOCP9Av88AAAAB20f-sQ',
+  journal: 'LA_kwDOCP9Av88AAAACK_lFRA',
+  snippet: 'LA_kwDOCP9Av88AAAAB20f-sQ',
 }
 
 const headers = new Headers({
