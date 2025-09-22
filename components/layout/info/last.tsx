@@ -1,19 +1,21 @@
 import { type Icon } from '@phosphor-icons/react'
 import {
-  CameraIcon,
   CodepenLogoIcon,
   FlowerTulipIcon,
+  InstagramLogoIcon,
   ScrollIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
+import { Card } from '@/components/ui/card'
 import { DateTime } from '@/components/ui/datetime'
+import { Github } from '@/components/ui/github'
 import { MDX } from '@/components/ui/mdx'
+import { getGithubRepositories } from '@/lib/api/github'
 import {
   sortedAlbums,
   sortedArticles,
   sortedJournals,
   sortedSnippets,
-  sortedVibes,
   type Content,
 } from '@/lib/utils/content'
 
@@ -45,7 +47,7 @@ function List({ title, href, icon: Icon, list }: ListProps) {
               </span>
               <DateTime
                 dateString={content.date}
-                className="text-subtle text-sm"
+                className="text-subtle shrink-0 text-sm"
               />
             </Link>
           </li>
@@ -94,15 +96,6 @@ export function Snippet() {
   )
 }
 
-export function Vibe() {
-  const vibe = sortedVibes[0]
-  return (
-    <section>
-      <MDX key={vibe.title} staggerStart={100} contentCode={vibe.contentCode} />
-    </section>
-  )
-}
-
 export function Album() {
   const album = sortedAlbums[0]
 
@@ -110,7 +103,7 @@ export function Album() {
     <section className="space-y-3">
       <div className="flex justify-between">
         <div className="flex items-center gap-1">
-          <CameraIcon size="18" weight="bold" />
+          <InstagramLogoIcon size="18" weight="bold" />
           <h2 className="font-bold">Album</h2>
         </div>
         <Link className="link link-active text-sm" href="/album">
@@ -118,7 +111,7 @@ export function Album() {
         </Link>
       </div>
       <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
-        <header className="mb-3 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1">
+        <header className="mb-3 flex flex-row items-center justify-between">
           <span className="text-text truncate max-sm:whitespace-normal">
             {album.title}
           </span>
@@ -129,6 +122,36 @@ export function Album() {
         </header>
         <MDX contentCode={album.contentCode} />
       </article>
+    </section>
+  )
+}
+
+export async function Project() {
+  const repositories = await getGithubRepositories()
+  const lastRepositories = repositories.slice(0, 3)
+  return (
+    <section className="space-y-3">
+      <div className="flex justify-between">
+        <div className="flex items-center gap-1">
+          <InstagramLogoIcon size="18" weight="bold" />
+          <h2 className="font-bold">Projects</h2>
+        </div>
+        <Link className="link link-active text-sm" href="/projects">
+          View All
+        </Link>
+      </div>
+      <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+        {lastRepositories.map((repo) => (
+          <li key={repo.name}>
+            <Card>
+              <Github
+                repo={repo}
+                className="bg-surface hover:bg-overlay transition"
+              />
+            </Card>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

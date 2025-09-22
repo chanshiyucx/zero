@@ -4,7 +4,6 @@ import { type IconProps } from '@phosphor-icons/react/dist/lib/types'
 import {
   BriefcaseIcon,
   CameraIcon,
-  GhostIcon,
   MapTrifoldIcon,
   NotebookIcon,
   ScrollIcon,
@@ -87,11 +86,6 @@ const actionGroups: ActionGroup[] = [
         icon: <BriefcaseIcon {...iconProps} />,
         label: 'Projects',
         path: '/projects',
-      },
-      {
-        icon: <GhostIcon {...iconProps} />,
-        label: 'Vibes',
-        path: '/vibes',
       },
       {
         icon: <CameraIcon {...iconProps} />,

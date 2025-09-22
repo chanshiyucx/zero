@@ -176,11 +176,6 @@ const collectionConfigs: CollectionProps[] = [
     directory: 'public/blog/snippet',
     prefixPath: '/snippets',
   },
-  {
-    name: 'vibe',
-    directory: 'public/blog/vibe',
-    prefixPath: '/vibe',
-  },
 ]
 
 const collections = collectionConfigs.map(getCollection)
