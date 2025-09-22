@@ -45,42 +45,16 @@ interface DiscussionResult {
   }
 }
 
-export interface ContributionDay {
-  color: string
-  contributionCount: number
-  date: string
-}
-
-interface ContributionDays {
-  contributionDays: ContributionDay[]
-}
-
-export interface ContributionCalendar {
-  totalContributions: number
-  weeks: ContributionDays[]
-}
-
-interface ContributionResult {
-  data: {
-    viewer: {
-      contributionsCollection: {
-        contributionCalendar: ContributionCalendar
-      }
-    }
-  }
-}
-
 const GITHUB_API = 'https://api.github.com'
 const USERNAME = 'chanshiyucx'
-const CODE_REPO = 'zero'
 
 const DISCUSSION_REPO = 'blog'
 const DISCUSSION_REPO_ID = 'R_kgDOCP9Avw'
 const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
 const DISCUSSION_LABEL_IDS = {
-  post: 'LA_kwDOCP9Av88AAAAB20f9KA',
-  note: 'LA_kwDOCP9Av88AAAAB20f-sQ',
-  leetcode: 'LA_kwDOCP9Av88AAAAB20gAmQ',
+  article: 'LA_kwDOCP9Av88AAAAB20f9KA',
+  snippet: 'LA_kwDOCP9Av88AAAACK_lFRA',
+  journal: 'LA_kwDOCP9Av88AAAAB20f-sQ',
 }
 
 const headers = new Headers({
@@ -90,13 +64,6 @@ const headers = new Headers({
 
 export function getGithubUserData() {
   return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, {
-    headers,
-    next: { revalidate: 3600 },
-  })
-}
-
-export function getGithubRepo() {
-  return fetchData<Repository>(`${GITHUB_API}/repos/${USERNAME}/${CODE_REPO}`, {
     headers,
     next: { revalidate: 3600 },
   })
@@ -208,53 +175,5 @@ export async function createDiscussion(
       throw new Error(`Fetch error: ${error.message}`)
     }
     throw new Error('Failed to create discussion')
-  }
-}
-
-export async function getContribution(
-  from: string,
-  to: string,
-): Promise<ContributionCalendar> {
-  try {
-    const getContributionQuery = `
-      query GetContributions($from: DateTime!, $to: DateTime!) {
-        viewer {
-          contributionsCollection(from: $from, to: $to) {
-            contributionCalendar {
-              totalContributions
-              weeks {
-                contributionDays {
-                  contributionCount
-                  color
-                  date
-                }
-              }
-            }
-          }
-        }
-      }
-    `
-
-    const result = await fetchData<ContributionResult>(
-      `${GITHUB_API}/graphql`,
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          query: getContributionQuery,
-          variables: { from, to },
-        }),
-        next: { revalidate: 3600 * 6 },
-      },
-    )
-    const contributionCalendar =
-      result.data.viewer.contributionsCollection.contributionCalendar
-    return contributionCalendar
-  } catch (error) {
-    if (error instanceof APIError) throw error
-    if (error instanceof Error) {
-      throw new Error(`Fetch error: ${error.message}`)
-    }
-    throw new Error('Failed to get contribution')
   }
 }

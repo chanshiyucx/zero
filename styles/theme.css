@@ -24,13 +24,8 @@
 @theme inline {
   --animate-turn-on: turnOn 600ms ease-in-out;
   --animate-turn-off: turnOff 600ms ease-in-out;
-  --animate-marquee-left: marquee-left var(--duration, 30s) linear infinite;
-  --animate-marquee-up: marquee-up var(--duration, 30s) linear infinite;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
-  --animate-ripple: ripple 3400ms ease infinite;
-  --animate-cat-cycle: cat-cycle 1s steps(var(--cat-steps)) infinite;
-  --animate-wave: wave var(--duration, 10s) linear infinite;
   --animate-svg-text: svg-text 10s var(--delay, 0s) infinite ease-in-out;
 
   @keyframes turnOn {
@@ -51,24 +46,6 @@
     }
   }
 
-  @keyframes marquee-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-100% - var(--gap)));
-    }
-  }
-
-  @keyframes marquee-up {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(calc(-100% - var(--gap)));
-    }
-  }
-
   @keyframes spinner-scale {
     0% {
       transform: scaley(1);
@@ -78,34 +55,6 @@
     }
     100% {
       transform: scaley(1);
-    }
-  }
-
-  @keyframes ripple {
-    0%,
-    100% {
-      transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(0.9);
-    }
-  }
-
-  @keyframes cat-cycle {
-    0% {
-      background-position: center 0;
-    }
-    100% {
-      background-position: center calc(-1 * var(--cat-height));
-    }
-  }
-
-  @keyframes wave {
-    0% {
-      transform: translate(-50%, -75%) rotate(0deg);
-    }
-    100% {
-      transform: translate(-50%, -75%) rotate(360deg);
     }
   }
 

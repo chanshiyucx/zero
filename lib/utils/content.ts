@@ -3,12 +3,10 @@ import {
   allArticles,
   allJournals,
   allSnippets,
-  allVibes,
   type Album,
   type Article,
   type Journal,
   type Snippet,
-  type Vibe,
 } from 'content-collections'
 import dayjs from 'dayjs'
 
@@ -64,8 +62,6 @@ export const sortedArticles: Article[] = sortByDate(allArticles)
 export const sortedJournals: Journal[] = sortByDate(allJournals)
 
 export const sortedSnippets: Snippet[] = sortByDate(allSnippets)
-
-export const sortedVibes: Vibe[] = sortByDate(allVibes)
 
 export const sortedContent: Content[] = sortByDate(content)
 

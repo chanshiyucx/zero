@@ -47,7 +47,6 @@ export function Header() {
           <MenuItem name="Notes" path="/notes" />
           <MenuItem name="Life" path="/life" />
           <MenuItem name="Projects" path="/projects" />
-          <MenuItem name="Vibes" path="/vibes" />
           <MenuItem name="Album" path="/album" />
         </nav>
       </div>

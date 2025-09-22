@@ -25,6 +25,10 @@ export function About() {
         worlds. Growing through creation, following curiosity without apology,
         weaving intention into every detail.
       </p>
+
+      <p>
+        <i>Per aspera ad astra.</i>
+      </p>
     </div>
   )
 }

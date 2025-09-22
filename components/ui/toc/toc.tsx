@@ -1,7 +1,8 @@
 'use client'
 
+import { ListIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { type TocEntry } from '@/lib/mdx/rehype-toc'
 import { debounce } from '@/lib/utils/lodash'
 import { cn } from '@/lib/utils/style'
@@ -33,6 +34,7 @@ export function Toc({ toc, stagger }: TocProps) {
   const lastPathEnd = useRef<number>(0)
   const tocItemsRef = useRef<TocItem[]>([])
   const isSyncScheduled = useRef<boolean>(false)
+  const [progress, setProgress] = useState<number>(0)
 
   useEffect(() => {
     const updateTocItems = () => {
@@ -196,6 +198,24 @@ export function Toc({ toc, stagger }: TocProps) {
     }
   }, [toc])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight
+      if (scrollableHeight > 0) {
+        const scrolled = (window.scrollY / scrollableHeight) * 100
+        setProgress(Math.round(Math.min(100, Math.max(0, scrolled))))
+      } else {
+        setProgress(0)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <aside
       style={{ '--enter-stagger': stagger }}
@@ -203,8 +223,12 @@ export function Toc({ toc, stagger }: TocProps) {
     >
       <nav
         ref={navRef}
-        className="scrollbar-hide sticky top-24 max-h-[60vh] w-64 translate-x-6 -translate-y-1.5 overflow-auto"
+        className="scrollbar-hide sticky top-25 max-h-[60vh] w-64 translate-x-6 -translate-y-1.5 overflow-auto"
       >
+        <div className="text-subtle flex items-center gap-3">
+          <ListIcon weight="bold" />
+          <span className="text-sm">{progress}%</span>
+        </div>
         <ul ref={tocRef} className="toc space-y-2 p-2 pr-4 text-sm">
           {toc.map((item) => (
             <li key={item.id}>
