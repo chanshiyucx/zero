@@ -1,4 +1,4 @@
-const host = 'https://shiyui.vercel.app/'
+const host = 'https://shiyui.vercel.app'
 
 export const siteConfig = {
   host,
