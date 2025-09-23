@@ -1,6 +1,7 @@
 import { type Metadata, type Viewport } from 'next'
 import { JetBrains_Mono, Merriweather } from 'next/font/google'
 import { type ReactNode } from 'react'
+import { Blur } from '@/components/blur'
 import { Footer } from '@/components/footer'
 import { Helper } from '@/components/helper'
 import { siteConfig } from '@/lib/constants/config'
@@ -89,6 +90,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="system" enableSystem>
           <MotionProvider>
             <VercelProvider>
+              <Blur />
               {children}
               <Helper />
               <Footer />
