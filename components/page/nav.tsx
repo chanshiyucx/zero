@@ -35,7 +35,7 @@ export function Nav() {
   return (
     <Link
       href={backPath.href}
-      className="sticky top-25 m-0 flex h-0 w-auto -translate-x-36 items-center gap-1 italic"
+      className="sticky top-25 m-0 flex h-0 w-auto -translate-x-36 items-center gap-1 italic max-lg:relative max-lg:top-0 max-lg:mb-8 max-lg:h-auto max-lg:translate-x-0"
     >
       <ArrowBendUpLeftIcon weight="bold" size="18" />
       <span className="text-lg font-bold">{backPath.name}</span>

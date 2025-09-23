@@ -76,7 +76,7 @@ function Article() {
 
   return (
     <List
-      title="Article"
+      title="Articles"
       href="/articles"
       list={lastArticles}
       icon={ScrollIcon}
@@ -89,7 +89,7 @@ function Snippet() {
 
   return (
     <List
-      title="Snippet"
+      title="Snippets"
       href="/snippets"
       list={lastSnippets}
       icon={CodepenLogoIcon}
@@ -97,7 +97,7 @@ function Snippet() {
   )
 }
 
-function Album() {
+function Gallery() {
   const album = sortedAlbums[0]
 
   return (
@@ -105,9 +105,9 @@ function Album() {
       <div className="flex justify-between">
         <div className="flex items-center gap-1">
           <InstagramLogoIcon size="18" weight="bold" />
-          <h2 className="font-bold">Album</h2>
+          <h2 className="font-bold">Gallery</h2>
         </div>
-        <Link className="link link-active text-sm" href="/album">
+        <Link className="link link-active text-sm" href="/gallery">
           View All
         </Link>
       </div>
@@ -160,7 +160,7 @@ async function Project() {
 export function Last() {
   return (
     <div className="slide-auto space-y-12" style={{ '--enter-start': '300ms' }}>
-      <Album />
+      <Gallery />
       <Journal />
       <Article />
       <Snippet />
