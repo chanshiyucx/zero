@@ -31,7 +31,7 @@ const SignatureBox = ({ animate, className }: SignatureBoxProps) => {
   return (
     <Signature
       ref={svgGroupRef}
-      className={cn('h-auto w-50 drop-shadow-lg max-md:w-40', className)}
+      className={cn('h-auto w-46 drop-shadow-lg max-md:w-36', className)}
     />
   )
 }

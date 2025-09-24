@@ -16,18 +16,20 @@ export function About() {
 
           <p className="mb-0">
             <HandWavingIcon weight="duotone" className="mr-1 inline text-xl" />
-            <span>Hello, I&apos;m Shiyu. A smol nerd with big dreams.</span>
+            <span>Hello, I&apos;m Shiyu. A curious soul with big dreams.</span>
           </p>
         </div>
       </div>
+
       <p>
-        <i>Crafting interfaces.</i> Designing elegant software and immersive web
-        worlds. Growing through creation, following curiosity without apology,
-        weaving intention into every detail.
+        <i>Crafting interfaces.</i> Designing elegant software and immersive
+        digital experiences. Following curiosity relentlessly, weaving intention
+        into every pixel.
       </p>
 
       <p>
-        <i>Per aspera ad astra.</i>
+        <i>Seize the day, gather ye rosebuds while ye may. </i> Sleeping,
+        coding, learning German, chasing light through photography.
       </p>
     </div>
   )

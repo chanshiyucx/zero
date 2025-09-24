@@ -72,7 +72,7 @@ export function getGithubUserData() {
 export async function getGithubRepositories() {
   try {
     const perPage = 100
-    const minStars = 5
+    const minStars = 10
     const { public_repos } = await getGithubUserData()
     const pages = Math.ceil(public_repos / perPage)
 
