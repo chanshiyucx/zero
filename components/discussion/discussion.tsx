@@ -74,7 +74,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       comment on
       <span
         onClick={discuss}
-        className="decoration-muted/40 mx-0.5 cursor-pointer font-mono font-bold underline underline-offset-4"
+        className="decoration-muted/40 mx-0.5 cursor-pointer font-mono font-bold underline underline-offset-2"
       >
         discussions
       </span>

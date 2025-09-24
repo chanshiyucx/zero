@@ -35,7 +35,7 @@ function List({ title, href, icon: Icon, list }: ListProps) {
           <Icon size="18" weight="bold" />
           <h2 className="font-bold">{title}</h2>
         </div>
-        <Link className="link link-active text-sm" href={href}>
+        <Link className="link text-sm" href={href}>
           View All
         </Link>
       </div>
@@ -43,7 +43,7 @@ function List({ title, href, icon: Icon, list }: ListProps) {
         {list.map((content) => (
           <li key={content.slug}>
             <Link className="flex justify-between" href={content.url}>
-              <span className="link text-text truncate max-sm:whitespace-normal">
+              <span className="link link-hover text-text truncate max-sm:whitespace-normal">
                 {content.title}
               </span>
               <DateTime
@@ -107,7 +107,7 @@ function Gallery() {
           <InstagramLogoIcon size="18" weight="bold" />
           <h2 className="font-bold">Gallery</h2>
         </div>
-        <Link className="link link-active text-sm" href="/gallery">
+        <Link className="link text-sm" href="/gallery">
           View All
         </Link>
       </div>
@@ -137,7 +137,7 @@ async function Project() {
           <BriefcaseIcon size="18" weight="bold" />
           <h2 className="font-bold">Projects</h2>
         </div>
-        <Link className="link link-active text-sm" href="/projects">
+        <Link className="link text-sm" href="/projects">
           View All
         </Link>
       </div>

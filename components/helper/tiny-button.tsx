@@ -19,7 +19,7 @@ export function TinyButton({
       aria-label={label}
       onClick={onClick}
       className={cn(
-        'bg-surface cursor-pointer rounded-lg p-2 transition-opacity duration-300',
+        'bg-surface cursor-pointer rounded-md p-2 transition-opacity duration-300',
         show ? 'opacity-100' : 'pointer-events-none opacity-0',
       )}
     >

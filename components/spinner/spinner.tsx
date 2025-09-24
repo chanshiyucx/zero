@@ -22,7 +22,7 @@ const Line = ({ order, size }: LineProps) => {
       style={style}
       className={cn(
         h,
-        'animate-spinner-scale bg-muted inline-block w-1 rounded-lg duration-1000',
+        'animate-spinner-scale bg-muted inline-block w-1 rounded-md duration-1000',
       )}
     />
   )

@@ -56,7 +56,7 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
                     />
                     {extractInfo && renderExtraInfo(extractInfo(article))}
                   </span>
-                  <span className="link text-text truncate max-sm:whitespace-normal">
+                  <span className="link link-hover text-text truncate max-sm:whitespace-normal">
                     {renderTitle ? renderTitle(article) : article.title}
                   </span>
                 </Link>

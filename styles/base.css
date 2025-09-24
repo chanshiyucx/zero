@@ -55,6 +55,15 @@
     }
   }
 
+  code {
+    @apply bg-overlay rounded-md px-1 py-0.5;
+
+    &::before,
+    &::after {
+      @apply content-none!;
+    }
+  }
+
   code[data-theme],
   code[data-theme] span {
     @apply font-medium;
@@ -71,7 +80,7 @@
     p {
       &:first-child::before,
       &:last-child::after {
-        content: none !important;
+        @apply content-none!;
       }
     }
   }
