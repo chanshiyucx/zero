@@ -12,7 +12,7 @@ export function Backward() {
       <CaretRightIcon weight="bold" className="text-sm" />
       <span
         onClick={back}
-        className="decoration-muted/40 cursor-pointer font-mono font-bold underline underline-offset-4"
+        className="decoration-muted/40 cursor-pointer font-mono font-bold underline underline-offset-2"
       >
         cd ..
       </span>

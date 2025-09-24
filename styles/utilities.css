@@ -44,23 +44,22 @@
 }
 
 @utility link {
-  @apply relative inline-block w-fit pr-2 underline decoration-transparent! underline-offset-2 duration-300;
-  @apply hover:decoration-current! hover:before:opacity-100;
+  @apply relative inline-block w-fit pr-2 underline underline-offset-2 duration-300;
 
   &::before {
-    @apply absolute top-1/2 -right-1 -translate-y-[1.6em] text-xs opacity-0 transition-all duration-300 content-['┓'];
+    @apply absolute top-1/2 -right-1 -translate-y-[1.6em] text-xs leading-[inherit] opacity-100 transition-opacity duration-300 content-['┓'];
   }
 
   &[href^='#'] {
     @apply text-text font-bold no-underline hover:before:opacity-100;
     &::before {
-      @apply text-muted top-0 -left-6 translate-none opacity-0 content-['#'];
+      @apply text-subtle top-auto right-auto -translate-x-5 translate-y-0 opacity-0 content-['#'];
       font-size: inherit;
     }
   }
 
-  &.link-active {
-    @apply before:opacity-100;
+  &.link-hover {
+    @apply decoration-transparent before:opacity-0 hover:decoration-current hover:before:opacity-100;
   }
 }
 

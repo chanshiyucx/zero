@@ -324,7 +324,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
       <AnimatePresence>
         {isOpen && isLoading && (
           <m.span
-            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-xl px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
+            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-md px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
             variants={progressVariants}
             transition={transition}
             initial="hidden"
@@ -376,7 +376,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           onAnimationComplete={handleAnimationComplete}
         />
 
-        <span className="bg-overlay absolute inset-0 flex items-center justify-center rounded-lg">
+        <span className="bg-overlay absolute inset-0 flex items-center justify-center rounded-md">
           {!isReady && <Spinner />}
         </span>
       </span>

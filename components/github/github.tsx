@@ -15,7 +15,7 @@ export function Github({ repo, className }: GithubProps) {
   return (
     <div
       className={cn(
-        'bg-overlay flex flex-col justify-between space-y-3 rounded-lg p-3 duration-300',
+        'bg-overlay flex flex-col justify-between space-y-3 rounded-md p-3 duration-300',
         className,
       )}
     >

@@ -20,7 +20,7 @@ function Language({ language }: { language: string }) {
     LanguageMap[language as keyof typeof LanguageMap] ?? language
   ).toUpperCase()
   return (
-    <span className="bg-base absolute right-0 bottom-0 rounded-tl-lg p-2 text-xs leading-none uppercase">
+    <span className="bg-base absolute right-0 bottom-0 rounded-tl-md p-2 text-xs leading-none uppercase">
       {languageText}
     </span>
   )
