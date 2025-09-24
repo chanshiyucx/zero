@@ -19,7 +19,7 @@ function SnippetItem({ snippet }: { snippet: Snippet }) {
         style={{ '--enter-stagger': 1 }}
         className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
       >
-        <Link className="link text-2xl font-bold" href={snippet.url}>
+        <Link className="link link-hover text-2xl font-bold" href={snippet.url}>
           <h2 id={snippet.slug}>{snippet.title}</h2>
         </Link>
         <div className="text-subtle flex shrink-0 text-sm">
