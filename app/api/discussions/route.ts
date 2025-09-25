@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server'
-import { createDiscussion, getDiscussions } from '@/lib/api/github'
+import {
+  createDiscussion,
+  getDiscussions,
+  updateDiscussion,
+} from '@/lib/api/github'
 
 export const runtime = 'edge'
 
@@ -23,11 +27,22 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { title, label } = await request.json()
-    const discussion = await createDiscussion(title, label)
+    const { title, label, body } = await request.json()
+    const discussion = await createDiscussion(title, label, body)
     return NextResponse.json(discussion)
   } catch (error) {
     console.error('Failed to create discussion:', (error as Error)?.message)
+    return NextResponse.json(null, { status: 500 })
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const { discussionId, body } = await request.json()
+    const discussion = await updateDiscussion(discussionId, body)
+    return NextResponse.json(discussion)
+  } catch (error) {
+    console.error('Failed to update discussion:', (error as Error)?.message)
     return NextResponse.json(null, { status: 500 })
   }
 }

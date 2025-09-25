@@ -28,18 +28,28 @@ export interface Repository {
 }
 
 export interface Discussion {
-  id: number
   number: number
+  id: string
+  node_id: string
   title: string
   html_url: string
   url: string
   comments: number
+  body: string
   labels: { name: string }[]
 }
 
-interface DiscussionResult {
+interface CreateDiscussionResult {
   data: {
     createDiscussion: {
+      discussion: Discussion
+    }
+  }
+}
+
+interface UpdateDiscussionResult {
+  data: {
+    updateDiscussion: {
       discussion: Discussion
     }
   }
@@ -104,6 +114,7 @@ export function getDiscussions() {
 export async function createDiscussion(
   title: string,
   label: string,
+  body: string,
 ): Promise<Discussion> {
   try {
     const createDiscussionQuery = `
@@ -119,6 +130,7 @@ export async function createDiscussion(
             number
             title
             url
+            body
           }
         }
       }
@@ -127,20 +139,24 @@ export async function createDiscussion(
     const createDiscussionVariables = {
       repositoryId: DISCUSSION_REPO_ID,
       title: title,
-      body: `# ${title}`,
+      body: body,
       categoryId: DISCUSSION_CATEGORY_ID,
     }
 
-    const result = await fetchData<DiscussionResult>(`${GITHUB_API}/graphql`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: createDiscussionQuery,
-        variables: createDiscussionVariables,
-      }),
-    })
+    const result = await fetchData<CreateDiscussionResult>(
+      `${GITHUB_API}/graphql`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          query: createDiscussionQuery,
+          variables: createDiscussionVariables,
+        }),
+      },
+    )
     const discussion = result.data.createDiscussion.discussion
     discussion.html_url = discussion.url
+    discussion.node_id = discussion.id
     const labelIds =
       DISCUSSION_LABEL_IDS[label as keyof typeof DISCUSSION_LABEL_IDS]
 
@@ -175,5 +191,57 @@ export async function createDiscussion(
       throw new Error(`Fetch error: ${error.message}`)
     }
     throw new Error('Failed to create discussion')
+  }
+}
+
+export async function updateDiscussion(
+  discussionId: string,
+  body: string,
+): Promise<Discussion> {
+  try {
+    const updateDiscussionQuery = `
+      mutation UpdateDiscussion($discussionId: ID!, $body: String!) {
+        updateDiscussion(input: {
+          discussionId: $discussionId,
+          body: $body
+        }) {
+          discussion {
+            id
+            number
+            title
+            url
+            body
+          }
+        }
+      }
+    `
+
+    const updateDiscussionVariables = {
+      discussionId: discussionId,
+      body: body,
+    }
+
+    const result = await fetchData<UpdateDiscussionResult>(
+      `${GITHUB_API}/graphql`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          query: updateDiscussionQuery,
+          variables: updateDiscussionVariables,
+        }),
+      },
+    )
+
+    const discussion = result.data.updateDiscussion.discussion
+    discussion.html_url = discussion.url
+    discussion.node_id = discussion.id
+    return discussion
+  } catch (error: unknown) {
+    if (error instanceof APIError) throw error
+    if (error instanceof Error) {
+      throw new Error(`Fetch error: ${error.message}`)
+    }
+    throw new Error('Failed to update discussion body')
   }
 }
