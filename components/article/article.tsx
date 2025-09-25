@@ -1,7 +1,6 @@
 import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Backward } from '@/components/backward'
 import { DateTime } from '@/components/datetime'
 import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
@@ -112,11 +111,10 @@ export async function Article({
           )}
         </div>
       </article>
-      <div style={{ '--enter-stagger': stagger++ }} className="space-y-2">
+      <div style={{ '--enter-stagger': stagger++ }}>
         {!hideDiscussion && (
           <Discussion label={article.type} title={article.title} />
         )}
-        <Backward />
       </div>
     </PageLayout>
   )

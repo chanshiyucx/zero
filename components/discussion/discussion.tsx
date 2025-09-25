@@ -3,17 +3,35 @@
 import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { useLoading } from '@/hooks/use-loading'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 import { type Discussion as DiscussionType } from '@/lib/api/github'
+import { cn } from '@/lib/utils/style'
 
 interface DiscussionProps {
   label: string
   title: string
 }
 
+const LocalDiscussionKey = 'discussion'
+
+interface LocalDiscussion {
+  [key: string]: number
+}
+
 export function Discussion({ label, title }: DiscussionProps) {
   const [discussion, setDiscussions] = useState<DiscussionType>()
   const [loading, setLoading] = useState(false)
   const [delay, reset] = useLoading(1000)
+  const [like, setLike] = useState(0)
+  const [isLiked, setIsLiked] = useState(false)
+  const [localData, setLocalData] = useLocalStorage<LocalDiscussion>(
+    LocalDiscussionKey,
+    {},
+  )
+
+  useEffect(() => {
+    setIsLiked(Boolean(localData[title]))
+  }, [localData, title])
 
   useEffect(() => {
     const fetchDiscussion = async () => {
@@ -25,6 +43,10 @@ export function Discussion({ label, title }: DiscussionProps) {
         const data: DiscussionType = await response.json()
         if (data) {
           setDiscussions(data)
+
+          const match = data.body.match(/\d+/)
+          if (!match) return
+          setLike(parseInt(match[0], 10))
         }
       } catch (error) {
         console.error('Failed to load discussions:', error)
@@ -41,12 +63,11 @@ export function Discussion({ label, title }: DiscussionProps) {
       reset()
       const response = await fetch('/api/discussions', {
         method: 'POST',
-        body: JSON.stringify({ title, label }),
+        body: JSON.stringify({ title, label, body: 'like: 1' }),
       })
       const data: DiscussionType = await response.json()
       if (data) {
         setDiscussions(data)
-        window.open(data.html_url, '_blank')
       }
     } catch (error) {
       console.error('Failed to create discussion:', error)
@@ -56,29 +77,83 @@ export function Discussion({ label, title }: DiscussionProps) {
     }
   }
 
-  const discuss = () => {
-    if (discussion) {
-      window.open(discussion.html_url, '_blank')
-    } else {
-      createDiscussion()
+  const updateDiscussion = async () => {
+    try {
+      if (loading || !discussion) return
+      setLoading(true)
+      reset()
+      const response = await fetch('/api/discussions', {
+        method: 'PUT',
+        body: JSON.stringify({
+          discussionId: discussion.node_id,
+          body: `like: ${like + 1}`,
+        }),
+      })
+      const data: DiscussionType = await response.json()
+      if (data) {
+        setDiscussions({ ...discussion, ...data })
+      }
+    } catch (error) {
+      console.error('Failed to create discussion:', error)
+    } finally {
+      await delay()
+      setLoading(false)
     }
   }
 
+  const openDiscussion = () => {
+    if (!discussion) return
+    window.open(discussion.html_url, '_blank')
+  }
+
+  const handleDiscuss = async () => {
+    if (!discussion) {
+      await createDiscussion()
+    }
+    openDiscussion()
+  }
+
+  const handleLike = () => {
+    if (isLiked) return
+    if (discussion) {
+      updateDiscussion()
+    } else {
+      createDiscussion()
+    }
+    setLike((v) => v + 1)
+    setIsLiked(true)
+    setLocalData({ ...localData, [title]: 1 })
+  }
+
+  console.log('discussion', discussion)
+
   const comments = discussion?.comments ?? 0
-  const commentText =
-    comments > 0 ? `(${comments} comment${comments > 1 ? 's' : ''})` : ''
 
   return (
-    <div className="text-muted flex items-center justify-start gap-1">
-      <CaretRightIcon weight="bold" className="text-sm" />
-      comment on
-      <span
-        onClick={discuss}
-        className="decoration-muted/40 mx-0.5 cursor-pointer font-mono font-bold underline underline-offset-2"
-      >
-        discussions
-      </span>
-      {commentText}
+    <div className="space-y-2">
+      <div className="text-muted flex items-center gap-1">
+        <CaretRightIcon weight="bold" className="text-sm" />
+        <span className="mr-2">{isLiked ? 'Thanks!' : 'Like this post?'}</span>
+        <span
+          onClick={handleLike}
+          className={cn(
+            'font-bold underline decoration-current/40 underline-offset-2',
+            !isLiked && 'hover:text-rose cursor-pointer',
+          )}
+        >
+          {isLiked ? 'Liked' : 'Sure'}. {like > 0 ? `(${like})` : ''}
+        </span>
+      </div>
+      <div className="text-muted flex items-center gap-1">
+        <CaretRightIcon weight="bold" className="text-sm" />
+        Comment on
+        <span
+          onClick={handleDiscuss}
+          className="hover:text-rose mx-0.5 cursor-pointer font-bold underline decoration-current/40 underline-offset-2"
+        >
+          discussion. {comments > 0 ? `(${comments})` : ''}
+        </span>
+      </div>
     </div>
   )
 }
