@@ -79,7 +79,7 @@
   --enter-stagger: 0;
 
   .slide-auto > * {
-    --enter-stagger: sibling-index();
+    --enter-stagger: min(sibling-index(), 10);
   }
 
   [style*='--enter-stagger'],
