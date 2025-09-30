@@ -222,19 +222,19 @@ export function Toc({ toc, stagger }: TocProps) {
     >
       <nav
         ref={navRef}
-        className="scrollbar-hide sticky top-25 max-h-[60vh] w-64 translate-x-6 -translate-y-1.5 overflow-auto overscroll-contain"
+        className="scrollbar-hide sticky top-25 max-h-[80vh] w-64 translate-x-6 overflow-auto overscroll-contain"
       >
         <div className="text-subtle flex items-center gap-3 px-2">
           <ListIcon weight="bold" />
           <span className="text-sm">{progress}%</span>
         </div>
-        <ul ref={tocRef} className="toc space-y-2 p-2 pr-4 text-sm">
+        <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
           {toc.map((item) => (
             <li key={item.id}>
               <Link
                 href={`#${item.id}`}
                 className={cn(
-                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted inline-block underline underline-offset-2 duration-300',
+                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted flex h-8 items-center underline underline-offset-2 duration-300',
                   getIndent(item.depth),
                 )}
               >
