@@ -234,7 +234,7 @@ export function Toc({ toc, stagger }: TocProps) {
               <Link
                 href={`#${item.id}`}
                 className={cn(
-                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted flex h-8 items-center underline underline-offset-2 duration-300',
+                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted flex h-7 items-center underline underline-offset-2 duration-300',
                   getIndent(item.depth),
                 )}
               >
