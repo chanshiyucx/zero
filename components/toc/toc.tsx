@@ -222,7 +222,7 @@ export function Toc({ toc, stagger }: TocProps) {
     >
       <nav
         ref={navRef}
-        className="scrollbar-hide sticky top-25 max-h-[80vh] w-64 translate-x-6 overflow-auto overscroll-contain"
+        className="scrollbar-hide sticky top-25 max-h-[80vh] w-72 translate-x-6 overflow-auto overscroll-contain"
       >
         <div className="text-subtle flex items-center gap-3 px-2">
           <ListIcon weight="bold" />
