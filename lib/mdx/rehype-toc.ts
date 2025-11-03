@@ -8,14 +8,19 @@ interface Options {
   headings?: string[]
 }
 
-export interface TocEntry {
+export type TocEntry = {
   id: string
   title: string
   depth: number
 }
 
 interface MetaWithToc extends Meta {
-  toc: TocEntry[]
+  toc?: TocEntry[]
+}
+
+export const getToc = (meta: Meta): TocEntry[] => {
+  const maybe = meta as MetaWithToc
+  return Array.isArray(maybe.toc) ? maybe.toc : []
 }
 
 export const rehypeToc: Plugin<[Options?], Root> = (options = {}) => {

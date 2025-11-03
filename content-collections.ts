@@ -18,6 +18,7 @@ import { unified, type Pluggable } from 'unified'
 import { z } from 'zod'
 import { isProd } from '@/lib/utils/env'
 import {
+  getToc,
   rehypeAudio,
   rehypeCallout,
   rehypeCode,
@@ -135,11 +136,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         ? String(await mdxToHtmlProcessor.process(document.content))
         : ''
 
-      // @ts-expect-error: toc injected at runtime and is not typed in Meta
-      // lib/mdx/rehype-toc.ts
-      // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
-      const toc = document._meta?.toc ?? []
-      // console.log('toc:', toc)
+      const toc = getToc(document._meta)
 
       return {
         ...document,
