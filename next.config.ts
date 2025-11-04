@@ -12,8 +12,8 @@ let nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
+  rewrites() {
+    return Promise.resolve([
       {
         source: '/rss',
         destination: '/feed.xml',
@@ -30,7 +30,7 @@ let nextConfig: NextConfig = {
         source: '/sitemap',
         destination: '/sitemap.xml',
       },
-    ]
+    ])
   },
 }
 

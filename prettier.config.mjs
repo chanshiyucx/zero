@@ -11,6 +11,7 @@ const config = {
     '@ianvs/prettier-plugin-sort-imports',
     'prettier-plugin-tailwindcss',
   ],
+  tailwindStylesheet: './styles/tailwindcss.css',
   pluginSearchDirs: false,
   importOrder: [
     '<BUILTIN_MODULES>',

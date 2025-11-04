@@ -113,7 +113,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       tags: z.string().array(),
       description: z.string().optional(),
       priority: z.number().default(0),
-      level: z.enum(['Easy', 'Medium', 'Hard']).optional(), // Only for leetcode
+      content: z.string(),
     }),
     transform: async (document, context) => {
       const title = document.title
