@@ -39,7 +39,7 @@ export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
         node.properties.height = 200
       } else {
         // Wiki image
-        const imageSrc = path.join('/blog/tech/', node.properties.src)
+        const imageSrc = path.join('/blog/article/', node.properties.src)
         node.properties.src = imageSrc
         imageNodes.push(node)
       }
@@ -52,7 +52,7 @@ export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
       if (!match) return
       // Only wiki image can be executed here.
       const imageName = match[1]
-      const imageSrc = path.join('/blog/tech/static/', imageName)
+      const imageSrc = path.join('/blog/article/static/', imageName)
       const alt = path
         .basename(imageName, path.extname(imageName))
         .replace(/-/g, ' ')
