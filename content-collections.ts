@@ -94,10 +94,12 @@ const getCollection = <T extends string>({
   name,
   directory,
   prefixPath,
+  compileDescription = false,
 }: {
   name: T
   directory: string
   prefixPath: string
+  compileDescription?: boolean
 }) =>
   defineCollection({
     name,
@@ -121,11 +123,13 @@ const getCollection = <T extends string>({
       const title = document.title
       const description =
         document.description ?? extractDescription(document.content)
-      const descriptionCode = await compileMDX(
-        context,
-        { ...document, content: description },
-        options,
-      )
+      const descriptionCode = compileDescription
+        ? await compileMDX(
+            context,
+            { ...document, content: description },
+            options,
+          )
+        : ''
 
       const match = /^(\d+)-(.+)\.md$/.exec(document._meta.fileName)!
       const [, no] = match
@@ -182,6 +186,7 @@ const collections = [
     name: 'snippet',
     directory: 'public/blog/snippet',
     prefixPath: '/snippets',
+    compileDescription: true,
   }),
 ]
 
