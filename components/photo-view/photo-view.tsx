@@ -372,7 +372,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           animate={animate}
           onLoad={() => setIsReady(true)}
           onError={() => setIsReady(false)}
-          onClick={handleImageClick}
+          onClick={() => void handleImageClick()}
           onAnimationComplete={handleAnimationComplete}
         />
 

@@ -1,7 +1,7 @@
 import path from 'path'
-import { type Element, type Root } from 'hast'
+import type { Element, Root } from 'hast'
 import { imageSizeFromFile } from 'image-size/fromFile'
-import { type Plugin } from 'unified'
+import type { Plugin } from 'unified'
 import { SKIP, visit } from 'unist-util-visit'
 
 interface Options {
@@ -48,10 +48,11 @@ export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
     // Wiki image will be recognized as text
     visit(tree, 'text', (node, index, parent) => {
       if (!parent || typeof index !== 'number') return
-      const match = node.value.match(/^!\[\[(.+?)\]\]$/)
+      const match = /^!\[\[(.+?)\]\]$/.exec(node.value)
       if (!match) return
       // Only wiki image can be executed here.
       const imageName = match[1]
+      if (!imageName) return
       const imageSrc = path.join('/blog/article/static/', imageName)
       const alt = path
         .basename(imageName, path.extname(imageName))

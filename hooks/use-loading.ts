@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-export function useLoading(duration: number = 1000) {
+export function useLoading(duration = 1000) {
   if (duration < 0) {
     console.warn('useLoading: duration should not be negative')
     duration = 0
@@ -19,5 +19,5 @@ export function useLoading(duration: number = 1000) {
     startTimeRef.current = Date.now()
   }
 
-  return [delay, reset]
+  return [delay, reset] as const
 }

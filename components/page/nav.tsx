@@ -20,7 +20,7 @@ export function Nav() {
     if (parentHref === '/') {
       parentName = 'Index'
     } else {
-      const parentKey = parentHref.split('/').pop() as string
+      const parentKey = parentHref.split('/').pop()!
       parentName = parentKey.charAt(0).toUpperCase() + parentKey.slice(1)
     }
 

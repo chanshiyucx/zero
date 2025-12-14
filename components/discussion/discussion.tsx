@@ -14,17 +14,13 @@ interface DiscussionProps {
 
 const LocalDiscussionKey = 'discussion'
 
-interface LocalDiscussion {
-  [key: string]: number
-}
-
 export function Discussion({ label, title }: DiscussionProps) {
   const [discussion, setDiscussions] = useState<DiscussionType>()
   const [loading, setLoading] = useState(false)
   const [delay, reset] = useLoading(1000)
   const [like, setLike] = useState(0)
   const [isLiked, setIsLiked] = useState(false)
-  const [localData, setLocalData] = useLocalStorage<LocalDiscussion>(
+  const [localData, setLocalData] = useLocalStorage<Record<string, number>>(
     LocalDiscussionKey,
     {},
   )
@@ -40,11 +36,11 @@ export function Discussion({ label, title }: DiscussionProps) {
         const response = await fetch(
           `/api/discussions?title=${title}&label=${label}`,
         )
-        const data: DiscussionType = await response.json()
+        const data = (await response.json()) as DiscussionType
         if (data) {
           setDiscussions(data)
 
-          const match = data.body.match(/\d+/)
+          const match = /\d+/.exec(data.body)
           if (!match) return
           setLike(parseInt(match[0], 10))
         }
@@ -53,7 +49,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       }
     }
 
-    fetchDiscussion()
+    fetchDiscussion().catch(console.error)
   }, [label, title])
 
   const createDiscussion = async () => {
@@ -65,7 +61,7 @@ export function Discussion({ label, title }: DiscussionProps) {
         method: 'POST',
         body: JSON.stringify({ title, label, body: 'like: 1' }),
       })
-      const data: DiscussionType = await response.json()
+      const data = (await response.json()) as DiscussionType
       if (data) {
         setDiscussions(data)
       }
@@ -89,7 +85,7 @@ export function Discussion({ label, title }: DiscussionProps) {
           body: `like: ${like + 1}`,
         }),
       })
-      const data: DiscussionType = await response.json()
+      const data = (await response.json()) as DiscussionType
       if (data) {
         setDiscussions({ ...discussion, ...data })
       }
@@ -116,9 +112,9 @@ export function Discussion({ label, title }: DiscussionProps) {
   const handleLike = () => {
     if (isLiked) return
     if (discussion) {
-      updateDiscussion()
+      updateDiscussion().catch(console.error)
     } else {
-      createDiscussion()
+      createDiscussion().catch(console.error)
     }
     setLike((v) => v + 1)
     setIsLiked(true)
@@ -148,7 +144,7 @@ export function Discussion({ label, title }: DiscussionProps) {
         <CaretRightIcon weight="bold" className="text-sm" />
         Comment on
         <span
-          onClick={handleDiscuss}
+          onClick={() => void handleDiscuss()}
           className="hover:text-rose mx-0.5 cursor-pointer font-bold underline decoration-current/40 underline-offset-2"
         >
           discussion. {comments > 0 ? `(${comments})` : ''}

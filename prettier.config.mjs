@@ -1,3 +1,4 @@
+/** @type {import("prettier").Config} */
 const config = {
   printWidth: 80,
   useTabs: false,
@@ -11,7 +12,7 @@ const config = {
     '@ianvs/prettier-plugin-sort-imports',
     'prettier-plugin-tailwindcss',
   ],
-  pluginSearchDirs: false,
+
   importOrder: [
     '<BUILTIN_MODULES>',
     '<THIRD_PARTY_MODULES>',
@@ -25,8 +26,7 @@ const config = {
     'decorators-legacy',
   ],
   importOrderTypeScriptVersion: '5.0.0',
-  importOrderCombineTypeAndValueImports: true,
-  tailwindFunctions: ['clsx'],
+  tailwindFunctions: ['clsx', 'cn'],
 }
 
 export default config

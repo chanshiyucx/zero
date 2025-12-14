@@ -3,7 +3,7 @@ import { findContentBySlug } from '@/lib/utils/content'
 
 export const revalidate = false
 
-export async function GET(request: Request) {
+export function GET(request: Request) {
   try {
     const searchParams = new URL(request.url).searchParams
     const slug = searchParams.get('slug')

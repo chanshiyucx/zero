@@ -26,12 +26,6 @@ import {
   rehypeToc,
 } from './lib/mdx'
 
-interface CollectionProps {
-  name: string
-  directory: string
-  prefixPath: string
-}
-
 const slugger = new GithubSlugger()
 
 const remarkPlugins: Pluggable[] = [remarkGfm, remarkBreaks, remarkMath]
@@ -96,13 +90,21 @@ const extractDescription = (content: string): string => {
   return ''
 }
 
-const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
+const getCollection = <T extends string>({
+  name,
+  directory,
+  prefixPath,
+}: {
+  name: T
+  directory: string
+  prefixPath: string
+}) =>
   defineCollection({
     name,
     directory,
     include: '**/*.md',
     schema: z.object({
-      type: z.string().default(name),
+      type: z.literal(name).default(name),
       title: z.string(),
       date: z
         .string()
@@ -113,6 +115,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
       description: z.string().optional(),
       priority: z.number().default(0),
       level: z.enum(['Easy', 'Medium', 'Hard']).optional(), // Only for leetcode
+      content: z.string(),
     }),
     transform: async (document, context) => {
       const title = document.title
@@ -124,7 +127,7 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         options,
       )
 
-      const match = document._meta.fileName.match(/^(\d+)-(.+)\.md$/)!
+      const match = /^(\d+)-(.+)\.md$/.exec(document._meta.fileName)!
       const [, no] = match
       const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
@@ -135,10 +138,14 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
         ? String(await mdxToHtmlProcessor.process(document.content))
         : ''
 
-      // @ts-expect-error: toc injected at runtime and is not typed in Meta
       // lib/mdx/rehype-toc.ts
       // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
-      const toc = document._meta?.toc ?? []
+      const toc =
+        (
+          document._meta as {
+            toc?: { id: string; title: string; depth: number }[]
+          }
+        ).toc ?? []
       // console.log('toc:', toc)
 
       return {
@@ -155,30 +162,28 @@ const getCollection = ({ name, directory, prefixPath }: CollectionProps) =>
     },
   })
 
-const collectionConfigs: CollectionProps[] = [
-  {
+const collections = [
+  getCollection({
     name: 'album',
     directory: 'public/blog/album',
     prefixPath: '/album',
-  },
-  {
+  }),
+  getCollection({
     name: 'article',
     directory: 'public/blog/article',
     prefixPath: '/articles',
-  },
-  {
+  }),
+  getCollection({
     name: 'journal',
     directory: 'public/blog/journal',
     prefixPath: '/journal',
-  },
-  {
+  }),
+  getCollection({
     name: 'snippet',
     directory: 'public/blog/snippet',
     prefixPath: '/snippets',
-  },
+  }),
 ]
-
-const collections = collectionConfigs.map(getCollection)
 
 export default defineConfig({
   collections,

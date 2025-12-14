@@ -18,7 +18,7 @@ export async function GET(
   if (!response.ok) {
     return new Response('Failed to fetch article metadata', { status: 500 })
   }
-  const meta: { title: string } | null = await response.json()
+  const meta = (await response.json()) as { title: string } | null
   const title = meta?.title ?? siteConfig.metadata.title
 
   const fontData = await fetch(getAbsoluteUrl('/assets/merriweather.ttf')).then(
@@ -27,50 +27,47 @@ export async function GET(
 
   try {
     return new ImageResponse(
-      (
+      <div
+        style={{
+          position: 'relative',
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          padding: '20px 40px',
+          backgroundImage: 'linear-gradient(to bottom right, #f6c177, #eb6f92)',
+        }}
+      >
         <div
           style={{
-            position: 'relative',
-            height: '100%',
-            width: '100%',
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            justifyContent: 'flex-start',
-            padding: '20px 40px',
-            backgroundImage:
-              'linear-gradient(to bottom right, #f6c177, #eb6f92)',
+            paddingTop: '50px',
+            paddingBottom: '70px',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingTop: '50px',
-              paddingBottom: '70px',
-            }}
-          >
-            <Signature stroke="#b4637a" fill="#ea9d34" strokeWidth="3px" />
-          </div>
-          <div
-            style={{
-              color: 'white',
-              fontSize: '72px',
-              lineHeight: 1.2,
-              textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              letterSpacing: -2,
-              fontWeight: 700,
-            }}
-          >
-            {title}
-          </div>
+          <Signature stroke="#b4637a" fill="#ea9d34" strokeWidth="3px" />
         </div>
-      ),
+        <div
+          style={{
+            color: 'white',
+            fontSize: '72px',
+            lineHeight: 1.2,
+            textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            letterSpacing: -2,
+            fontWeight: 700,
+          }}
+        >
+          {title}
+        </div>
+      </div>,
       {
         width: 1200,
         height: 630,
