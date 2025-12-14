@@ -22,8 +22,9 @@ export const rehypeCode: Plugin<[], Root> = () => {
 
       node.properties = node.properties || {}
       node.properties.raw = codeEl.children[0].value
-      const className = codeEl.properties?.className as string[]
-      node.properties['data-language'] = className[0]?.split('-')[1]
+      const className = codeEl.properties?.className as string[] | undefined
+      const language = className?.[0]?.split('-')[1] ?? 'text'
+      node.properties['data-language'] = language
     })
 
     // replace &nbsp with space
