@@ -1,0 +1,76 @@
+ WARN  Unsupported engine: wanted: {"node":">=24.0.0"} (current: {"node":"v22.11.0","pnpm":"10.14.0"})
+
+> zero@2.0.0 lint /Users/xin/Developer/zero
+> eslint .
+
+
+/Users/xin/Developer/zero/app/api/content/route.ts
+  6:8  error  Async function 'GET' has no 'await' expression  @typescript-eslint/require-await
+
+/Users/xin/Developer/zero/app/api/discussions/route.ts
+  30:11  error  Unsafe assignment of an `any` value                                     @typescript-eslint/no-unsafe-assignment
+  31:47  error  Unsafe argument of type `any` assigned to a parameter of type `string`  @typescript-eslint/no-unsafe-argument
+  31:54  error  Unsafe argument of type `any` assigned to a parameter of type `string`  @typescript-eslint/no-unsafe-argument
+  31:61  error  Unsafe argument of type `any` assigned to a parameter of type `string`  @typescript-eslint/no-unsafe-argument
+  41:11  error  Unsafe assignment of an `any` value                                     @typescript-eslint/no-unsafe-assignment
+  42:47  error  Unsafe argument of type `any` assigned to a parameter of type `string`  @typescript-eslint/no-unsafe-argument
+  42:61  error  Unsafe argument of type `any` assigned to a parameter of type `string`  @typescript-eslint/no-unsafe-argument
+
+/Users/xin/Developer/zero/app/og/[slug]/route.tsx
+  21:9  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/Users/xin/Developer/zero/components/audio-player/audio-player.tsx
+  145:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  230:11  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  324:21  error  Promise-returning function provided to attribute where a void return was expected                                                                                   @typescript-eslint/no-misused-promises
+
+/Users/xin/Developer/zero/components/discussion/discussion.tsx
+   17:1   error  A record is preferred over an index signature                                                                                                                       @typescript-eslint/consistent-indexed-object-style
+   43:15  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+   47:35  error  Use the `RegExp#exec()` method instead                                                                                                                              @typescript-eslint/prefer-regexp-exec
+   56:5   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+   68:13  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+   92:13  error  Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  119:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  121:7   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  151:19  error  Promise-returning function provided to attribute where a void return was expected                                                                                   @typescript-eslint/no-misused-promises
+
+/Users/xin/Developer/zero/components/mdx/copy-button.tsx
+  14:15  error  Promise-returning function provided to attribute where a void return was expected  @typescript-eslint/no-misused-promises
+
+/Users/xin/Developer/zero/components/page/nav.tsx
+  23:25  error  Use a ! assertion to more succinctly remove null and undefined from the type  @typescript-eslint/non-nullable-type-assertion-style
+
+/Users/xin/Developer/zero/components/photo-view/photo-view.tsx
+  375:19  error  Promise-returning function provided to attribute where a void return was expected  @typescript-eslint/no-misused-promises
+
+/Users/xin/Developer/zero/components/toc/toc.tsx
+   62:51  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  142:49  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+  143:45  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator  @typescript-eslint/prefer-nullish-coalescing
+
+/Users/xin/Developer/zero/hooks/use-loading.ts
+  3:28  error  Type number trivially inferred from a number literal, remove type annotation  @typescript-eslint/no-inferrable-types
+
+/Users/xin/Developer/zero/hooks/use-local-storage.ts
+  23:7  error  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+
+/Users/xin/Developer/zero/lib/api/fetch.ts
+  35:5  error  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+
+/Users/xin/Developer/zero/lib/utils/dom.ts
+  33:5  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+  35:5  error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/xin/Developer/zero/lib/utils/helper.ts
+  7:36  error  Type number trivially inferred from a number literal, remove type annotation  @typescript-eslint/no-inferrable-types
+
+/Users/xin/Developer/zero/scripts/sync-blog.ts
+  12:60  error  Unsafe argument of type `any` assigned to a parameter of type `string | Uint8Array<ArrayBufferLike>`                                                                @typescript-eslint/no-unsafe-argument
+  14:60  error  Unsafe argument of type `any` assigned to a parameter of type `string | Uint8Array<ArrayBufferLike>`                                                                @typescript-eslint/no-unsafe-argument
+  35:1   error  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+✖ 36 problems (36 errors, 0 warnings)
+  5 errors and 0 warnings potentially fixable with the `--fix` option.
+
+ ELIFECYCLE  Command failed with exit code 1.

@@ -27,7 +27,11 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { title, label, body } = await request.json()
+    const { title, label, body } = (await request.json()) as {
+      title: string
+      label: string
+      body: string
+    }
     const discussion = await createDiscussion(title, label, body)
     return NextResponse.json(discussion)
   } catch (error) {
@@ -38,7 +42,10 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { discussionId, body } = await request.json()
+    const { discussionId, body } = (await request.json()) as {
+      discussionId: string
+      body: string
+    }
     const discussion = await updateDiscussion(discussionId, body)
     return NextResponse.json(discussion)
   } catch (error) {

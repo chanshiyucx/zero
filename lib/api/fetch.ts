@@ -32,7 +32,7 @@ export async function fetchData<T>(
       throw new APIError(response.status, response.statusText)
     }
 
-    return await response.json()
+    return (await response.json()) as T
   } catch (error: unknown) {
     if (error instanceof APIError) throw error
     if (error instanceof Error) {

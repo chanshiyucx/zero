@@ -41,9 +41,7 @@ export const groupByYear = (items: Content[]): ContentGroup[] => {
 
   items.forEach((item) => {
     const year = dayjs(item.date).year()
-    if (!groups[year]) {
-      groups[year] = []
-    }
+    groups[year] ??= []
     groups[year].push(item)
   })
 

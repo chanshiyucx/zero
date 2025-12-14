@@ -1,5 +1,5 @@
-import { type Element, type Root } from 'hast'
-import { type Plugin } from 'unified'
+import type { Element, Root } from 'hast'
+import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 interface CodeElement extends Element {
@@ -11,14 +11,14 @@ const isCodeElement = (node: Element): node is CodeElement =>
   node.tagName === 'code' &&
   Array.isArray(node.children) &&
   node.children.length === 1 &&
-  node.children[0].type === 'text'
+  node.children[0]?.type === 'text'
 
 export const rehypeCode: Plugin<[], Root> = () => {
   return (tree) => {
     // code copy support
     visit(tree, { type: 'element', tagName: 'pre' }, (node: Element) => {
       const [codeEl] = node.children as Element[]
-      if (!isCodeElement(codeEl)) return
+      if (!codeEl || !isCodeElement(codeEl)) return
 
       node.properties = node.properties || {}
       node.properties.raw = codeEl.children[0].value

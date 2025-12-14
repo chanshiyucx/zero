@@ -14,7 +14,7 @@ export function generateFeed() {
     favicon: `${siteConfig.host}/icon.svg`,
     image: `${siteConfig.host}/icon.svg`,
     copyright: `All rights reserved ${date.getFullYear()}, Chanshiyu.`,
-    updated: list.length > 0 ? new Date(list[0].date) : date,
+    updated: list[0] ? new Date(list[0].date) : date,
     docs: siteConfig.links.repo,
     feedLinks: {
       rss2: `${siteConfig.host}/feed`,

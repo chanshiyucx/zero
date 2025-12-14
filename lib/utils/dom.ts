@@ -30,8 +30,8 @@ export const getIsMobile = (breakpoint = 768): boolean => {
 
 export const toggleFullscreen = () => {
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen?.()
+    document.documentElement.requestFullscreen?.().catch(console.error)
   } else {
-    document.exitFullscreen?.()
+    document.exitFullscreen?.().catch(console.error)
   }
 }

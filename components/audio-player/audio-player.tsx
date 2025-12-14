@@ -142,7 +142,7 @@ function Player({ src }: AudioPlayerProps) {
       }
     }
 
-    fetchMetadata()
+    fetchMetadata().catch(console.error)
 
     return () => {
       controller.abort()
@@ -227,7 +227,7 @@ function Player({ src }: AudioPlayerProps) {
           handleForward()
           break
         case 'ArrowUp':
-          togglePlayPause()
+          togglePlayPause().catch(console.error)
           break
         case 'ArrowDown':
           toggleRepeat()
@@ -321,7 +321,7 @@ function Player({ src }: AudioPlayerProps) {
           </button>
 
           <button
-            onClick={togglePlayPause}
+            onClick={() => void togglePlayPause()}
             className="player-button"
             disabled={isLoading}
             aria-label={isPlaying ? 'Pause' : 'Play'}

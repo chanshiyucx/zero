@@ -1,6 +1,6 @@
-import { type Element, type Root } from 'hast'
-import { type MdxJsxAttribute } from 'mdast-util-mdx'
-import { type Plugin } from 'unified'
+import type { Element, Root } from 'hast'
+import type { MdxJsxAttribute } from 'mdast-util-mdx'
+import type { Plugin } from 'unified'
 import { SKIP, visit } from 'unist-util-visit'
 
 export const rehypeAudio: Plugin<[], Root> = () => {

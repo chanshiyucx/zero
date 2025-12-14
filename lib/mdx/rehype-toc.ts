@@ -1,7 +1,7 @@
 import { type Meta } from '@content-collections/core'
-import { type Element, type Root } from 'hast'
+import type { Element, Root } from 'hast'
 import { toString } from 'hast-util-to-string'
-import { type Plugin } from 'unified'
+import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 interface Options {

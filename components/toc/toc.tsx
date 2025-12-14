@@ -59,7 +59,7 @@ export function Toc({ toc, stagger }: TocProps) {
           const anchor = item.querySelector('a')
           if (!anchor) return null
           const target = document.getElementById(
-            anchor.getAttribute('href')?.slice(1) || '',
+            anchor.getAttribute('href')?.slice(1) ?? '',
           )
           if (!target) return null
 
@@ -127,7 +127,7 @@ export function Toc({ toc, stagger }: TocProps) {
 
           let nextTarget = null
           if (index < tocItemsRef.current.length - 1) {
-            nextTarget = tocItemsRef.current[index + 1].target
+            nextTarget = tocItemsRef.current[index + 1]?.target ?? null
           }
 
           const contentBottom = nextTarget
@@ -139,8 +139,8 @@ export function Toc({ toc, stagger }: TocProps) {
             contentBottom > margin &&
             targetBounds.top < windowHeight - margin
           ) {
-            pathStart = Math.min(item.pathStart || 0, pathStart)
-            pathEnd = Math.max(item.pathEnd || 0, pathEnd)
+            pathStart = Math.min(item.pathStart ?? 0, pathStart)
+            pathEnd = Math.max(item.pathEnd ?? 0, pathEnd)
             visibleItems += 1
             item.listItem.classList.add('visible')
 

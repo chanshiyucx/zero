@@ -9,9 +9,9 @@ const runBashCommand = (command: string) =>
     console.log(`Run bash command: ${command}`)
     const child = spawn(command, [], { shell: true })
     child.stdout.setEncoding('utf8')
-    child.stdout.on('data', (data) => process.stdout.write(data))
+    child.stdout.on('data', (data: string) => process.stdout.write(data))
     child.stderr.setEncoding('utf8')
-    child.stderr.on('data', (data) => process.stderr.write(data))
+    child.stderr.on('data', (data: string) => process.stderr.write(data))
     child.on('close', function (code) {
       if (code === 0) {
         resolve(void 0)
@@ -32,4 +32,4 @@ export async function syncBlogFromGit() {
   }
 }
 
-syncBlogFromGit()
+syncBlogFromGit().catch(console.error)

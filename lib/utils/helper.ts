@@ -4,7 +4,7 @@ export const delay = (time: number): Promise<void> =>
 export const random = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min
 
-export const createSeededRandom = (initialSeed: number = 1) => {
+export const createSeededRandom = (initialSeed = 1) => {
   let seed = initialSeed
   return () => {
     const x = Math.sin(seed++) * 10000
@@ -20,7 +20,9 @@ export const shuffle = <T>(arr: T[]): T[] => {
   let j
   while (i) {
     j = Math.floor(Math.random() * i--)
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+    const temp = arr[i]!
+    arr[i] = arr[j]!
+    arr[j] = temp
   }
   return arr
 }

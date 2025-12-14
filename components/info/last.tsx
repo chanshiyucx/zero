@@ -101,6 +101,8 @@ function Snippet() {
 function Gallery() {
   const album = sortedAlbums[0]
 
+  if (!album) return null
+
   return (
     <section className="space-y-3">
       <div className="flex justify-between">
