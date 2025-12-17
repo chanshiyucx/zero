@@ -26,11 +26,15 @@ import {
   rehypeToc,
 } from './lib/mdx'
 
+const HTML_TAG_REGEX = /<[^>]*>/g
+const PARAGRAPH_SPLIT_REGEX = /\r?\n\s*\r?\n/
+const FILENAME_REGEX = /^(\d+)-(.+)\.md$/
+
 const slugger = new GithubSlugger()
 
 const remarkPlugins: Pluggable[] = [remarkGfm, remarkBreaks, remarkMath]
 
-const rehypePlugins: Pluggable[] = [
+const getRehypePlugins = (contentType: string): Pluggable[] => [
   rehypeSlug,
   [rehypeKatex, { output: 'html' }],
   [rehypeAutolinkHeadings, { behavior: 'wrap' }],
@@ -48,43 +52,45 @@ const rehypePlugins: Pluggable[] = [
       },
     },
   ],
-  [rehypeImageSize, { root: 'public' }],
+  [rehypeImageSize, { root: 'public', contentType }],
   rehypeImageGallery,
   rehypeAudio,
   rehypeCallout,
   rehypeToc,
 ]
 
-const options: Options = {
-  remarkPlugins,
-  rehypePlugins,
+// Cache options to avoid repeated plugin array creation
+const optionsCache = new Map<string, Options>()
+
+const getOptions = (contentType: string): Options => {
+  if (!optionsCache.has(contentType)) {
+    optionsCache.set(contentType, {
+      remarkPlugins,
+      rehypePlugins: getRehypePlugins(contentType),
+    })
+  }
+  return optionsCache.get(contentType)!
 }
 
-const mdxToHtmlProcessor = unified()
-  .use(remarkParse)
-  .use(remarkPlugins)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypePlugins.filter((p) => p !== rehypeToc))
-  .use(rehypeStringify, { allowDangerousHtml: true })
+const getMdxToHtmlProcessor = (contentType: string) =>
+  unified()
+    .use(remarkParse)
+    .use(remarkPlugins)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(getRehypePlugins(contentType).filter((p) => p !== rehypeToc))
+    .use(rehypeStringify, { allowDangerousHtml: true })
 
-const stripHtml = (html: string): string => html.replace(/<[^>]*>/g, '')
+const stripHtml = (html: string): string => html.replace(HTML_TAG_REGEX, '')
 
 const extractDescription = (content: string): string => {
-  const paragraphs = content
-    .trim()
-    .split(/\r?\n\s*\r?\n/)
-    .filter(Boolean)
+  const paragraphs = content.trim().split(PARAGRAPH_SPLIT_REGEX).filter(Boolean)
 
   for (const p of paragraphs) {
     const trimmedParagraph = p.trim()
-    if (trimmedParagraph.startsWith('#')) {
-      continue
-    }
+    if (trimmedParagraph.startsWith('#')) continue
 
     const textContent = stripHtml(trimmedParagraph).trim()
-    if (textContent) {
-      return textContent
-    }
+    if (textContent) return textContent
   }
 
   return ''
@@ -116,13 +122,13 @@ const getCollection = <T extends string>({
       tags: z.string().array(),
       description: z.string().optional(),
       priority: z.number().default(0),
-      level: z.enum(['Easy', 'Medium', 'Hard']).optional(), // Only for leetcode
       content: z.string(),
     }),
     transform: async (document, context) => {
       const title = document.title
       const description =
         document.description ?? extractDescription(document.content)
+      const options = getOptions(name)
       const descriptionCode = compileDescription
         ? await compileMDX(
             context,
@@ -131,19 +137,23 @@ const getCollection = <T extends string>({
           )
         : ''
 
-      const match = /^(\d+)-(.+)\.md$/.exec(document._meta.fileName)!
+      const match = FILENAME_REGEX.exec(document._meta.fileName)
+      if (!match) {
+        throw new Error(
+          `Invalid filename format: ${document._meta.fileName}. Expected format: <number>-<name>.md`,
+        )
+      }
       const [, no] = match
+
       const slug = slugger.slug(title)
       const url = path.join(prefixPath, slug)
       const contentCode = await compileMDX(context, document, options)
 
       // rss feed only for production
       const contentHtml = isProd
-        ? String(await mdxToHtmlProcessor.process(document.content))
+        ? String(await getMdxToHtmlProcessor(name).process(document.content))
         : ''
 
-      // lib/mdx/rehype-toc.ts
-      // Dev mode may not have TOC because the caching mechanism doesn't rerun remarkPlugins and rehypePlugins.
       const toc =
         (
           document._meta as {
