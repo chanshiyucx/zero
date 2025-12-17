@@ -6,6 +6,7 @@ import { SKIP, visit } from 'unist-util-visit'
 
 interface Options {
   root?: string
+  contentType: string
 }
 
 const calcImageSize = async (imageSrc: string, options?: Options) => {
@@ -24,7 +25,7 @@ const calcImageSize = async (imageSrc: string, options?: Options) => {
 const getThumbnail = (src: string) =>
   src.replace('/raw?', '/thumbnail?') + '&size=large'
 
-export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
+export const rehypeImageSize: Plugin<[Options], Root> = (options) => {
   return async (tree) => {
     const imageNodes: Element[] = []
 
@@ -32,14 +33,18 @@ export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
     visit(tree, { type: 'element', tagName: 'img' }, (node: Element) => {
       if (!node.properties || typeof node.properties.src !== 'string') return
       if (node.properties.src.startsWith('http')) {
-        // Onedrive image
+        // onedrive image
         node.properties.originalsrc = node.properties.src
         node.properties.src = getThumbnail(node.properties.src)
         node.properties.width = 300
         node.properties.height = 200
       } else {
         // Wiki image
-        const imageSrc = path.join('/blog/article/', node.properties.src)
+        const imageSrc = path.join(
+          '/blog',
+          options.contentType,
+          node.properties.src,
+        )
         node.properties.src = imageSrc
         imageNodes.push(node)
       }
@@ -53,7 +58,12 @@ export const rehypeImageSize: Plugin<[Options?], Root> = (options) => {
       // Only wiki image can be executed here.
       const imageName = match[1]
       if (!imageName) return
-      const imageSrc = path.join('/blog/article/static/', imageName)
+      const imageSrc = path.join(
+        '/blog',
+        options.contentType,
+        'static',
+        imageName,
+      )
       const alt = path
         .basename(imageName, path.extname(imageName))
         .replace(/-/g, ' ')
