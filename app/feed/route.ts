@@ -2,8 +2,8 @@ import { generateFeed } from '@/lib/meta/generate-feed'
 
 export const dynamic = 'force-static'
 
-export function GET() {
-  const feed = generateFeed()
+export async function GET() {
+  const feed = await generateFeed()
 
   return new Response(feed, {
     headers: {

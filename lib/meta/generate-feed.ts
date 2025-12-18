@@ -1,8 +1,9 @@
 import { Feed } from 'feed'
 import { siteConfig } from '@/lib/constants/config'
+import { getMdxToHtmlProcessor } from '@/lib/mdx'
 import { sortedContent } from '@/lib/utils/content'
 
-export function generateFeed() {
+export async function generateFeed() {
   const list = sortedContent
   const date = new Date()
   const feed = new Feed({
@@ -22,19 +23,24 @@ export function generateFeed() {
     generator: 'https://github.com/jpmonette/feed',
   })
 
-  list.forEach((item) => {
-    const link = `${siteConfig.host}${item.url}`
-    feed.addItem({
-      link,
-      title: item.title,
-      id: item.slug,
-      description: item.description,
-      content: item.contentHtml,
-      author: [siteConfig.author],
-      date: new Date(item.date),
-      category: item.tags.map((tag) => ({ name: tag })),
-    })
-  })
+  await Promise.all(
+    list.map(async (item) => {
+      const link = `${siteConfig.host}${item.url}`
+      const content = await getMdxToHtmlProcessor(item.type).process(
+        item.content,
+      )
+      feed.addItem({
+        link,
+        title: item.title,
+        id: item.slug,
+        description: item.description,
+        content: String(content),
+        author: [siteConfig.author],
+        date: new Date(item.date),
+        category: item.tags.map((tag) => ({ name: tag })),
+      })
+    }),
+  )
 
   return feed.rss2()
 }
