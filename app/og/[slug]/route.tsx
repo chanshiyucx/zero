@@ -4,8 +4,6 @@ import { Signature } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
 import { getAbsoluteUrl } from '@/lib/utils/edge'
 
-export const runtime = 'edge'
-
 export const revalidate = false
 
 export async function GET(
