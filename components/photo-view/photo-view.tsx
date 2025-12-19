@@ -42,6 +42,12 @@ interface LoadProgress {
   total: number
 }
 
+enum ZoomState {
+  Idle = 0,
+  Zooming = 1,
+  Preview = 2,
+}
+
 const transition: Transition = { type: 'spring', stiffness: 500, damping: 30 }
 
 const backdropVariants: Variants = {
@@ -72,7 +78,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isInteracting, setIsInteracting] = useState(false)
-  const [zoomState, setZoomState] = useState(0) // 0 initial, 1 zooming, 2 preview
+  const [zoomState, setZoomState] = useState(ZoomState.Idle)
   const [transform, setTransform] = useState<Transform | null>(null)
   const [loadProgress, setLoadProgress] = useState<LoadProgress>({
     loaded: 0,
@@ -195,7 +201,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
         e.stopPropagation()
       }
 
-      if (zoomState === 2) {
+      if (zoomState === ZoomState.Preview) {
         if (abortControllerRef.current) {
           abortControllerRef.current.abort()
         }
@@ -209,16 +215,16 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   )
 
   const handleAnimationComplete = useCallback(() => {
-    setZoomState(isOpen ? 2 : 0)
+    setZoomState(isOpen ? ZoomState.Preview : ZoomState.Idle)
     if (!isOpen) {
       setIsInteracting(false)
     }
   }, [isOpen])
 
   const handleImageClick = useCallback(async () => {
-    if (zoomState === 2) {
+    if (zoomState === ZoomState.Preview) {
       handleClose()
-    } else if (zoomState === 0) {
+    } else if (zoomState === ZoomState.Idle) {
       setIsInteracting(true)
 
       // waiting will-change classname to be added
@@ -226,7 +232,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
       getPreviewTransform()
       setIsOpen(true)
-      setZoomState(1)
+      setZoomState(ZoomState.Zooming)
 
       if (originalsrc && originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
         setIsLoading(true)
@@ -268,14 +274,13 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   }, [currentSrc])
 
   useEffect(() => {
-    if (zoomState === 0) {
-      document.body.style.overflow = 'initial'
-    } else {
-      document.body.style.overflow = 'hidden'
-    }
+    document.body.style.overflow =
+      zoomState === ZoomState.Idle ? 'initial' : 'hidden'
   }, [zoomState])
 
   useEffect(() => {
+    if (!isOpen) return
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         handleClose()
@@ -284,7 +289,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [handleClose])
+  }, [isOpen, handleClose])
 
   const progress = useMemo(() => {
     return loadProgress.total > 0
@@ -361,7 +366,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           className={cn(
             'absolute m-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
-            zoomState === 0 ? 'z-10' : 'z-101 rounded-none!',
+            zoomState === ZoomState.Idle ? 'z-10' : 'z-101 rounded-none!',
             isInteracting && 'will-change-transform',
           )}
           transition={{
