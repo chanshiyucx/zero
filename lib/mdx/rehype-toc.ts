@@ -1,4 +1,4 @@
-import { type Meta } from '@content-collections/core'
+import type { Meta } from '@content-collections/core'
 import type { Element, Root } from 'hast'
 import { toString } from 'hast-util-to-string'
 import type { Plugin } from 'unified'

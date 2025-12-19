@@ -1,5 +1,5 @@
 import { DotIcon } from '@phosphor-icons/react/dist/ssr'
-import { type Metadata } from 'next'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { DateTime } from '@/components/datetime'
 import { Discussion } from '@/components/discussion'

@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 import { AudioPlayer } from '@/components/audio-player'
 
 export function Audio(props: ComponentPropsWithoutRef<'audio'>) {

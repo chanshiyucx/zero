@@ -4,7 +4,7 @@ import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import { useLoading } from '@/hooks/use-loading'
 import { useLocalStorage } from '@/hooks/use-local-storage'
-import { type Discussion as DiscussionType } from '@/lib/api/github'
+import type { Discussion as DiscussionType } from '@/lib/api/github'
 import { cn } from '@/lib/utils/style'
 
 interface DiscussionProps {

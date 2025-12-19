@@ -1,5 +1,5 @@
-import { type Snippet } from 'content-collections'
-import { type Metadata } from 'next'
+import type { Snippet } from 'content-collections'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { DateTime } from '@/components/datetime'
 import { MDX } from '@/components/mdx'

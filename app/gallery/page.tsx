@@ -1,5 +1,5 @@
-import { type Album } from 'content-collections'
-import { type Metadata } from 'next'
+import type { Album } from 'content-collections'
+import type { Metadata } from 'next'
 import { DateTime } from '@/components/datetime'
 import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'

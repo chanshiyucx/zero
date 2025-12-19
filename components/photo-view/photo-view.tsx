@@ -16,7 +16,7 @@ import {
   useState,
   type MouseEvent,
 } from 'react'
-import { type ImageProps } from '@/components/mdx/image'
+import type { ImageProps } from '@/components/mdx/image'
 import { Spinner } from '@/components/spinner'
 import { formatFileSize } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
