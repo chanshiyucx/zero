@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
+import { z } from 'zod'
 import {
   createDiscussion,
   getDiscussions,
@@ -9,47 +10,74 @@ export const runtime = 'edge'
 
 export const dynamic = 'force-dynamic'
 
-export async function GET(request: Request) {
+const GetSchema = z.object({
+  title: z.string().optional(),
+  label: z.string().optional(),
+})
+
+const CreateSchema = z.object({
+  title: z.string().min(1),
+  label: z.string().min(1),
+  body: z.string().min(1),
+})
+
+const UpdateSchema = z.object({
+  discussionId: z.string().min(1),
+  body: z.string().min(1),
+})
+
+export async function GET(request: NextRequest) {
   try {
-    const searchParams = new URL(request.url).searchParams
-    const title = searchParams.get('title')
-    const label = searchParams.get('label')
+    const searchParams = request.nextUrl.searchParams
+    const query = {
+      title: searchParams.get('title'),
+      label: searchParams.get('label'),
+    }
+
+    const { title, label } = GetSchema.parse(query)
+
     const discussions = await getDiscussions()
     const discussion = discussions.find(
       (d) => d.title === title && d.labels.some((l) => l.name === label),
     )
     return NextResponse.json(discussion)
   } catch (error) {
-    console.error('Failed to fetch discussions:', (error as Error)?.message)
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
     return NextResponse.json(null, { status: 500 })
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const { title, label, body } = (await request.json()) as {
-      title: string
-      label: string
-      body: string
-    }
+    const json: unknown = await request.json()
+    const { title, label, body } = CreateSchema.parse(json)
+
     const discussion = await createDiscussion(title, label, body)
     return NextResponse.json(discussion)
   } catch (error) {
-    console.error('Failed to create discussion:', (error as Error)?.message)
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
     return NextResponse.json(null, { status: 500 })
   }
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const { discussionId, body } = (await request.json()) as {
-      discussionId: string
-      body: string
-    }
+    const json: unknown = await request.json()
+    const { discussionId, body } = UpdateSchema.parse(json)
+
     const discussion = await updateDiscussion(discussionId, body)
     return NextResponse.json(discussion)
   } catch (error) {
-    console.error('Failed to update discussion:', (error as Error)?.message)
-    return NextResponse.json(null, { status: 500 })
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    )
   }
 }

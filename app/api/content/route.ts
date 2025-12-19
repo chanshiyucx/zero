@@ -1,23 +1,30 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
+import { z } from 'zod'
 import { findContentBySlug } from '@/lib/utils/content'
 
 export const revalidate = false
 
-export function GET(request: Request) {
+const QuerySchema = z.object({
+  slug: z.string().min(1, 'Slug cannot be empty.'),
+})
+
+export function GET(request: NextRequest) {
   try {
-    const searchParams = new URL(request.url).searchParams
-    const slug = searchParams.get('slug')
-    if (!slug) {
-      throw new Error('Slug cannot be empty.')
+    const searchParams = request.nextUrl.searchParams
+    const query = {
+      slug: searchParams.get('slug'),
     }
+
+    const { slug } = QuerySchema.parse(query)
+
     const content = findContentBySlug(slug)
     const meta = { title: content?.title }
+
     return NextResponse.json(meta)
   } catch (error) {
-    console.error(
-      'Failed to fetch content meta by slug:',
-      (error as Error)?.message,
-    )
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
     return NextResponse.json(null, { status: 500 })
   }
 }

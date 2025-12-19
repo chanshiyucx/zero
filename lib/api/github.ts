@@ -1,5 +1,19 @@
+import { cacheLife, cacheTag, revalidateTag } from 'next/cache'
 import { env } from '@/env'
 import { APIError, fetchData } from './fetch'
+
+export const CACHE_TAGS = {
+  githubRepos: 'github-repos',
+  githubDiscussions: 'github-discussions',
+} as const
+
+export const CACHE_LIFES = {
+  minutes: 'minutes',
+  hours: 'hours',
+  days: 'days',
+  weeks: 'weeks',
+  max: 'max',
+} as const
 
 export interface User {
   followers: number
@@ -72,14 +86,17 @@ const headers = new Headers({
   Accept: 'application/vnd.github.v4+json',
 })
 
-export function getGithubUserData() {
+export async function getGithubUserData() {
   return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, {
     headers,
-    next: { revalidate: 3600 },
   })
 }
 
 export async function getGithubRepositories() {
+  'use cache'
+  cacheLife(CACHE_LIFES.hours)
+  cacheTag(CACHE_TAGS.githubRepos)
+
   try {
     const perPage = 100
     const minStars = 10
@@ -90,7 +107,7 @@ export async function getGithubRepositories() {
       Array.from({ length: pages }, (_, i) =>
         fetchData<Repository[]>(
           `${GITHUB_API}/users/${USERNAME}/repos?per_page=${perPage}&page=${i + 1}`,
-          { headers, next: { revalidate: 3600 } },
+          { headers },
         ),
       ),
     ).then((results) => results.flat())
@@ -99,12 +116,20 @@ export async function getGithubRepositories() {
       .filter((repo) => repo.stargazers_count > minStars)
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
   } catch (error) {
-    console.error('Failed to fetch GitHub repositories:', error)
-    throw new Error('Failed to fetch GitHub repositories')
+    if (error instanceof APIError) {
+      throw error
+    }
+    throw new Error(
+      `Failed to fetch GitHub repositories: ${(error as Error).message}`,
+    )
   }
 }
 
-export function getDiscussions() {
+export async function getDiscussions() {
+  'use cache'
+  cacheLife(CACHE_LIFES.minutes)
+  cacheTag(CACHE_TAGS.githubDiscussions)
+
   return fetchData<Discussion[]>(
     `${GITHUB_API}/repos/${USERNAME}/${DISCUSSION_REPO}/discussions`,
     { headers },
@@ -184,6 +209,8 @@ export async function createDiscussion(
       }),
     })
 
+    revalidateTag(CACHE_TAGS.githubDiscussions, { expire: 0 })
+
     return discussion
   } catch (error: unknown) {
     if (error instanceof APIError) throw error
@@ -236,6 +263,9 @@ export async function updateDiscussion(
     const discussion = result.data.updateDiscussion.discussion
     discussion.html_url = discussion.url
     discussion.node_id = discussion.id
+
+    revalidateTag(CACHE_TAGS.githubDiscussions, { expire: 0 })
+
     return discussion
   } catch (error: unknown) {
     if (error instanceof APIError) throw error
