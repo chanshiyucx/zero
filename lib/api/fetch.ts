@@ -20,10 +20,6 @@ export async function fetchData<T>(
 
     options.signal = controller.signal
 
-    if (!options.next) {
-      options.cache = 'no-store'
-    }
-
     const response = await fetch(url, options)
 
     clearTimeout(timeoutId)
