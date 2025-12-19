@@ -3,7 +3,7 @@ import {
   GithubLogoIcon,
   StarIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { type Repository } from '@/lib/api/github'
+import type { Repository } from '@/lib/api/github'
 import { cn } from '@/lib/utils/style'
 
 interface GithubProps {

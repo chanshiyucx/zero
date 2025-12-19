@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Fragment, type ReactNode } from 'react'
 import { DateTime } from '@/components/datetime'
 import { PageLayout } from '@/components/page'
-import { type Content, type ContentGroup } from '@/lib/utils/content'
+import type { Content, ContentGroup } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
 interface ExtraInfo {

@@ -1,4 +1,4 @@
-import { type Metadata } from 'next'
+import type { Metadata } from 'next'
 import { Card } from '@/components/card'
 import { Github } from '@/components/github'
 import { PageLayout } from '@/components/page'

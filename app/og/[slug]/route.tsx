@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { Signature } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
 import { getAbsoluteUrl } from '@/lib/utils/edge'

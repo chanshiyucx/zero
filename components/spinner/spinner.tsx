@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { range } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 
