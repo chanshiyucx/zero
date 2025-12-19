@@ -1,17 +1,27 @@
+import { cacheLife } from 'next/cache'
 import { ImageResponse } from 'next/og'
 import type { NextRequest } from 'next/server'
 import { Signature } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
 import { getAbsoluteUrl } from '@/lib/utils/edge'
 
-export const revalidate = false
+async function loadFont() {
+  'use cache'
+  cacheLife('max')
+
+  return fetch(getAbsoluteUrl('/assets/merriweather.ttf')).then((res) =>
+    res.arrayBuffer(),
+  )
+}
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const { slug } = await params
+  'use cache'
+  cacheLife('max')
 
+  const { slug } = await params
   const response = await fetch(getAbsoluteUrl(`/api/content?slug=${slug}`))
   if (!response.ok) {
     return new Response('Failed to fetch article metadata', { status: 500 })
@@ -19,9 +29,7 @@ export async function GET(
   const meta = (await response.json()) as { title: string } | null
   const title = meta?.title ?? siteConfig.metadata.title
 
-  const fontData = await fetch(getAbsoluteUrl('/assets/merriweather.ttf')).then(
-    (res) => res.arrayBuffer(),
-  )
+  const fontData = await loadFont()
 
   try {
     return new ImageResponse(
