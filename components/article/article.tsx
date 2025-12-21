@@ -1,13 +1,15 @@
 import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
+import NotFound from '@/app/not-found'
 import { DateTime } from '@/components/datetime'
 import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'
 import { Toc } from '@/components/toc'
 import { siteConfig } from '@/lib/constants/config'
-import { findContentBySlug, sortedContent } from '@/lib/utils/content'
+import { findContentBySlug } from '@/lib/utils/content'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -72,16 +74,18 @@ export async function generateMetadata({
   }
 }
 
-export function generateStaticParams() {
-  return sortedContent.map((item) => ({
-    slug: item.slug,
-  }))
-}
-
-export async function Article({
+export function ArticleLayout({
   params,
   hideDiscussion = false,
 }: ArticleProps) {
+  return (
+    <Suspense fallback={<NotFound />}>
+      <Article params={params} hideDiscussion={hideDiscussion} />
+    </Suspense>
+  )
+}
+
+async function Article({ params, hideDiscussion = false }: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const article = findContentBySlug(decodedSlug)
