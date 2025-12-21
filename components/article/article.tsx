@@ -7,7 +7,7 @@ import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'
 import { Toc } from '@/components/toc'
 import { siteConfig } from '@/lib/constants/config'
-import { findContentBySlug } from '@/lib/utils/content'
+import { findContentBySlug, sortedContent } from '@/lib/utils/content'
 
 interface ArticleProps {
   params: Promise<{ slug: string }>
@@ -70,6 +70,12 @@ export async function generateMetadata({
       images: [`/og/${slug}`],
     },
   }
+}
+
+export function generateStaticParams() {
+  return sortedContent.map((item) => ({
+    slug: item.slug,
+  }))
 }
 
 export async function Article({
