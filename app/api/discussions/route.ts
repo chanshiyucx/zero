@@ -6,8 +6,6 @@ import {
   updateDiscussion,
 } from '@/lib/api/github'
 
-export const dynamic = 'force-dynamic'
-
 const GetSchema = z.object({
   title: z.string().optional(),
   label: z.string().optional(),

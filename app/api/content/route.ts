@@ -2,8 +2,6 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { findContentBySlug } from '@/lib/utils/content'
 
-export const revalidate = false
-
 const QuerySchema = z.object({
   slug: z.string().min(1, 'Slug cannot be empty.'),
 })
