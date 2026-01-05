@@ -2,7 +2,6 @@ import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import NotFound from '@/app/not-found'
 import { DateTime } from '@/components/datetime'
 import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
@@ -79,7 +78,7 @@ export function ArticleLayout({
   hideDiscussion = false,
 }: ArticleProps) {
   return (
-    <Suspense fallback={<NotFound />}>
+    <Suspense fallback={null}>
       <Article params={params} hideDiscussion={hideDiscussion} />
     </Suspense>
   )
