@@ -41,7 +41,7 @@ function List({ title, href, icon: Icon, list }: ListProps) {
       </div>
       <ul className="space-y-2 max-md:space-y-4">
         {list.map((content) => (
-          <li key={content.slug} className="flex items-center justify-between">
+          <li key={content.slug} className="flex items-start justify-between">
             <Link
               href={content.url}
               className="link link-hover text-text truncate max-sm:whitespace-normal"
@@ -50,7 +50,7 @@ function List({ title, href, icon: Icon, list }: ListProps) {
             </Link>
             <DateTime
               dateString={content.date}
-              className="text-subtle shrink-0 text-sm"
+              className="text-subtle shrink-0 pt-0.5 text-sm"
             />
           </li>
         ))}

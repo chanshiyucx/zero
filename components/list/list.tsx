@@ -1,36 +1,15 @@
 import Link from 'next/link'
-import { Fragment, type ReactNode } from 'react'
+import { Fragment } from 'react'
 import { DateTime } from '@/components/datetime'
 import { PageLayout } from '@/components/page'
-import type { Content, ContentGroup } from '@/lib/utils/content'
-import { cn } from '@/lib/utils/style'
-
-interface ExtraInfo {
-  className: string
-  text: string
-}
+import type { ContentGroup } from '@/lib/utils/content'
 
 interface ListProps {
   title: string
   groups: ContentGroup[]
-  extractInfo?: (article: Content) => ExtraInfo
-  renderTitle?: (article: Content) => ReactNode
 }
 
-function renderExtraInfo(extraInfo: ExtraInfo) {
-  return (
-    <span
-      className={cn(
-        'ml-6 inline-block w-16 text-sm max-md:ml-3',
-        extraInfo.className,
-      )}
-    >
-      {extraInfo.text}
-    </span>
-  )
-}
-
-export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
+export function List({ title, groups }: ListProps) {
   return (
     <PageLayout title={title}>
       <ul
@@ -44,22 +23,20 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
               {group.year}
             </li>
             {group.list.map((article) => (
-              <li key={article.slug}>
+              <li
+                key={article.slug}
+                className="flex items-start justify-start gap-6 max-sm:flex-row-reverse max-sm:justify-between max-sm:gap-0"
+              >
+                <DateTime
+                  dateString={article.date}
+                  dateFormat="MMM DD"
+                  className="text-subtle inline-block w-16 shrink-0 pt-0.5 text-sm"
+                />
                 <Link
-                  className="flex gap-6 max-sm:flex-col max-sm:gap-0"
                   href={article.url}
+                  className="link link-hover text-text truncate max-sm:whitespace-normal"
                 >
-                  <span className="shrink-0 max-md:text-sm">
-                    <DateTime
-                      dateString={article.date}
-                      dateFormat="MMM DD"
-                      className="text-subtle inline-block w-16 shrink-0"
-                    />
-                    {extractInfo && renderExtraInfo(extractInfo(article))}
-                  </span>
-                  <span className="link link-hover text-text truncate max-sm:whitespace-normal">
-                    {renderTitle ? renderTitle(article) : article.title}
-                  </span>
+                  {article.title}
                 </Link>
               </li>
             ))}
