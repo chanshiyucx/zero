@@ -4,20 +4,14 @@ import { useLayoutEffect, useRef, type ReactNode } from 'react'
 import { Nav } from './nav'
 
 const MAX_STAGGER = 20
+const STAGGER_DELAY = 100
 
 interface PageProps {
   children: ReactNode
   title?: string
-  staggerStart?: number
-  staggerDelay?: number
 }
 
-export function PageLayout({
-  children,
-  title,
-  staggerStart = 0,
-  staggerDelay = 2000,
-}: PageProps) {
+export function PageLayout({ children, title }: PageProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
@@ -26,32 +20,30 @@ export function PageLayout({
 
     let index = 0
 
-    const traverse = (node: Element) => {
-      for (const child of Array.from(node.children)) {
+    const processNode = (node: Element) => {
+      for (const child of node.children) {
         const el = child as HTMLElement
 
         if (el.hasAttribute('data-slide-auto')) {
-          el.style.setProperty('--enter-start', `${index * staggerDelay}ms`)
-          continue
-        }
-
-        if (el.hasAttribute('data-slide')) {
+          el.style.setProperty('--enter-start', `${index * STAGGER_DELAY}ms`)
+          index += Math.min(el.children.length, MAX_STAGGER)
+        } else if (el.hasAttribute('data-slide')) {
           el.style.setProperty(
             '--enter-stagger',
             String(Math.min(index++, MAX_STAGGER)),
           )
+          processNode(el)
+        } else {
+          processNode(el)
         }
-
-        traverse(el)
       }
     }
 
-    traverse(container)
+    processNode(container)
 
-    container.style.setProperty('--enter-start', `${staggerStart}ms`)
-    container.style.setProperty('--enter-delay', `${staggerDelay}ms`)
-    container.dataset.ready = ''
-  }, [staggerStart, staggerDelay])
+    container.style.setProperty('--enter-start', '0ms')
+    container.style.setProperty('--enter-delay', `${STAGGER_DELAY}ms`)
+  }, [])
 
   return (
     <main className="page slide-container" ref={containerRef}>

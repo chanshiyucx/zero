@@ -109,9 +109,9 @@ async function Article({ params, hideDiscussion = false }: ArticleProps) {
             <span>{calculateMediumReadingTime(article.content)}</span>
           </div>
         </header>
-        <div className="flex flex-row">
-          <MDX slideMode="auto" contentCode={article.contentCode} />
+        <div className="flex flex-row-reverse">
           {article.toc.length > 0 && <Toc toc={article.toc} />}
+          <MDX slideMode="auto" contentCode={article.contentCode} />
         </div>
       </article>
       <div data-slide>
