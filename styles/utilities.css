@@ -78,14 +78,12 @@
     --enter-stagger: min(sibling-index() - 1, 20);
   }
 
-  &[data-ready] {
-    [data-slide],
-    [data-slide-auto] > * {
-      animation: slide-enter 1s backwards 1;
-      animation-delay: calc(
-        var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
-      );
-    }
+  [data-slide],
+  [data-slide-auto] > * {
+    animation: slide-enter 1s backwards;
+    animation-delay: calc(
+      var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
+    );
   }
 }
 
