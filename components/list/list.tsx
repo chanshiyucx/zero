@@ -34,8 +34,9 @@ export function List({ title, groups, extractInfo, renderTitle }: ListProps) {
   return (
     <PageLayout title={title}>
       <ul
-        className="slide-auto w-full space-y-2 max-md:space-y-4"
-        style={{ '--enter-delay': '50ms', '--enter-start': '100ms' }}
+        data-slide-auto
+        className="w-full space-y-2 max-md:space-y-4"
+        style={{ '--enter-delay': '50ms' }}
       >
         {groups.map((group) => (
           <Fragment key={group.year}>

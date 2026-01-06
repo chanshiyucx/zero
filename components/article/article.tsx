@@ -88,7 +88,6 @@ async function Article({ params, hideDiscussion = false }: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const article = findContentBySlug(decodedSlug)
-  let stagger = 0
 
   if (!article) {
     return notFound()
@@ -98,14 +97,11 @@ async function Article({ params, hideDiscussion = false }: ArticleProps) {
     <PageLayout>
       <article className="space-y-12">
         <header>
-          <h1
-            style={{ '--enter-stagger': stagger++ }}
-            className="text-3xl font-extrabold"
-          >
+          <h1 data-slide className="text-3xl font-extrabold">
             {article.title}
           </h1>
           <div
-            style={{ '--enter-stagger': stagger++ }}
+            data-slide
             className="text-subtle mt-1 flex items-center text-sm"
           >
             <DateTime dateString={article.date} />
@@ -114,13 +110,11 @@ async function Article({ params, hideDiscussion = false }: ArticleProps) {
           </div>
         </header>
         <div className="flex flex-row">
-          <MDX staggerStart={stagger * 100} contentCode={article.contentCode} />
-          {article.toc.length > 0 && (
-            <Toc stagger={stagger++} toc={article.toc} />
-          )}
+          <MDX slideMode="auto" contentCode={article.contentCode} />
+          {article.toc.length > 0 && <Toc toc={article.toc} />}
         </div>
       </article>
-      <div style={{ '--enter-stagger': stagger++ }}>
+      <div data-slide>
         {!hideDiscussion && (
           <Discussion label={article.type} title={article.title} />
         )}

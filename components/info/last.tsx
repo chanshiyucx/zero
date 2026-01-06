@@ -100,7 +100,6 @@ function Snippet() {
 
 function Gallery() {
   const album = sortedAlbums[0]
-
   if (!album) return null
 
   return (
@@ -124,7 +123,7 @@ function Gallery() {
             className="text-subtle shrink-0 text-sm"
           />
         </header>
-        <MDX contentCode={album.contentCode} />
+        <MDX slideMode="none" contentCode={album.contentCode} />
       </article>
     </section>
   )
@@ -133,6 +132,7 @@ function Gallery() {
 async function Project() {
   const repositories = await getGithubRepositories()
   const lastRepositories = repositories.slice(0, 3)
+
   return (
     <section className="space-y-3">
       <div className="flex justify-between">
@@ -162,7 +162,7 @@ async function Project() {
 
 export function Last() {
   return (
-    <div className="slide-auto space-y-12" style={{ '--enter-start': '300ms' }}>
+    <div data-slide-auto className="space-y-12">
       <Gallery />
       <Journal />
       <Article />

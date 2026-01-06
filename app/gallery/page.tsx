@@ -4,6 +4,7 @@ import { DateTime } from '@/components/datetime'
 import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'
 import { sortedAlbums } from '@/lib/utils/content'
+import { cn } from '@/lib/utils/style'
 
 export const metadata: Metadata = {
   title: 'Album',
@@ -12,12 +13,15 @@ export const metadata: Metadata = {
   keywords: ['album', 'photo', 'photography', 'travel'],
 }
 
-function AlbumItem({ album }: { album: Album }) {
+function AlbumItem({ album, isFirst }: { album: Album; isFirst: boolean }) {
   return (
-    <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
+    <article>
       <header
-        style={{ '--enter-stagger': 1 }}
-        className="mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1"
+        data-slide
+        className={cn(
+          'mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1',
+          isFirst ? 'border-t-0 pt-0' : 'border-t pt-12',
+        )}
       >
         <h2 className="text-2xl font-bold">{album.title}</h2>
         <DateTime
@@ -25,7 +29,7 @@ function AlbumItem({ album }: { album: Album }) {
           className="text-subtle shrink-0 text-sm"
         />
       </header>
-      <MDX staggerStart={2 * 100} contentCode={album.contentCode} />
+      <MDX contentCode={album.contentCode} />
     </article>
   )
 }
@@ -34,8 +38,8 @@ export default function Page() {
   return (
     <PageLayout title="Photography freezes time.">
       <div className="space-y-12">
-        {sortedAlbums.map((album) => (
-          <AlbumItem key={album.title} album={album} />
+        {sortedAlbums.map((album, index) => (
+          <AlbumItem key={album.title} album={album} isFirst={index === 0} />
         ))}
       </div>
     </PageLayout>
