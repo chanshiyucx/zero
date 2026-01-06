@@ -11,7 +11,6 @@ import {
   memo,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
   type MouseEvent,
@@ -20,15 +19,6 @@ import type { ImageProps } from '@/components/mdx/image'
 import { Spinner } from '@/components/spinner'
 import { formatFileSize } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
-
-interface Bounds {
-  x: number
-  y: number
-  width: number
-  height: number
-  naturalWidth: number
-  naturalHeight: number
-}
 
 interface Transform {
   width: number
@@ -77,7 +67,6 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [isInteracting, setIsInteracting] = useState(false)
   const [zoomState, setZoomState] = useState(ZoomState.Idle)
   const [transform, setTransform] = useState<Transform | null>(null)
   const [loadProgress, setLoadProgress] = useState<LoadProgress>({
@@ -154,17 +143,9 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
     const imageElement = imageRef.current
     if (!imageElement) return
     const rect = imageElement.getBoundingClientRect()
-    const bounds: Bounds = {
-      x: rect.left,
-      y: rect.top,
-      width: rect.width,
-      height: rect.height,
-      naturalWidth: imageElement.naturalWidth,
-      naturalHeight: imageElement.naturalHeight,
-    }
-
     const { innerWidth: maxWidth, innerHeight: maxHeight } = window
-    const aspectRatio = bounds.naturalWidth / bounds.naturalHeight
+    const { naturalWidth, naturalHeight } = imageElement
+    const aspectRatio = naturalWidth / naturalHeight
 
     let targetWidth, targetHeight
     if (maxWidth / maxHeight > aspectRatio) {
@@ -177,15 +158,15 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
     // Maximum zoom ratio, wiki image is 1.5x, onedrive image is 10x
     const maxScale = originalsrc ? 10 : 1.5
-    const currentScale = targetWidth / bounds.width
+    const currentScale = targetWidth / rect.width
     if (currentScale > maxScale) {
       const scaleFactor = maxScale / currentScale
       targetWidth *= scaleFactor
       targetHeight *= scaleFactor
     }
 
-    const targetTop = window.innerHeight / 2 - targetHeight / 2 - bounds.y
-    const targetLeft = window.innerWidth / 2 - targetWidth / 2 - bounds.x
+    const targetTop = window.innerHeight / 2 - targetHeight / 2 - rect.top
+    const targetLeft = window.innerWidth / 2 - targetWidth / 2 - rect.left
 
     setTransform({
       width: targetWidth,
@@ -197,9 +178,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
   const handleClose = useCallback(
     (e?: MouseEvent) => {
-      if (e) {
-        e.stopPropagation()
-      }
+      e?.stopPropagation()
 
       if (zoomState === ZoomState.Preview) {
         if (abortControllerRef.current) {
@@ -216,20 +195,12 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
   const handleAnimationComplete = useCallback(() => {
     setZoomState(isOpen ? ZoomState.Preview : ZoomState.Idle)
-    if (!isOpen) {
-      setIsInteracting(false)
-    }
   }, [isOpen])
 
   const handleImageClick = useCallback(async () => {
     if (zoomState === ZoomState.Preview) {
       handleClose()
     } else if (zoomState === ZoomState.Idle) {
-      setIsInteracting(true)
-
-      // waiting will-change classname to be added
-      await new Promise((resolve) => requestAnimationFrame(resolve))
-
       getPreviewTransform()
       setIsOpen(true)
       setZoomState(ZoomState.Zooming)
@@ -291,24 +262,23 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, handleClose])
 
-  const progress = useMemo(() => {
-    return loadProgress.total > 0
-      ? Math.round((loadProgress.loaded / loadProgress.total) * 100)
-      : 0
-  }, [loadProgress.loaded, loadProgress.total])
-
-  const animate = useMemo(() => {
-    if (!transform) return {}
-
-    return isOpen
+  const animate =
+    isOpen && transform
       ? {
           width: transform.width,
           height: transform.height,
           y: transform.top,
           x: transform.left,
+          borderRadius: 0,
         }
       : {}
-  }, [isOpen, transform])
+
+  const progress =
+    loadProgress.total > 0
+      ? Math.round((loadProgress.loaded / loadProgress.total) * 100)
+      : 0
+
+  const Icon = originalsrc ? CameraIcon : SlideshowIcon
 
   return (
     <figure>
@@ -366,8 +336,9 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
           className={cn(
             'absolute m-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300',
             isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
-            zoomState === ZoomState.Idle ? 'z-10' : 'z-101 rounded-none!',
-            isInteracting && 'will-change-transform',
+            zoomState === ZoomState.Idle
+              ? 'z-10'
+              : 'z-101 will-change-transform',
           )}
           transition={{
             type: 'tween',
@@ -388,14 +359,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
 
       {alt && (
         <figcaption className="text-subtle my-2 block text-center text-sm italic">
-          {originalsrc ? (
-            <CameraIcon weight="duotone" className="fill-subtle mr-1 inline" />
-          ) : (
-            <SlideshowIcon
-              weight="duotone"
-              className="fill-subtle mr-1 inline"
-            />
-          )}
+          <Icon weight="duotone" className="fill-subtle mr-1 inline" />
           <span className="align-text-top">{alt}</span>
         </figcaption>
       )}
