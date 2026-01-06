@@ -86,6 +86,53 @@ const headers = new Headers({
   Accept: 'application/vnd.github.v4+json',
 })
 
+const CREATE_DISCUSSION_MUTATION = `
+  mutation CreateDiscussion($repositoryId: ID!, $title: String!, $body: String!, $categoryId: ID!) {
+    createDiscussion(input: {
+      repositoryId: $repositoryId,
+      title: $title,
+      body: $body,
+      categoryId: $categoryId
+    }) {
+      discussion {
+        id
+        number
+        title
+        url
+        body
+      }
+    }
+  }
+`
+
+const ADD_LABELS_MUTATION = `
+  mutation AddLabels($labelableId: ID!, $labelIds: [ID!]!) {
+    addLabelsToLabelable(input: {
+      labelableId: $labelableId,
+      labelIds: $labelIds
+    }) {
+      clientMutationId
+    }
+  }
+`
+
+const UPDATE_DISCUSSION_MUTATION = `
+  mutation UpdateDiscussion($discussionId: ID!, $body: String!) {
+    updateDiscussion(input: {
+      discussionId: $discussionId,
+      body: $body
+    }) {
+      discussion {
+        id
+        number
+        title
+        url
+        body
+      }
+    }
+  }
+`
+
 export async function getGithubUserData() {
   return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, {
     headers,
@@ -142,70 +189,39 @@ export async function createDiscussion(
   body: string,
 ): Promise<Discussion> {
   try {
-    const createDiscussionQuery = `
-      mutation CreateDiscussion($repositoryId: ID!, $title: String!, $body: String!, $categoryId: ID!) {
-        createDiscussion(input: {
-          repositoryId: $repositoryId,
-          title: $title,
-          body: $body,
-          categoryId: $categoryId
-        }) {
-          discussion {
-            id
-            number
-            title
-            url
-            body
-          }
-        }
-      }
-    `
-
-    const createDiscussionVariables = {
-      repositoryId: DISCUSSION_REPO_ID,
-      title: title,
-      body: body,
-      categoryId: DISCUSSION_CATEGORY_ID,
-    }
-
     const result = await fetchData<CreateDiscussionResult>(
       `${GITHUB_API}/graphql`,
       {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          query: createDiscussionQuery,
-          variables: createDiscussionVariables,
+          query: CREATE_DISCUSSION_MUTATION,
+          variables: {
+            repositoryId: DISCUSSION_REPO_ID,
+            title,
+            body,
+            categoryId: DISCUSSION_CATEGORY_ID,
+          },
         }),
       },
     )
+
     const discussion = result.data.createDiscussion.discussion
     discussion.html_url = discussion.url
     discussion.node_id = discussion.id
-    const labelIds =
-      DISCUSSION_LABEL_IDS[label as keyof typeof DISCUSSION_LABEL_IDS]
 
-    const addLabelQuery = `
-      mutation AddLabels($labelableId: ID!, $labelIds: [ID!]!) {
-        addLabelsToLabelable(input: {
-          labelableId: $labelableId,
-          labelIds: $labelIds
-        }) {
-          clientMutationId
-        }
-      }
-    `
-    const addLabelVariables = {
-      labelableId: result.data.createDiscussion.discussion.id,
-      labelIds: [labelIds],
-    }
+    const labelId =
+      DISCUSSION_LABEL_IDS[label as keyof typeof DISCUSSION_LABEL_IDS]
 
     await fetchData(`${GITHUB_API}/graphql`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        query: addLabelQuery,
-        variables: addLabelVariables,
+        query: ADD_LABELS_MUTATION,
+        variables: {
+          labelableId: discussion.id,
+          labelIds: [labelId],
+        },
       }),
     })
 
@@ -226,36 +242,14 @@ export async function updateDiscussion(
   body: string,
 ): Promise<Discussion> {
   try {
-    const updateDiscussionQuery = `
-      mutation UpdateDiscussion($discussionId: ID!, $body: String!) {
-        updateDiscussion(input: {
-          discussionId: $discussionId,
-          body: $body
-        }) {
-          discussion {
-            id
-            number
-            title
-            url
-            body
-          }
-        }
-      }
-    `
-
-    const updateDiscussionVariables = {
-      discussionId: discussionId,
-      body: body,
-    }
-
     const result = await fetchData<UpdateDiscussionResult>(
       `${GITHUB_API}/graphql`,
       {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          query: updateDiscussionQuery,
-          variables: updateDiscussionVariables,
+          query: UPDATE_DISCUSSION_MUTATION,
+          variables: { discussionId, body },
         }),
       },
     )
