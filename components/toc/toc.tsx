@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils/style'
 
 interface TocProps {
   toc: TocEntry[]
-  stagger: number
 }
 
 interface TocItem {
@@ -26,7 +25,7 @@ const getIndent = (depth: number) => {
   return 'ml-0'
 }
 
-export function Toc({ toc, stagger }: TocProps) {
+export function Toc({ toc }: TocProps) {
   const tocRef = useRef<HTMLUListElement>(null)
   const navRef = useRef<HTMLElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
@@ -216,10 +215,7 @@ export function Toc({ toc, stagger }: TocProps) {
   }, [toc])
 
   return (
-    <aside
-      style={{ '--enter-stagger': stagger }}
-      className="group hidden w-0 xl:block"
-    >
+    <aside data-slide className="group hidden w-0 xl:block">
       <nav
         ref={navRef}
         className="scrollbar-hide sticky top-25 max-h-[80vh] w-72 translate-x-6 overflow-auto overscroll-contain"
