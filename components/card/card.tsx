@@ -1,13 +1,7 @@
 'use client'
 
 import { m, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  type MouseEvent,
-  type ReactNode,
-} from 'react'
+import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react'
 import { clamp } from '@/lib/utils/helper'
 import { useDevice } from '@/stores/use-device'
 
@@ -46,55 +40,45 @@ export function Card({
     translateZ(${z}px)
   `
 
-  const handleMouseMoveThrottled = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      if (isMobile) return
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current)
-      }
+  const handleMouseMoveThrottled = (e: MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+    }
 
-      rafRef.current = requestAnimationFrame(() => {
-        if (!rectRef.current) return
+    // Extract values before RAF to avoid stale synthetic event
+    const clientX = e.clientX
+    const clientY = e.clientY
 
-        const rect = rectRef.current
-        const centerX = rect.left + rect.width / 2
-        const centerY = rect.top + rect.height / 2
-        const deltaX = (e.clientX - centerX) / (rect.width / 2)
-        const deltaY = (e.clientY - centerY) / (rect.height / 2)
-        mouseX.set(deltaX)
-        mouseY.set(deltaY)
+    rafRef.current = requestAnimationFrame(() => {
+      if (!rectRef.current) return
 
-        const rotX = clamp(deltaY * tiltStrength, -maxTilt, maxTilt)
-        const rotY = clamp(-deltaX * tiltStrength, -maxTilt, maxTilt)
-        rotateX.set(rotX)
-        rotateY.set(rotY)
+      const rect = rectRef.current
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
+      const deltaX = (clientX - centerX) / (rect.width / 2)
+      const deltaY = (clientY - centerY) / (rect.height / 2)
+      mouseX.set(deltaX)
+      mouseY.set(deltaY)
 
-        scale.set(scaleOnHover)
-        z.set(15)
-      })
-    },
-    [
-      tiltStrength,
-      scaleOnHover,
-      maxTilt,
-      isMobile,
-      mouseX,
-      mouseY,
-      rotateX,
-      rotateY,
-      scale,
-      z,
-    ],
-  )
+      const rotX = clamp(deltaY * tiltStrength, -maxTilt, maxTilt)
+      const rotY = clamp(-deltaX * tiltStrength, -maxTilt, maxTilt)
+      rotateX.set(rotX)
+      rotateY.set(rotY)
 
-  const handleMouseEnter = useCallback(() => {
+      scale.set(scaleOnHover)
+      z.set(15)
+    })
+  }
+
+  const handleMouseEnter = () => {
     if (isMobile) return
     if (cardRef.current) {
       rectRef.current = cardRef.current.getBoundingClientRect()
     }
-  }, [isMobile])
+  }
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = () => {
     if (isMobile) return
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current)
@@ -109,7 +93,7 @@ export function Card({
     z.set(0)
 
     rectRef.current = null
-  }, [isMobile, mouseX, mouseY, rotateX, rotateY, scale, z])
+  }
 
   useEffect(() => {
     return () => {

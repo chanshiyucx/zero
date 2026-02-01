@@ -3,6 +3,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer'
 import type { NextConfig } from 'next'
 
 let nextConfig: NextConfig = {
+  reactCompiler: true,
   cacheComponents: true,
   images: {
     remotePatterns: [

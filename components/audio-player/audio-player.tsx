@@ -11,9 +11,8 @@ import {
 import parse from 'id3-parser'
 import Image from 'next/image'
 import {
-  memo,
-  useCallback,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
   type ChangeEvent,
@@ -28,7 +27,7 @@ interface AudioPlayerProps {
 
 const StepDuration = 5
 
-function Player({ src }: AudioPlayerProps) {
+export function AudioPlayer({ src }: AudioPlayerProps) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [title, setTitle] = useState<string>('')
@@ -39,11 +38,11 @@ function Player({ src }: AudioPlayerProps) {
   const isRepeatRef = useRef(isRepeat)
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  const cleanupCoverUrl = useCallback((url: string | null) => {
+  const cleanupCoverUrl = (url: string | null) => {
     if (url) {
       URL.revokeObjectURL(url)
     }
-  }, [])
+  }
 
   useEffect(() => {
     isRepeatRef.current = isRepeat
@@ -147,7 +146,7 @@ function Player({ src }: AudioPlayerProps) {
     return () => {
       controller.abort()
     }
-  }, [src, cleanupCoverUrl])
+  }, [src])
 
   useEffect(() => {
     const urlToCleanup = coverUrl
@@ -156,9 +155,9 @@ function Player({ src }: AudioPlayerProps) {
         cleanupCoverUrl(urlToCleanup)
       }
     }
-  }, [coverUrl, cleanupCoverUrl])
+  }, [coverUrl])
 
-  const togglePlayPause = useCallback(async () => {
+  const togglePlayPause = async () => {
     const audio = audioRef.current
     if (!audio) return
 
@@ -171,78 +170,85 @@ function Player({ src }: AudioPlayerProps) {
     } catch (err) {
       console.error('Failed to toggle play/pause:', err)
     }
-  }, [isPlaying])
+  }
 
-  const toggleRepeat = useCallback(() => {
+  const toggleRepeat = () => {
     setIsRepeat((prev) => !prev)
-  }, [])
+  }
 
-  const handleBack = useCallback(() => {
+  const handleBack = () => {
     const audio = audioRef.current
     if (!audio) return
 
     const newTime = Math.max(0, audio.currentTime - StepDuration)
     audio.currentTime = newTime
     setCurrentTime(newTime)
-  }, [])
+  }
 
-  const handleForward = useCallback(() => {
+  const handleForward = () => {
     const audio = audioRef.current
     if (!audio) return
 
     const newTime = Math.min(duration, audio.currentTime + StepDuration)
     audio.currentTime = newTime
     setCurrentTime(newTime)
-  }, [duration])
+  }
 
-  const handleProgressChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const audio = audioRef.current
-      if (!audio || !duration) return
+  const handleProgressChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const audio = audioRef.current
+    if (!audio || !duration) return
 
-      const newTime = (Number(e.target.value) / 100) * duration
-      audio.currentTime = newTime
-      setCurrentTime(newTime)
-    },
-    [duration],
-  )
+    const newTime = (Number(e.target.value) / 100) * duration
+    audio.currentTime = newTime
+    setCurrentTime(newTime)
+  }
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement
-      const isInputting =
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.isContentEditable
+  const handleKeyDown = useEffectEvent((event: KeyboardEvent) => {
+    const target = event.target as HTMLElement
+    const isInputting =
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.isContentEditable
 
-      if (isInputting || isLoading) return
+    if (isInputting || isLoading) return
 
-      event.preventDefault()
+    event.preventDefault()
 
-      switch (event.code) {
-        case 'ArrowLeft':
-          handleBack()
-          break
-        case 'ArrowRight':
-          handleForward()
-          break
-        case 'ArrowUp':
-          togglePlayPause().catch(console.error)
-          break
-        case 'ArrowDown':
-          toggleRepeat()
-          break
-        default:
-          break
+    const audio = audioRef.current
+    if (!audio) return
+
+    switch (event.code) {
+      case 'ArrowLeft': {
+        const newTime = Math.max(0, audio.currentTime - StepDuration)
+        audio.currentTime = newTime
+        setCurrentTime(newTime)
+        break
       }
-    },
-    [togglePlayPause, handleBack, handleForward, toggleRepeat, isLoading],
-  )
+      case 'ArrowRight': {
+        const newTime = Math.min(duration, audio.currentTime + StepDuration)
+        audio.currentTime = newTime
+        setCurrentTime(newTime)
+        break
+      }
+      case 'ArrowUp':
+        if (isPlaying) {
+          audio.pause()
+        } else {
+          audio.play().catch(console.error)
+        }
+        break
+      case 'ArrowDown':
+        setIsRepeat((prev) => !prev)
+        break
+      default:
+        break
+    }
+  })
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [handleKeyDown])
+  }, [])
 
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0
 
@@ -359,5 +365,3 @@ function Player({ src }: AudioPlayerProps) {
     </div>
   )
 }
-
-export const AudioPlayer = memo(Player)

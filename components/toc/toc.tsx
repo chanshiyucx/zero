@@ -1,10 +1,10 @@
 'use client'
 
 import { ListIcon } from '@phosphor-icons/react/dist/ssr'
+import { debounce, throttle } from 'es-toolkit'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import type { TocEntry } from '@/lib/mdx/rehype-toc'
-import { debounce, throttle } from '@/lib/utils/lodash'
 import { cn } from '@/lib/utils/style'
 
 interface TocProps {

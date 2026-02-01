@@ -1,18 +1,18 @@
-import { useCallback, useRef } from 'react'
+import { useRef } from 'react'
 
 export function useShortcut() {
   const shortcuts = useRef<Map<string, () => void>>(new Map())
   const keySequence = useRef<string[]>([])
   const keyTimeout = useRef<number | null>(null)
 
-  const register = useCallback((shortcut: string[], action: () => void) => {
+  const register = (shortcut: string[], action: () => void) => {
     if (shortcut && shortcut.length > 0) {
       const key = shortcut.join(',')
       shortcuts.current.set(key, action)
     }
-  }, [])
+  }
 
-  const handleKeypress = useCallback((key: string) => {
+  const handleKeypress = (key: string) => {
     if (keyTimeout.current) {
       clearTimeout(keyTimeout.current)
     }
@@ -40,14 +40,14 @@ export function useShortcut() {
     } else {
       keySequence.current = []
     }
-  }, [])
+  }
 
-  const clearSequence = useCallback(() => {
+  const clearSequence = () => {
     keySequence.current = []
     if (keyTimeout.current) {
       clearTimeout(keyTimeout.current)
     }
-  }, [])
+  }
 
   return { register, handleKeypress, clearSequence }
 }
