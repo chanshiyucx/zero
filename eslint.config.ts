@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import nextPlugin from '@next/eslint-plugin-next'
 import prettierConfig from 'eslint-config-prettier'
 import reactPlugin from 'eslint-plugin-react'
+import reactCompilerPlugin from 'eslint-plugin-react-compiler'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
 import tseslint from 'typescript-eslint'
 
@@ -32,6 +33,7 @@ export default [
     plugins: {
       '@next/next': nextPlugin,
       react: reactPlugin,
+      'react-compiler': reactCompilerPlugin,
       'react-hooks': reactHooksPlugin,
     },
     settings: {
@@ -45,6 +47,7 @@ export default [
       ...reactHooksPlugin.configs.recommended.rules,
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
+      'react-compiler/react-compiler': 'error',
     },
   },
   {

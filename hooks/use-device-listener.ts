@@ -1,6 +1,6 @@
+import { debounce } from 'es-toolkit'
 import { useEffect } from 'react'
 import { getIsMobile } from '@/lib/utils/dom'
-import { debounce } from '@/lib/utils/lodash'
 import { useDevice } from '@/stores/use-device'
 
 export function useDeviceListener() {

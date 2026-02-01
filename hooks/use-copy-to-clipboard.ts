@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 interface UseCopyToClipboardOptions {
   timeout?: number
@@ -11,35 +11,32 @@ export function useCopyToClipboard({
 }: UseCopyToClipboardOptions) {
   const [isCopied, setIsCopied] = useState(false)
 
-  const copyToClipboard = useCallback(
-    async (value: string) => {
-      if (!navigator?.clipboard?.writeText) {
-        console.warn('Clipboard API not supported.')
-        return
+  const copyToClipboard = async (value: string) => {
+    if (!navigator?.clipboard?.writeText) {
+      console.warn('Clipboard API not supported.')
+      return
+    }
+
+    if (!value) {
+      console.warn('No value provided to copy.')
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(value)
+      setIsCopied(true)
+
+      if (onCopy) {
+        onCopy()
       }
 
-      if (!value) {
-        console.warn('No value provided to copy.')
-        return
-      }
-
-      try {
-        await navigator.clipboard.writeText(value)
-        setIsCopied(true)
-
-        if (onCopy) {
-          onCopy()
-        }
-
-        setTimeout(() => {
-          setIsCopied(false)
-        }, timeout)
-      } catch (error) {
-        console.error('Failed to copy to clipboard:', error)
-      }
-    },
-    [timeout, onCopy],
-  )
+      setTimeout(() => {
+        setIsCopied(false)
+      }, timeout)
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error)
+    }
+  }
 
   return { isCopied, copyToClipboard }
 }

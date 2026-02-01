@@ -3,34 +3,28 @@
 import { ArrowBendUpLeftIcon } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
 
 export function Nav() {
   const pathname = usePathname()
 
-  const backPath = useMemo(() => {
-    const segments = pathname.split('/').filter(Boolean)
+  const segments = pathname.split('/').filter(Boolean)
 
-    if (segments.length === 0) return null
+  if (segments.length === 0) return null
 
-    const parentHref =
-      segments.length === 1 ? '/' : `/${segments.slice(0, -1).join('/')}`
+  const parentHref =
+    segments.length === 1 ? '/' : `/${segments.slice(0, -1).join('/')}`
 
-    let parentName = ''
-    if (parentHref === '/') {
-      parentName = 'Index'
-    } else {
-      const parentKey = parentHref.split('/').pop()!
-      parentName = parentKey.charAt(0).toUpperCase() + parentKey.slice(1)
-    }
-
-    if (!parentName) return null
-    return { name: parentName, href: parentHref }
-  }, [pathname])
-
-  if (!backPath) {
-    return null
+  let parentName = ''
+  if (parentHref === '/') {
+    parentName = 'Index'
+  } else {
+    const parentKey = parentHref.split('/').pop()!
+    parentName = parentKey.charAt(0).toUpperCase() + parentKey.slice(1)
   }
+
+  if (!parentName) return null
+
+  const backPath = { name: parentName, href: parentHref }
 
   return (
     <Link

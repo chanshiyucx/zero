@@ -8,9 +8,8 @@ import {
   type Variants,
 } from 'framer-motion'
 import {
-  memo,
-  useCallback,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
   type MouseEvent,
@@ -62,7 +61,13 @@ const isBlobSrc = (src: string | Blob | undefined): src is string => {
   return typeof src === 'string' && src.startsWith('blob:')
 }
 
-function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
+export function PhotoView({
+  src,
+  originalsrc,
+  alt,
+  width,
+  height,
+}: ImageProps) {
   const [currentSrc, setCurrentSrc] = useState(src)
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
@@ -76,70 +81,67 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  const loadImageWithProgress = useCallback(
-    async (url: string): Promise<string> => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort()
+  const loadImageWithProgress = async (url: string): Promise<string> => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+
+    abortControllerRef.current = new AbortController()
+
+    try {
+      const response = await fetch(url, {
+        signal: abortControllerRef.current.signal,
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      abortControllerRef.current = new AbortController()
+      const contentLength = response.headers.get('content-length')
+      const total = contentLength ? parseInt(contentLength, 10) : 0
+      setLoadProgress({ loaded: 0, total })
 
-      try {
-        const response = await fetch(url, {
-          signal: abortControllerRef.current.signal,
-        })
+      if (!response.body) {
+        throw new Error('ReadableStream not supported')
+      }
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const contentLength = response.headers.get('content-length')
-        const total = contentLength ? parseInt(contentLength, 10) : 0
-        setLoadProgress({ loaded: 0, total })
-
-        if (!response.body) {
-          throw new Error('ReadableStream not supported')
-        }
-
-        const reader = response.body.getReader()
-        const chunks: Uint8Array[] = []
-        let receivedLength = 0
-        let lastUpdate = 0
-        while (true) {
-          const { done, value } = await reader.read()
-          if (done) break
-          if (value) {
-            chunks.push(value)
-            receivedLength += value.length
-            const now = Date.now()
-            if (now - lastUpdate > 100 || receivedLength >= total) {
-              setLoadProgress((prev) => ({ ...prev, loaded: receivedLength }))
-              lastUpdate = now
-            }
+      const reader = response.body.getReader()
+      const chunks: Uint8Array[] = []
+      let receivedLength = 0
+      let lastUpdate = 0
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        if (value) {
+          chunks.push(value)
+          receivedLength += value.length
+          const now = Date.now()
+          if (now - lastUpdate > 100 || receivedLength >= total) {
+            setLoadProgress((prev) => ({ ...prev, loaded: receivedLength }))
+            lastUpdate = now
           }
         }
+      }
 
-        const allChunks = new Uint8Array(receivedLength)
-        let position = 0
-        for (const chunk of chunks) {
-          allChunks.set(chunk, position)
-          position += chunk.length
-        }
+      const allChunks = new Uint8Array(receivedLength)
+      let position = 0
+      for (const chunk of chunks) {
+        allChunks.set(chunk, position)
+        position += chunk.length
+      }
 
-        const blob = new Blob([allChunks])
-        return URL.createObjectURL(blob)
-      } catch (error) {
-        if (error instanceof Error && error.name === 'AbortError') {
-          throw error
-        }
-        console.error('Failed to load image with progress:', error)
+      const blob = new Blob([allChunks])
+      return URL.createObjectURL(blob)
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
         throw error
       }
-    },
-    [],
-  )
+      console.error('Failed to load image with progress:', error)
+      throw error
+    }
+  }
 
-  const getPreviewTransform = useCallback(() => {
+  const getPreviewTransform = () => {
     const imageElement = imageRef.current
     if (!imageElement) return
     const rect = imageElement.getBoundingClientRect()
@@ -174,30 +176,27 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
       top: targetTop,
       left: targetLeft,
     })
-  }, [originalsrc])
+  }
 
-  const handleClose = useCallback(
-    (e?: MouseEvent) => {
-      e?.stopPropagation()
+  const handleClose = (e?: MouseEvent) => {
+    e?.stopPropagation()
 
-      if (zoomState === ZoomState.Preview) {
-        if (abortControllerRef.current) {
-          abortControllerRef.current.abort()
-        }
-
-        setIsOpen(false)
-        setIsLoading(false)
-        setLoadProgress({ loaded: 0, total: 0 })
+    if (zoomState === ZoomState.Preview) {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
       }
-    },
-    [zoomState],
-  )
 
-  const handleAnimationComplete = useCallback(() => {
+      setIsOpen(false)
+      setIsLoading(false)
+      setLoadProgress({ loaded: 0, total: 0 })
+    }
+  }
+
+  const handleAnimationComplete = () => {
     setZoomState(isOpen ? ZoomState.Preview : ZoomState.Idle)
-  }, [isOpen])
+  }
 
-  const handleImageClick = useCallback(async () => {
+  const handleImageClick = async () => {
     if (zoomState === ZoomState.Preview) {
       handleClose()
     } else if (zoomState === ZoomState.Idle) {
@@ -220,14 +219,7 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
         }
       }
     }
-  }, [
-    originalsrc,
-    zoomState,
-    currentSrc,
-    handleClose,
-    loadImageWithProgress,
-    getPreviewTransform,
-  ])
+  }
 
   // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
   useEffect(() => {
@@ -249,18 +241,22 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
       zoomState === ZoomState.Idle ? 'initial' : 'hidden'
   }, [zoomState])
 
-  useEffect(() => {
+  const handleKeyDown = useEffectEvent((e: KeyboardEvent) => {
     if (!isOpen) return
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose()
+    if (e.key === 'Escape' && zoomState === ZoomState.Preview) {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
       }
+      setIsOpen(false)
+      setIsLoading(false)
+      setLoadProgress({ loaded: 0, total: 0 })
     }
+  })
 
+  useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, handleClose])
+  }, [])
 
   const animate =
     isOpen && transform
@@ -366,5 +362,3 @@ function Preview({ src, originalsrc, alt, width, height }: ImageProps) {
     </figure>
   )
 }
-
-export const PhotoView = memo(Preview)
