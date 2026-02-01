@@ -2,7 +2,7 @@
 
 import { CaretDoubleUpIcon } from '@phosphor-icons/react/dist/ssr'
 import { throttle } from 'es-toolkit'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TinyButton } from './tiny-button'
 
 export function ScrollTop() {
@@ -12,28 +12,26 @@ export function ScrollTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Memoize throttled handler to avoid recreating on every render
-  const throttledHandler = useMemo(
-    () =>
-      throttle(() => {
-        const { innerHeight, scrollY } = window
-        setShowBackTop(scrollY > innerHeight / 5)
-      }, 16),
-    [],
+  const throttledHandler = useRef(
+    throttle(() => {
+      const { innerHeight, scrollY } = window
+      setShowBackTop(scrollY > innerHeight / 5)
+    }, 16),
   )
 
   useEffect(() => {
-    throttledHandler()
+    const fn = throttledHandler.current
+    fn()
 
-    window.addEventListener('scroll', throttledHandler)
-    window.addEventListener('resize', throttledHandler)
+    window.addEventListener('scroll', fn)
+    window.addEventListener('resize', fn)
 
     return () => {
-      throttledHandler.cancel()
-      window.removeEventListener('scroll', throttledHandler)
-      window.removeEventListener('resize', throttledHandler)
+      fn.cancel()
+      window.removeEventListener('scroll', fn)
+      window.removeEventListener('resize', fn)
     }
-  }, [throttledHandler])
+  }, [])
 
   return (
     <TinyButton show={showBackTop} onClick={backToTop} label="Scroll to top">
