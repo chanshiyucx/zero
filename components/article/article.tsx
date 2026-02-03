@@ -1,7 +1,6 @@
 import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 import { DateTime } from '@/components/datetime'
 import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
@@ -73,18 +72,10 @@ export async function generateMetadata({
   }
 }
 
-export function ArticleLayout({
+export default async function Article({
   params,
   hideDiscussion = false,
 }: ArticleProps) {
-  return (
-    <Suspense fallback={null}>
-      <Article params={params} hideDiscussion={hideDiscussion} />
-    </Suspense>
-  )
-}
-
-async function Article({ params, hideDiscussion = false }: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const article = findContentBySlug(decodedSlug)

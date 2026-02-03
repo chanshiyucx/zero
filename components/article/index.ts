@@ -1,1 +1,1 @@
-export * from './article'
+export { default, generateMetadata } from './article'
