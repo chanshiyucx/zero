@@ -1,9 +1,12 @@
-import dayjs from 'dayjs'
-
 interface DateTimeProps {
   dateString: string
-  dateFormat?: string
+  dateFormat?: 'MMM DD, YYYY' | 'MMM DD'
   className?: string
+}
+
+const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
+  'MMM DD, YYYY': { month: 'short', day: '2-digit', year: 'numeric' },
+  'MMM DD': { month: 'short', day: '2-digit' },
 }
 
 export function DateTime({
@@ -13,9 +16,11 @@ export function DateTime({
 }: DateTimeProps) {
   if (!dateString) return null
 
-  const date = dayjs(dateString)
-  if (!date.isValid()) return null
-  const formattedDate = date.format(dateFormat)
+  const date = new Date(dateString)
+  if (isNaN(date.getTime())) return null
+
+  const options = formatOptions[dateFormat]
+  const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date)
 
   return (
     <time dateTime={dateString} className={className}>
