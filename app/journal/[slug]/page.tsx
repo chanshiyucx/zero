@@ -1,4 +1,1 @@
-export {
-  ArticleLayout as default,
-  generateMetadata,
-} from '@/components/article'
+export { default, generateMetadata } from '@/components/article'
