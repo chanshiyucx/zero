@@ -281,9 +281,11 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             onChange={handleProgressChange}
             className="player-progress flex-1"
             // Add 1 to avoid gaps
-            style={{
-              '--progress': `${progressPercentage + 1}%`,
-            }}
+            style={
+              {
+                '--progress': `${progressPercentage + 1}%`,
+              } as React.CSSProperties
+            }
             disabled={isLoading || !duration}
             aria-label="Audio progress"
           />

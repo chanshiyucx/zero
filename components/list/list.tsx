@@ -15,7 +15,7 @@ export function List({ title, groups }: ListProps) {
       <ul
         data-slide-auto
         className="w-full space-y-2 max-md:space-y-4"
-        style={{ '--enter-delay': '50ms' }}
+        style={{ '--enter-delay': '50ms' } as React.CSSProperties}
       >
         {groups.map((group) => (
           <Fragment key={group.year}>
