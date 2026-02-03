@@ -121,8 +121,6 @@ export function Discussion({ label, title }: DiscussionProps) {
     setLocalData({ ...localData, [title]: 1 })
   }
 
-  console.log('discussion', discussion)
-
   const comments = discussion?.comments ?? 0
 
   return (

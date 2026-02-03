@@ -8,7 +8,6 @@ import {
   type Journal,
   type Snippet,
 } from 'content-collections'
-import dayjs from 'dayjs'
 
 export type Content = Article | Snippet | Journal
 
@@ -30,7 +29,9 @@ export const content: Content[] = [
 ]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
-  [...items].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+  [...items].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  )
 
 const sortedByPriority = <T extends { priority: number }>(
   items: readonly T[],
@@ -40,7 +41,7 @@ export const groupByYear = (items: Content[]): ContentGroup[] => {
   const groups: Record<number, Content[]> = {}
 
   items.forEach((item) => {
-    const year = dayjs(item.date).year()
+    const year = new Date(item.date).getFullYear()
     groups[year] ??= []
     groups[year].push(item)
   })

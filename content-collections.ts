@@ -1,7 +1,6 @@
 import path from 'path'
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
-import dayjs from 'dayjs'
 import GithubSlugger from 'github-slugger'
 import { z } from 'zod'
 import { getOptions } from './lib/mdx'
@@ -49,7 +48,8 @@ const getCollection = <T extends string>({
       title: z.string(),
       date: z
         .string()
-        .refine((value) => dayjs(value, 'yyyy-MM-dd HH:mm:ss').isValid(), {
+        .transform((value) => value.replace(' ', 'T'))
+        .refine((value) => !isNaN(new Date(value).getTime()), {
           message: 'Invalid datetime format or invalid date value.',
         }),
       tags: z.string().array(),
