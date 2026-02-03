@@ -36,7 +36,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
     "es-toolkit": "^1.44.0",
-    "framer-motion": "^12.29.2",
+    "framer-motion": "^12.31.0",
     "id3-parser": "^3.0.0",
     "katex": "^0.16.28",
     "next": "^16.1.6",
@@ -48,8 +48,8 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.4.0",
-    "@commitlint/config-conventional": "^20.4.0",
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
     "@content-collections/core": "^0.12.0",
     "@content-collections/mdx": "^0.2.2",
     "@content-collections/next": "^0.2.10",
@@ -61,7 +61,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^24.10.9",
+    "@types/node": "^24.10.10",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
