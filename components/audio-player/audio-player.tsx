@@ -16,6 +16,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type CSSProperties,
 } from 'react'
 import { Spinner } from '@/components/spinner'
 import { formatTime } from '@/lib/utils/helper'
@@ -284,7 +285,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
             style={
               {
                 '--progress': `${progressPercentage + 1}%`,
-              } as React.CSSProperties
+              } as CSSProperties
             }
             disabled={isLoading || !duration}
             aria-label="Audio progress"
