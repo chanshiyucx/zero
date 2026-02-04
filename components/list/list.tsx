@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, type CSSProperties } from 'react'
 import { DateTime } from '@/components/datetime'
 import { PageLayout } from '@/components/page'
 import type { ContentGroup } from '@/lib/utils/content'
@@ -15,7 +15,7 @@ export function List({ title, groups }: ListProps) {
       <ul
         data-slide-auto
         className="w-full space-y-2 max-md:space-y-4"
-        style={{ '--enter-delay': '50ms' } as React.CSSProperties}
+        style={{ '--enter-delay': '50ms' } as CSSProperties}
       >
         {groups.map((group) => (
           <Fragment key={group.year}>
