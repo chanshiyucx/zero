@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, Merriweather } from 'next/font/google'
-import type { ReactNode } from 'react'
+import { Suspense, type ReactNode } from 'react'
 import { Blur } from '@/components/blur'
 import { Footer } from '@/components/footer'
 import { Helper } from '@/components/helper'
@@ -91,7 +91,7 @@ export default function RootLayout({
           <MotionProvider>
             <VercelProvider>
               <Blur />
-              {children}
+              <Suspense>{children}</Suspense>
               <Helper />
               <Footer />
             </VercelProvider>
