@@ -34,7 +34,7 @@ export function Footer() {
         <p>
           Shiyu
           <span className="ml-1 inline-block translate-y-0.5">&copy; </span>
-          2016-2025
+          2016-2026
         </p>
       </div>
 
