@@ -28,7 +28,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="mb-8 flex items-center justify-between gap-5 text-sm max-md:flex-col-reverse">
+    <footer className="mt-auto mb-8 flex items-center justify-between gap-5 text-sm max-md:flex-col-reverse">
       <div className="flex gap-1">
         <ThemeSwitcher />
         <p>
