@@ -85,7 +85,7 @@
 
   @keyframes slide-enter {
     0% {
-      transform: translateY(10px);
+      transform: translateY(8px);
       opacity: 0;
     }
     100% {
