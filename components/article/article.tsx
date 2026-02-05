@@ -2,7 +2,7 @@ import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { DateTime } from '@/components/datetime'
-import { Discussion } from '@/components/discussion'
+// import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'
 import { Toc } from '@/components/toc'
@@ -74,7 +74,7 @@ export async function generateMetadata({
 
 export default async function Article({
   params,
-  hideDiscussion = false,
+  // hideDiscussion = false,
 }: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
@@ -105,11 +105,11 @@ export default async function Article({
           <MDX slideMode="auto" contentCode={article.contentCode} />
         </div>
       </article>
-      <div data-slide>
+      {/* <div data-slide>
         {!hideDiscussion && (
           <Discussion label={article.type} title={article.title} />
         )}
-      </div>
+      </div> */}
     </PageLayout>
   )
 }
