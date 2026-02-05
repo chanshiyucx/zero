@@ -80,7 +80,7 @@
 
   [data-slide],
   [data-slide-auto] > * {
-    animation: slide-enter 1s backwards;
+    animation: slide-enter 0.8s backwards;
     animation-delay: calc(
       var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
     );

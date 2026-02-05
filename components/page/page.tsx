@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, type ReactNode } from 'react'
 import { Nav } from './nav'
 
 const MAX_STAGGER = 20
-const STAGGER_DELAY = 100
+const STAGGER_DELAY = 50
 
 interface PageProps {
   children: ReactNode
