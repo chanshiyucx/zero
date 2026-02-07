@@ -25,14 +25,9 @@ export function useCopyToClipboard({
     try {
       await navigator.clipboard.writeText(value)
       setIsCopied(true)
+      onCopy?.()
 
-      if (onCopy) {
-        onCopy()
-      }
-
-      setTimeout(() => {
-        setIsCopied(false)
-      }, timeout)
+      setTimeout(() => setIsCopied(false), timeout)
     } catch (error) {
       console.error('Failed to copy to clipboard:', error)
     }
