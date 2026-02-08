@@ -15,7 +15,11 @@ export function About() {
           </h2>
 
           <p className="mb-0">
-            <HandWavingIcon weight="duotone" className="mr-1 inline text-xl" />
+            <HandWavingIcon
+              weight="duotone"
+              size={18}
+              className="mr-1 inline"
+            />
             <span>Hello, I&apos;m Shiyu. A curious soul with big dreams.</span>
           </p>
         </div>

@@ -25,7 +25,7 @@ function ContentItem({
           isFirst ? 'border-t-0 pt-0' : 'border-t pt-12',
         )}
       >
-        <Link className="link link-hover text-2xl font-bold" href={content.url}>
+        <Link className="link link-hover text-lg font-bold" href={content.url}>
           <h2 id={content.slug}>{content.title}</h2>
         </Link>
         <div className="text-subtle flex shrink-0 text-sm">

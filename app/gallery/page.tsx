@@ -23,7 +23,7 @@ function AlbumItem({ album, isFirst }: { album: Album; isFirst: boolean }) {
           isFirst ? 'border-t-0 pt-0' : 'border-t pt-12',
         )}
       >
-        <h2 className="text-2xl font-bold">{album.title}</h2>
+        <h2 className="text-lg font-bold">{album.title}</h2>
         <DateTime
           dateString={album.date}
           className="text-subtle shrink-0 text-sm"
