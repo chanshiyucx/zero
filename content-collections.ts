@@ -32,12 +32,10 @@ const getCollection = <T extends string>({
   name,
   directory,
   prefixPath,
-  compileDescription = false,
 }: {
   name: T
   directory: string
   prefixPath: string
-  compileDescription?: boolean
 }) =>
   defineCollection({
     name,
@@ -58,11 +56,14 @@ const getCollection = <T extends string>({
       content: z.string(),
     }),
     transform: async (document, context) => {
+      const parseDescription = name === 'snippet'
+
+      const options = getOptions(name)
       const title = document.title
       const description =
-        document.description ?? extractDescription(document.content)
-      const options = getOptions(name)
-      const descriptionCode = compileDescription
+        document.description ??
+        (parseDescription ? extractDescription(document.content) : '')
+      const descriptionCode = description
         ? await compileMDX(
             context,
             { ...document, content: description },
@@ -122,7 +123,11 @@ const collections = [
     name: 'snippet',
     directory: 'public/blog/snippet',
     prefixPath: '/snippets',
-    compileDescription: true,
+  }),
+  getCollection({
+    name: 'musing',
+    directory: 'public/blog/musing',
+    prefixPath: '/musing',
   }),
 ]
 

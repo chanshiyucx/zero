@@ -4,12 +4,12 @@ import { DateTime } from '@/components/datetime'
 import { PageLayout } from '@/components/page'
 import type { ContentGroup } from '@/lib/utils/content'
 
-interface ListProps {
+interface LinkListProps {
   title: string
   groups: ContentGroup[]
 }
 
-export function List({ title, groups }: ListProps) {
+export function LinkList({ title, groups }: LinkListProps) {
   return (
     <PageLayout title={title}>
       <ul data-slide-auto className="w-full space-y-2 max-md:space-y-4">

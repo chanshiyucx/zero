@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { List } from '@/components/list'
+import { LinkList } from '@/components/list'
 import { groupByYear, sortedJournals } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 export default function Page() {
   const groupList = groupByYear(sortedJournals)
 
-  return <List title="Life is a burning chaos." groups={groupList} />
+  return <LinkList title="Life is a burning chaos." groups={groupList} />
 }
