@@ -22,25 +22,34 @@ import {
   type Content,
 } from '@/lib/utils/content'
 
-interface ListProps {
+interface HeaderProps {
   title: string
   href: string
   icon: Icon
+}
+
+function Header({ title, href, icon: Icon }: HeaderProps) {
+  return (
+    <div className="flex justify-between">
+      <div className="flex items-center gap-1">
+        <Icon size="18" weight="bold" />
+        <h2 className="font-bold">{title}</h2>
+      </div>
+      <Link className="link text-sm" href={href}>
+        View All
+      </Link>
+    </div>
+  )
+}
+
+interface ListProps extends HeaderProps {
   list: Content[]
 }
 
 function List({ title, href, icon: Icon, list }: ListProps) {
   return (
     <section className="space-y-3">
-      <div className="flex justify-between">
-        <div className="flex items-center gap-1">
-          <Icon size="18" weight="bold" />
-          <h2 className="font-bold">{title}</h2>
-        </div>
-        <Link className="link text-sm" href={href}>
-          View All
-        </Link>
-      </div>
+      <Header title={title} href={href} icon={Icon} />
       <ul className="space-y-2 max-md:space-y-4">
         {list.map((content) => (
           <li key={content.slug} className="flex items-start justify-between">
@@ -61,25 +70,14 @@ function List({ title, href, icon: Icon, list }: ListProps) {
   )
 }
 
-interface SectionProps {
-  title: string
-  href: string
-  icon: Icon
+interface SectionProps extends HeaderProps {
   content: Content
 }
 
 function Section({ title, href, icon: Icon, content }: SectionProps) {
   return (
     <section className="space-y-3">
-      <div className="flex justify-between">
-        <div className="flex items-center gap-1">
-          <Icon size="18" weight="bold" />
-          <h2 className="font-bold">{title}</h2>
-        </div>
-        <Link className="link text-sm" href={href}>
-          View All
-        </Link>
-      </div>
+      <Header title={title} href={href} icon={Icon} />
       <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
         <header className="mb-3 flex flex-row items-center justify-between">
           <span className="text-text truncate max-sm:whitespace-normal">
@@ -169,15 +167,7 @@ async function Project() {
 
   return (
     <section className="space-y-3">
-      <div className="flex justify-between">
-        <div className="flex items-center gap-1">
-          <BriefcaseIcon size="18" weight="bold" />
-          <h2 className="font-bold">Projects</h2>
-        </div>
-        <Link className="link text-sm" href="/projects">
-          View All
-        </Link>
-      </div>
+      <Header title="Projects" href="/projects" icon={BriefcaseIcon} />
       <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {lastRepositories.map((repo) => (
           <li key={repo.name}>
