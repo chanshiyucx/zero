@@ -20,15 +20,15 @@ export function Github({ repo, className }: GithubProps) {
       )}
     >
       <div className="flex items-center justify-between gap-1">
-        <div className="text-lg font-bold">{repo.name}</div>
+        <p className="font-bold">{repo.name}</p>
         <a
           href={repo.html_url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Github repository"
-          className="text-lg font-bold"
+          className="font-bold"
         >
-          <GithubLogoIcon weight="duotone" />
+          <GithubLogoIcon weight="duotone" size={18} />
         </a>
       </div>
       <div>{repo.description}</div>
