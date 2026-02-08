@@ -35,7 +35,7 @@ export function ScrollTop() {
 
   return (
     <TinyButton show={showBackTop} onClick={backToTop} label="Scroll to top">
-      <CaretDoubleUpIcon className="text-xl" weight="duotone" />
+      <CaretDoubleUpIcon size={18} weight="duotone" />
     </TinyButton>
   )
 }
