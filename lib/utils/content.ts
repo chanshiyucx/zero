@@ -2,14 +2,16 @@ import {
   allAlbums,
   allArticles,
   allJournals,
+  allMusings,
   allSnippets,
   type Album,
   type Article,
   type Journal,
+  type Musing,
   type Snippet,
 } from 'content-collections'
 
-export type Content = Article | Snippet | Journal
+export type Content = Album | Article | Journal | Musing | Snippet
 
 export interface ContentGroup {
   year: number
@@ -59,6 +61,8 @@ export const sortedAlbums: Album[] = sortByDate(allAlbums)
 export const sortedArticles: Article[] = sortByDate(allArticles)
 
 export const sortedJournals: Journal[] = sortByDate(allJournals)
+
+export const sortedMusings: Musing[] = sortByDate(allMusings)
 
 export const sortedSnippets: Snippet[] = sortByDate(allSnippets)
 
