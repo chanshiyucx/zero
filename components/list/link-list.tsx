@@ -15,7 +15,7 @@ export function LinkList({ title, groups }: LinkListProps) {
       <ul data-slide-auto className="w-full space-y-2 max-md:space-y-4">
         {groups.map((group) => (
           <Fragment key={group.year}>
-            <li className="my-5 text-right text-3xl font-extrabold first:mt-0 max-md:text-2xl">
+            <li className="my-5 text-right text-2xl font-extrabold first:mt-0">
               {group.year}
             </li>
             {group.list.map((article) => (
