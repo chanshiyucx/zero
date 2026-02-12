@@ -78,9 +78,9 @@ function Section({ title, href, icon: Icon, content }: SectionProps) {
       <Header title={title} href={href} icon={Icon} />
       <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
         <header className="mb-3 flex flex-row items-center justify-between">
-          <span className="text-text truncate max-sm:whitespace-normal">
+          <h2 className="text-text truncate max-sm:whitespace-normal">
             {content.title}
-          </span>
+          </h2>
           <DateTime
             dateString={content.date}
             className="text-subtle shrink-0 text-sm"
