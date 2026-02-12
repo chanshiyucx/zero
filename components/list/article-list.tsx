@@ -5,14 +5,10 @@ import { PageLayout } from '@/components/page'
 import type { Content } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
 
-type CodeKey = 'contentCode' | 'descriptionCode'
-
 function ContentItem({
-  codeKey,
   content,
   isFirst,
 }: {
-  codeKey: CodeKey
   content: Content
   isFirst: boolean
 }) {
@@ -32,18 +28,17 @@ function ContentItem({
           <DateTime dateString={content.date} />
         </div>
       </header>
-      <MDX contentCode={content[codeKey]} />
+      <MDX contentCode={content.contentCode} />
     </article>
   )
 }
 
 interface ArticleListProps {
   title: string
-  codeKey: CodeKey
   data: Content[]
 }
 
-export function ArticleList({ title, data, codeKey }: ArticleListProps) {
+export function ArticleList({ title, data }: ArticleListProps) {
   return (
     <PageLayout title={title}>
       <div className="space-y-12">
@@ -51,7 +46,6 @@ export function ArticleList({ title, data, codeKey }: ArticleListProps) {
           <ContentItem
             key={content.slug}
             content={content}
-            codeKey={codeKey}
             isFirst={index === 0}
           />
         ))}

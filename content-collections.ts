@@ -5,28 +5,8 @@ import GithubSlugger from 'github-slugger'
 import { z } from 'zod'
 import { getOptions } from './lib/mdx'
 
-const HTML_TAG_REGEX = /<[^>]*>/g
-const PARAGRAPH_SPLIT_REGEX = /\r?\n\s*\r?\n/
 const FILENAME_REGEX = /^(\d+)-(.+)\.md$/
-
 const slugger = new GithubSlugger()
-
-const stripHtml = (html: string): string => html.replace(HTML_TAG_REGEX, '')
-
-const extractDescription = (content: string): string => {
-  const paragraphs = content.trim().split(PARAGRAPH_SPLIT_REGEX)
-
-  for (const p of paragraphs) {
-    if (!p) continue
-    const trimmed = p.trim()
-    if (trimmed.startsWith('#')) continue
-
-    const text = stripHtml(trimmed).trim()
-    if (text) return text
-  }
-
-  return ''
-}
 
 const getCollection = <T extends string>({
   name,
@@ -56,21 +36,8 @@ const getCollection = <T extends string>({
       content: z.string(),
     }),
     transform: async (document, context) => {
-      const parseDescription = name === 'snippet'
-
       const options = getOptions(name)
       const title = document.title
-      const description =
-        document.description ??
-        (parseDescription ? extractDescription(document.content) : '')
-      const descriptionCode = description
-        ? await compileMDX(
-            context,
-            { ...document, content: description },
-            options,
-          )
-        : ''
-
       const match = FILENAME_REGEX.exec(document._meta.fileName)
       if (!match) {
         throw new Error(
@@ -96,8 +63,6 @@ const getCollection = <T extends string>({
         slug,
         url,
         toc,
-        description,
-        descriptionCode,
         contentCode,
       }
     },
@@ -118,11 +83,6 @@ const collections = [
     name: 'journal',
     directory: 'public/blog/journal',
     prefixPath: '/journal',
-  }),
-  getCollection({
-    name: 'snippet',
-    directory: 'public/blog/snippet',
-    prefixPath: '/snippets',
   }),
   getCollection({
     name: 'musing',

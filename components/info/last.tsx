@@ -1,7 +1,6 @@
 import type { Icon } from '@phosphor-icons/react'
 import {
   BriefcaseIcon,
-  CodepenLogoIcon,
   FlowerTulipIcon,
   GhostIcon,
   InstagramLogoIcon,
@@ -18,7 +17,6 @@ import {
   sortedArticles,
   sortedJournals,
   sortedMusings,
-  sortedSnippets,
   type Content,
 } from '@/lib/utils/content'
 
@@ -120,19 +118,6 @@ function Article() {
   )
 }
 
-function Snippet() {
-  const lastSnippets = sortedSnippets.slice(0, 5)
-
-  return (
-    <List
-      title="Snippets"
-      href="/snippets"
-      list={lastSnippets}
-      icon={CodepenLogoIcon}
-    />
-  )
-}
-
 function Gallery() {
   const album = sortedAlbums[0]
   if (!album) return null
@@ -191,7 +176,6 @@ export function Last() {
       <Musing />
       <Journal />
       <Article />
-      <Snippet />
       <Project />
     </div>
   )
