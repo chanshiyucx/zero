@@ -32,8 +32,9 @@ export function About() {
       </p>
 
       <p>
-        <i>Seize the day, gather ye rosebuds while ye may. </i> Sleeping,
-        coding, learning German, chasing light through photography.
+        <i>Seize the day, gather ye rosebuds while ye may. </i> Dreaming deeply,
+        coding endlessly, stumbling over German, chasing light through
+        photography.
       </p>
     </div>
   )

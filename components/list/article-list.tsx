@@ -22,11 +22,12 @@ function ContentItem({
         )}
       >
         <Link className="link link-hover text-lg font-bold" href={content.url}>
-          <h2 id={content.slug}>{content.title}</h2>
+          {content.title}
         </Link>
-        <div className="text-subtle flex shrink-0 text-sm">
-          <DateTime dateString={content.date} />
-        </div>
+        <DateTime
+          dateString={content.date}
+          className="text-subtle shrink-0 text-sm"
+        />
       </header>
       <MDX contentCode={content.contentCode} />
     </article>
