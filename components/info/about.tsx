@@ -20,7 +20,7 @@ export function About() {
               size={18}
               className="mr-1 inline"
             />
-            <span>Hello, I&apos;m Shiyu. A curious soul with big dreams.</span>
+            <span>Ciao, I&apos;m Shiyu. A curious soul with big dreams.</span>
           </p>
         </div>
       </div>
