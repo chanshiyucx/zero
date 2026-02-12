@@ -10,11 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return (
-    <ArticleList
-      title="Feelings bloom into words."
-      codeKey="contentCode"
-      data={sortedMusings}
-    />
-  )
+  return <ArticleList title="Feelings bloom into words." data={sortedMusings} />
 }
