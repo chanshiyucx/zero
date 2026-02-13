@@ -2,7 +2,7 @@
   --tw-prose-body: var(--color-text);
   --tw-prose-headings: var(--color-text);
   --tw-prose-lead: var(--color-text);
-  --tw-prose-links: var(--color-love);
+  --tw-prose-links: var(--color-iris);
   --tw-prose-bold: var(--color-text);
   --tw-prose-counters: var(--color-subtle);
   --tw-prose-bullets: var(--color-subtle);
@@ -22,7 +22,7 @@
   --tw-prose-invert-body: var(--color-text);
   --tw-prose-invert-headings: var(--color-text);
   --tw-prose-invert-lead: var(--color-text);
-  --tw-prose-invert-links: var(--color-love);
+  --tw-prose-invert-links: var(--color-iris);
   --tw-prose-invert-bold: var(--color-text);
   --tw-prose-invert-counters: var(--color-subtle);
   --tw-prose-invert-bullets: var(--color-subtle);
