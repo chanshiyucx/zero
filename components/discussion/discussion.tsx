@@ -38,11 +38,10 @@ export function Discussion({ label, title }: DiscussionProps) {
         )
         const data = (await response.json()) as DiscussionType
         if (data) {
-          setDiscussions(data)
-
           const match = /\d+/.exec(data.body)
           if (!match) return
           setLike(parseInt(match[0], 10))
+          setDiscussions(data)
         }
       } catch (error) {
         console.error('Failed to load discussions:', error)
