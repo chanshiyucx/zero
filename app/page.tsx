@@ -3,7 +3,7 @@ import { PageLayout } from '@/components/page'
 
 export default function Page() {
   return (
-    <PageLayout>
+    <PageLayout showNav={false}>
       <About />
       <Last />
     </PageLayout>
