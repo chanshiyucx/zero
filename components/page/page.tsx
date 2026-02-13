@@ -5,13 +5,14 @@ import { Stagger } from './stagger'
 interface PageProps {
   children: ReactNode
   title?: string
+  showNav?: boolean
 }
 
-export function PageLayout({ children, title }: PageProps) {
+export function PageLayout({ children, title, showNav = true }: PageProps) {
   return (
     <main className="page slide-container">
       <Stagger />
-      <Nav />
+      {showNav && <Nav />}
 
       {title && (
         <header>
