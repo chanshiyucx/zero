@@ -18,7 +18,7 @@ export function CopyButton({ text }: { text: string }) {
         !isCopied && 'cursor-pointer opacity-0',
       )}
     >
-      {isCopied ? <CheckIcon size="1em" /> : <CopyIcon size="1em" />}
+      {isCopied ? <CheckIcon size={18} /> : <CopyIcon size={18} />}
     </button>
   )
 }
