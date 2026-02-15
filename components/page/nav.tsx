@@ -8,7 +8,6 @@ export function Nav() {
   const pathname = usePathname()
 
   const segments = pathname.split('/').filter(Boolean)
-
   if (segments.length === 0) return null
 
   const parentHref =
@@ -21,7 +20,6 @@ export function Nav() {
     const parentKey = parentHref.split('/').pop()!
     parentName = parentKey.charAt(0).toUpperCase() + parentKey.slice(1)
   }
-
   if (!parentName) return null
 
   const backPath = { name: parentName, href: parentHref }

@@ -11,11 +11,9 @@ const slugger = new GithubSlugger()
 const getCollection = <T extends string>({
   name,
   directory,
-  prefixPath,
 }: {
   name: T
   directory: string
-  prefixPath: string
 }) =>
   defineCollection({
     name,
@@ -47,7 +45,7 @@ const getCollection = <T extends string>({
       const [, no] = match
 
       const slug = slugger.slug(title)
-      const url = path.join(prefixPath, slug)
+      const url = path.join('/', name, slug)
       const contentCode = await compileMDX(context, document, options)
 
       const toc =
@@ -72,22 +70,18 @@ const collections = [
   getCollection({
     name: 'album',
     directory: 'public/blog/album',
-    prefixPath: '/albums',
   }),
   getCollection({
     name: 'craft',
     directory: 'public/blog/craft',
-    prefixPath: '/crafts',
   }),
   getCollection({
     name: 'journal',
     directory: 'public/blog/journal',
-    prefixPath: '/journals',
   }),
   getCollection({
     name: 'musing',
     directory: 'public/blog/musing',
-    prefixPath: '/musings',
   }),
 ]
 

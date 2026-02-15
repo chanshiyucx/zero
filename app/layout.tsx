@@ -8,8 +8,8 @@ import { siteConfig } from '@/lib/constants/config'
 import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
 import { ThemeProvider } from 'next-themes'
-import MotionProvider from './providers/motion-provider'
-import VercelProvider from './providers/vercel-provider'
+import MotionProvider from './provider/motion-provider'
+import VercelProvider from './provider/vercel-provider'
 
 const merriweather = Merriweather({
   subsets: ['latin'],

@@ -98,7 +98,7 @@ function Journal() {
   return (
     <List
       title="Journal"
-      href="/journals"
+      href="/journal"
       list={lastJournals}
       icon={FlowerTulipIcon}
     />
@@ -109,7 +109,7 @@ function Craft() {
   const lastCrafts = sortedCrafts.slice(0, 5)
 
   return (
-    <List title="Craft" href="/crafts" list={lastCrafts} icon={ScrollIcon} />
+    <List title="Craft" href="/craft" list={lastCrafts} icon={ScrollIcon} />
   )
 }
 
@@ -120,7 +120,7 @@ function Album() {
   return (
     <Section
       title="Album"
-      href="/albums"
+      href="/album"
       icon={InstagramLogoIcon}
       content={album}
     />
@@ -132,7 +132,7 @@ function Musing() {
   if (!musing) return null
 
   return (
-    <Section title="Musing" href="/musings" icon={GhostIcon} content={musing} />
+    <Section title="Musing" href="/musing" icon={GhostIcon} content={musing} />
   )
 }
 
@@ -142,7 +142,7 @@ async function Project() {
 
   return (
     <section className="space-y-3">
-      <Header title="Project" href="/projects" icon={BriefcaseIcon} />
+      <Header title="Project" href="/project" icon={BriefcaseIcon} />
       <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {lastRepositories.map((repo) => (
           <li key={repo.name}>
