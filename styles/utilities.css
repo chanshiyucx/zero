@@ -91,7 +91,7 @@
   @apply bg-surface!;
 }
 
-@utility photo-gallery {
+@utility photo-albums {
   @apply grid grid-cols-3 gap-3 max-md:grid-cols-2;
 
   &[data-total='1'] {

@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
 import { LinkList } from '@/components/list'
-import { groupByYear, sortedArticles } from '@/lib/utils/content'
+import { groupByYear, sortedCrafts } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
-  title: 'Articles',
+  title: 'Craft',
   description:
     'A collection of my personal posts and thoughts on a variety of topics I enjoy, with a focus on technology.',
-  keywords: ['blog', 'posts', 'thoughts', 'technical', 'tutorials', 'articles'],
+  keywords: ['blog', 'posts', 'thoughts', 'technical', 'tutorials', 'craft'],
 }
 
 export default function Page() {
-  const groupList = groupByYear(sortedArticles)
+  const groupList = groupByYear(sortedCrafts)
 
   return <LinkList title="Tech ignites boundless sparks." groups={groupList} />
 }

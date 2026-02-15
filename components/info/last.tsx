@@ -14,7 +14,7 @@ import { MDX } from '@/components/mdx'
 import { getGithubRepositories } from '@/lib/api/github'
 import {
   sortedAlbums,
-  sortedArticles,
+  sortedCrafts,
   sortedJournals,
   sortedMusings,
   type Content,
@@ -98,34 +98,29 @@ function Journal() {
   return (
     <List
       title="Journal"
-      href="/journal"
+      href="/journals"
       list={lastJournals}
       icon={FlowerTulipIcon}
     />
   )
 }
 
-function Article() {
-  const lastArticles = sortedArticles.slice(0, 5)
+function Craft() {
+  const lastCrafts = sortedCrafts.slice(0, 5)
 
   return (
-    <List
-      title="Articles"
-      href="/articles"
-      list={lastArticles}
-      icon={ScrollIcon}
-    />
+    <List title="Craft" href="/crafts" list={lastCrafts} icon={ScrollIcon} />
   )
 }
 
-function Gallery() {
+function Album() {
   const album = sortedAlbums[0]
   if (!album) return null
 
   return (
     <Section
-      title="Gallery"
-      href="/gallery"
+      title="Album"
+      href="/albums"
       icon={InstagramLogoIcon}
       content={album}
     />
@@ -137,12 +132,7 @@ function Musing() {
   if (!musing) return null
 
   return (
-    <Section
-      title="Musings"
-      href="/musings"
-      icon={GhostIcon}
-      content={musing}
-    />
+    <Section title="Musing" href="/musings" icon={GhostIcon} content={musing} />
   )
 }
 
@@ -152,7 +142,7 @@ async function Project() {
 
   return (
     <section className="space-y-3">
-      <Header title="Projects" href="/projects" icon={BriefcaseIcon} />
+      <Header title="Project" href="/projects" icon={BriefcaseIcon} />
       <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {lastRepositories.map((repo) => (
           <li key={repo.name}>
@@ -172,10 +162,10 @@ async function Project() {
 export function Last() {
   return (
     <div data-slide-auto className="space-y-12">
-      <Gallery />
+      <Album />
       <Musing />
       <Journal />
-      <Article />
+      <Craft />
       <Project />
     </div>
   )
