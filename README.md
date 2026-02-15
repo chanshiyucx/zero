@@ -30,7 +30,7 @@ A modern, elegant personal blog and portfolio built with Next.js, TypeScript, an
 - 🌓 Dark/Light mode support
 - 📱 Responsive design
 - 📊 GitHub integration
-- 📷 Photo album gallery
+- 📷 Photo album
 - 🔗 RSS feed support
 - 🗺️ Sitemap generation
 
@@ -50,7 +50,7 @@ zero/
 │   ├── blog/          # Blog pages
 │   ├── leetcode/      # LeetCode solutions
 │   ├── projects/      # Project showcase
-│   └── album/         # Photo gallery
+│   └── album/         # Photo Album
 ├── components/         # React components
 ├── lib/               # Utility functions and constants
 ├── styles/            # Global styles

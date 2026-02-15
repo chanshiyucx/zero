@@ -16,7 +16,7 @@ import { unified, type Pluggable, type Processor } from 'unified'
 import { rehypeAudio } from './rehype-audio'
 import { rehypeCallout } from './rehype-callout'
 import { rehypeCode } from './rehype-code'
-import { rehypeImageGallery, rehypeImageSize } from './rehype-image'
+import { rehypeImageAlbum, rehypeImageSize } from './rehype-image'
 import { rehypeToc } from './rehype-toc'
 
 export * from './rehype-audio'
@@ -46,7 +46,7 @@ export const getRehypePlugins = (contentType: string): Pluggable[] => [
     },
   ],
   [rehypeImageSize, { root: 'public', contentType }],
-  rehypeImageGallery,
+  rehypeImageAlbum,
   rehypeAudio,
   rehypeCallout,
   rehypeToc,

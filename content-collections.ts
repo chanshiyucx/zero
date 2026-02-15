@@ -72,22 +72,22 @@ const collections = [
   getCollection({
     name: 'album',
     directory: 'public/blog/album',
-    prefixPath: '/album',
+    prefixPath: '/albums',
   }),
   getCollection({
-    name: 'article',
-    directory: 'public/blog/article',
-    prefixPath: '/articles',
+    name: 'craft',
+    directory: 'public/blog/craft',
+    prefixPath: '/crafts',
   }),
   getCollection({
     name: 'journal',
     directory: 'public/blog/journal',
-    prefixPath: '/journal',
+    prefixPath: '/journals',
   }),
   getCollection({
     name: 'musing',
     directory: 'public/blog/musing',
-    prefixPath: '/musing',
+    prefixPath: '/musings',
   }),
 ]
 

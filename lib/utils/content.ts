@@ -1,22 +1,22 @@
 import {
   allAlbums,
-  allArticles,
+  allCrafts,
   allJournals,
   allMusings,
   type Album,
-  type Article,
+  type Craft,
   type Journal,
   type Musing,
 } from 'content-collections'
 
-export type Content = Album | Article | Journal | Musing
+export type Content = Album | Craft | Journal | Musing
 
 export interface ContentGroup {
   year: number
   list: Content[]
 }
 
-export const content: Content[] = [...allArticles, ...allJournals]
+export const content: Content[] = [...allCrafts, ...allJournals]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort(
@@ -46,7 +46,7 @@ export const groupByYear = (items: Content[]): ContentGroup[] => {
 
 export const sortedAlbums: Album[] = sortByDate(allAlbums)
 
-export const sortedArticles: Article[] = sortByDate(allArticles)
+export const sortedCrafts: Craft[] = sortByDate(allCrafts)
 
 export const sortedJournals: Journal[] = sortByDate(allJournals)
 
