@@ -277,7 +277,7 @@ export function PhotoView({
   const Icon = originalsrc ? CameraIcon : SlideshowIcon
 
   return (
-    <figure>
+    <figure className="group relative">
       <AnimatePresence>
         {isOpen && (
           <m.span
@@ -354,7 +354,14 @@ export function PhotoView({
       </span>
 
       {alt && (
-        <figcaption className="text-subtle my-2 block text-center text-sm italic">
+        <figcaption
+          className={cn(
+            'text-center text-sm italic',
+            isReady &&
+              zoomState === ZoomState.Idle &&
+              'group-hover:opacity-100!',
+          )}
+        >
           <Icon weight="duotone" className="fill-subtle mr-1 inline" />
           <span className="align-text-top">{alt}</span>
         </figcaption>

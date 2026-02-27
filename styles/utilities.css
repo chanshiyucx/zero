@@ -108,6 +108,12 @@
   }
 }
 
+@utility gallery {
+  figcaption {
+    @apply from-overlay to-overlay/40 absolute bottom-0 z-10 w-full rounded-b-sm bg-linear-to-t py-1 opacity-0 duration-300;
+  }
+}
+
 @utility player-progress {
   @apply bg-overlay block h-10 w-full cursor-pointer appearance-none outline-hidden;
 

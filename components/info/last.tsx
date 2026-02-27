@@ -70,9 +70,16 @@ function List({ title, href, icon: Icon, list }: ListProps) {
 
 interface SectionProps extends HeaderProps {
   content: Content
+  className?: string
 }
 
-function Section({ title, href, icon: Icon, content }: SectionProps) {
+function Section({
+  title,
+  href,
+  icon: Icon,
+  content,
+  className,
+}: SectionProps) {
   return (
     <section className="space-y-3">
       <Header title={title} href={href} icon={Icon} />
@@ -86,7 +93,11 @@ function Section({ title, href, icon: Icon, content }: SectionProps) {
             className="text-subtle shrink-0 text-sm"
           />
         </header>
-        <MDX slideMode="none" contentCode={content.contentCode} />
+        <MDX
+          slideMode="none"
+          className={className}
+          contentCode={content.contentCode}
+        />
       </article>
     </section>
   )
@@ -123,6 +134,7 @@ function Album() {
       href="/album"
       icon={InstagramLogoIcon}
       content={album}
+      className="gallery"
     />
   )
 }
