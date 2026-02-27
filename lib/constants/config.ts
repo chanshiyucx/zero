@@ -15,9 +15,7 @@ export const siteConfig = {
   links: {
     github: 'http://github.com/chanshiyucx',
     repo: 'http://github.com/chanshiyucx/zero',
-    linkedIn: 'https://linkedin.com/in/xinchen-cx',
     twitter: 'https://x.com/chanshiyucx',
-    discord: 'https://discord.gg/vPw79xTZxP',
     cvPdf:
       'https://chanshiyucx.github.io/cv/Xin%20Chen%20-%20FrontEnd%20Engineer%20Resume.pdf',
     cv: 'https://chanshiyucx.github.io/cv/',

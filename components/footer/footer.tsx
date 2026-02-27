@@ -1,8 +1,6 @@
 import {
   CompassIcon,
-  DiscordLogoIcon,
   GithubLogoIcon,
-  LinkedinLogoIcon,
   RssSimpleIcon,
   XLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
@@ -17,13 +15,7 @@ const socialLinks = [
     icon: XLogoIcon,
     label: 'X (formerly Twitter)',
   },
-  { href: siteConfig.links.discord, icon: DiscordLogoIcon, label: 'Discord' },
   { href: siteConfig.links.github, icon: GithubLogoIcon, label: 'GitHub' },
-  {
-    href: siteConfig.links.linkedIn,
-    icon: LinkedinLogoIcon,
-    label: 'LinkedIn',
-  },
 ] as const
 
 export function Footer() {
