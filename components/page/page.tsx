@@ -16,7 +16,7 @@ export function PageLayout({ children, title, showNav = true }: PageProps) {
 
       {title && (
         <header>
-          <h1 data-slide className="text-3xl font-extrabold">
+          <h1 data-slide className="text-3xl font-extrabold italic">
             {title}
           </h1>
         </header>
