@@ -29,7 +29,7 @@ function AlbumItem({ album, isFirst }: { album: Album; isFirst: boolean }) {
           className="text-subtle shrink-0 text-sm"
         />
       </header>
-      <MDX contentCode={album.contentCode} />
+      <MDX className="gallery" contentCode={album.contentCode} />
     </article>
   )
 }
