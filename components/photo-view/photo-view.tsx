@@ -354,16 +354,18 @@ export function PhotoView({
       </span>
 
       {alt && (
-        <figcaption
-          className={cn(
-            'text-center text-sm italic',
-            isReady &&
-              zoomState === ZoomState.Idle &&
-              'group-hover:opacity-100!',
-          )}
-        >
-          <Icon weight="duotone" className="fill-subtle mr-1 inline" />
-          <span className="align-text-top">{alt}</span>
+        <figcaption className="pointer-events-none overflow-hidden">
+          <div
+            className={cn(
+              'text-center text-sm italic select-none',
+              isReady &&
+                zoomState === ZoomState.Idle &&
+                'group-hover:translate-y-0 group-hover:opacity-100!',
+            )}
+          >
+            <Icon weight="duotone" className="fill-subtle mr-1 inline" />
+            <span className="align-text-top">{alt}</span>
+          </div>
         </figcaption>
       )}
     </figure>
