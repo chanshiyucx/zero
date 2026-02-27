@@ -110,7 +110,19 @@
 
 @utility gallery {
   figcaption {
-    @apply from-overlay to-overlay/40 absolute bottom-0 z-10 w-full rounded-b-sm bg-linear-to-t py-1 opacity-0 duration-300;
+    @apply absolute bottom-0 z-10 w-full rounded-b-md;
+
+    div {
+      @apply from-text/40 translate-y-1 bg-linear-to-t to-transparent py-1.5 text-base opacity-0 duration-300;
+    }
+
+    svg {
+      @apply fill-base;
+    }
+
+    span {
+      @apply text-shadow-lg;
+    }
   }
 }
 
