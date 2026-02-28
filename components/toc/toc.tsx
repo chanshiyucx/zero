@@ -206,7 +206,7 @@ export function Toc({ toc }: TocProps) {
     const throttleSync = throttle(handleScroll, 100)
 
     window.addEventListener('resize', debouncedDrawPath)
-    window.addEventListener('scroll', throttleSync)
+    window.addEventListener('scroll', throttleSync, { passive: true })
 
     return () => {
       window.removeEventListener('resize', debouncedDrawPath)

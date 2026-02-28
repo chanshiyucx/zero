@@ -31,10 +31,10 @@ export function Footer() {
       </div>
 
       <div className="text-muted flex gap-3 text-lg">
-        {socialLinks.map(({ href, icon: Icon, label }, index) => {
+        {socialLinks.map(({ href, icon: Icon, label }) => {
           return (
             <a
-              key={index}
+              key={label}
               target="_blank"
               rel="noopener noreferrer"
               href={href}
