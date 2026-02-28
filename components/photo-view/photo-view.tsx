@@ -7,6 +7,7 @@ import {
   type Transition,
   type Variants,
 } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 import {
   useEffect,
   useEffectEvent,
@@ -80,6 +81,7 @@ export function PhotoView({
   })
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const pathname = usePathname()
 
   const loadImageWithProgress = async (url: string): Promise<string> => {
     if (abortControllerRef.current) {
@@ -178,17 +180,23 @@ export function PhotoView({
     })
   }
 
+  const closePreview = (force = false) => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    setIsOpen(false)
+    setIsLoading(false)
+    setLoadProgress({ loaded: 0, total: 0 })
+    if (force) {
+      setZoomState(ZoomState.Idle)
+    }
+  }
+
   const handleClose = (e?: MouseEvent) => {
     e?.stopPropagation()
 
     if (zoomState === ZoomState.Preview) {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort()
-      }
-
-      setIsOpen(false)
-      setIsLoading(false)
-      setLoadProgress({ loaded: 0, total: 0 })
+      closePreview()
     }
   }
 
@@ -197,9 +205,7 @@ export function PhotoView({
   }
 
   const handleImageClick = async () => {
-    if (zoomState === ZoomState.Preview) {
-      handleClose()
-    } else if (zoomState === ZoomState.Idle) {
+    if (zoomState === ZoomState.Idle) {
       getPreviewTransform()
       setIsOpen(true)
       setZoomState(ZoomState.Zooming)
@@ -218,6 +224,8 @@ export function PhotoView({
           }
         }
       }
+    } else {
+      handleClose()
     }
   }
 
@@ -239,17 +247,20 @@ export function PhotoView({
   useEffect(() => {
     document.body.style.overflow =
       zoomState === ZoomState.Idle ? 'initial' : 'hidden'
+
+    return () => {
+      document.body.style.overflow = 'initial'
+    }
   }, [zoomState])
+
+  useEffect(() => {
+    closePreview()
+  }, [pathname])
 
   const handleKeyDown = useEffectEvent((e: KeyboardEvent) => {
     if (!isOpen) return
-    if (e.key === 'Escape' && zoomState === ZoomState.Preview) {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort()
-      }
-      setIsOpen(false)
-      setIsLoading(false)
-      setLoadProgress({ loaded: 0, total: 0 })
+    if (e.key === 'Escape') {
+      handleClose()
     }
   })
 
