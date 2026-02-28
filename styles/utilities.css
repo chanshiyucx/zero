@@ -114,6 +114,7 @@
 
     div {
       @apply from-text/40 translate-y-1 bg-linear-to-t to-transparent py-1.5 text-base opacity-0 duration-300;
+      color-scheme: light;
     }
 
     svg {
