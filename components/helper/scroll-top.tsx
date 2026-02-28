@@ -23,7 +23,7 @@ export function ScrollTop() {
     const fn = throttledHandler.current
     fn()
 
-    window.addEventListener('scroll', fn)
+    window.addEventListener('scroll', fn, { passive: true })
     window.addEventListener('resize', fn)
 
     return () => {
