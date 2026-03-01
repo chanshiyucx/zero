@@ -4,7 +4,7 @@ import { DateTime } from '@/components/datetime'
 import { PageLayout } from '@/components/page'
 import type { ContentGroup } from '@/lib/utils/content'
 
-interface LinkListProps {
+type LinkListProps = {
   title: string
   groups: ContentGroup[]
 }

@@ -4,7 +4,7 @@ import { imageSizeFromFile } from 'image-size/fromFile'
 import type { Plugin } from 'unified'
 import { SKIP, visit } from 'unist-util-visit'
 
-interface Options {
+type Options = {
   root?: string
   contentType: string
 }

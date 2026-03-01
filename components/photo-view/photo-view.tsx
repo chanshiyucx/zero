@@ -20,14 +20,14 @@ import { Spinner } from '@/components/spinner'
 import { formatFileSize } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 
-interface Transform {
+type Transform = {
   width: number
   height: number
   top: number
   left: number
 }
 
-interface LoadProgress {
+type LoadProgress = {
   loaded: number
   total: number
 }

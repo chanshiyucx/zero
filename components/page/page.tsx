@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Nav } from './nav'
 import { Stagger } from './stagger'
 
-interface PageProps {
+type PageProps = {
   children: ReactNode
   title?: string
   showNav?: boolean

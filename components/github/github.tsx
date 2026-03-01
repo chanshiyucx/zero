@@ -6,7 +6,7 @@ import {
 import type { Repository } from '@/lib/api/github'
 import { cn } from '@/lib/utils/style'
 
-interface GithubProps {
+type GithubProps = {
   repo: Repository
   className?: string
 }

@@ -8,7 +8,7 @@ import { useLocalStorage } from '@/hooks/use-local-storage'
 import type { Discussion as DiscussionType } from '@/lib/api/github'
 import { cn } from '@/lib/utils/style'
 
-interface DiscussionProps {
+type DiscussionProps = {
   label: string
   title: string
 }

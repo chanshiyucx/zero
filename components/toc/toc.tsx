@@ -7,11 +7,11 @@ import { useEffect, useRef, useState } from 'react'
 import type { TocEntry } from '@/lib/mdx/rehype-toc'
 import { cn } from '@/lib/utils/style'
 
-interface TocProps {
+type TocProps = {
   toc: TocEntry[]
 }
 
-interface TocItem {
+type TocItem = {
   listItem: HTMLLIElement
   anchor: HTMLAnchorElement
   target: HTMLElement

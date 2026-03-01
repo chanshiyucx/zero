@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { cn } from '@/lib/utils/style'
 import { CopyButton } from './copy-button'
 
@@ -9,8 +9,10 @@ const LanguageMap = {
   shell: 'SH',
 } as const
 
-interface FigureProps extends ComponentPropsWithoutRef<'figure'> {
+type FigureProps = ComponentPropsWithoutRef<'figure'> & {
+  children: ReactNode
   raw?: string
+  caption?: string
   'data-rehype-pretty-code-figure'?: boolean
   'data-language'?: string
 }

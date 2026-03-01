@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { Signature } from '@/components/icons'
 import { cn } from '@/lib/utils/style'
 
-interface SignatureBoxProps {
+type SignatureBoxProps = {
   animate?: boolean
   className?: string
 }

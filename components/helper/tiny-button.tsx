@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { cn } from '@/lib/utils/style'
 
-interface TinyButtonProps {
+type TinyButtonProps = ComponentPropsWithoutRef<'button'> & {
   show: boolean
   children: ReactNode
   onClick: () => void

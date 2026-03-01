@@ -1,6 +1,6 @@
-interface DateTimeProps {
+type DateTimeProps = {
   dateString: string
-  dateFormat?: 'MMM DD, YYYY' | 'MMM DD'
+  dateFormat?: string
   className?: string
 }
 

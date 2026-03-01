@@ -11,7 +11,7 @@ import {
 
 export type Content = Album | Craft | Journal | Musing
 
-export interface ContentGroup {
+export type ContentGroup = {
   year: number
   list: Content[]
 }
