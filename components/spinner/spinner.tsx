@@ -33,7 +33,7 @@ export function Spinner({ size = 'small' }: SpinnerProps) {
   return (
     <span className={cn(gap, 'flex')}>
       {range(0, 5).map((i) => (
-        <Line key={i} order={i} size={size} />
+        <Line key={`spinner-line-${i}`} order={i} size={size} />
       ))}
     </span>
   )

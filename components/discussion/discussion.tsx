@@ -2,6 +2,7 @@
 
 import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { useLoading } from '@/hooks/use-loading'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import type { Discussion as DiscussionType } from '@/lib/api/github'
@@ -15,6 +16,15 @@ interface DiscussionProps {
 const LocalDiscussionKey = 'discussion'
 
 export function Discussion({ label, title }: DiscussionProps) {
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data: fetchedDiscussion, mutate } = useSWR<DiscussionType>(
+    title && label ? `/api/discussions?title=${title}&label=${label}` : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    },
+  )
+
   const [discussion, setDiscussions] = useState<DiscussionType>()
   const [loading, setLoading] = useState(false)
   const [delay, reset] = useLoading(1000)
@@ -30,26 +40,14 @@ export function Discussion({ label, title }: DiscussionProps) {
   }, [localData, title])
 
   useEffect(() => {
-    const fetchDiscussion = async () => {
-      try {
-        if (!title || !label) return
-        const response = await fetch(
-          `/api/discussions?title=${title}&label=${label}`,
-        )
-        const data = (await response.json()) as DiscussionType
-        if (data) {
-          const match = /\d+/.exec(data.body)
-          if (!match) return
-          setLike(parseInt(match[0], 10))
-          setDiscussions(data)
-        }
-      } catch (error) {
-        console.error('Failed to load discussions:', error)
+    if (fetchedDiscussion) {
+      const match = /\d+/.exec(fetchedDiscussion.body)
+      if (match) {
+        setLike(parseInt(match[0], 10))
       }
+      setDiscussions(fetchedDiscussion)
     }
-
-    fetchDiscussion().catch(console.error)
-  }, [label, title])
+  }, [fetchedDiscussion])
 
   const createDiscussion = async () => {
     try {
@@ -63,6 +61,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       const data = (await response.json()) as DiscussionType
       if (data) {
         setDiscussions(data)
+        void mutate(data, false)
       }
     } catch (error) {
       console.error('Failed to create discussion:', error)
@@ -87,6 +86,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       const data = (await response.json()) as DiscussionType
       if (data) {
         setDiscussions({ ...discussion, ...data })
+        void mutate({ ...discussion, ...data }, false)
       }
     } catch (error) {
       console.error('Failed to create discussion:', error)
