@@ -58,6 +58,69 @@ const progressVariants: Variants = {
   },
 }
 
+async function loadImageWithProgress(
+  url: string,
+  signal: AbortSignal,
+  setLoadProgress: (
+    progress: LoadProgress | ((prev: LoadProgress) => LoadProgress),
+  ) => void,
+): Promise<string> {
+  let response: Response
+  try {
+    response = await fetch(url, { signal })
+  } catch {
+    return Promise.reject(new Error('Failed to fetch image'))
+  }
+
+  if (!response.ok) {
+    return Promise.reject(new Error(`HTTP error! status: ${response.status}`))
+  }
+
+  const contentLength = response.headers.get('content-length')
+  const total = contentLength ? parseInt(contentLength, 10) : 0
+  setLoadProgress({ loaded: 0, total })
+
+  if (!response.body) {
+    return Promise.reject(new Error('ReadableStream not supported'))
+  }
+
+  try {
+    const reader = response.body.getReader()
+    const chunks: Uint8Array[] = []
+    let receivedLength = 0
+    let lastUpdate = 0
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      if (value) {
+        chunks.push(value)
+        receivedLength += value.length
+        const now = Date.now()
+        if (now - lastUpdate > 100 || receivedLength >= total) {
+          setLoadProgress((prev: LoadProgress) => ({
+            ...prev,
+            loaded: receivedLength,
+          }))
+          lastUpdate = now
+        }
+      }
+    }
+
+    const allChunks = new Uint8Array(receivedLength)
+    let position = 0
+    for (const chunk of chunks) {
+      allChunks.set(chunk, position)
+      position += chunk.length
+    }
+
+    const blob = new Blob([allChunks])
+    return URL.createObjectURL(blob)
+  } catch {
+    return Promise.reject(new Error('Failed to read response body'))
+  }
+}
+
 export function PhotoView({
   src,
   originalsrc,
@@ -80,65 +143,6 @@ export function PhotoView({
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
   const pathname = usePathname()
-
-  const loadImageWithProgress = async (url: string): Promise<string> => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort()
-    }
-
-    abortControllerRef.current = new AbortController()
-
-    try {
-      const response = await fetch(url, {
-        signal: abortControllerRef.current.signal,
-      })
-
-      if (!response.ok) {
-        return Promise.reject(
-          new Error(`HTTP error! status: ${response.status}`),
-        )
-      }
-
-      const contentLength = response.headers.get('content-length')
-      const total = contentLength ? parseInt(contentLength, 10) : 0
-      setLoadProgress({ loaded: 0, total })
-
-      if (!response.body) {
-        return Promise.reject(new Error('ReadableStream not supported'))
-      }
-
-      const reader = response.body.getReader()
-      const chunks: Uint8Array[] = []
-      let receivedLength = 0
-      let lastUpdate = 0
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        if (value) {
-          chunks.push(value)
-          receivedLength += value.length
-          const now = Date.now()
-          if (now - lastUpdate > 100 || receivedLength >= total) {
-            setLoadProgress((prev) => ({ ...prev, loaded: receivedLength }))
-            lastUpdate = now
-          }
-        }
-      }
-
-      const allChunks = new Uint8Array(receivedLength)
-      let position = 0
-      for (const chunk of chunks) {
-        allChunks.set(chunk, position)
-        position += chunk.length
-      }
-
-      const blob = new Blob([allChunks])
-      return URL.createObjectURL(blob)
-    } catch (error) {
-      console.error('Failed to load image with progress:', error)
-      return Promise.reject(new Error('Failed to load image with progress'))
-    }
-  }
 
   const getPreviewTransform = () => {
     const imageElement = imageRef.current
@@ -218,7 +222,16 @@ export function PhotoView({
         setLoadProgress({ loaded: 0, total: 0 })
 
         try {
-          const imageUrl = await loadImageWithProgress(originalsrc)
+          if (abortControllerRef.current) {
+            abortControllerRef.current.abort()
+          }
+          abortControllerRef.current = new AbortController()
+
+          const imageUrl = await loadImageWithProgress(
+            originalsrc,
+            abortControllerRef.current.signal,
+            setLoadProgress,
+          )
           setResolvedOriginalSrc(imageUrl)
           setIsLoading(false)
         } catch (error) {
