@@ -94,7 +94,9 @@ export function PhotoView({
       })
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        return Promise.reject(
+          new Error(`HTTP error! status: ${response.status}`),
+        )
       }
 
       const contentLength = response.headers.get('content-length')
@@ -102,7 +104,7 @@ export function PhotoView({
       setLoadProgress({ loaded: 0, total })
 
       if (!response.body) {
-        throw new Error('ReadableStream not supported')
+        return Promise.reject(new Error('ReadableStream not supported'))
       }
 
       const reader = response.body.getReader()
@@ -236,7 +238,7 @@ export function PhotoView({
   // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
   useEffect(() => {
     if (imageRef.current?.complete) {
-      setIsReady(true)
+      requestAnimationFrame(() => setIsReady(true))
     }
   }, [])
 
