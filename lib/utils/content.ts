@@ -23,10 +23,6 @@ const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   )
 
-const sortedByPriority = <T extends { priority: number }>(
-  items: readonly T[],
-): T[] => [...items].sort((a, b) => b.priority - a.priority)
-
 export const groupByYear = (items: Content[]): ContentGroup[] => {
   const groups: Record<number, Content[]> = {}
 
@@ -53,8 +49,6 @@ export const sortedJournals: Journal[] = sortByDate(allJournals)
 export const sortedMusings: Musing[] = sortByDate(allMusings)
 
 export const sortedContent: Content[] = sortByDate(content)
-
-export const sortedPriorityContent: Content[] = sortedByPriority(sortedContent)
 
 export const findContentBySlug = (slug: string): Content | undefined =>
   content.find((c) => c.slug === slug)

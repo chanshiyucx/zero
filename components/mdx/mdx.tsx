@@ -5,7 +5,7 @@ import { Figure } from './figure'
 import { Image } from './image'
 import { Link } from './link'
 
-export type MDXComponents = ComponentProps<typeof MDXContent>['components']
+type MDXComponents = ComponentProps<typeof MDXContent>['components']
 
 const defaultComponents: MDXComponents = {
   img: Image,
