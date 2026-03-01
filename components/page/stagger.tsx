@@ -24,8 +24,9 @@ export function Stagger() {
         } else if (el.hasAttribute('data-slide')) {
           el.style.setProperty(
             '--enter-stagger',
-            String(Math.min(index++, MAX_STAGGER)),
+            String(Math.min(index, MAX_STAGGER)),
           )
+          index += 1
           processNode(el)
         } else {
           processNode(el)

@@ -1,6 +1,6 @@
 'use client'
 
-import { m, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion'
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react'
 import { clamp } from '@/lib/utils/helper'
 import { useDevice } from '@/stores/use-device'
@@ -32,13 +32,10 @@ export function Card({
   const scale = useSpring(1, { stiffness: 300, damping: 30 })
   const z = useSpring(0, { stiffness: 300, damping: 30 })
 
-  const transform = useMotionTemplate`
-    perspective(1000px) 
-    rotateX(${rotateX}deg) 
-    rotateY(${rotateY}deg) 
-    scale3d(${scale}, ${scale}, ${scale})
-    translateZ(${z}px)
-  `
+  const transform = useTransform([rotateX, rotateY, scale, z], (values) => {
+    const [rx, ry, s, tz] = values as number[]
+    return `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(${s}, ${s}, ${s}) translateZ(${tz}px)`
+  })
 
   const handleMouseMoveThrottled = (e: MouseEvent<HTMLDivElement>) => {
     if (isMobile) return

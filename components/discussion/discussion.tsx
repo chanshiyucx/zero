@@ -66,10 +66,10 @@ export function Discussion({ label, title }: DiscussionProps) {
       }
     } catch (error) {
       console.error('Failed to create discussion:', error)
-    } finally {
-      await delay()
-      setLoading(false)
     }
+
+    await delay()
+    setLoading(false)
   }
 
   const updateDiscussion = async () => {
@@ -90,10 +90,10 @@ export function Discussion({ label, title }: DiscussionProps) {
       }
     } catch (error) {
       console.error('Failed to create discussion:', error)
-    } finally {
-      await delay()
-      setLoading(false)
     }
+
+    await delay()
+    setLoading(false)
   }
 
   const openDiscussion = () => {
