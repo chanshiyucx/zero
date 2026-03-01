@@ -13,13 +13,11 @@ import remarkMath from 'remark-math'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified, type Pluggable, type Processor } from 'unified'
-import { rehypeAudio } from './rehype-audio'
 import { rehypeCallout } from './rehype-callout'
 import { rehypeCode } from './rehype-code'
 import { rehypeImageAlbum, rehypeImageSize } from './rehype-image'
 import { rehypeToc } from './rehype-toc'
 
-export * from './rehype-audio'
 export * from './rehype-image'
 export * from './rehype-code'
 export * from './rehype-toc'
@@ -47,7 +45,6 @@ export const getRehypePlugins = (contentType: string): Pluggable[] => [
   ],
   [rehypeImageSize, { root: 'public', contentType }],
   rehypeImageAlbum,
-  rehypeAudio,
   rehypeCallout,
   rehypeToc,
 ]

@@ -29,9 +29,6 @@ importers:
       framer-motion:
         specifier: ^12.33.0
         version: 12.33.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      id3-parser:
-        specifier: ^3.0.0
-        version: 3.0.0
       katex:
         specifier: ^0.16.28
         version: 0.16.28
@@ -2177,10 +2174,6 @@ packages:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
     engines: {node: '>=18'}
     hasBin: true
-
-  id3-parser@3.0.0:
-    resolution: {integrity: sha512-ubxxh6inGy2VM4N3L1F8uFQXKgKoFgFuT3BSEg7e+5bbSu7pw91tQqxVhUdJVg3jbzZYZJFaej29o8shfJ/GGg==}
-    engines: {node: '>=16'}
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -5736,8 +5729,6 @@ snapshots:
   html-void-elements@3.0.0: {}
 
   husky@9.1.7: {}
-
-  id3-parser@3.0.0: {}
 
   ignore@5.3.2: {}
 

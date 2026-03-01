@@ -1,6 +1,5 @@
 import { MDXContent } from '@content-collections/mdx/react'
-import { lazy, Suspense, type ComponentProps } from 'react'
-import { Spinner } from '@/components/spinner'
+import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils/style'
 import { Figure } from './figure'
 import { Image } from './image'
@@ -8,27 +7,10 @@ import { Link } from './link'
 
 export type MDXComponents = ComponentProps<typeof MDXContent>['components']
 
-const LazyAudio = lazy(() =>
-  import('./audio').then((module) => ({ default: module.Audio })),
-)
-
-const SuspendedAudio = (props: ComponentProps<typeof LazyAudio>) => (
-  <Suspense
-    fallback={
-      <div className="bg-surface flex h-20 items-center justify-center rounded-md">
-        <Spinner size="large" />
-      </div>
-    }
-  >
-    <LazyAudio {...props} />
-  </Suspense>
-)
-
 const defaultComponents: MDXComponents = {
   img: Image,
   a: Link,
   figure: Figure,
-  audio: SuspendedAudio,
 }
 
 interface MDXProps {
