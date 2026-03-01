@@ -13,11 +13,3 @@ export const transitionViewIfSupported = (updateCb: () => void): void => {
 
   document.startViewTransition(updateCb)
 }
-
-export const toggleFullscreen = () => {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen?.().catch(console.error)
-  } else {
-    document.exitFullscreen?.().catch(console.error)
-  }
-}

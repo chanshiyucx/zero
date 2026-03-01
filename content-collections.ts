@@ -30,7 +30,6 @@ const getCollection = <T extends string>({
         }),
       tags: z.string().array(),
       description: z.string().optional(),
-      priority: z.number().default(0),
       content: z.string(),
     }),
     transform: async (document, context) => {

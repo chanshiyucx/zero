@@ -2,12 +2,12 @@ import { cacheLife, cacheTag, revalidateTag } from 'next/cache'
 import { env } from '@/env'
 import { APIError, fetchData } from './fetch'
 
-export const CACHE_TAGS = {
+const CACHE_TAGS = {
   githubRepos: 'github-repos',
   githubDiscussions: 'github-discussions',
 } as const
 
-export const CACHE_LIFES = {
+const CACHE_LIFES = {
   minutes: 'minutes',
   hours: 'hours',
   days: 'days',
