@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { isClientSide } from '@/lib/utils/env'
 
 export function useLocalStorage<T>(
   key: string,
@@ -10,7 +9,7 @@ export function useLocalStorage<T>(
 
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      if (!isClientSide) {
+      if (typeof window === 'undefined') {
         return initialValue
       }
 

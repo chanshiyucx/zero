@@ -15,7 +15,7 @@ export const CACHE_LIFES = {
   max: 'max',
 } as const
 
-export interface User {
+interface User {
   followers: number
   public_repos: number
 }
@@ -132,7 +132,7 @@ const UPDATE_DISCUSSION_MUTATION = `
   }
 `
 
-export async function getGithubUserData() {
+async function getGithubUserData() {
   return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, {
     headers,
   })

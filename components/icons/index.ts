@@ -1,5 +1,3 @@
-export * from './discord'
-export * from './laptop'
 export * from './moon'
 export * from './signature'
 export * from './space'
