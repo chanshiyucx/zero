@@ -16,7 +16,7 @@ export interface ContentGroup {
   list: Content[]
 }
 
-export const content: Content[] = [...allCrafts, ...allJournals]
+const content: Content[] = [...allCrafts, ...allJournals]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort(

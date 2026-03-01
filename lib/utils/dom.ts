@@ -1,5 +1,3 @@
-import { isServerSide } from './env'
-
 const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -14,18 +12,6 @@ export const transitionViewIfSupported = (updateCb: () => void): void => {
   }
 
   document.startViewTransition(updateCb)
-}
-
-export const getIsMobile = (breakpoint = 768): boolean => {
-  if (isServerSide) return false
-
-  const isSmallScreen = window.innerWidth <= breakpoint
-  const hasTouchSupport =
-    'ontouchstart' in window ||
-    navigator.maxTouchPoints > 0 ||
-    'msMaxTouchPoints' in navigator
-
-  return isSmallScreen && hasTouchSupport
 }
 
 export const toggleFullscreen = () => {
