@@ -127,25 +127,27 @@ export function Discussion({ label, title }: DiscussionProps) {
       <div className="text-muted flex items-center gap-1">
         <CaretRightIcon weight="bold" className="text-sm" />
         <span className="mr-2">{isLiked ? 'Thanks!' : 'Like this post?'}</span>
-        <span
+        <button
+          type="button"
           onClick={handleLike}
           className={cn(
-            'font-bold underline decoration-current/40 underline-offset-2',
+            'appearance-none font-bold underline decoration-current/40 underline-offset-2',
             !isLiked && 'hover:text-rose cursor-pointer',
           )}
         >
           {isLiked ? 'Liked' : 'Sure'}. {like > 0 ? `(${like})` : ''}
-        </span>
+        </button>
       </div>
       <div className="text-muted flex items-center gap-1">
         <CaretRightIcon weight="bold" className="text-sm" />
         Comment on
-        <span
+        <button
+          type="button"
           onClick={() => void handleDiscuss()}
-          className="hover:text-rose mx-0.5 cursor-pointer font-bold underline decoration-current/40 underline-offset-2"
+          className="hover:text-rose mx-0.5 cursor-pointer appearance-none font-bold underline decoration-current/40 underline-offset-2"
         >
           discussion. {comments > 0 ? `(${comments})` : ''}
-        </span>
+        </button>
       </div>
     </div>
   )
