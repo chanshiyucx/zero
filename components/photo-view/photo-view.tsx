@@ -234,10 +234,8 @@ export function PhotoView({
           )
           setResolvedOriginalSrc(imageUrl)
           setIsLoading(false)
-        } catch (error) {
-          if (error instanceof Error && error.name !== 'AbortError') {
-            console.error('Failed to load original image:', error)
-          }
+        } catch {
+          // do nothing
         }
       }
     } else {
@@ -245,7 +243,6 @@ export function PhotoView({
     }
   }
 
-  // onLoad is probably not triggered when an image is loaded from the cache, so need to set the ready state manually.
   useEffect(() => {
     if (imageRef.current?.complete) {
       requestAnimationFrame(() => setIsReady(true))
