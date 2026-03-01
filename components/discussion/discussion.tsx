@@ -15,9 +15,24 @@ interface DiscussionProps {
 
 const LocalDiscussionKey = 'discussion'
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+const extractLikeCount = (body?: string): number => {
+  if (!body) return 0
+  const match = /\d+/.exec(body)
+  return match ? parseInt(match[0], 10) : 0
+}
+
 export function Discussion({ label, title }: DiscussionProps) {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
-  const { data: fetchedDiscussion, mutate } = useSWR<DiscussionType>(
+  const [loading, setLoading] = useState(false)
+  const [delay, reset] = useLoading(1000)
+  const [isLiked, setIsLiked] = useState(false)
+  const [localData, setLocalData] = useLocalStorage<Record<string, number>>(
+    LocalDiscussionKey,
+    {},
+  )
+
+  const { data: discussion, mutate } = useSWR<DiscussionType>(
     title && label ? `/api/discussions?title=${title}&label=${label}` : null,
     fetcher,
     {
@@ -25,102 +40,79 @@ export function Discussion({ label, title }: DiscussionProps) {
     },
   )
 
-  const [discussion, setDiscussions] = useState<DiscussionType>()
-  const [loading, setLoading] = useState(false)
-  const [delay, reset] = useLoading(1000)
-  const [like, setLike] = useState(0)
-  const [isLiked, setIsLiked] = useState(false)
-  const [localData, setLocalData] = useLocalStorage<Record<string, number>>(
-    LocalDiscussionKey,
-    {},
-  )
+  const like = extractLikeCount(discussion?.body)
+  const comments = discussion?.comments ?? 0
 
   useEffect(() => {
     setIsLiked(Boolean(localData[title]))
   }, [localData, title])
 
-  useEffect(() => {
-    if (fetchedDiscussion) {
-      const match = /\d+/.exec(fetchedDiscussion.body)
-      if (match) {
-        setLike(parseInt(match[0], 10))
-      }
-      setDiscussions(fetchedDiscussion)
-    }
-  }, [fetchedDiscussion])
+  const submitDiscussionAction = async (
+    method: 'POST' | 'PUT',
+    body: string,
+  ) => {
+    if (
+      loading ||
+      (method === 'PUT' && !discussion) ||
+      (method === 'POST' && discussion)
+    )
+      return
 
-  const createDiscussion = async () => {
+    setLoading(true)
+    reset()
+
     try {
-      if (loading || discussion) return
-      setLoading(true)
-      reset()
+      const payload =
+        method === 'POST'
+          ? { title, label, body }
+          : { discussionId: discussion?.node_id, body }
+
       const response = await fetch('/api/discussions', {
-        method: 'POST',
-        body: JSON.stringify({ title, label, body: 'like: 1' }),
+        method,
+        body: JSON.stringify(payload),
       })
       const data = (await response.json()) as DiscussionType
       if (data) {
-        setDiscussions(data)
-        void mutate(data, false)
-      }
-    } catch (error) {
-      console.error('Failed to create discussion:', error)
-    }
-
-    await delay()
-    setLoading(false)
-  }
-
-  const updateDiscussion = async () => {
-    try {
-      if (loading || !discussion) return
-      setLoading(true)
-      reset()
-      const response = await fetch('/api/discussions', {
-        method: 'PUT',
-        body: JSON.stringify({
-          discussionId: discussion.node_id,
-          body: `like: ${like + 1}`,
-        }),
-      })
-      const data = (await response.json()) as DiscussionType
-      if (data) {
-        setDiscussions({ ...discussion, ...data })
         void mutate({ ...discussion, ...data }, false)
       }
     } catch (error) {
-      console.error('Failed to create discussion:', error)
+      console.error(
+        `Failed to ${method === 'POST' ? 'create' : 'update'} discussion:`,
+        error,
+      )
     }
 
     await delay()
     setLoading(false)
-  }
-
-  const openDiscussion = () => {
-    if (!discussion) return
-    window.open(discussion.html_url, '_blank')
   }
 
   const handleDiscuss = async () => {
     if (!discussion) {
-      await createDiscussion()
+      await submitDiscussionAction('POST', 'like: 1')
     }
-    openDiscussion()
+    if (discussion) {
+      window.open(discussion.html_url, '_blank')
+    }
   }
 
   const handleLike = () => {
     if (isLiked) return
-    if (discussion) {
-      updateDiscussion().catch(console.error)
-    } else {
-      createDiscussion().catch(console.error)
-    }
-    setLike((v) => v + 1)
+    const method = discussion ? 'PUT' : 'POST'
+    const newLikeCount = like + 1
+    const bodyStr = `like: ${method === 'POST' ? 1 : newLikeCount}`
+
+    submitDiscussionAction(method, bodyStr).catch(console.error)
+
+    void mutate(
+      discussion
+        ? { ...discussion, body: bodyStr }
+        : ({ body: bodyStr } as DiscussionType),
+      false,
+    )
+
     setIsLiked(true)
     setLocalData({ ...localData, [title]: 1 })
   }
-
-  const comments = discussion?.comments ?? 0
 
   return (
     <div className="space-y-2">
