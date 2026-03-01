@@ -135,11 +135,8 @@ export function PhotoView({
       const blob = new Blob([allChunks])
       return URL.createObjectURL(blob)
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw error
-      }
       console.error('Failed to load image with progress:', error)
-      throw error
+      return Promise.reject(new Error('Failed to load image with progress'))
     }
   }
 

@@ -18,14 +18,9 @@ import { rehypeCode } from './rehype-code'
 import { rehypeImageAlbum, rehypeImageSize } from './rehype-image'
 import { rehypeToc } from './rehype-toc'
 
-export * from './rehype-image'
-export * from './rehype-code'
-export * from './rehype-toc'
-export * from './rehype-callout'
+const remarkPlugins: Pluggable[] = [remarkGfm, remarkBreaks, remarkMath]
 
-export const remarkPlugins: Pluggable[] = [remarkGfm, remarkBreaks, remarkMath]
-
-export const getRehypePlugins = (contentType: string): Pluggable[] => [
+const getRehypePlugins = (contentType: string): Pluggable[] => [
   rehypeSlug,
   [rehypeKatex, { output: 'html' }],
   [rehypeAutolinkHeadings, { behavior: 'wrap' }],
