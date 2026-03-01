@@ -58,10 +58,6 @@ const progressVariants: Variants = {
   },
 }
 
-const isBlobSrc = (src: string | Blob | undefined): src is string => {
-  return typeof src === 'string' && src.startsWith('blob:')
-}
-
 export function PhotoView({
   src,
   originalsrc,
@@ -69,7 +65,9 @@ export function PhotoView({
   width,
   height,
 }: ImageProps) {
-  const [currentSrc, setCurrentSrc] = useState(src)
+  const [resolvedOriginalSrc, setResolvedOriginalSrc] = useState<string | null>(
+    null,
+  )
   const [isOpen, setIsOpen] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -189,6 +187,12 @@ export function PhotoView({
     setLoadProgress({ loaded: 0, total: 0 })
     if (force) {
       setZoomState(ZoomState.Idle)
+
+      // Revoke the ObjectURL when preview is closed to prevent memory leaks
+      if (resolvedOriginalSrc) {
+        URL.revokeObjectURL(resolvedOriginalSrc)
+        setResolvedOriginalSrc(null)
+      }
     }
   }
 
@@ -210,13 +214,13 @@ export function PhotoView({
       setIsOpen(true)
       setZoomState(ZoomState.Zooming)
 
-      if (originalsrc && originalsrc !== currentSrc && !isBlobSrc(currentSrc)) {
+      if (originalsrc && originalsrc !== src && !resolvedOriginalSrc) {
         setIsLoading(true)
         setLoadProgress({ loaded: 0, total: 0 })
 
         try {
           const imageUrl = await loadImageWithProgress(originalsrc)
-          setCurrentSrc(imageUrl)
+          setResolvedOriginalSrc(imageUrl)
           setIsLoading(false)
         } catch (error) {
           if (error instanceof Error && error.name !== 'AbortError') {
@@ -238,11 +242,11 @@ export function PhotoView({
 
   useEffect(() => {
     return () => {
-      if (isBlobSrc(currentSrc)) {
-        URL.revokeObjectURL(currentSrc)
+      if (resolvedOriginalSrc) {
+        URL.revokeObjectURL(resolvedOriginalSrc)
       }
     }
-  }, [currentSrc])
+  }, [resolvedOriginalSrc])
 
   useEffect(() => {
     document.body.style.overflow =
@@ -253,8 +257,12 @@ export function PhotoView({
     }
   }, [zoomState])
 
+  const handlePathChange = useEffectEvent(() => {
+    closePreview(true)
+  })
+
   useEffect(() => {
-    closePreview()
+    handlePathChange()
   }, [pathname])
 
   const handleKeyDown = useEffectEvent((e: KeyboardEvent) => {
@@ -286,6 +294,7 @@ export function PhotoView({
       : 0
 
   const Icon = originalsrc ? CameraIcon : SlideshowIcon
+  const displaySrc = resolvedOriginalSrc ?? src
 
   return (
     <figure className="group relative">
@@ -334,7 +343,7 @@ export function PhotoView({
       >
         <m.img
           ref={imageRef}
-          src={currentSrc}
+          src={displaySrc}
           alt={alt}
           width={width}
           height={height}
