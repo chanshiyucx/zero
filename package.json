@@ -36,7 +36,6 @@
     "clsx": "^2.1.1",
     "es-toolkit": "^1.44.0",
     "framer-motion": "^12.33.0",
-    "id3-parser": "^3.0.0",
     "katex": "^0.16.28",
     "next": "^16.1.6",
     "next-themes": "^0.4.6",
