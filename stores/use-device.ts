@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface DeviceState {
+type DeviceState = {
   isMobile: boolean
   setIsMobile: (value: boolean) => void
 }

@@ -20,7 +20,7 @@ import {
   type Content,
 } from '@/lib/utils/content'
 
-interface HeaderProps {
+type HeaderProps = {
   title: string
   href: string
   icon: Icon
@@ -40,7 +40,7 @@ function Header({ title, href, icon: Icon }: HeaderProps) {
   )
 }
 
-interface ListProps extends HeaderProps {
+type ListProps = HeaderProps & {
   list: Content[]
 }
 
@@ -68,7 +68,7 @@ function List({ title, href, icon: Icon, list }: ListProps) {
   )
 }
 
-interface SectionProps extends HeaderProps {
+type SectionProps = HeaderProps & {
   content: Content
   className?: string
 }
@@ -158,7 +158,7 @@ async function Project() {
       <ul className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
         {lastRepositories.map((repo) => (
           <li key={repo.name}>
-            <Card>
+            <Card active={true}>
               <Github
                 repo={repo}
                 className="bg-surface hover:bg-overlay transition"

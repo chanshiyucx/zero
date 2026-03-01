@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-interface UseCopyToClipboardOptions {
+type UseCopyToClipboardOptions = {
   timeout?: number
   onCopy?: () => void
 }

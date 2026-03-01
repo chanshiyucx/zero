@@ -5,7 +5,8 @@ import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react'
 import { clamp } from '@/lib/utils/helper'
 import { useDevice } from '@/stores/use-device'
 
-interface CardProps {
+type CardProps = {
+  active?: boolean
   children: ReactNode
   tiltStrength?: number
   scaleOnHover?: number

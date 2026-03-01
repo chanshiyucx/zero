@@ -27,7 +27,7 @@ Communication Style:
 
 - **RSC First**: Default to React Server Components.
 - **PPR (Partial Prerendering)**: Wrap dynamic components (e.g., comments, view counts) in `<Suspense>` boundaries. Keep the shell static to leverage PPR.
-- **Strict TypeScript**: No `any`. Prefer `interface` for Data Models, and `type` for Component Props.
+- **Strict TypeScript**: No `any`. Prefer `type` for Data Models and Component Props.
 - **Colocation**: Keep components, stores, utilities, and tests in the same feature directory.
 - **Modular Exports**: Use Named Exports.
 

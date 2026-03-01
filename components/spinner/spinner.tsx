@@ -4,11 +4,11 @@ import { cn } from '@/lib/utils/style'
 
 type Size = 'small' | 'large'
 
-interface SpinnerProps {
+type SpinnerProps = {
   size?: Size
 }
 
-interface LineProps {
+type LineProps = {
   order: number
   size: Size
 }

@@ -34,7 +34,7 @@ function ContentItem({
   )
 }
 
-interface ArticleListProps {
+type ArticleListProps = {
   title: string
   data: Content[]
 }

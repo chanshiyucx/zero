@@ -15,12 +15,12 @@ const CACHE_LIFES = {
   max: 'max',
 } as const
 
-interface User {
+type User = {
   followers: number
   public_repos: number
 }
 
-export interface Repository {
+export type Repository = {
   name: string
   full_name: string
   html_url: string
@@ -41,7 +41,7 @@ export interface Repository {
   topics: string[]
 }
 
-export interface Discussion {
+export type Discussion = {
   number: number
   id: string
   node_id: string
@@ -53,7 +53,7 @@ export interface Discussion {
   labels: { name: string }[]
 }
 
-interface CreateDiscussionResult {
+type CreateDiscussionResult = {
   data: {
     createDiscussion: {
       discussion: Discussion
@@ -61,7 +61,7 @@ interface CreateDiscussionResult {
   }
 }
 
-interface UpdateDiscussionResult {
+type UpdateDiscussionResult = {
   data: {
     updateDiscussion: {
       discussion: Discussion

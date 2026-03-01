@@ -4,19 +4,19 @@ import { toString } from 'hast-util-to-string'
 import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
-interface Options {
+type Options = {
   headings?: string[]
 }
 
-export interface TocEntry {
+export type TocEntry = {
   id: string
   title: string
   depth: number
 }
 
-interface MetaWithToc extends Meta {
+type MetaWithToc = {
   toc: TocEntry[]
-}
+} & Meta
 
 export const rehypeToc: Plugin<[Options?], Root> = (options = {}) => {
   const { headings = ['h2', 'h3'] } = options

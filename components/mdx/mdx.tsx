@@ -13,7 +13,7 @@ const defaultComponents: MDXComponents = {
   figure: Figure,
 }
 
-interface MDXProps {
+type MDXProps = {
   contentCode: string
   className?: string
   components?: MDXComponents

@@ -9,7 +9,7 @@ import { Toc } from '@/components/toc'
 import { siteConfig } from '@/lib/constants/config'
 import { findContentBySlug } from '@/lib/utils/content'
 
-interface ArticleProps {
+type ArticleProps = {
   params: Promise<{ slug: string }>
   hideDiscussion?: boolean
 }
