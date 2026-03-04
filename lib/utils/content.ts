@@ -16,7 +16,7 @@ export type ContentGroup = {
   list: Content[]
 }
 
-const content: Content[] = [...allCrafts, ...allJournals]
+const content: Content[] = [...allCrafts, ...allJournals, ...allMusings]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort(
