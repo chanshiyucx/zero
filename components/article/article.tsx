@@ -86,7 +86,7 @@ export default async function Article({
 
   return (
     <PageLayout>
-      <article className="space-y-12">
+      <article className="flex-1 space-y-12">
         <header>
           <h1 data-slide className="text-3xl font-extrabold">
             {article.title}

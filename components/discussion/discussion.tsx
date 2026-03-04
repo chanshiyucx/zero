@@ -15,7 +15,17 @@ type DiscussionProps = {
 
 const LocalDiscussionKey = 'discussion'
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+const fetcher = async (url: string): Promise<DiscussionType | null> => {
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return null
+
+    const data = (await res.json()) as DiscussionType
+    return data
+  } catch {
+    return null
+  }
+}
 
 const extractLikeCount = (body?: string): number => {
   if (!body) return 0
@@ -32,7 +42,7 @@ export function Discussion({ label, title }: DiscussionProps) {
     {},
   )
 
-  const { data: discussion, mutate } = useSWR<DiscussionType>(
+  const { data: discussion, mutate } = useSWR<DiscussionType | null>(
     title && label ? `/api/discussions?title=${title}&label=${label}` : null,
     fetcher,
     {
@@ -73,7 +83,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       })
       const data = (await response.json()) as DiscussionType
       if (data) {
-        void mutate({ ...discussion, ...data }, false)
+        await mutate({ ...discussion, ...data }, false)
       }
     } catch (error) {
       console.error(
@@ -88,20 +98,22 @@ export function Discussion({ label, title }: DiscussionProps) {
 
   const handleDiscuss = async () => {
     if (!discussion) {
-      await submitDiscussionAction('POST', 'like: 1')
+      await submitDiscussionAction('POST', 'like: 0')
     }
-    if (discussion) {
-      window.open(discussion.html_url, '_blank')
+
+    const currentDiscussion = await mutate()
+    if (currentDiscussion) {
+      window.open(currentDiscussion.html_url, '_blank')
     }
   }
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (isLiked) return
     const method = discussion ? 'PUT' : 'POST'
     const newLikeCount = like + 1
     const bodyStr = `like: ${method === 'POST' ? 1 : newLikeCount}`
 
-    submitDiscussionAction(method, bodyStr).catch(console.error)
+    await submitDiscussionAction(method, bodyStr)
 
     void mutate(
       discussion
@@ -121,7 +133,7 @@ export function Discussion({ label, title }: DiscussionProps) {
         <span className="mr-2">{isLiked ? 'Thanks!' : 'Like this post?'}</span>
         <button
           type="button"
-          onClick={handleLike}
+          onClick={() => void handleLike()}
           className={cn(
             'appearance-none font-bold underline decoration-current/40 underline-offset-2',
             !isLiked && 'hover:text-rose cursor-pointer',

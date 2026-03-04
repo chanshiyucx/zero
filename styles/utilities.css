@@ -40,7 +40,7 @@
 }
 
 @utility page {
-  @apply w-full flex-1 space-y-12 py-20 max-md:py-12;
+  @apply flex w-full flex-1 flex-col space-y-12 py-20 max-md:py-12;
 }
 
 @utility link {

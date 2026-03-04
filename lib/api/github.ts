@@ -78,6 +78,7 @@ const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
 const DISCUSSION_LABEL_IDS = {
   craft: 'LA_kwDOCP9Av88AAAAB20f9KA',
   journal: 'LA_kwDOCP9Av88AAAACK_lFRA',
+  musing: 'LA_kwDOCP9Av88AAAACaKdyyg',
 }
 
 const headers = new Headers({
