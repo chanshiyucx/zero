@@ -107,21 +107,13 @@ export function Discussion({ label, title }: DiscussionProps) {
     }
   }
 
-  const handleLike = async () => {
+  const handleLike = () => {
     if (isLiked) return
     const method = discussion ? 'PUT' : 'POST'
     const newLikeCount = like + 1
     const bodyStr = `like: ${method === 'POST' ? 1 : newLikeCount}`
 
-    await submitDiscussionAction(method, bodyStr)
-
-    void mutate(
-      discussion
-        ? { ...discussion, body: bodyStr }
-        : ({ body: bodyStr } as DiscussionType),
-      false,
-    )
-
+    submitDiscussionAction(method, bodyStr).catch(console.log)
     setIsLiked(true)
     setLocalData({ ...localData, [title]: 1 })
   }
