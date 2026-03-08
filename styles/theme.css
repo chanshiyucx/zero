@@ -26,7 +26,8 @@
   --animate-turn-off: turnOff 600ms ease-in-out;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
-  --animate-svg-text: svg-text 10s var(--delay, 0s) infinite ease-in-out;
+  --animate-svg-text: svg-text 10s var(--delay, 0s) infinite ease-in-out
+    backwards;
 
   @keyframes turnOn {
     0% {
@@ -61,25 +62,25 @@
   @keyframes svg-text {
     0% {
       stroke-dashoffset: var(--path-length);
-      fill: var(--color-muted);
+      fill-opacity: 0;
     }
     30% {
-      fill: var(--color-text);
+      fill-opacity: 1;
     }
     40% {
       stroke-dashoffset: 0;
-      fill: var(--color-text);
+      fill-opacity: 1;
     }
     50% {
-      fill: var(--color-text);
+      fill-opacity: 1;
     }
     80% {
       stroke-dashoffset: var(--path-length);
-      fill: var(--color-muted);
+      fill-opacity: 0;
     }
     100% {
       stroke-dashoffset: var(--path-length);
-      fill: var(--color-muted);
+      fill-opacity: 0;
     }
   }
 
