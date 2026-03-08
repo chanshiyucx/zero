@@ -149,3 +149,14 @@
 @utility player-button {
   @apply flex h-20 w-20 cursor-pointer items-center justify-center outline-hidden disabled:opacity-60;
 }
+
+@utility logo-path {
+  stroke-dasharray: var(--path-length);
+  stroke-dashoffset: var(--path-length);
+  stroke: var(--color-text);
+  fill: var(--color-text);
+  transition:
+    fill 0.3s ease,
+    stroke 0.3s ease;
+  @apply animate-svg-text;
+}
