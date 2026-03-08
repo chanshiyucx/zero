@@ -22,6 +22,8 @@ const SignatureBox = ({ animate, className }: SignatureBoxProps) => {
       path.style.strokeDasharray = `${length}px`
       path.style.strokeDashoffset = `${length}px`
       path.style.stroke = 'var(--color-text)'
+      path.style.fill = 'var(--color-text)'
+      path.style.transition = 'fill 0.3s ease, stroke 0.3s ease'
       path.style.setProperty('--path-length', `${length}px`)
       path.style.setProperty('--delay', `${i * 0.1}s`)
       path.classList.add('animate-svg-text')
@@ -31,6 +33,7 @@ const SignatureBox = ({ animate, className }: SignatureBoxProps) => {
   return (
     <Signature
       ref={svgGroupRef}
+      fill={animate ? undefined : 'var(--color-muted)'}
       className={cn('h-auto w-46 drop-shadow-lg max-md:w-36', className)}
     />
   )
