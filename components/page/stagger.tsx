@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from 'react'
 
 const MAX_STAGGER = 20
-const STAGGER_DELAY = 50
+const STAGGER_DELAY = 100
 
 export function Stagger() {
   const ref = useRef<HTMLSpanElement>(null)

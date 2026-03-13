@@ -6,6 +6,12 @@
 
 A personal blog and portfolio built with Next.js, React, TypeScript, and Tailwind CSS.
 
+## Preview
+
+<p align="center">
+  <img src="./doc/screenshot/zero.jpg" alt="Zero Homepage Theme Preview" />
+</p>
+
 ## Overview
 
 - App Router blog and content site
