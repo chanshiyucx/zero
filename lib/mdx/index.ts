@@ -41,6 +41,10 @@ const getRehypePlugins = (contentType: string): Pluggable[] => [
   [rehypeImageSize, { root: 'public', contentType }],
   rehypeImageAlbum,
   rehypeCallout,
+]
+
+const getRehypePluginsWithToc = (contentType: string): Pluggable[] => [
+  ...getRehypePlugins(contentType),
   rehypeToc,
 ]
 
@@ -50,7 +54,7 @@ export const getOptions = (contentType: string): Options => {
   if (!optionsCache.has(contentType)) {
     optionsCache.set(contentType, {
       remarkPlugins,
-      rehypePlugins: getRehypePlugins(contentType),
+      rehypePlugins: getRehypePluginsWithToc(contentType),
     })
   }
   return optionsCache.get(contentType)!
@@ -66,8 +70,10 @@ export const getMdxToHtmlProcessor = (contentType: string) => {
       .use(remarkParse)
       .use(remarkPlugins)
       .use(remarkRehype, { allowDangerousHtml: true })
-      .use(getRehypePlugins(contentType).filter((p) => p !== rehypeToc))
+      .use(getRehypePlugins(contentType))
       .use(rehypeStringify, { allowDangerousHtml: true })
+      .freeze()
+
     processorCache.set(contentType, processor)
   }
 

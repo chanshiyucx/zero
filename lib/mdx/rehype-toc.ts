@@ -27,9 +27,9 @@ export const rehypeToc: Plugin<[Options?], Root> = (options = {}) => {
     visit(tree, 'element', (node: Element) => {
       if (!headings.includes(node.tagName) || !node.properties?.id) return
 
-      const depth = parseInt(node.tagName.charAt(1))
+      const depth = Number(node.tagName.charAt(1))
       toc.push({
-        id: node.properties.id as string,
+        id: String(node.properties.id),
         title: toString(node),
         depth,
       })
