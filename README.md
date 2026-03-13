@@ -1,10 +1,6 @@
 # Zero
 
-<p align="center">
-  <img src="./app/icon.svg" alt="Zero Logo" width="80" />
-</p>
-
-A personal blog and portfolio built with Next.js, React, TypeScript, and Tailwind CSS.
+My cozy corner on the Internet.
 
 ## Preview
 
