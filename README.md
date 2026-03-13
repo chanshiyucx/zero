@@ -24,12 +24,6 @@ A personal blog and portfolio built with Next.js, React, TypeScript, and Tailwin
 
 ## Development
 
-### Requirements
-
-- Node.js 24+
-- pnpm 10+
-- `GITHUB_TOKEN` in `.env`
-
 ### Run locally
 
 ```bash
@@ -44,25 +38,6 @@ Open http://localhost:3000.
 
 ```bash
 GITHUB_TOKEN=your_github_token
-```
-
-### Useful commands
-
-```bash
-pnpm check
-pnpm build
-pnpm start
-```
-
-## Structure
-
-```text
-app/                 Next.js routes and API handlers
-components/          Reusable UI components
-lib/                 Config, content, API, and utility logic
-public/assets/blog/  MDX content sources
-scripts/             Local maintenance scripts
-styles/              Global styles
 ```
 
 ## License
