@@ -1,8 +1,6 @@
 import { withContentCollections } from '@content-collections/next'
-import withBundleAnalyzer from '@next/bundle-analyzer'
-import type { NextConfig } from 'next'
 
-let nextConfig: NextConfig = {
+export default withContentCollections({
   reactCompiler: true,
   cacheComponents: true,
   images: {
@@ -34,12 +32,4 @@ let nextConfig: NextConfig = {
       },
     ]
   },
-}
-
-if (process.env.ANALYZE === 'true') {
-  nextConfig = withBundleAnalyzer({
-    enabled: true,
-  })(nextConfig)
-}
-
-export default withContentCollections(nextConfig)
+})
