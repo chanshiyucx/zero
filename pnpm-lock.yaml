@@ -105,9 +105,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
-      babel-plugin-react-compiler:
-        specifier: ^1.0.0
-        version: 1.0.0
       eslint:
         specifier: ^9.39.4
         version: 9.39.4(jiti@2.6.1)
@@ -4870,6 +4867,7 @@ snapshots:
   babel-plugin-react-compiler@1.0.0:
     dependencies:
       '@babel/types': 7.29.0
+    optional: true
 
   bail@2.0.2: {}
 

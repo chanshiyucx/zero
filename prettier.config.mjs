@@ -25,7 +25,7 @@ const config = {
     'classProperties',
     'decorators-legacy',
   ],
-  importOrderTypeScriptVersion: '5.0.0',
+  importOrderTypeScriptVersion: '5.9.0',
   tailwindFunctions: ['clsx', 'cn'],
 }
 
