@@ -10,9 +10,7 @@ My cozy corner on the Internet.
 
 ## Overview
 
-- App Router blog and content site
 - MDX content powered by Content Collections
-- Journal, musings, craft notes, projects, and photo albums
 - GitHub-powered data, RSS feed, sitemap, and OG image routes
 - Theme switching and responsive layout
 
@@ -22,7 +20,7 @@ My cozy corner on the Internet.
 - React 19
 - TypeScript 5
 - Tailwind CSS 4
-- Content Collections + MDX
+- Content Collections
 
 ## Development
 
