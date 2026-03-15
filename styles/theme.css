@@ -24,6 +24,7 @@
 @theme inline {
   --animate-turn-on: turnOn 600ms ease-in-out;
   --animate-turn-off: turnOff 600ms ease-in-out;
+  --animate-clock-blink: clock-blink 2s steps(1, end) infinite;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
   --animate-svg-text: svg-text 10s var(--delay, 0s) infinite ease-in-out
@@ -44,6 +45,17 @@
     }
     100% {
       clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+    }
+  }
+
+  @keyframes clock-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0.2;
     }
   }
 
