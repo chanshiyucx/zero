@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.host),
   title: {
     default: siteConfig.metadata.title,
-    template: `%s • ${siteConfig.metadata.title}`,
+    template: `%s @ ${siteConfig.metadata.title}`,
   },
   applicationName: siteConfig.metadata.title,
   authors: [{ name: siteConfig.author.name, url: siteConfig.author.link }],
