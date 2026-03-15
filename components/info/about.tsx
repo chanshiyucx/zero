@@ -1,5 +1,6 @@
 import { HandWavingIcon } from '@phosphor-icons/react/dist/ssr'
 import { Logo } from '@/components/logo'
+import { WorldClock } from './world-clock'
 
 export function About() {
   return (
@@ -26,9 +27,9 @@ export function About() {
       </div>
 
       <p>
-        <i>Crafting interfaces.</i> Designing elegant software and immersive
-        digital experiences. Following curiosity relentlessly, weaving intention
-        into every pixel.
+        Living in Munich, Germany. It is currently <WorldClock /> here.
+        Somewhere between code and quiet, finding moments of stillness in a
+        noisy world.
       </p>
 
       <p>
