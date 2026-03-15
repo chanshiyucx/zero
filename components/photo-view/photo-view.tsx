@@ -324,17 +324,17 @@ export function PhotoView({
       <AnimatePresence>
         {isOpen && isLoading && (
           <m.span
-            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-48 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-md px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
+            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-52 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-md px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
             variants={progressVariants}
             transition={transition}
             initial="hidden"
             animate="visible"
             exit="hidden"
           >
-            <span className="border-t-text border-overlay h-4 w-4 animate-spin rounded-full border-2"></span>
-            <span className="inline-flex flex-col gap-1">
-              <span>Unveiling the full image…</span>
-              <span className="inline-flex justify-between pr-2">
+            <span className="border-t-text border-overlay h-4 w-4 shrink-0 animate-spin rounded-full border-2"></span>
+            <span className="inline-flex flex-1 flex-col gap-1">
+              <span>{alt ?? 'Unveiling the full image…'}</span>
+              <span className="inline-flex justify-between gap-2">
                 <span>{progress}%</span>
                 <span>
                   {formatFileSize(loadProgress.loaded)} /{' '}
