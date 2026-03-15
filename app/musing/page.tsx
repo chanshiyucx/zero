@@ -3,7 +3,7 @@ import { ArticleList } from '@/components/list'
 import { sortedMusings } from '@/lib/utils/content'
 
 export const metadata: Metadata = {
-  title: 'Musings',
+  title: 'Musing',
   description:
     'A collection of thoughts and reflections from everyday moments.',
   keywords: ['blog', 'musings', 'thoughts', 'moments', 'fragments', 'life'],
