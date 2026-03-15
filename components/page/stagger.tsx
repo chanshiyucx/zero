@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react'
 
-const MAX_STAGGER = 20
+const MAX_STAGGER = 15
 const STAGGER_DELAY = 100
 
 export function Stagger() {
