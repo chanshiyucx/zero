@@ -25,7 +25,7 @@ export const siteConfig = {
       title: 'Mu-An Chiou',
       url: 'https://muan.co/',
       description:
-        'A fascinating and creative soul who has inspired many of my design ideas.',
+        'A fascinating and creative soul, inspiring many of my design ideas.',
     },
   ],
 }
