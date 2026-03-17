@@ -1,6 +1,5 @@
 import { HandWavingIcon } from '@phosphor-icons/react/dist/ssr'
 import { Logo } from '@/components/logo'
-import { Nav } from './nav'
 import { WorldClock } from './world-clock'
 
 export function About() {
@@ -38,8 +37,6 @@ export function About() {
         coding endlessly, stumbling over German, chasing light through
         photography.
       </p>
-
-      <Nav />
     </div>
   )
 }

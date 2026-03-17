@@ -20,4 +20,12 @@ export const siteConfig = {
       'https://chanshiyucx.github.io/cv/Xin%20Chen%20-%20FrontEnd%20Engineer%20Resume.pdf',
     cv: 'https://chanshiyucx.github.io/cv/',
   },
+  blogroll: [
+    {
+      title: 'Mu-An Chiou',
+      url: 'https://muan.co/',
+      description:
+        'A fascinating and creative soul who has inspired many of my design ideas.',
+    },
+  ],
 }

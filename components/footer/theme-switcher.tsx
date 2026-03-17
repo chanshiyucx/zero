@@ -1,20 +1,26 @@
 'use client'
 
-import { Moon, Sun } from '@/components/icons'
+import { MoonStarsIcon, SunIcon } from '@phosphor-icons/react/dist/ssr'
 import { useIsMounted } from '@/hooks/use-is-mounted'
 import { Theme, useThemeTransition } from '@/hooks/use-theme-transition'
+import { cn } from '@/lib/utils/style'
 
 function ThemeButton() {
   const { toggleTheme, resolvedTheme } = useThemeTransition()
-  const Icon = resolvedTheme === Theme.Light ? Sun : Moon
+  const isLight = resolvedTheme === Theme.Light
+  const Icon = isLight ? SunIcon : MoonStarsIcon
 
   return (
     <button
       onClick={toggleTheme}
       aria-label="Switch theme"
-      className="cursor-pointer"
+      className={cn('cursor-pointer', isLight && 'animate-spin duration-20000')}
     >
-      <Icon className="text-lg" />
+      <Icon
+        weight="fill"
+        className="hover:text-subtle text-muted transition-colors duration-300"
+        size={18}
+      />
     </button>
   )
 }
