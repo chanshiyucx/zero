@@ -15,8 +15,9 @@ export default function Page() {
     <PageLayout title="No man is an island.">
       <div data-slide-auto className="prose prose-rosepine space-y-12">
         <p>
-          This page is frequently updated. Only websites that are being actively
-          updated and genuinely interesting are included.
+          A living list, always in flux. Some of my favorite corners of the
+          internet, every link leads to a space that is still active and worth
+          exploring.
         </p>
 
         <hr className="mt-0 mb-0" />
