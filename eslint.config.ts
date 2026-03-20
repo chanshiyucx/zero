@@ -1,6 +1,5 @@
 import js from '@eslint/js'
 import nextPlugin from '@next/eslint-plugin-next'
-import prettierConfig from 'eslint-config-prettier'
 import reactPlugin from 'eslint-plugin-react'
 import reactCompilerPlugin from 'eslint-plugin-react-compiler'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
@@ -9,28 +8,31 @@ import tseslint from 'typescript-eslint'
 export default [
   {
     ignores: [
-      '.next/**',
-      'out/**',
-      'dist/**',
-      'node_modules/**',
-      '.content-collections/**',
-      '**/*.d.ts',
+      '**/.next/**',
+      '**/out/**',
+      '**/dist/**',
+      '**/node_modules/**',
+      '**/.content-collections/**',
+      'next-env.d.ts',
     ],
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
   },
 
-  js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked.map((conf) => ({
-    ...conf,
+  {
+    ...js.configs.recommended,
     files: ['**/*.{ts,tsx}'],
-  })),
-  ...tseslint.configs.stylisticTypeChecked.map((conf) => ({
+  },
+  ...tseslint.configs.recommendedTypeChecked.map((conf) => ({
     ...conf,
     files: ['**/*.{ts,tsx}'],
   })),
 
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     plugins: {
+      '@typescript-eslint': tseslint.plugin,
       '@next/next': nextPlugin,
       react: reactPlugin,
       'react-compiler': reactCompilerPlugin,
@@ -48,7 +50,6 @@ export default [
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
       'react-compiler/react-compiler': 'error',
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     },
   },
   {
@@ -64,5 +65,4 @@ export default [
     files: ['**/*.config.{js,ts,mjs}', 'eslint.config.ts'],
     ...tseslint.configs.disableTypeChecked,
   },
-  prettierConfig,
 ]

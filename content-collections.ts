@@ -64,7 +64,7 @@ const getCollection = <T extends string>({
     },
   })
 
-const collections = [
+const content = [
   getCollection({
     name: 'album',
     directory: 'public/blog/album',
@@ -84,5 +84,5 @@ const collections = [
 ]
 
 export default defineConfig({
-  collections,
+  content,
 })

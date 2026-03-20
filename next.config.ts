@@ -1,14 +1,16 @@
 import { withContentCollections } from '@content-collections/next'
+import type { NextConfig } from 'next'
 
-export default withContentCollections({
+const nextConfig: NextConfig = {
   reactCompiler: true,
   cacheComponents: true,
+  typedRoutes: true,
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'cx-onedrive.pages.dev',
-        pathname: '**',
+        pathname: '/**',
       },
     ],
   },
@@ -32,4 +34,6 @@ export default withContentCollections({
       },
     ]
   },
-})
+}
+
+export default withContentCollections(nextConfig)
