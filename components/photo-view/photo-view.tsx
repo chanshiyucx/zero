@@ -58,6 +58,50 @@ const progressVariants: Variants = {
   },
 }
 
+const PREVIEW_IMAGE_CACHE_LIMIT = 9
+const previewImageCache = new Map<string, string>()
+
+function getCachedPreviewImage(url: string) {
+  const cachedObjectUrl = previewImageCache.get(url)
+  if (!cachedObjectUrl) return null
+
+  previewImageCache.delete(url)
+  previewImageCache.set(url, cachedObjectUrl)
+  return cachedObjectUrl
+}
+
+function setCachedPreviewImage(url: string, objectUrl: string) {
+  const previousObjectUrl = previewImageCache.get(url)
+  if (previousObjectUrl && previousObjectUrl !== objectUrl) {
+    URL.revokeObjectURL(previousObjectUrl)
+  }
+
+  if (previewImageCache.has(url)) {
+    previewImageCache.delete(url)
+  }
+
+  previewImageCache.set(url, objectUrl)
+
+  if (previewImageCache.size > PREVIEW_IMAGE_CACHE_LIMIT) {
+    const oldestEntry = previewImageCache.entries().next().value
+    if (!oldestEntry) return
+
+    const [oldestUrl, oldestObjectUrl] = oldestEntry
+    previewImageCache.delete(oldestUrl)
+    URL.revokeObjectURL(oldestObjectUrl)
+  }
+}
+
+function revokePreviewImageIfNotCached(
+  url: string | undefined,
+  objectUrl: string | null,
+) {
+  if (!url || !objectUrl) return
+  if (previewImageCache.get(url) === objectUrl) return
+
+  URL.revokeObjectURL(objectUrl)
+}
+
 async function loadImageWithProgress(
   url: string,
   signal: AbortSignal,
@@ -193,7 +237,7 @@ export function PhotoView({
 
       // Revoke the ObjectURL when preview is closed to prevent memory leaks
       if (resolvedOriginalSrc) {
-        URL.revokeObjectURL(resolvedOriginalSrc)
+        revokePreviewImageIfNotCached(originalsrc, resolvedOriginalSrc)
         setResolvedOriginalSrc(null)
       }
     }
@@ -218,6 +262,12 @@ export function PhotoView({
       setZoomState(ZoomState.Zooming)
 
       if (originalsrc && originalsrc !== src && !resolvedOriginalSrc) {
+        const cachedOriginalSrc = getCachedPreviewImage(originalsrc)
+        if (cachedOriginalSrc) {
+          setResolvedOriginalSrc(cachedOriginalSrc)
+          return
+        }
+
         setIsLoading(true)
         setLoadProgress({ loaded: 0, total: 0 })
 
@@ -232,6 +282,7 @@ export function PhotoView({
             abortControllerRef.current.signal,
             setLoadProgress,
           )
+          setCachedPreviewImage(originalsrc, imageUrl)
           setResolvedOriginalSrc(imageUrl)
           setIsLoading(false)
         } catch {
@@ -252,10 +303,10 @@ export function PhotoView({
   useEffect(() => {
     return () => {
       if (resolvedOriginalSrc) {
-        URL.revokeObjectURL(resolvedOriginalSrc)
+        revokePreviewImageIfNotCached(originalsrc, resolvedOriginalSrc)
       }
     }
-  }, [resolvedOriginalSrc])
+  }, [originalsrc, resolvedOriginalSrc])
 
   useEffect(() => {
     document.body.style.overflow =

@@ -11,12 +11,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ignore-pattern '.next/**' --ignore-pattern 'out/**' --ignore-pattern 'dist/**' --ignore-pattern '.content-collections/**'",
-    "lint:fix": "eslint . --fix --ignore-pattern '.next/**' --ignore-pattern 'out/**' --ignore-pattern 'dist/**' --ignore-pattern '.content-collections/**'",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
     "check": "pnpm run lint && pnpm run type-check",
-    "predev": "tsx scripts/sync-blog.ts",
-    "prebuild": "tsx scripts/sync-blog.ts",
+    "predev": "node --strip-types scripts/sync-blog.ts",
+    "prebuild": "node --strip-types scripts/sync-blog.ts",
     "prepare": "husky"
   },
   "lint-staged": {
