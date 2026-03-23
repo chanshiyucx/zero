@@ -79,6 +79,7 @@ const DISCUSSION_LABEL_IDS = {
   craft: 'LA_kwDOCP9Av88AAAAB20f9KA',
   journal: 'LA_kwDOCP9Av88AAAACK_lFRA',
   musing: 'LA_kwDOCP9Av88AAAACaKdyyg',
+  album: 'LA_kwDOCP9Av88AAAACcgitDA',
 }
 
 const headers = new Headers({

@@ -85,9 +85,12 @@ function Section({
       <Header title={title} href={href} icon={Icon} />
       <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
         <header className="mb-3 flex flex-row items-center justify-between">
-          <h2 className="text-text truncate max-sm:whitespace-normal">
+          <Link
+            href={content.url}
+            className="link link-hover text-text truncate max-sm:whitespace-normal"
+          >
             {content.title}
-          </h2>
+          </Link>
           <DateTime
             dateString={content.date}
             className="text-subtle shrink-0 text-sm"
@@ -134,7 +137,6 @@ function Album() {
       href="/album"
       icon={InstagramLogoIcon}
       content={album}
-      className="gallery"
     />
   )
 }

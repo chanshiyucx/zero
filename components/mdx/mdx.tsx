@@ -41,7 +41,7 @@ export function MDX({
   return (
     <div
       className={cn(
-        'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-md w-full max-w-none min-w-px',
+        'prose prose-rosepine prose-strong:font-extrabold prose-strong:text-love prose-img:rounded-md photo-caption w-full max-w-none min-w-px',
         className,
       )}
       data-lang={'en'}
