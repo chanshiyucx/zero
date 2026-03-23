@@ -8,9 +8,11 @@ import { cn } from '@/lib/utils/style'
 function ContentItem({
   content,
   isFirst,
+  contentClassName,
 }: {
   content: Content
   isFirst: boolean
+  contentClassName?: string
 }) {
   return (
     <article>
@@ -29,7 +31,7 @@ function ContentItem({
           className="text-subtle shrink-0 text-sm"
         />
       </header>
-      <MDX contentCode={content.contentCode} />
+      <MDX className={contentClassName} contentCode={content.contentCode} />
     </article>
   )
 }
@@ -37,9 +39,14 @@ function ContentItem({
 type ArticleListProps = {
   title: string
   data: Content[]
+  contentClassName?: string
 }
 
-export function ArticleList({ title, data }: ArticleListProps) {
+export function ArticleList({
+  title,
+  data,
+  contentClassName,
+}: ArticleListProps) {
   return (
     <PageLayout title={title}>
       <div className="space-y-12">
@@ -48,6 +55,7 @@ export function ArticleList({ title, data }: ArticleListProps) {
             key={content.slug}
             content={content}
             isFirst={index === 0}
+            contentClassName={contentClassName}
           />
         ))}
       </div>

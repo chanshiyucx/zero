@@ -1,3 +1,4 @@
+import Article, { generateMetadata } from '@/components/article'
 import { sortedMusings } from '@/lib/utils/content'
 
 export function generateStaticParams() {
@@ -6,4 +7,12 @@ export function generateStaticParams() {
   }))
 }
 
-export { default, generateMetadata } from '@/components/article'
+export { generateMetadata }
+
+export default function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  return <Article params={params} contentClassName="musing" />
+}
