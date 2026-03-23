@@ -108,7 +108,7 @@
   }
 }
 
-@utility gallery {
+@utility photo-caption {
   figcaption {
     @apply absolute bottom-0 z-10 w-full rounded-b-md;
 
@@ -123,6 +123,22 @@
 
     span {
       @apply text-shadow-lg;
+    }
+  }
+}
+
+@utility gallery {
+  @apply photo-caption;
+}
+
+@utility musing {
+  @apply photo-caption;
+
+  .photo-albums[data-total='1'] {
+    @apply float-none m-0 w-auto [shape-outside:none];
+
+    @variant md {
+      @apply float-right mb-3 ml-3 w-[calc((100%_-_1.5rem)/3)] [shape-outside:margin-box];
     }
   }
 }

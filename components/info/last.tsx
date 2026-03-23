@@ -1,10 +1,10 @@
 import type { Icon } from '@phosphor-icons/react'
 import {
   BriefcaseIcon,
+  FeatherIcon,
   FlowerTulipIcon,
   GhostIcon,
   InstagramLogoIcon,
-  ScrollIcon,
 } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { Card } from '@/components/card'
@@ -120,7 +120,7 @@ function Craft() {
   const lastCrafts = sortedCrafts.slice(0, 5)
 
   return (
-    <List title="Craft" href="/craft" list={lastCrafts} icon={ScrollIcon} />
+    <List title="Craft" href="/craft" list={lastCrafts} icon={FeatherIcon} />
   )
 }
 
@@ -144,7 +144,13 @@ function Musing() {
   if (!musing) return null
 
   return (
-    <Section title="Musing" href="/musing" icon={GhostIcon} content={musing} />
+    <Section
+      title="Musing"
+      href="/musing"
+      icon={GhostIcon}
+      content={musing}
+      className="musing"
+    />
   )
 }
 

@@ -11,7 +11,7 @@ import { findContentBySlug } from '@/lib/utils/content'
 
 type ArticleProps = {
   params: Promise<{ slug: string }>
-  hideDiscussion?: boolean
+  contentClassName?: string
 }
 
 const calculateMediumReadingTime = (content: string): string => {
@@ -74,7 +74,7 @@ export async function generateMetadata({
 
 export default async function Article({
   params,
-  hideDiscussion = false,
+  contentClassName,
 }: ArticleProps) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
@@ -102,13 +102,15 @@ export default async function Article({
         </header>
         <div className="flex flex-row-reverse">
           {article.toc.length > 0 && <Toc toc={article.toc} />}
-          <MDX slideMode="auto" contentCode={article.contentCode} />
+          <MDX
+            className={contentClassName}
+            slideMode="auto"
+            contentCode={article.contentCode}
+          />
         </div>
       </article>
       <div data-slide>
-        {!hideDiscussion && (
-          <Discussion label={article.type} title={article.title} />
-        )}
+        <Discussion label={article.type} title={article.title} />
       </div>
     </PageLayout>
   )

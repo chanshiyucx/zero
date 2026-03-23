@@ -15,8 +15,8 @@
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
     "check": "pnpm run lint && pnpm run type-check",
-    "predev": "node --strip-types scripts/sync-blog.ts",
-    "prebuild": "node --strip-types scripts/sync-blog.ts",
+    "predev": "node scripts/sync-blog.ts",
+    "prebuild": "node scripts/sync-blog.ts",
     "prepare": "husky"
   },
   "lint-staged": {
