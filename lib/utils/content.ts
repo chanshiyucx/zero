@@ -9,14 +9,19 @@ import {
   type Musing,
 } from 'content-collections'
 
-export type Content = Album | Craft | Journal | Musing
+export type Content = Journal | Craft | Musing | Album
 
 export type ContentGroup = {
   year: number
   list: Content[]
 }
 
-const content: Content[] = [...allCrafts, ...allJournals, ...allMusings]
+const content: Content[] = [
+  ...allJournals,
+  ...allCrafts,
+  ...allMusings,
+  ...allAlbums,
+]
 
 const sortByDate = <T extends { date: string }>(items: readonly T[]): T[] =>
   [...items].sort(

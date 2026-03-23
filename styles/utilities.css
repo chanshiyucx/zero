@@ -127,12 +127,8 @@
   }
 }
 
-@utility gallery {
-  @apply photo-caption;
-}
-
 @utility musing {
-  @apply photo-caption;
+  @apply flow-root;
 
   .photo-albums[data-total='1'] {
     @apply float-none m-0 w-auto [shape-outside:none];
