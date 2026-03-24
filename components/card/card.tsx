@@ -1,9 +1,15 @@
 'use client'
 
 import { m, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from 'react'
 import { clamp } from '@/lib/utils/helper'
-import { useDevice } from '@/stores/use-device'
 
 type CardProps = {
   active?: boolean
@@ -14,6 +20,8 @@ type CardProps = {
   className?: string
 }
 
+const HOVER_MEDIA_QUERY = '(hover: hover) and (pointer: fine)'
+
 export function Card({
   children,
   tiltStrength = 12,
@@ -21,7 +29,7 @@ export function Card({
   maxTilt = 20,
   className = '',
 }: CardProps) {
-  const isMobile = useDevice((s) => s.isMobile)
+  const [canHover, setCanHover] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
   const rectRef = useRef<DOMRect | null>(null)
   const rafRef = useRef<number | null>(null)
@@ -38,8 +46,23 @@ export function Card({
     return `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(${s}, ${s}, ${s}) translateZ(${tz}px)`
   })
 
+  const resetMotion = useCallback(() => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+
+    mouseX.set(0)
+    mouseY.set(0)
+    rotateX.set(0)
+    rotateY.set(0)
+    scale.set(1)
+    z.set(0)
+    rectRef.current = null
+  }, [mouseX, mouseY, rotateX, rotateY, scale, z])
+
   const handleMouseMoveThrottled = (e: MouseEvent<HTMLDivElement>) => {
-    if (isMobile) return
+    if (!canHover) return
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current)
     }
@@ -70,42 +93,44 @@ export function Card({
   }
 
   const handleMouseEnter = () => {
-    if (isMobile) return
+    if (!canHover) return
     if (cardRef.current) {
       rectRef.current = cardRef.current.getBoundingClientRect()
     }
   }
 
   const handleMouseLeave = () => {
-    if (isMobile) return
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current)
-      rafRef.current = null
-    }
-
-    mouseX.set(0)
-    mouseY.set(0)
-    rotateX.set(0)
-    rotateY.set(0)
-    scale.set(1)
-    z.set(0)
-
-    rectRef.current = null
+    if (!canHover) return
+    resetMotion()
   }
 
   useEffect(() => {
-    return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current)
-      }
+    const mediaQuery = window.matchMedia(HOVER_MEDIA_QUERY)
+    const updateCanHover = () => {
+      setCanHover(mediaQuery.matches)
     }
-  }, [])
+
+    updateCanHover()
+
+    mediaQuery.addEventListener('change', updateCanHover)
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateCanHover)
+      resetMotion()
+    }
+  }, [resetMotion])
+
+  useEffect(() => {
+    if (!canHover) {
+      resetMotion()
+    }
+  }, [canHover, resetMotion])
 
   return (
     <m.div
       ref={cardRef}
       className={`will-change-transform transform-3d ${className}`}
-      style={{ transform: isMobile ? '' : transform }}
+      style={{ transform: canHover ? transform : undefined }}
       onMouseMove={handleMouseMoveThrottled}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

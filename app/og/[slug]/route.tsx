@@ -1,18 +1,14 @@
+import { readFile } from 'node:fs/promises'
 import { cacheLife } from 'next/cache'
 import { ImageResponse } from 'next/og'
 import type { NextRequest } from 'next/server'
 import { Signature } from '@/components/icons'
 import { siteConfig } from '@/lib/constants/config'
-import { getAbsoluteUrl } from '@/lib/utils/edge'
+import { findContentBySlug } from '@/lib/utils/content'
 
-async function loadFont() {
-  'use cache'
-  cacheLife('max')
-
-  return fetch(getAbsoluteUrl('/assets/merriweather.ttf')).then((res) =>
-    res.arrayBuffer(),
-  )
-}
+const fontDataPromise = readFile(
+  new URL('../../../public/assets/merriweather.ttf', import.meta.url),
+)
 
 export async function GET(
   request: NextRequest,
@@ -22,14 +18,11 @@ export async function GET(
   cacheLife('max')
 
   const { slug } = await params
-  const response = await fetch(getAbsoluteUrl(`/api/content?slug=${slug}`))
-  if (!response.ok) {
-    return new Response('Failed to fetch article metadata', { status: 500 })
-  }
-  const meta = (await response.json()) as { title: string } | null
-  const title = meta?.title ?? siteConfig.metadata.title
+  const decodedSlug = decodeURIComponent(slug)
+  const content = findContentBySlug(decodedSlug)
+  const title = content?.title ?? siteConfig.metadata.title
 
-  const fontData = await loadFont()
+  const fontData = await fontDataPromise
 
   try {
     return new ImageResponse(

@@ -1,11 +1,20 @@
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/react'
-import type { ReactNode } from 'react'
+'use client'
 
-export default function VercelProvider({ children }: { children: ReactNode }) {
+import dynamic from 'next/dynamic'
+
+const Analytics = dynamic(
+  () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
+  { ssr: false },
+)
+
+const SpeedInsights = dynamic(
+  () => import('@vercel/speed-insights/react').then((mod) => mod.SpeedInsights),
+  { ssr: false },
+)
+
+export default function VercelProvider() {
   return (
     <>
-      {children}
       <Analytics />
       <SpeedInsights />
     </>

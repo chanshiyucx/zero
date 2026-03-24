@@ -89,13 +89,12 @@ export default function RootLayout({
       <body>
         <ThemeProvider defaultTheme="system" enableSystem>
           <MotionProvider>
-            <VercelProvider>
-              <Blur />
-              <Suspense>{children}</Suspense>
-              <Helper />
-              <Footer />
-            </VercelProvider>
+            <Blur />
+            <Suspense>{children}</Suspense>
+            <Helper />
+            <Footer />
           </MotionProvider>
+          <VercelProvider />
         </ThemeProvider>
       </body>
     </html>
