@@ -4,7 +4,6 @@ import { APIError, fetchData } from './fetch'
 
 const CACHE_TAGS = {
   githubRepos: 'github-repos',
-  githubDiscussions: 'github-discussions',
 } as const
 
 const CACHE_LIFES = {
@@ -69,6 +68,26 @@ type UpdateDiscussionResult = {
   }
 }
 
+type DiscussionSearchNode = Pick<
+  Discussion,
+  'id' | 'number' | 'title' | 'url' | 'body'
+> & {
+  comments: {
+    totalCount: number
+  }
+  labels: {
+    nodes: Discussion['labels']
+  }
+}
+
+type SearchDiscussionResult = {
+  data: {
+    search: {
+      nodes: DiscussionSearchNode[]
+    }
+  }
+}
+
 const GITHUB_API = 'https://api.github.com'
 const USERNAME = 'chanshiyucx'
 
@@ -86,6 +105,9 @@ const headers = new Headers({
   Authorization: `Bearer ${env.GITHUB_TOKEN}`,
   Accept: 'application/vnd.github.v4+json',
 })
+
+const getDiscussionTag = (title: string, label: string) =>
+  `github-discussion:${encodeURIComponent(label)}:${encodeURIComponent(title)}`
 
 const CREATE_DISCUSSION_MUTATION = `
   mutation CreateDiscussion($repositoryId: ID!, $title: String!, $body: String!, $categoryId: ID!) {
@@ -134,6 +156,30 @@ const UPDATE_DISCUSSION_MUTATION = `
   }
 `
 
+const SEARCH_DISCUSSION_QUERY = `
+  query SearchDiscussion($query: String!) {
+    search(query: $query, type: DISCUSSION, first: 10) {
+      nodes {
+        ... on Discussion {
+          id
+          number
+          title
+          url
+          body
+          comments {
+            totalCount
+          }
+          labels(first: 10) {
+            nodes {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 async function getGithubUserData() {
   return fetchData<User>(`${GITHUB_API}/users/${USERNAME}`, {
     headers,
@@ -173,15 +219,44 @@ export async function getGithubRepositories() {
   }
 }
 
-export async function getDiscussions() {
+export async function getDiscussion(title: string, label: string) {
   'use cache'
   cacheLife(CACHE_LIFES.minutes)
-  cacheTag(CACHE_TAGS.githubDiscussions)
+  cacheTag(getDiscussionTag(title, label))
 
-  return fetchData<Discussion[]>(
-    `${GITHUB_API}/repos/${USERNAME}/${DISCUSSION_REPO}/discussions`,
-    { headers },
+  const searchTitle = title.replaceAll('"', '\\"')
+  const query = `repo:${USERNAME}/${DISCUSSION_REPO} in:title "${searchTitle}"`
+
+  const result = await fetchData<SearchDiscussionResult>(
+    `${GITHUB_API}/graphql`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        query: SEARCH_DISCUSSION_QUERY,
+        variables: { query },
+      }),
+    },
   )
+
+  const discussion = result.data.search.nodes.find(
+    (item) =>
+      item.title === title && item.labels.nodes.some((l) => l.name === label),
+  )
+
+  if (!discussion) return null
+
+  return {
+    id: discussion.id,
+    node_id: discussion.id,
+    number: discussion.number,
+    title: discussion.title,
+    html_url: discussion.url,
+    url: discussion.url,
+    comments: discussion.comments.totalCount,
+    body: discussion.body,
+    labels: discussion.labels.nodes,
+  }
 }
 
 export async function createDiscussion(
@@ -226,7 +301,7 @@ export async function createDiscussion(
       }),
     })
 
-    revalidateTag(CACHE_TAGS.githubDiscussions, { expire: 0 })
+    revalidateTag(getDiscussionTag(title, label), { expire: 0 })
 
     return discussion
   } catch (error: unknown) {
@@ -240,6 +315,8 @@ export async function createDiscussion(
 
 export async function updateDiscussion(
   discussionId: string,
+  title: string,
+  label: string,
   body: string,
 ): Promise<Discussion> {
   try {
@@ -259,7 +336,7 @@ export async function updateDiscussion(
     discussion.html_url = discussion.url
     discussion.node_id = discussion.id
 
-    revalidateTag(CACHE_TAGS.githubDiscussions, { expire: 0 })
+    revalidateTag(getDiscussionTag(title, label), { expire: 0 })
 
     return discussion
   } catch (error: unknown) {
