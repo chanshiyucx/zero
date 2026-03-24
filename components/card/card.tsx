@@ -1,6 +1,6 @@
 'use client'
 
-import { m, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { m, useSpring, useTransform } from 'framer-motion'
 import {
   useCallback,
   useEffect,
@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from 'react'
 import { clamp } from '@/lib/utils/helper'
+import { cn } from '@/lib/utils/style'
 
 type CardProps = {
   active?: boolean
@@ -21,25 +22,24 @@ type CardProps = {
 }
 
 const HOVER_MEDIA_QUERY = '(hover: hover) and (pointer: fine)'
+const SPRING_CONFIG = { stiffness: 300, damping: 30 }
 
 export function Card({
   children,
   tiltStrength = 12,
   scaleOnHover = 1.01,
   maxTilt = 20,
-  className = '',
+  className,
 }: CardProps) {
   const [canHover, setCanHover] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
   const rectRef = useRef<DOMRect | null>(null)
   const rafRef = useRef<number | null>(null)
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const rotateX = useSpring(0, { stiffness: 300, damping: 30 })
-  const rotateY = useSpring(0, { stiffness: 300, damping: 30 })
-  const scale = useSpring(1, { stiffness: 300, damping: 30 })
-  const z = useSpring(0, { stiffness: 300, damping: 30 })
+  const rotateX = useSpring(0, SPRING_CONFIG)
+  const rotateY = useSpring(0, SPRING_CONFIG)
+  const scale = useSpring(1, SPRING_CONFIG)
+  const z = useSpring(0, SPRING_CONFIG)
 
   const transform = useTransform([rotateX, rotateY, scale, z], (values) => {
     const [rx, ry, s, tz] = values as number[]
@@ -47,31 +47,28 @@ export function Card({
   })
 
   const resetMotion = useCallback(() => {
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current)
-      rafRef.current = null
-    }
+    const frame = rafRef.current
+    if (frame) cancelAnimationFrame(frame)
 
-    mouseX.set(0)
-    mouseY.set(0)
+    rafRef.current = null
     rotateX.set(0)
     rotateY.set(0)
     scale.set(1)
     z.set(0)
     rectRef.current = null
-  }, [mouseX, mouseY, rotateX, rotateY, scale, z])
+  }, [rotateX, rotateY, scale, z])
 
-  const handleMouseMoveThrottled = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     if (!canHover) return
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current)
-    }
+    const frame = rafRef.current
+    if (frame) cancelAnimationFrame(frame)
 
     // Extract values before RAF to avoid stale synthetic event
-    const clientX = e.clientX
-    const clientY = e.clientY
+    const clientX = event.clientX
+    const clientY = event.clientY
 
     rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null
       if (!rectRef.current) return
 
       const rect = rectRef.current
@@ -79,8 +76,6 @@ export function Card({
       const centerY = rect.top + rect.height / 2
       const deltaX = (clientX - centerX) / (rect.width / 2)
       const deltaY = (clientY - centerY) / (rect.height / 2)
-      mouseX.set(deltaX)
-      mouseY.set(deltaY)
 
       const rotX = clamp(deltaY * tiltStrength, -maxTilt, maxTilt)
       const rotY = clamp(-deltaX * tiltStrength, -maxTilt, maxTilt)
@@ -106,12 +101,9 @@ export function Card({
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(HOVER_MEDIA_QUERY)
-    const updateCanHover = () => {
-      setCanHover(mediaQuery.matches)
-    }
+    const updateCanHover = () => setCanHover(mediaQuery.matches)
 
     updateCanHover()
-
     mediaQuery.addEventListener('change', updateCanHover)
 
     return () => {
@@ -121,17 +113,15 @@ export function Card({
   }, [resetMotion])
 
   useEffect(() => {
-    if (!canHover) {
-      resetMotion()
-    }
+    if (!canHover) resetMotion()
   }, [canHover, resetMotion])
 
   return (
     <m.div
       ref={cardRef}
-      className={`will-change-transform transform-3d ${className}`}
+      className={cn('will-change-transform transform-3d', className)}
       style={{ transform: canHover ? transform : undefined }}
-      onMouseMove={handleMouseMoveThrottled}
+      onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
