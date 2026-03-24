@@ -1,6 +1,10 @@
 'use client'
 
-import { CaretRightIcon } from '@phosphor-icons/react/dist/ssr'
+import {
+  CaretRightIcon,
+  ChatTextIcon,
+  HeartStraightIcon,
+} from '@phosphor-icons/react/dist/ssr'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useLoading } from '@/hooks/use-loading'
@@ -11,13 +15,16 @@ import { cn } from '@/lib/utils/style'
 type DiscussionProps = {
   label: string
   title: string
+  simple?: boolean
 }
 
 const LocalDiscussionKey = 'discussion'
 
 const fetcher = async (url: string): Promise<DiscussionType | null> => {
   try {
-    const res = await fetch(url)
+    const res = await fetch(url, {
+      cache: 'no-store',
+    })
     if (!res.ok) return null
 
     const data = (await res.json()) as DiscussionType
@@ -33,7 +40,7 @@ const extractLikeCount = (body?: string): number => {
   return match ? parseInt(match[0], 10) : 0
 }
 
-export function Discussion({ label, title }: DiscussionProps) {
+export function Discussion({ label, title, simple }: DiscussionProps) {
   const [loading, setLoading] = useState(false)
   const [delay, reset] = useLoading(1000)
   const [isLiked, setIsLiked] = useState(false)
@@ -41,9 +48,13 @@ export function Discussion({ label, title }: DiscussionProps) {
     LocalDiscussionKey,
     {},
   )
+  const discussionKey =
+    title && label
+      ? `/api/discussions?${new URLSearchParams({ title, label }).toString()}`
+      : null
 
   const { data: discussion, mutate } = useSWR<DiscussionType | null>(
-    title && label ? `/api/discussions?title=${title}&label=${label}` : null,
+    discussionKey,
     fetcher,
     {
       revalidateOnFocus: false,
@@ -57,16 +68,21 @@ export function Discussion({ label, title }: DiscussionProps) {
     setIsLiked(Boolean(localData[title]))
   }, [localData, title])
 
-  const submitDiscussionAction = async (
-    method: 'POST' | 'PUT',
-    body: string,
-  ) => {
-    if (
-      loading ||
-      (method === 'PUT' && !discussion) ||
-      (method === 'POST' && discussion)
-    )
-      return
+  const resolveDiscussion = async () => {
+    if (discussion !== undefined) return discussion
+    return mutate()
+  }
+
+  const submitDiscussionAction = async ({
+    method,
+    body,
+    discussionId,
+  }: {
+    method: 'POST' | 'PUT'
+    body: string
+    discussionId?: string
+  }) => {
+    if (loading || (method === 'PUT' && !discussionId)) return null
 
     setLoading(true)
     reset()
@@ -75,7 +91,7 @@ export function Discussion({ label, title }: DiscussionProps) {
       const payload =
         method === 'POST'
           ? { title, label, body }
-          : { discussionId: discussion?.node_id, body }
+          : { discussionId, title, label, body }
 
       const response = await fetch('/api/discussions', {
         method,
@@ -83,39 +99,87 @@ export function Discussion({ label, title }: DiscussionProps) {
       })
       const data = (await response.json()) as DiscussionType
       if (data) {
-        await mutate({ ...discussion, ...data }, false)
+        await mutate(data, false)
       }
+      return data
     } catch (error) {
       console.error(
         `Failed to ${method === 'POST' ? 'create' : 'update'} discussion:`,
         error,
       )
+      return null
+    } finally {
+      await delay()
+      setLoading(false)
     }
-
-    await delay()
-    setLoading(false)
   }
 
   const handleDiscuss = async () => {
-    if (!discussion) {
-      await submitDiscussionAction('POST', 'like: 0')
+    const currentDiscussion = await resolveDiscussion()
+
+    if (!currentDiscussion) {
+      const createdDiscussion = await submitDiscussionAction({
+        method: 'POST',
+        body: 'like: 0',
+      })
+      if (createdDiscussion) {
+        window.open(createdDiscussion.html_url, '_blank')
+      }
+      return
     }
 
-    const currentDiscussion = await mutate()
-    if (currentDiscussion) {
-      window.open(currentDiscussion.html_url, '_blank')
+    window.open(currentDiscussion.html_url, '_blank')
+  }
+
+  const handleLike = async () => {
+    if (isLiked) return
+    const currentDiscussion = await resolveDiscussion()
+    const currentLikeCount = extractLikeCount(currentDiscussion?.body)
+    const method = currentDiscussion ? 'PUT' : 'POST'
+    const newLikeCount = currentLikeCount + 1
+    const bodyStr = `like: ${method === 'POST' ? 1 : newLikeCount}`
+
+    const updatedDiscussion = await submitDiscussionAction({
+      method,
+      body: bodyStr,
+      discussionId: currentDiscussion?.node_id,
+    })
+
+    if (updatedDiscussion) {
+      setIsLiked(true)
+      setLocalData({ ...localData, [title]: 1 })
     }
   }
 
-  const handleLike = () => {
-    if (isLiked) return
-    const method = discussion ? 'PUT' : 'POST'
-    const newLikeCount = like + 1
-    const bodyStr = `like: ${method === 'POST' ? 1 : newLikeCount}`
+  if (simple) {
+    return (
+      <div className="text-muted flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => void handleLike()}
+          className={cn(
+            'flex w-10 appearance-none items-center justify-start',
+            !isLiked && 'cursor-pointer',
+          )}
+        >
+          <HeartStraightIcon
+            size={16}
+            weight={isLiked ? 'fill' : 'bold'}
+            className={cn(isLiked ? 'text-rose' : 'text-current')}
+          />
+          <span className="text-sm">({like})</span>
+        </button>
 
-    submitDiscussionAction(method, bodyStr).catch(console.log)
-    setIsLiked(true)
-    setLocalData({ ...localData, [title]: 1 })
+        <button
+          type="button"
+          onClick={() => void handleDiscuss()}
+          className="flex w-10 cursor-pointer appearance-none items-center justify-start"
+        >
+          <ChatTextIcon size={16} weight="bold" />
+          <span className="text-sm">({comments})</span>
+        </button>
+      </div>
+    )
   }
 
   return (

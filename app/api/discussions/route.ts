@@ -2,13 +2,13 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import {
   createDiscussion,
-  getDiscussions,
+  getDiscussion,
   updateDiscussion,
 } from '@/lib/api/github'
 
 const GetSchema = z.object({
-  title: z.string().optional(),
-  label: z.string().optional(),
+  title: z.string(),
+  label: z.string(),
 })
 
 const CreateSchema = z.object({
@@ -19,6 +19,8 @@ const CreateSchema = z.object({
 
 const UpdateSchema = z.object({
   discussionId: z.string().min(1),
+  title: z.string().min(1),
+  label: z.string().min(1),
   body: z.string().min(1),
 })
 
@@ -31,11 +33,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { title, label } = GetSchema.parse(query)
-
-    const discussions = await getDiscussions()
-    const discussion = discussions.find(
-      (d) => d.title === title && d.labels.some((l) => l.name === label),
-    )
+    const discussion = await getDiscussion(title, label)
     return NextResponse.json(discussion)
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -69,9 +67,9 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const json: unknown = await request.json()
-    const { discussionId, body } = UpdateSchema.parse(json)
+    const { discussionId, title, label, body } = UpdateSchema.parse(json)
 
-    const discussion = await updateDiscussion(discussionId, body)
+    const discussion = await updateDiscussion(discussionId, title, label, body)
     return NextResponse.json(discussion)
   } catch (error) {
     if (error instanceof z.ZodError) {
