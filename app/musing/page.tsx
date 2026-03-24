@@ -15,6 +15,7 @@ export default function Page() {
       title="Feelings bloom into words."
       data={sortedMusings}
       contentClassName="musing"
+      enableLink={false}
     />
   )
 }

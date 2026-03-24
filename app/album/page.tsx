@@ -10,5 +10,11 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <ArticleList title="Photography freezes time." data={sortedAlbums} />
+  return (
+    <ArticleList
+      title="Photography freezes time."
+      data={sortedAlbums}
+      enableLink={false}
+    />
+  )
 }

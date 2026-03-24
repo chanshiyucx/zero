@@ -9,10 +9,12 @@ function ContentItem({
   content,
   isFirst,
   contentClassName,
+  enableLink,
 }: {
   content: Content
   isFirst: boolean
   contentClassName?: string
+  enableLink: boolean
 }) {
   return (
     <article>
@@ -23,9 +25,16 @@ function ContentItem({
           isFirst ? 'border-t-0 pt-0' : 'border-t pt-12',
         )}
       >
-        <Link className="link link-hover text-lg font-bold" href={content.url}>
-          {content.title}
-        </Link>
+        {enableLink ? (
+          <Link
+            className="link link-hover text-lg font-bold"
+            href={content.url}
+          >
+            {content.title}
+          </Link>
+        ) : (
+          <h2 className="text-lg font-bold">{content.title}</h2>
+        )}
         <DateTime
           dateString={content.date}
           className="text-subtle shrink-0 text-sm"
@@ -40,12 +49,14 @@ type ArticleListProps = {
   title: string
   data: Content[]
   contentClassName?: string
+  enableLink?: boolean
 }
 
 export function ArticleList({
   title,
   data,
   contentClassName,
+  enableLink = true,
 }: ArticleListProps) {
   return (
     <PageLayout title={title}>
@@ -56,6 +67,7 @@ export function ArticleList({
             content={content}
             isFirst={index === 0}
             contentClassName={contentClassName}
+            enableLink={enableLink}
           />
         ))}
       </div>

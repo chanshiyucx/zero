@@ -130,11 +130,15 @@
 @utility musing {
   @apply flow-root;
 
-  .photo-albums[data-total='1'] {
+  .photo-albums {
     @apply float-none m-0 w-auto [shape-outside:none];
 
     @variant md {
       @apply float-right mb-3 ml-3 w-[calc((100%_-_1.5rem)/3)] [shape-outside:margin-box];
+    }
+
+    & + p {
+      @apply mt-0;
     }
   }
 }
