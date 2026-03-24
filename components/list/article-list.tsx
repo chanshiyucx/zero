@@ -42,7 +42,11 @@ type ArticleListProps = {
   contentClassName?: string
 }
 
-export function ArticleList({ title, data }: ArticleListProps) {
+export function ArticleList({
+  title,
+  data,
+  contentClassName,
+}: ArticleListProps) {
   return (
     <PageLayout title={title}>
       <div className="space-y-12">
@@ -51,6 +55,7 @@ export function ArticleList({ title, data }: ArticleListProps) {
             key={content.slug}
             content={content}
             isFirst={index === 0}
+            contentClassName={contentClassName}
           />
         ))}
       </div>
