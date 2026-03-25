@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises'
-import { cacheLife } from 'next/cache'
 import { ImageResponse } from 'next/og'
 import type { NextRequest } from 'next/server'
 import { Signature } from '@/components/icons'
@@ -8,15 +7,14 @@ import { findContentBySlug } from '@/lib/utils/content'
 
 const fontDataPromise = readFile(
   new URL('../../../public/assets/merriweather.ttf', import.meta.url),
+).then((buffer) =>
+  buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength),
 )
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  'use cache'
-  cacheLife('max')
-
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const content = findContentBySlug(decodedSlug)
@@ -78,6 +76,9 @@ export async function GET(
             weight: 700,
           },
         ],
+        headers: {
+          'Cache-Control': 'public, immutable, no-transform, max-age=31536000',
+        },
       },
     )
   } catch (error: unknown) {
