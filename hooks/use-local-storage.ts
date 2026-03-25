@@ -7,7 +7,7 @@ export function useLocalStorage<T>(
 ): readonly [T, (value: T | ((prev: T) => T)) => void] {
   const expireKey = `${key}-expire`
 
-  const [storedValue, setStoredValue] = useState<T>(() => {
+  const readValue = (): T => {
     try {
       if (typeof window === 'undefined') {
         return initialValue
@@ -24,17 +24,21 @@ export function useLocalStorage<T>(
       console.error('useLocalStorage Error:', error)
       return initialValue
     }
-  })
+  }
+
+  const [storedValue, setStoredValue] = useState<T>(readValue)
 
   const setValue = (value: T | ((prev: T) => T)) => {
     try {
-      const newValue = value instanceof Function ? value(storedValue) : value
-      setStoredValue(newValue)
-      window.localStorage.setItem(key, JSON.stringify(newValue))
-      if (expire) {
-        const expireDate = String(Date.now() + expire)
-        window.localStorage.setItem(expireKey, expireDate)
-      }
+      setStoredValue((prev) => {
+        const newValue = value instanceof Function ? value(prev) : value
+        window.localStorage.setItem(key, JSON.stringify(newValue))
+        if (expire) {
+          const expireDate = String(Date.now() + expire)
+          window.localStorage.setItem(expireKey, expireDate)
+        }
+        return newValue
+      })
     } catch (error) {
       console.error('useLocalStorage Error:', error)
     }
