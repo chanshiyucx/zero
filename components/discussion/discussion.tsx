@@ -5,7 +5,7 @@ import {
   ChatTextIcon,
   HeartStraightIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import { useLoading } from '@/hooks/use-loading'
 import { useLocalStorage } from '@/hooks/use-local-storage'
@@ -19,6 +19,7 @@ type DiscussionProps = {
 }
 
 const LocalDiscussionKey = 'discussion'
+const LIKE_COUNT_PATTERN = /^like:\s*(\d+)$/i
 
 const fetcher = async (url: string): Promise<DiscussionType | null> => {
   try {
@@ -27,8 +28,7 @@ const fetcher = async (url: string): Promise<DiscussionType | null> => {
     })
     if (!res.ok) return null
 
-    const data = (await res.json()) as DiscussionType
-    return data
+    return (await res.json()) as DiscussionType
   } catch {
     return null
   }
@@ -36,18 +36,20 @@ const fetcher = async (url: string): Promise<DiscussionType | null> => {
 
 const extractLikeCount = (body?: string): number => {
   if (!body) return 0
-  const match = /\d+/.exec(body)
-  return match ? parseInt(match[0], 10) : 0
+  const match = LIKE_COUNT_PATTERN.exec(body.trim())
+  const count = match?.[1]
+  return count ? parseInt(count, 10) : 0
 }
 
 export function Discussion({ label, title, simple }: DiscussionProps) {
-  const [loading, setLoading] = useState(false)
+  const actionLockRef = useRef(false)
+  const [hydrated, setHydrated] = useState(false)
   const [delay, reset] = useLoading(1000)
-  const [isLiked, setIsLiked] = useState(false)
   const [localData, setLocalData] = useLocalStorage<Record<string, number>>(
     LocalDiscussionKey,
     {},
   )
+  const localDiscussionKey = `${label}:${title}`
   const discussionKey =
     title && label
       ? `/api/discussions?${new URLSearchParams({ title, label }).toString()}`
@@ -61,12 +63,15 @@ export function Discussion({ label, title, simple }: DiscussionProps) {
     },
   )
 
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
+
+  const isLiked = hydrated
+    ? Boolean(localData[localDiscussionKey] ?? localData[title])
+    : false
   const like = extractLikeCount(discussion?.body)
   const comments = discussion?.comments ?? 0
-
-  useEffect(() => {
-    setIsLiked(Boolean(localData[title]))
-  }, [localData, title])
 
   const resolveDiscussion = async () => {
     if (discussion !== undefined) return discussion
@@ -82,9 +87,11 @@ export function Discussion({ label, title, simple }: DiscussionProps) {
     body: string
     discussionId?: string
   }) => {
-    if (loading || (method === 'PUT' && !discussionId)) return null
+    if (actionLockRef.current || (method === 'PUT' && !discussionId)) {
+      return null
+    }
 
-    setLoading(true)
+    actionLockRef.current = true
     reset()
 
     try {
@@ -95,12 +102,26 @@ export function Discussion({ label, title, simple }: DiscussionProps) {
 
       const response = await fetch('/api/discussions', {
         method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload),
       })
+
+      if (!response.ok) {
+        const error = (await response.json().catch(() => null)) as unknown
+        console.error(
+          `Failed to ${method === 'POST' ? 'create' : 'update'} discussion:`,
+          error,
+        )
+        return null
+      }
+
       const data = (await response.json()) as DiscussionType
-      if (data) {
+      if (data?.id) {
         await mutate(data, false)
       }
+
       return data
     } catch (error) {
       console.error(
@@ -110,7 +131,7 @@ export function Discussion({ label, title, simple }: DiscussionProps) {
       return null
     } finally {
       await delay()
-      setLoading(false)
+      actionLockRef.current = false
     }
   }
 
@@ -123,31 +144,30 @@ export function Discussion({ label, title, simple }: DiscussionProps) {
         body: 'like: 0',
       })
       if (createdDiscussion) {
-        window.open(createdDiscussion.html_url, '_blank')
+        window.open(createdDiscussion.html_url, '_blank', 'noopener,noreferrer')
       }
       return
     }
 
-    window.open(currentDiscussion.html_url, '_blank')
+    window.open(currentDiscussion.html_url, '_blank', 'noopener,noreferrer')
   }
 
   const handleLike = async () => {
     if (isLiked) return
+
     const currentDiscussion = await resolveDiscussion()
     const currentLikeCount = extractLikeCount(currentDiscussion?.body)
     const method = currentDiscussion ? 'PUT' : 'POST'
-    const newLikeCount = currentLikeCount + 1
-    const bodyStr = `like: ${method === 'POST' ? 1 : newLikeCount}`
+    const body = `like: ${currentLikeCount + 1}`
 
     const updatedDiscussion = await submitDiscussionAction({
       method,
-      body: bodyStr,
+      body,
       discussionId: currentDiscussion?.node_id,
     })
 
     if (updatedDiscussion) {
-      setIsLiked(true)
-      setLocalData({ ...localData, [title]: 1 })
+      setLocalData((prev) => ({ ...prev, [localDiscussionKey]: 1 }))
     }
   }
 

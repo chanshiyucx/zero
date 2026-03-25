@@ -1,27 +1,33 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
+import { APIError } from '@/lib/api/fetch'
 import {
   createDiscussion,
+  DISCUSSION_LABELS,
   getDiscussion,
   updateDiscussion,
 } from '@/lib/api/github'
 
+const LikeBodySchema = z.string().regex(/^like:\s*\d+$/i)
+const TitleSchema = z.string().trim().min(1).max(200)
+const LabelSchema = z.enum(DISCUSSION_LABELS)
+
 const GetSchema = z.object({
-  title: z.string(),
-  label: z.string(),
+  title: TitleSchema,
+  label: LabelSchema,
 })
 
 const CreateSchema = z.object({
-  title: z.string().min(1),
-  label: z.string().min(1),
-  body: z.string().min(1),
+  title: TitleSchema,
+  label: LabelSchema,
+  body: LikeBodySchema,
 })
 
 const UpdateSchema = z.object({
   discussionId: z.string().min(1),
-  title: z.string().min(1),
-  label: z.string().min(1),
-  body: z.string().min(1),
+  title: TitleSchema,
+  label: LabelSchema,
+  body: LikeBodySchema,
 })
 
 export async function GET(request: NextRequest) {
@@ -38,6 +44,12 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
+    if (error instanceof APIError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      )
     }
     return NextResponse.json(
       { error: 'Internal Server Error' },
@@ -57,6 +69,12 @@ export async function POST(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 })
     }
+    if (error instanceof APIError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      )
+    }
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 },
@@ -74,6 +92,12 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
+    if (error instanceof APIError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      )
     }
     return NextResponse.json(
       { error: 'Internal Server Error' },

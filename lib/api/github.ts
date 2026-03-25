@@ -52,26 +52,29 @@ export type Discussion = {
   labels: { name: string }[]
 }
 
+type DiscussionCore = Pick<
+  Discussion,
+  'id' | 'number' | 'title' | 'url' | 'body'
+>
+
+type GraphQLResponse<T> = {
+  data?: T
+  errors?: { message: string }[]
+}
+
 type CreateDiscussionResult = {
-  data: {
-    createDiscussion: {
-      discussion: Discussion
-    }
+  createDiscussion: {
+    discussion: DiscussionCore
   }
 }
 
 type UpdateDiscussionResult = {
-  data: {
-    updateDiscussion: {
-      discussion: Discussion
-    }
+  updateDiscussion: {
+    discussion: DiscussionCore
   }
 }
 
-type DiscussionSearchNode = Pick<
-  Discussion,
-  'id' | 'number' | 'title' | 'url' | 'body'
-> & {
+type DiscussionSearchNode = DiscussionCore & {
   comments: {
     totalCount: number
   }
@@ -81,10 +84,8 @@ type DiscussionSearchNode = Pick<
 }
 
 type SearchDiscussionResult = {
-  data: {
-    search: {
-      nodes: DiscussionSearchNode[]
-    }
+  search: {
+    nodes: DiscussionSearchNode[]
   }
 }
 
@@ -94,7 +95,16 @@ const USERNAME = 'chanshiyucx'
 const DISCUSSION_REPO = 'blog'
 const DISCUSSION_REPO_ID = 'R_kgDOCP9Avw'
 const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
-const DISCUSSION_LABEL_IDS = {
+export const DISCUSSION_LABELS = [
+  'craft',
+  'journal',
+  'musing',
+  'album',
+] as const
+
+export type DiscussionLabel = (typeof DISCUSSION_LABELS)[number]
+
+const DISCUSSION_LABEL_IDS: Record<DiscussionLabel, string> = {
   craft: 'LA_kwDOCP9Av88AAAAB20f9KA',
   journal: 'LA_kwDOCP9Av88AAAACK_lFRA',
   musing: 'LA_kwDOCP9Av88AAAACaKdyyg',
@@ -108,6 +118,48 @@ const headers = new Headers({
 
 const getDiscussionTag = (title: string, label: string) =>
   `github-discussion:${encodeURIComponent(label)}:${encodeURIComponent(title)}`
+
+const isDiscussionLabel = (label: string): label is DiscussionLabel =>
+  Object.hasOwn(DISCUSSION_LABEL_IDS, label)
+
+const assertDiscussionLabel = (label: string): DiscussionLabel => {
+  if (!isDiscussionLabel(label)) {
+    throw new APIError(400, 'Invalid discussion label')
+  }
+
+  return label
+}
+
+const normalizeDiscussion = (
+  discussion: DiscussionCore & Partial<Pick<Discussion, 'comments' | 'labels'>>,
+): Discussion => ({
+  ...discussion,
+  html_url: discussion.url,
+  node_id: discussion.id,
+  comments: discussion.comments ?? 0,
+  labels: discussion.labels ?? [],
+})
+
+async function fetchGithubGraphQL<T>(
+  query: string,
+  variables: Record<string, unknown>,
+): Promise<T> {
+  const result = await fetchData<GraphQLResponse<T>>(`${GITHUB_API}/graphql`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ query, variables }),
+  })
+
+  if (result.errors?.length) {
+    throw new Error(result.errors.map((error) => error.message).join('; '))
+  }
+
+  if (!result.data) {
+    throw new Error('GitHub GraphQL returned no data')
+  }
+
+  return result.data
+}
 
 const CREATE_DISCUSSION_MUTATION = `
   mutation CreateDiscussion($repositoryId: ID!, $title: String!, $body: String!, $categoryId: ID!) {
@@ -224,39 +276,32 @@ export async function getDiscussion(title: string, label: string) {
   cacheLife(CACHE_LIFES.minutes)
   cacheTag(getDiscussionTag(title, label))
 
+  assertDiscussionLabel(label)
+
   const searchTitle = title.replaceAll('"', '\\"')
   const query = `repo:${USERNAME}/${DISCUSSION_REPO} in:title "${searchTitle}"`
 
-  const result = await fetchData<SearchDiscussionResult>(
-    `${GITHUB_API}/graphql`,
-    {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: SEARCH_DISCUSSION_QUERY,
-        variables: { query },
-      }),
-    },
+  const result = await fetchGithubGraphQL<SearchDiscussionResult>(
+    SEARCH_DISCUSSION_QUERY,
+    { query },
   )
 
-  const discussion = result.data.search.nodes.find(
+  const discussion = result.search.nodes.find(
     (item) =>
       item.title === title && item.labels.nodes.some((l) => l.name === label),
   )
 
   if (!discussion) return null
 
-  return {
+  return normalizeDiscussion({
     id: discussion.id,
-    node_id: discussion.id,
     number: discussion.number,
     title: discussion.title,
-    html_url: discussion.url,
     url: discussion.url,
     comments: discussion.comments.totalCount,
     body: discussion.body,
     labels: discussion.labels.nodes,
-  }
+  })
 }
 
 export async function createDiscussion(
@@ -265,40 +310,28 @@ export async function createDiscussion(
   body: string,
 ): Promise<Discussion> {
   try {
-    const result = await fetchData<CreateDiscussionResult>(
-      `${GITHUB_API}/graphql`,
+    const discussionLabel = assertDiscussionLabel(label)
+    const existingDiscussion = await getDiscussion(title, discussionLabel)
+    if (existingDiscussion) {
+      return existingDiscussion
+    }
+
+    const result = await fetchGithubGraphQL<CreateDiscussionResult>(
+      CREATE_DISCUSSION_MUTATION,
       {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          query: CREATE_DISCUSSION_MUTATION,
-          variables: {
-            repositoryId: DISCUSSION_REPO_ID,
-            title,
-            body,
-            categoryId: DISCUSSION_CATEGORY_ID,
-          },
-        }),
+        repositoryId: DISCUSSION_REPO_ID,
+        title,
+        body,
+        categoryId: DISCUSSION_CATEGORY_ID,
       },
     )
 
-    const discussion = result.data.createDiscussion.discussion
-    discussion.html_url = discussion.url
-    discussion.node_id = discussion.id
+    const discussion = normalizeDiscussion(result.createDiscussion.discussion)
+    const labelId = DISCUSSION_LABEL_IDS[discussionLabel]
 
-    const labelId =
-      DISCUSSION_LABEL_IDS[label as keyof typeof DISCUSSION_LABEL_IDS]
-
-    await fetchData(`${GITHUB_API}/graphql`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: ADD_LABELS_MUTATION,
-        variables: {
-          labelableId: discussion.id,
-          labelIds: [labelId],
-        },
-      }),
+    await fetchGithubGraphQL(ADD_LABELS_MUTATION, {
+      labelableId: discussion.id,
+      labelIds: [labelId],
     })
 
     revalidateTag(getDiscussionTag(title, label), { expire: 0 })
@@ -320,21 +353,23 @@ export async function updateDiscussion(
   body: string,
 ): Promise<Discussion> {
   try {
-    const result = await fetchData<UpdateDiscussionResult>(
-      `${GITHUB_API}/graphql`,
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          query: UPDATE_DISCUSSION_MUTATION,
-          variables: { discussionId, body },
-        }),
-      },
+    const discussionLabel = assertDiscussionLabel(label)
+    const currentDiscussion = await getDiscussion(title, discussionLabel)
+
+    if (!currentDiscussion) {
+      throw new APIError(404, 'Discussion not found')
+    }
+
+    if (currentDiscussion.node_id !== discussionId) {
+      throw new APIError(409, 'Discussion id mismatch')
+    }
+
+    const result = await fetchGithubGraphQL<UpdateDiscussionResult>(
+      UPDATE_DISCUSSION_MUTATION,
+      { discussionId, body },
     )
 
-    const discussion = result.data.updateDiscussion.discussion
-    discussion.html_url = discussion.url
-    discussion.node_id = discussion.id
+    const discussion = normalizeDiscussion(result.updateDiscussion.discussion)
 
     revalidateTag(getDiscussionTag(title, label), { expire: 0 })
 
