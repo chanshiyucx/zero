@@ -215,7 +215,11 @@ export function Toc({ toc }: TocProps) {
   }, [toc])
 
   return (
-    <aside data-slide className="group hidden w-0 xl:block">
+    <aside
+      data-slide
+      data-slide-start="2"
+      className="group hidden w-0 xl:block"
+    >
       <nav
         ref={navRef}
         className="scrollbar-hide sticky top-25 max-h-[80vh] w-72 translate-x-6 overflow-auto overscroll-contain"

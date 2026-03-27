@@ -13,7 +13,11 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <PageLayout title="No man is an island.">
-      <div data-slide-auto className="prose prose-rosepine space-y-12">
+      <div
+        data-slide-auto
+        data-slide-start="1"
+        className="prose prose-rosepine space-y-12"
+      >
         <p>
           A living list, always in flux. Some of my favorite corners of the
           internet, every link leads to a space that is still active and worth

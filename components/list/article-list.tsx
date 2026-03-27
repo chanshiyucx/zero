@@ -20,7 +20,6 @@ function ContentItem({
   return (
     <article>
       <header
-        data-slide
         className={cn(
           'border-overlay mb-6 flex flex-row items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-1',
           isFirst ? 'border-t-0 pt-0' : 'border-t pt-12',
@@ -64,7 +63,7 @@ export function ArticleList({
 }: ArticleListProps) {
   return (
     <PageLayout title={title}>
-      <div className="space-y-12">
+      <div data-slide-auto data-slide-start="1" className="space-y-12">
         {data.map((content, index) => (
           <ContentItem
             key={content.slug}
