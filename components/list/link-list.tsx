@@ -12,7 +12,11 @@ type LinkListProps = {
 export function LinkList({ title, groups }: LinkListProps) {
   return (
     <PageLayout title={title}>
-      <ul data-slide-auto className="w-full space-y-2 max-md:space-y-4">
+      <ul
+        data-slide-auto
+        data-slide-start="1"
+        className="w-full space-y-2 max-md:space-y-4"
+      >
         {groups.map((group) => (
           <Fragment key={group.year}>
             <li className="my-5 text-right text-2xl font-extrabold first:mt-0">

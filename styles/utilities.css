@@ -74,16 +74,25 @@
 }
 
 @utility slide-container {
+  --enter-delay: 100ms;
+
+  [data-slide],
+  [data-slide-auto] {
+    --enter-start: attr(data-slide-start type(<number>), 0);
+  }
+
+  [data-slide] {
+    --enter-stagger: var(--enter-start);
+  }
+
   [data-slide-auto] > * {
-    --enter-stagger: min(sibling-index() - 1, 20);
+    --enter-stagger: min(calc(var(--enter-start) + sibling-index() - 1), 20);
   }
 
   [data-slide],
   [data-slide-auto] > * {
     animation: slide-enter 0.8s backwards;
-    animation-delay: calc(
-      var(--enter-start) + var(--enter-stagger) * var(--enter-delay)
-    );
+    animation-delay: calc(var(--enter-stagger) * var(--enter-delay));
   }
 }
 

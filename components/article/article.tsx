@@ -88,11 +88,16 @@ export default async function Article({
     <PageLayout>
       <article className="space-y-12">
         <header>
-          <h1 data-slide className="text-3xl font-extrabold">
+          <h1
+            data-slide
+            data-slide-start="0"
+            className="text-3xl font-extrabold"
+          >
             {article.title}
           </h1>
           <div
             data-slide
+            data-slide-start="1"
             className="text-subtle mt-1 flex items-center text-sm"
           >
             <DateTime dateString={article.date} />
@@ -104,14 +109,12 @@ export default async function Article({
           {article.toc.length > 0 && <Toc toc={article.toc} />}
           <MDX
             className={contentClassName}
-            slideMode="auto"
+            slideStart={2}
             contentCode={article.contentCode}
+            after={<Discussion label={article.type} title={article.title} />}
           />
         </div>
       </article>
-      <div data-slide>
-        <Discussion label={article.type} title={article.title} />
-      </div>
     </PageLayout>
   )
 }

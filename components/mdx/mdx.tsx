@@ -1,5 +1,5 @@
 import { MDXContent } from '@content-collections/mdx/react'
-import type { ComponentProps } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '@/lib/utils/style'
 import { Figure } from './figure'
 import { Image } from './image'
@@ -17,14 +17,16 @@ type MDXProps = {
   contentCode: string
   className?: string
   components?: MDXComponents
-  slideMode?: 'manual' | 'auto' | 'none'
+  slideStart?: number
+  after?: ReactNode
 }
 
 export function MDX({
   contentCode,
   className,
   components,
-  slideMode = 'manual',
+  slideStart = -1,
+  after,
 }: MDXProps) {
   const mergedComponents = {
     ...defaultComponents,
@@ -32,11 +34,12 @@ export function MDX({
   }
 
   const slideProps =
-    slideMode === 'none'
-      ? {}
-      : slideMode === 'manual'
-        ? { 'data-slide': '' }
-        : { 'data-slide-auto': '' }
+    slideStart >= 0
+      ? {
+          'data-slide-auto': true,
+          'data-slide-start': slideStart,
+        }
+      : {}
 
   return (
     <div
@@ -48,6 +51,7 @@ export function MDX({
       {...slideProps}
     >
       <MDXContent components={mergedComponents} code={contentCode} />
+      {after && <div className="not-prose mt-12">{after}</div>}
     </div>
   )
 }

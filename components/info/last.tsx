@@ -93,11 +93,7 @@ function Section({
             className="text-subtle shrink-0 text-sm"
           />
         </header>
-        <MDX
-          slideMode="none"
-          className={className}
-          contentCode={content.contentCode}
-        />
+        <MDX className={className} contentCode={content.contentCode} />
       </article>
     </section>
   )
@@ -178,7 +174,7 @@ async function Project() {
 
 export function Last() {
   return (
-    <div data-slide-auto className="space-y-12">
+    <div data-slide-auto data-slide-start="3" className="space-y-12">
       <Album />
       <Musing />
       <Journal />

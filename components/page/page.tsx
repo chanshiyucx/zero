@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { Nav } from './nav'
-import { Stagger } from './stagger'
 
 type PageProps = {
   children: ReactNode
@@ -11,14 +10,11 @@ type PageProps = {
 export function PageLayout({ children, title, showNav = true }: PageProps) {
   return (
     <main className="page slide-container">
-      <Stagger />
       {showNav && <Nav />}
 
       {title && (
-        <header>
-          <h1 data-slide className="text-3xl font-extrabold italic">
-            {title}
-          </h1>
+        <header data-slide data-slide-start="0">
+          <h1 className="text-3xl font-extrabold italic">{title}</h1>
         </header>
       )}
 
