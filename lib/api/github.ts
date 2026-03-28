@@ -70,7 +70,7 @@ type CreateDiscussionResult = {
 
 type UpdateDiscussionResult = {
   updateDiscussion: {
-    discussion: DiscussionCore
+    discussion: DiscussionCore & { comments: { totalCount: number } }
   }
 }
 
@@ -203,6 +203,9 @@ const UPDATE_DISCUSSION_MUTATION = `
         title
         url
         body
+        comments {
+          totalCount
+        }
       }
     }
   }
@@ -353,23 +356,18 @@ export async function updateDiscussion(
   body: string,
 ): Promise<Discussion> {
   try {
-    const discussionLabel = assertDiscussionLabel(label)
-    const currentDiscussion = await getDiscussion(title, discussionLabel)
-
-    if (!currentDiscussion) {
-      throw new APIError(404, 'Discussion not found')
-    }
-
-    if (currentDiscussion.node_id !== discussionId) {
-      throw new APIError(409, 'Discussion id mismatch')
-    }
+    assertDiscussionLabel(label)
 
     const result = await fetchGithubGraphQL<UpdateDiscussionResult>(
       UPDATE_DISCUSSION_MUTATION,
       { discussionId, body },
     )
 
-    const discussion = normalizeDiscussion(result.updateDiscussion.discussion)
+    const { comments, ...rest } = result.updateDiscussion.discussion
+    const discussion = normalizeDiscussion({
+      ...rest,
+      comments: comments.totalCount,
+    })
 
     revalidateTag(getDiscussionTag(title, label), { expire: 0 })
 
