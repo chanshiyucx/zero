@@ -4,6 +4,7 @@ export const siteConfig = {
   host,
   metadata: {
     title: 'Shiyu',
+    role: 'Full-Stack Developer',
     description:
       'My internet hideout, where you can explore topics I am learning, projects I am building, tech blog posts, and know more about who I am...',
   },
