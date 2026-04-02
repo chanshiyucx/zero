@@ -18,7 +18,7 @@ export async function GET(
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const content = findContentBySlug(decodedSlug)
-  const title = content?.title ?? siteConfig.metadata.title
+  const title = content?.title ?? siteConfig.metadata.role
 
   const fontData = await fontDataPromise
 
