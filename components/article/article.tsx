@@ -111,6 +111,7 @@ export default async function Article({
             className={contentClassName}
             slideStart={2}
             contentCode={article.contentCode}
+            innerPhotoCaption={false}
             after={<Discussion label={article.type} title={article.title} />}
           />
         </div>
