@@ -20,7 +20,6 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "content-collections": ["./.content-collections/generated"]
