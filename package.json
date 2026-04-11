@@ -17,7 +17,11 @@
     "check": "pnpm run lint && pnpm run type-check",
     "predev": "node scripts/sync-blog.ts",
     "prebuild": "node scripts/sync-blog.ts",
-    "prepare": "husky"
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit \"$1\""
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -51,9 +55,7 @@
     "@content-collections/core": "^0.14.3",
     "@content-collections/mdx": "^0.2.2",
     "@content-collections/next": "^0.2.11",
-    "@eslint/js": "^9.39.4",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@next/eslint-plugin-next": "^16.2.2",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/hast": "^3.0.4",
@@ -61,14 +63,13 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.4",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-config-next": "^16.2.3",
+    "eslint-config-prettier": "^10.1.8",
     "feed": "^5.2.0",
     "github-slugger": "^2.0.0",
     "hast-util-to-string": "^3.0.1",
-    "husky": "^9.1.7",
     "image-size": "^2.0.2",
     "lint-staged": "^16.4.0",
     "postcss": "^8.5.8",
@@ -85,11 +86,10 @@
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.58.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
