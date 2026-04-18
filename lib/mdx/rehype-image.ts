@@ -20,10 +20,15 @@ const calcImageSize = async (imageSrc: string, options?: Options) => {
   }
 }
 
-// from: https://cx-onedrive.pages.dev/api/raw?path=/长沙/DSC00069.JPG
-// to:   https://cx-onedrive.pages.dev/api/thumbnail?path=/长沙/DSC01999.JPG&size=large
-const getThumbnail = (src: string) =>
-  src.replace('/raw?', '/thumbnail?') + '&size=large'
+// from: https://cloud.shiyu.me/gallery/20260307-Mittenwald/DSC07124.avif
+// to:   https://cloud.shiyu.me/thumbnails/20260307-Mittenwald/DSC07124.webp
+const getThumbnail = (src: string) => {
+  const url = new URL(src)
+  url.pathname = url.pathname
+    .replace('/gallery/', '/thumbnails/')
+    .replace(/\.[^/.]+$/, '.webp')
+  return url.toString()
+}
 
 export const rehypeImageSize: Plugin<[Options], Root> = (options) => {
   return async (tree) => {
@@ -33,7 +38,7 @@ export const rehypeImageSize: Plugin<[Options], Root> = (options) => {
     visit(tree, { type: 'element', tagName: 'img' }, (node: Element) => {
       if (!node.properties || typeof node.properties.src !== 'string') return
       if (node.properties.src.startsWith('http')) {
-        // onedrive image
+        // Remote image hosted on R2
         node.properties.originalsrc = node.properties.src
         node.properties.src = getThumbnail(node.properties.src)
         node.properties.width = 300
