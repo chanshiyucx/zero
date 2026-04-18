@@ -95,12 +95,7 @@ const USERNAME = 'chanshiyucx'
 const DISCUSSION_REPO = 'blog'
 const DISCUSSION_REPO_ID = 'R_kgDOCP9Avw'
 const DISCUSSION_CATEGORY_ID = 'DIC_kwDOCP9Av84Cl0Wb'
-export const DISCUSSION_LABELS = [
-  'craft',
-  'journal',
-  'musing',
-  'album',
-] as const
+export const DISCUSSION_LABELS = ['craft', 'journal', 'musing'] as const
 
 export type DiscussionLabel = (typeof DISCUSSION_LABELS)[number]
 
@@ -108,7 +103,6 @@ const DISCUSSION_LABEL_IDS: Record<DiscussionLabel, string> = {
   craft: 'LA_kwDOCP9Av88AAAAB20f9KA',
   journal: 'LA_kwDOCP9Av88AAAACK_lFRA',
   musing: 'LA_kwDOCP9Av88AAAACaKdyyg',
-  album: 'LA_kwDOCP9Av88AAAACcgitDA',
 }
 
 const headers = new Headers({

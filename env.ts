@@ -4,6 +4,8 @@ import { z } from 'zod'
 export const env = createEnv({
   server: {
     GITHUB_TOKEN: z.string().startsWith('ghp_'),
+    GALLERY_URL: z.url(),
+    PHOTO_MANIFEST_URL: z.url(),
   },
   experimental__runtimeEnv: process.env,
 })

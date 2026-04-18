@@ -100,7 +100,7 @@
   @apply bg-surface!;
 }
 
-@utility photo-albums {
+@utility photo-gallery {
   @apply grid grid-cols-3 gap-3 max-md:grid-cols-2;
 
   &[data-total='1'] {
@@ -139,7 +139,7 @@
 @utility musing {
   @apply flow-root;
 
-  .photo-albums {
+  .photo-gallery {
     @apply float-none m-0 w-auto [shape-outside:none];
 
     @variant md {

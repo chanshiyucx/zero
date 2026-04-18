@@ -11,9 +11,10 @@ import { Card } from '@/components/card'
 import { DateTime } from '@/components/datetime'
 import { Github } from '@/components/github'
 import { MDX } from '@/components/mdx'
+import { PhotoView } from '@/components/photo-view'
 import { getGithubRepositories } from '@/lib/api/github'
+import { getLatestGalleryPhotos, photoGalleryUrl } from '@/lib/api/photo'
 import {
-  sortedAlbums,
   sortedCrafts,
   sortedJournals,
   sortedMusings,
@@ -24,16 +25,22 @@ type HeaderProps = {
   title: string
   href: string
   icon: Icon
+  newTab?: boolean
 }
 
-function Header({ title, href, icon: Icon }: HeaderProps) {
+function Header({ title, href, icon: Icon, newTab = false }: HeaderProps) {
   return (
     <div className="flex justify-between">
       <div className="flex items-center gap-1">
         <Icon size="18" weight="bold" />
         <h2 className="font-bold">{title}</h2>
       </div>
-      <Link className="link text-sm" href={href}>
+      <Link
+        className="link text-sm"
+        href={href}
+        target={newTab ? '_blank' : undefined}
+        rel={newTab ? 'noreferrer' : undefined}
+      >
         View All
       </Link>
     </div>
@@ -68,37 +75,6 @@ function List({ title, href, icon: Icon, list }: ListProps) {
   )
 }
 
-type SectionProps = HeaderProps & {
-  content: Content
-  className?: string
-}
-
-function Section({
-  title,
-  href,
-  icon: Icon,
-  content,
-  className,
-}: SectionProps) {
-  return (
-    <section className="space-y-3">
-      <Header title={title} href={href} icon={Icon} />
-      <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
-        <header className="mb-3 flex flex-row items-center justify-between">
-          <h2 className="text-text truncate max-sm:whitespace-normal">
-            {content.title}
-          </h2>
-          <DateTime
-            dateString={content.date}
-            className="text-subtle shrink-0 text-sm"
-          />
-        </header>
-        <MDX className={className} contentCode={content.contentCode} />
-      </article>
-    </section>
-  )
-}
-
 function Journal() {
   const lastJournals = sortedJournals.slice(0, 5)
 
@@ -120,17 +96,44 @@ function Craft() {
   )
 }
 
-function Album() {
-  const album = sortedAlbums[0]
-  if (!album) return null
+async function Album() {
+  const photos = await getLatestGalleryPhotos()
+  if (photos.length === 0) return null
+  const cover = photos[0]!
 
   return (
-    <Section
-      title="Album"
-      href="/album"
-      icon={InstagramLogoIcon}
-      content={album}
-    />
+    <section className="space-y-3">
+      <Header
+        title="Album"
+        href={photoGalleryUrl}
+        icon={InstagramLogoIcon}
+        newTab={true}
+      />
+      <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
+        <header className="mb-3 flex flex-row items-center justify-between">
+          <h2 className="text-text truncate max-sm:whitespace-normal">
+            {cover.location}
+          </h2>
+          <DateTime
+            dateString={cover.takenAt}
+            className="text-subtle shrink-0 text-sm"
+          />
+        </header>
+        <div className="photo-gallery prose prose-img:rounded-md">
+          {photos.map((photo) => (
+            <PhotoView
+              key={photo.originalSrc}
+              src={photo.thumbnailSrc}
+              originalsrc={photo.originalSrc}
+              alt={photo.title}
+              width={photo.width}
+              height={photo.height}
+              showCaption={false}
+            />
+          ))}
+        </div>
+      </article>
+    </section>
   )
 }
 
@@ -139,13 +142,21 @@ function Musing() {
   if (!musing) return null
 
   return (
-    <Section
-      title="Musing"
-      href="/musing"
-      icon={GhostIcon}
-      content={musing}
-      className="musing"
-    />
+    <section className="space-y-3">
+      <Header title="Musing" href="/musing" icon={GhostIcon} />
+      <article className="border-overlay border-b pb-12 last:border-b-0 last:pb-0">
+        <header className="mb-3 flex flex-row items-center justify-between">
+          <h2 className="text-text truncate max-sm:whitespace-normal">
+            {musing.title}
+          </h2>
+          <DateTime
+            dateString={musing.date}
+            className="text-subtle shrink-0 text-sm"
+          />
+        </header>
+        <MDX className="musing" contentCode={musing.contentCode} />
+      </article>
+    </section>
   )
 }
 

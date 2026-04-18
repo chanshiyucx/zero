@@ -15,7 +15,7 @@ import remarkRehype from 'remark-rehype'
 import { unified, type Pluggable, type Processor } from 'unified'
 import { rehypeCallout } from './rehype-callout'
 import { rehypeCode } from './rehype-code'
-import { rehypeImageAlbum, rehypeImageSize } from './rehype-image'
+import { rehypeImageGallery, rehypeImageSize } from './rehype-image'
 import { rehypeToc } from './rehype-toc'
 
 const remarkPlugins: Pluggable[] = [remarkGfm, remarkBreaks, remarkMath]
@@ -39,7 +39,7 @@ const getRehypePlugins = (contentType: string): Pluggable[] => [
     },
   ],
   [rehypeImageSize, { root: 'public', contentType }],
-  rehypeImageAlbum,
+  rehypeImageGallery,
   rehypeCallout,
 ]
 

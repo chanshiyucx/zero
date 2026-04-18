@@ -171,6 +171,8 @@ export function PhotoView({
   alt,
   width,
   height,
+  className,
+  showCaption = true,
 }: ImageProps) {
   const [resolvedOriginalSrc, setResolvedOriginalSrc] = useState<string | null>(
     null,
@@ -260,35 +262,6 @@ export function PhotoView({
       getPreviewTransform()
       setIsOpen(true)
       setZoomState(ZoomState.Zooming)
-
-      if (originalsrc && originalsrc !== src && !resolvedOriginalSrc) {
-        const cachedOriginalSrc = getCachedPreviewImage(originalsrc)
-        if (cachedOriginalSrc) {
-          setResolvedOriginalSrc(cachedOriginalSrc)
-          return
-        }
-
-        setIsLoading(true)
-        setLoadProgress({ loaded: 0, total: 0 })
-
-        try {
-          if (abortControllerRef.current) {
-            abortControllerRef.current.abort()
-          }
-          abortControllerRef.current = new AbortController()
-
-          const imageUrl = await loadImageWithProgress(
-            originalsrc,
-            abortControllerRef.current.signal,
-            setLoadProgress,
-          )
-          setCachedPreviewImage(originalsrc, imageUrl)
-          setResolvedOriginalSrc(imageUrl)
-          setIsLoading(false)
-        } catch {
-          // do nothing
-        }
-      }
     } else {
       handleClose()
     }
@@ -307,6 +280,61 @@ export function PhotoView({
       }
     }
   }, [originalsrc, resolvedOriginalSrc])
+
+  useEffect(() => {
+    if (
+      zoomState !== ZoomState.Preview ||
+      !originalsrc ||
+      originalsrc === src ||
+      resolvedOriginalSrc
+    ) {
+      return
+    }
+
+    const cachedOriginalSrc = getCachedPreviewImage(originalsrc)
+    if (cachedOriginalSrc) {
+      setResolvedOriginalSrc(cachedOriginalSrc)
+      return
+    }
+
+    let isActive = true
+    setIsLoading(true)
+    setLoadProgress({ loaded: 0, total: 0 })
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+
+    void (async () => {
+      try {
+        const imageUrl = await loadImageWithProgress(
+          originalsrc,
+          controller.signal,
+          setLoadProgress,
+        )
+        if (!isActive || controller.signal.aborted) {
+          revokePreviewImageIfNotCached(originalsrc, imageUrl)
+          return
+        }
+
+        setCachedPreviewImage(originalsrc, imageUrl)
+        setResolvedOriginalSrc(imageUrl)
+      } catch {
+        // do nothing
+      } finally {
+        if (isActive) {
+          setIsLoading(false)
+        }
+      }
+    })()
+
+    return () => {
+      isActive = false
+      controller.abort()
+    }
+  }, [originalsrc, resolvedOriginalSrc, src, zoomState])
 
   useEffect(() => {
     document.body.style.overflow =
@@ -354,7 +382,11 @@ export function PhotoView({
       : 0
 
   const Icon = originalsrc ? CameraIcon : SlideshowIcon
-  const displaySrc = resolvedOriginalSrc ?? src
+  const showOriginalOverlay =
+    isOpen &&
+    zoomState === ZoomState.Preview &&
+    !!resolvedOriginalSrc &&
+    !!transform
 
   return (
     <figure className="group relative">
@@ -403,7 +435,7 @@ export function PhotoView({
       >
         <m.img
           ref={imageRef}
-          src={displaySrc}
+          src={src}
           alt={alt}
           width={width}
           height={height}
@@ -415,6 +447,7 @@ export function PhotoView({
             zoomState === ZoomState.Idle
               ? 'z-10'
               : 'z-101 will-change-transform',
+            className,
           )}
           transition={{
             type: 'tween',
@@ -433,7 +466,30 @@ export function PhotoView({
         </span>
       </span>
 
-      {alt && (
+      <AnimatePresence>
+        {showOriginalOverlay && (
+          <m.img
+            key={resolvedOriginalSrc}
+            src={resolvedOriginalSrc ?? undefined}
+            alt={alt}
+            width={transform.width}
+            height={transform.height}
+            draggable={false}
+            className="pointer-events-none fixed top-1/2 left-1/2 z-102 m-0! object-contain"
+            style={{
+              width: transform.width,
+              height: transform.height,
+              transform: 'translate(-50%, -50%)',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          />
+        )}
+      </AnimatePresence>
+
+      {showCaption && alt && (
         <figcaption className="pointer-events-none overflow-hidden">
           <div
             className={cn(

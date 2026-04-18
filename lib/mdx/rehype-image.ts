@@ -94,35 +94,35 @@ export const rehypeImageSize: Plugin<[Options], Root> = (options) => {
   }
 }
 
-export const rehypeImageAlbum: Plugin<[], Root> = () => {
+export const rehypeImageGallery: Plugin<[], Root> = () => {
   return (tree) => {
     visit(tree, { type: 'element', tagName: 'p' }, (node, index, parent) => {
       if (!parent || typeof index !== 'number') return
 
-      const isAlbumParagraph = node.children.every(
+      const isGalleryParagraph = node.children.every(
         (child) =>
           (child.type === 'element' &&
             (child.tagName === 'img' || child.tagName === 'br')) ||
           (child.type === 'text' &&
             (child.value.trim() === '' || child.value.trim() === '\n')),
       )
-      if (!isAlbumParagraph) return
+      if (!isGalleryParagraph) return
 
       const imageNodes = node.children.filter(
         (child) => child.type === 'element' && child.tagName === 'img',
       )
       if (imageNodes.length === 0) return
 
-      const albumNode: Element = {
+      const galleryNode: Element = {
         type: 'element',
         tagName: 'div',
         properties: {
-          className: ['photo-albums'],
+          className: ['photo-gallery'],
           dataTotal: imageNodes.length,
         },
         children: imageNodes,
       }
-      parent.children.splice(index, 1, albumNode)
+      parent.children.splice(index, 1, galleryNode)
       return [SKIP, index]
     })
   }

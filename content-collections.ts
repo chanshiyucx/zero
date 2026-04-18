@@ -66,10 +66,6 @@ const getCollection = <T extends string>({
 
 const collections = [
   getCollection({
-    name: 'album',
-    directory: 'public/blog/album',
-  }),
-  getCollection({
     name: 'craft',
     directory: 'public/blog/craft',
   }),
