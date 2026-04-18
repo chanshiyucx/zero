@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { DateTime } from '@/components/datetime'
-import { Discussion } from '@/components/discussion'
+// import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'
 import type { Content } from '@/lib/utils/content'
@@ -36,7 +36,7 @@ function ContentItem({
           <h2 className="text-lg font-bold">{content.title}</h2>
         )}
         <div className="flex gap-3">
-          <Discussion label={content.type} title={content.title} simple />
+          {/* <Discussion label={content.type} title={content.title} simple /> */}
           <DateTime
             dateString={content.date}
             className="text-subtle shrink-0 text-sm"
