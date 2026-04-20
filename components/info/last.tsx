@@ -120,16 +120,22 @@ async function Album() {
           />
         </header>
         <div className="photo-gallery prose prose-img:rounded-md">
-          {photos.map((photo) => (
-            <PhotoView
+          {photos.map((photo, index) => (
+            <div
               key={photo.originalSrc}
-              src={photo.thumbnailSrc}
-              originalsrc={photo.originalSrc}
-              alt={photo.title}
-              width={photo.width}
-              height={photo.height}
-              showCaption={false}
-            />
+              className={
+                index === photos.length - 1 ? 'max-md:hidden' : undefined
+              }
+            >
+              <PhotoView
+                src={photo.thumbnailSrc}
+                originalsrc={photo.originalSrc}
+                alt={photo.title}
+                width={photo.width}
+                height={photo.height}
+                showCaption={false}
+              />
+            </div>
           ))}
         </div>
       </article>
