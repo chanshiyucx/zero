@@ -23,6 +23,9 @@
 
   html {
     color-scheme: light dark;
+    scrollbar-color: var(--color-muted) transparent;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
   }
 
   html[data-theme='light'] {

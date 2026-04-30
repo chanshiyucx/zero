@@ -64,7 +64,7 @@ const getCollection = <T extends string>({
     },
   })
 
-const collections = [
+const content = [
   getCollection({
     name: 'craft',
     directory: 'public/blog/craft',
@@ -80,5 +80,5 @@ const collections = [
 ]
 
 export default defineConfig({
-  collections,
+  content,
 })

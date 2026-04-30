@@ -20,11 +20,11 @@ import { Spinner } from '@/components/spinner'
 import { formatFileSize } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 
-type Transform = {
+type PreviewTransform = {
   width: number
   height: number
-  top: number
-  left: number
+  x: number
+  y: number
 }
 
 type LoadProgress = {
@@ -38,7 +38,17 @@ enum ZoomState {
   Preview = 2,
 }
 
-const transition: Transition = { type: 'spring', stiffness: 500, damping: 30 }
+const springTransition: Transition = {
+  type: 'spring',
+  stiffness: 500,
+  damping: 30,
+}
+
+const previewTransition: Transition = {
+  type: 'tween',
+  duration: 0.5,
+  ease: [0.16, 1, 0.3, 1],
+}
 
 const backdropVariants: Variants = {
   visible: { opacity: 1 },
@@ -113,11 +123,11 @@ async function loadImageWithProgress(
   try {
     response = await fetch(url, { signal })
   } catch {
-    return Promise.reject(new Error('Failed to fetch image'))
+    throw new Error('Failed to fetch image')
   }
 
   if (!response.ok) {
-    return Promise.reject(new Error(`HTTP error! status: ${response.status}`))
+    throw new Error(`HTTP error! status: ${response.status}`)
   }
 
   const contentLength = response.headers.get('content-length')
@@ -125,7 +135,7 @@ async function loadImageWithProgress(
   setLoadProgress({ loaded: 0, total })
 
   if (!response.body) {
-    return Promise.reject(new Error('ReadableStream not supported'))
+    throw new Error('ReadableStream not supported')
   }
 
   try {
@@ -161,7 +171,7 @@ async function loadImageWithProgress(
     const blob = new Blob([allChunks])
     return URL.createObjectURL(blob)
   } catch {
-    return Promise.reject(new Error('Failed to read response body'))
+    throw new Error('Failed to read response body')
   }
 }
 
@@ -181,7 +191,8 @@ export function PhotoView({
   const [isReady, setIsReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [zoomState, setZoomState] = useState(ZoomState.Idle)
-  const [transform, setTransform] = useState<Transform | null>(null)
+  const [previewTransform, setPreviewTransform] =
+    useState<PreviewTransform | null>(null)
   const [loadProgress, setLoadProgress] = useState<LoadProgress>({
     loaded: 0,
     total: 0,
@@ -216,25 +227,25 @@ export function PhotoView({
       targetHeight *= scaleFactor
     }
 
-    const targetTop = window.innerHeight / 2 - targetHeight / 2 - rect.top
-    const targetLeft = window.innerWidth / 2 - targetWidth / 2 - rect.left
+    const targetY = window.innerHeight / 2 - targetHeight / 2 - rect.top
+    const targetX = window.innerWidth / 2 - targetWidth / 2 - rect.left
 
-    setTransform({
+    setPreviewTransform({
       width: targetWidth,
       height: targetHeight,
-      top: targetTop,
-      left: targetLeft,
+      x: targetX,
+      y: targetY,
     })
   }
 
-  const closePreview = (force = false) => {
+  const closePreview = (shouldReset = false) => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
     }
     setIsOpen(false)
     setIsLoading(false)
     setLoadProgress({ loaded: 0, total: 0 })
-    if (force) {
+    if (shouldReset) {
       setZoomState(ZoomState.Idle)
 
       // Revoke the ObjectURL when preview is closed to prevent memory leaks
@@ -257,7 +268,7 @@ export function PhotoView({
     setZoomState(isOpen ? ZoomState.Preview : ZoomState.Idle)
   }
 
-  const handleImageClick = async () => {
+  const handleImageClick = () => {
     if (zoomState === ZoomState.Idle) {
       getPreviewTransform()
       setIsOpen(true)
@@ -365,13 +376,13 @@ export function PhotoView({
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const animate =
-    isOpen && transform
+  const previewLayerAnimate =
+    isOpen && previewTransform
       ? {
-          width: transform.width,
-          height: transform.height,
-          y: transform.top,
-          x: transform.left,
+          width: previewTransform.width,
+          height: previewTransform.height,
+          x: previewTransform.x,
+          y: previewTransform.y,
           borderRadius: 0,
         }
       : {}
@@ -382,11 +393,15 @@ export function PhotoView({
       : 0
 
   const Icon = originalsrc ? CameraIcon : SlideshowIcon
-  const showOriginalOverlay =
-    isOpen &&
-    zoomState === ZoomState.Preview &&
-    !!resolvedOriginalSrc &&
-    !!transform
+  const hasOriginalImage = !!originalsrc && originalsrc !== src
+  const shouldMountOriginalImage = isOpen && hasOriginalImage
+  const shouldShowOriginalImage =
+    zoomState === ZoomState.Preview && !!resolvedOriginalSrc
+
+  const previewImageClassName = cn(
+    'absolute inset-0 m-0! h-full w-full max-w-none object-cover transition-opacity',
+    className,
+  )
 
   return (
     <figure className="group relative">
@@ -395,7 +410,7 @@ export function PhotoView({
           <m.span
             className="fixed inset-0 z-100 backdrop-blur-xs"
             variants={backdropVariants}
-            transition={transition}
+            transition={springTransition}
             initial="hidden"
             animate="visible"
             exit="hidden"
@@ -407,9 +422,9 @@ export function PhotoView({
       <AnimatePresence>
         {isOpen && isLoading && (
           <m.span
-            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-52 translate-x-1/2 flex-col flex-row items-center gap-3 rounded-md px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
+            className="bg-base fixed right-1/2 bottom-6 z-102 flex min-w-52 translate-x-1/2 flex-row items-center gap-3 rounded-md px-4 py-3 text-sm whitespace-nowrap shadow-lg backdrop-blur-xs"
             variants={progressVariants}
-            transition={transition}
+            transition={springTransition}
             initial="hidden"
             animate="visible"
             exit="hidden"
@@ -433,61 +448,55 @@ export function PhotoView({
         className="relative block"
         style={{ aspectRatio: `${width}/${height}` }}
       >
-        <m.img
-          ref={imageRef}
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          draggable={false}
-          loading="lazy"
+        <m.span
           className={cn(
-            'absolute m-0! h-full w-full max-w-none cursor-pointer object-cover transition-opacity duration-300',
-            isReady ? 'opacity-100' : 'pointer-events-none opacity-0',
+            'absolute inset-0',
             zoomState === ZoomState.Idle
               ? 'z-10'
               : 'z-101 will-change-transform',
-            className,
           )}
-          transition={{
-            type: 'tween',
-            duration: 0.5,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          animate={animate}
-          onLoad={() => setIsReady(true)}
-          onError={() => setIsReady(false)}
-          onClick={() => void handleImageClick()}
+          transition={previewTransition}
+          animate={previewLayerAnimate}
+          onClick={handleImageClick}
           onAnimationComplete={handleAnimationComplete}
-        />
+        >
+          <m.img
+            ref={imageRef}
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            draggable={false}
+            loading="lazy"
+            className={cn(
+              previewImageClassName,
+              'cursor-pointer duration-300',
+              isReady ? 'opacity-100' : 'opacity-0',
+            )}
+            onLoad={() => setIsReady(true)}
+            onError={() => setIsReady(false)}
+          />
+
+          {shouldMountOriginalImage && (
+            <m.img
+              src={resolvedOriginalSrc ?? undefined}
+              alt={alt}
+              width={width}
+              height={height}
+              draggable={false}
+              className={cn(
+                previewImageClassName,
+                'pointer-events-none duration-200',
+                shouldShowOriginalImage ? 'opacity-100' : 'opacity-0',
+              )}
+            />
+          )}
+        </m.span>
 
         <span className="bg-overlay absolute inset-0 flex items-center justify-center rounded-md">
           {!isReady && <Spinner />}
         </span>
       </span>
-
-      <AnimatePresence>
-        {showOriginalOverlay && (
-          <m.img
-            key={resolvedOriginalSrc}
-            src={resolvedOriginalSrc ?? undefined}
-            alt={alt}
-            width={transform.width}
-            height={transform.height}
-            draggable={false}
-            className="pointer-events-none fixed top-1/2 left-1/2 z-102 m-0! object-contain"
-            style={{
-              width: transform.width,
-              height: transform.height,
-              transform: 'translate(-50%, -50%)',
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-          />
-        )}
-      </AnimatePresence>
 
       {showCaption && alt && (
         <figcaption className="pointer-events-none overflow-hidden">
