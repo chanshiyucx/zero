@@ -55,33 +55,27 @@ export default function RouteViewTransitionProvider({
     finishTransition()
   }, [finishTransition, pathname])
 
-  const navigate = useCallback(
-    (href: string) => {
-      transitionViewIfSupported(
-        () =>
-          new Promise<void>((resolve) => {
-            resolveTransitionRef.current = resolve
-            fallbackTimeoutRef.current = window.setTimeout(
-              finishTransition,
-              3000,
-            )
+  const navigate = (href: string) => {
+    transitionViewIfSupported(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveTransitionRef.current = resolve
+          fallbackTimeoutRef.current = window.setTimeout(finishTransition, 3000)
 
-            startTransition(() => {
-              router.push(href)
-            })
-          }),
-        {
-          onFinish: () => {
-            delete document.documentElement.dataset.routeTransition
-          },
-          onStart: () => {
-            document.documentElement.dataset.routeTransition = 'true'
-          },
+          startTransition(() => {
+            router.push(href)
+          })
+        }),
+      {
+        onFinish: () => {
+          delete document.documentElement.dataset.routeTransition
         },
-      )
-    },
-    [finishTransition, router],
-  )
+        onStart: () => {
+          document.documentElement.dataset.routeTransition = 'true'
+        },
+      },
+    )
+  }
 
   return (
     <RouteViewTransitionContext.Provider value={{ navigate }}>
