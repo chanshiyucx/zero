@@ -1,5 +1,5 @@
+import type { Icon } from '@phosphor-icons/react'
 import {
-  // CompassIcon,
   GithubLogoIcon,
   RssSimpleIcon,
   ScrollIcon,
@@ -8,10 +8,21 @@ import {
 import { siteConfig } from '@/lib/constants/config'
 import { ThemeSwitcher } from './theme-switcher'
 
-const socialLinks = [
-  { href: '/blogroll', icon: ScrollIcon, label: 'Blogroll', internal: true },
+type SocialLink = {
+  href: string
+  icon: Icon
+  label: string
+  internal?: boolean
+}
+
+const socialLinks: SocialLink[] = [
+  // { href: '/blogroll', icon: ScrollIcon, label: 'Blogroll', internal: true },
   { href: '/feed', icon: RssSimpleIcon, label: 'RSS Feed' },
-  // { href: '/sitemap', icon: CompassIcon, label: 'Sitemap',  },
+  {
+    href: siteConfig.links.cv,
+    icon: ScrollIcon,
+    label: 'CV',
+  },
   {
     href: siteConfig.links.twitter,
     icon: XLogoIcon,

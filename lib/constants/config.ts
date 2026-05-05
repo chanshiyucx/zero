@@ -1,4 +1,4 @@
-const host = 'https://shiyui.vercel.app'
+const host = 'https://shiyu.me'
 
 export const siteConfig = {
   host,
@@ -17,9 +17,7 @@ export const siteConfig = {
     github: 'http://github.com/chanshiyucx',
     repo: 'http://github.com/chanshiyucx/zero',
     twitter: 'https://x.com/chanshiyucx',
-    cvPdf:
-      'https://chanshiyucx.github.io/cv/Xin%20Chen%20-%20FrontEnd%20Engineer%20Resume.pdf',
-    cv: 'https://chanshiyucx.github.io/cv/',
+    cv: 'https://cv.shiyu.me',
   },
   blogroll: [
     {
