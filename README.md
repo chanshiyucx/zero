@@ -5,7 +5,7 @@ My cozy corner on the Internet.
 ## Preview
 
 <p align="center">
-  <img src="./doc/screenshot/theme.png" alt="Zero Homepage Theme Preview" />
+  <img src="./docs/screenshot/theme.png" alt="Zero Homepage Theme Preview" />
 </p>
 
 ## Overview
