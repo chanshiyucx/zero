@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { Card } from '@/components/card'
 import { DateTime } from '@/components/datetime'
 import { Github } from '@/components/github'
+import { ArticleTitleTransitionLink } from '@/components/list/article-title-transition-link'
 import { MDX } from '@/components/mdx'
 import { PhotoView } from '@/components/photo-view'
 import { getGithubRepositories } from '@/lib/api/github'
@@ -58,12 +59,13 @@ function List({ title, href, icon: Icon, list }: ListProps) {
       <ul className="space-y-2 max-md:space-y-4">
         {list.map((content) => (
           <li key={content.slug} className="flex items-start justify-between">
-            <Link
+            <ArticleTitleTransitionLink
               href={content.url}
+              slug={content.slug}
               className="link link-hover text-text truncate max-sm:whitespace-normal"
             >
               {content.title}
-            </Link>
+            </ArticleTitleTransitionLink>
             <DateTime
               dateString={content.date}
               className="text-subtle shrink-0 pt-0.5 text-sm"

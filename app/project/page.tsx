@@ -18,7 +18,6 @@ export default async function Page() {
     <PageLayout title="Code flows like pure poetry.">
       <ul
         data-slide-auto
-        data-slide-start="1"
         className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1"
       >
         {repositories.map((repo) => (

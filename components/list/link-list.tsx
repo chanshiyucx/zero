@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, type CSSProperties } from 'react'
 import { DateTime } from '@/components/datetime'
 import { PageLayout } from '@/components/page'
 import type { ContentGroup } from '@/lib/utils/content'
+import { ArticleTitleTransitionLink } from './article-title-transition-link'
 
 type LinkListProps = {
   title: string
@@ -14,8 +14,8 @@ export function LinkList({ title, groups }: LinkListProps) {
     <PageLayout title={title}>
       <ul
         data-slide-auto
-        data-slide-start="1"
         className="w-full space-y-2 max-md:space-y-4"
+        style={{ '--enter-delay': '60ms' } as CSSProperties}
       >
         {groups.map((group) => (
           <Fragment key={group.year}>
@@ -32,12 +32,13 @@ export function LinkList({ title, groups }: LinkListProps) {
                   dateFormat="MMM DD"
                   className="text-subtle inline-block w-16 shrink-0 pt-0.5 text-sm"
                 />
-                <Link
+                <ArticleTitleTransitionLink
                   href={article.url}
+                  slug={article.slug}
                   className="link link-hover text-text truncate max-sm:whitespace-normal"
                 >
                   {article.title}
-                </Link>
+                </ArticleTitleTransitionLink>
               </li>
             ))}
           </Fragment>

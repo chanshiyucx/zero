@@ -63,7 +63,7 @@ export function ArticleList({
 }: ArticleListProps) {
   return (
     <PageLayout title={title}>
-      <div data-slide-auto data-slide-start="1" className="space-y-12">
+      <div data-slide-auto className="space-y-12">
         {data.map((content, index) => (
           <ContentItem
             key={content.slug}

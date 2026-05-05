@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils/style'
 import '@/styles/tailwindcss.css'
 import { ThemeProvider } from 'next-themes'
 import MotionProvider from './provider/motion-provider'
+import RouteViewTransitionProvider from './provider/route-view-transition-provider'
 import VercelProvider from './provider/vercel-provider'
 
 const merriweather = Merriweather({
@@ -89,10 +90,12 @@ export default function RootLayout({
       <body>
         <ThemeProvider defaultTheme="system" enableSystem>
           <MotionProvider>
-            <Blur />
-            <Suspense>{children}</Suspense>
-            <Helper />
-            <Footer />
+            <RouteViewTransitionProvider>
+              <Blur />
+              <Suspense>{children}</Suspense>
+              <Helper />
+              <Footer />
+            </RouteViewTransitionProvider>
           </MotionProvider>
           <VercelProvider />
         </ThemeProvider>

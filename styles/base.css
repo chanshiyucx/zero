@@ -15,6 +15,15 @@
     @apply animate-turn-on;
   }
 
+  html[data-route-transition]::view-transition-old(root),
+  html[data-route-transition]::view-transition-new(root) {
+    animation: none;
+  }
+
+  html[data-route-transition] .article-title-transition {
+    view-transition-name: var(--article-title-transition-name);
+  }
+
   *,
   ::after,
   ::before {
