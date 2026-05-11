@@ -4,7 +4,7 @@ import { Nav } from './nav'
 export function Footer() {
   return (
     <footer className="mt-auto mb-6 flex items-center justify-between gap-1 text-sm">
-      <div className="flex gap-1">
+      <div className="flex items-center gap-1">
         <Image src="/icon.svg" alt="Shiyu" width={14} height={14} />
         <p>
           Shiyu
