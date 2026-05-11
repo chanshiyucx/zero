@@ -1,6 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { cn } from '@/lib/utils/style'
-import { CopyButton } from './copy-button'
 
 const LanguageMap = {
   typescript: 'TS',
@@ -11,7 +10,6 @@ const LanguageMap = {
 
 type FigureProps = ComponentPropsWithoutRef<'figure'> & {
   children: ReactNode
-  raw?: string
   caption?: string
   'data-rehype-pretty-code-figure'?: boolean
   'data-language'?: string
@@ -28,14 +26,12 @@ function Language({ language }: { language: string }) {
   )
 }
 
-export function Figure({ children, raw, className, ...rest }: FigureProps) {
-  const showCopyButton = raw && 'data-rehype-pretty-code-figure' in rest
+export function Figure({ children, className, ...rest }: FigureProps) {
   const language = rest['data-language']
 
   return (
     <figure className={cn('group relative', className)} {...rest}>
       {children}
-      {showCopyButton && <CopyButton text={raw} />}
       {language && <Language language={language} />}
     </figure>
   )

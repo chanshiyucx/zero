@@ -15,13 +15,12 @@ const isCodeElement = (node: Element): node is CodeElement =>
 
 export const rehypeCode: Plugin<[], Root> = () => {
   return (tree) => {
-    // code copy support
+    // code language label support
     visit(tree, { type: 'element', tagName: 'pre' }, (node: Element) => {
       const [codeEl] = node.children as Element[]
       if (!codeEl || !isCodeElement(codeEl)) return
 
       node.properties = node.properties || {}
-      node.properties.raw = codeEl.children[0].value
       const className = codeEl.properties?.className as string[] | undefined
       const language = className?.[0]?.split('-')[1] ?? 'text'
       node.properties['data-language'] = language
