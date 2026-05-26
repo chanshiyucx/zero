@@ -444,10 +444,7 @@ export function PhotoView({
         )}
       </AnimatePresence>
 
-      <span
-        className="relative block"
-        style={{ aspectRatio: `${width}/${height}` }}
-      >
+      <span className="relative block" style={{ aspectRatio: '3 / 2' }}>
         <m.span
           className={cn(
             'absolute inset-0',
