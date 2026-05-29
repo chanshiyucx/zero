@@ -14,7 +14,10 @@ function ThemeButton() {
     <button
       onClick={toggleTheme}
       aria-label="Switch theme"
-      className={cn('cursor-pointer', isLight && 'animate-spin duration-20000')}
+      className={cn(
+        'cursor-pointer',
+        isLight && 'animate-duration-20000 animate-spin',
+      )}
     >
       <Icon
         weight="fill"

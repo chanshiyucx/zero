@@ -73,6 +73,11 @@
   scrollbar-width: none;
 }
 
+@utility animate-duration-* {
+  animation-duration: calc(--value(integer) * 1ms);
+  animation-duration: --value([time]);
+}
+
 @utility slide-container {
   --enter-delay: 100ms;
 

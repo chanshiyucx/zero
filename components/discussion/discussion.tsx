@@ -5,8 +5,9 @@ import {
   ChatTextIcon,
   HeartStraightIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import useSWR from 'swr'
+import { useIsMounted } from '@/hooks/use-is-mounted'
 import { useLoading } from '@/hooks/use-loading'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 import type { Discussion as DiscussionType } from '@/lib/api/github'
@@ -43,7 +44,7 @@ const extractLikeCount = (body?: string): number => {
 
 export function Discussion({ label, title, simple }: DiscussionProps) {
   const actionLockRef = useRef(false)
-  const [hydrated, setHydrated] = useState(false)
+  const hydrated = useIsMounted()
   const [delay, reset] = useLoading(1000)
   const [localData, setLocalData] = useLocalStorage<Record<string, number>>(
     LocalDiscussionKey,
@@ -62,10 +63,6 @@ export function Discussion({ label, title, simple }: DiscussionProps) {
       revalidateOnFocus: false,
     },
   )
-
-  useEffect(() => {
-    setHydrated(true)
-  }, [])
 
   const isLiked = hydrated
     ? Boolean(localData[localDiscussionKey] ?? localData[title])

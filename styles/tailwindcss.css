@@ -7,4 +7,3 @@
 @import './utilities.css';
 
 @plugin '@tailwindcss/typography';
-@plugin 'tailwindcss-animate';

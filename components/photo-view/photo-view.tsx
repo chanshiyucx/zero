@@ -197,9 +197,10 @@ export function PhotoView({
     loaded: 0,
     total: 0,
   })
+  const pathname = usePathname()
+  const pathnameRef = useRef(pathname)
   const imageRef = useRef<HTMLImageElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
-  const pathname = usePathname()
 
   const getPreviewTransform = () => {
     const imageElement = imageRef.current
@@ -256,6 +257,53 @@ export function PhotoView({
     }
   }
 
+  const loadOriginalImage = () => {
+    if (!originalsrc || originalsrc === src || resolvedOriginalSrc) {
+      return
+    }
+
+    const cachedOriginalSrc = getCachedPreviewImage(originalsrc)
+    if (cachedOriginalSrc) {
+      setResolvedOriginalSrc(cachedOriginalSrc)
+      return
+    }
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+
+    const controller = new AbortController()
+    abortControllerRef.current = controller
+    setIsLoading(true)
+    setLoadProgress({ loaded: 0, total: 0 })
+
+    void (async () => {
+      try {
+        const imageUrl = await loadImageWithProgress(
+          originalsrc,
+          controller.signal,
+          setLoadProgress,
+        )
+        if (controller.signal.aborted) {
+          revokePreviewImageIfNotCached(originalsrc, imageUrl)
+          return
+        }
+
+        setCachedPreviewImage(originalsrc, imageUrl)
+        setResolvedOriginalSrc(imageUrl)
+      } catch {
+        // do nothing
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false)
+        }
+        if (abortControllerRef.current === controller) {
+          abortControllerRef.current = null
+        }
+      }
+    })()
+  }
+
   const handleClose = (e?: MouseEvent) => {
     e?.stopPropagation()
 
@@ -265,7 +313,12 @@ export function PhotoView({
   }
 
   const handleAnimationComplete = () => {
-    setZoomState(isOpen ? ZoomState.Preview : ZoomState.Idle)
+    if (isOpen) {
+      setZoomState(ZoomState.Preview)
+      loadOriginalImage()
+    } else {
+      setZoomState(ZoomState.Idle)
+    }
   }
 
   const handleImageClick = () => {
@@ -286,66 +339,12 @@ export function PhotoView({
 
   useEffect(() => {
     return () => {
+      abortControllerRef.current?.abort()
       if (resolvedOriginalSrc) {
         revokePreviewImageIfNotCached(originalsrc, resolvedOriginalSrc)
       }
     }
   }, [originalsrc, resolvedOriginalSrc])
-
-  useEffect(() => {
-    if (
-      zoomState !== ZoomState.Preview ||
-      !originalsrc ||
-      originalsrc === src ||
-      resolvedOriginalSrc
-    ) {
-      return
-    }
-
-    const cachedOriginalSrc = getCachedPreviewImage(originalsrc)
-    if (cachedOriginalSrc) {
-      setResolvedOriginalSrc(cachedOriginalSrc)
-      return
-    }
-
-    let isActive = true
-    setIsLoading(true)
-    setLoadProgress({ loaded: 0, total: 0 })
-
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort()
-    }
-    const controller = new AbortController()
-    abortControllerRef.current = controller
-
-    void (async () => {
-      try {
-        const imageUrl = await loadImageWithProgress(
-          originalsrc,
-          controller.signal,
-          setLoadProgress,
-        )
-        if (!isActive || controller.signal.aborted) {
-          revokePreviewImageIfNotCached(originalsrc, imageUrl)
-          return
-        }
-
-        setCachedPreviewImage(originalsrc, imageUrl)
-        setResolvedOriginalSrc(imageUrl)
-      } catch {
-        // do nothing
-      } finally {
-        if (isActive) {
-          setIsLoading(false)
-        }
-      }
-    })()
-
-    return () => {
-      isActive = false
-      controller.abort()
-    }
-  }, [originalsrc, resolvedOriginalSrc, src, zoomState])
 
   useEffect(() => {
     document.body.style.overflow =
@@ -361,6 +360,9 @@ export function PhotoView({
   })
 
   useEffect(() => {
+    // Only close previews on actual route changes, not on the initial mount.
+    if (pathnameRef.current === pathname) return
+    pathnameRef.current = pathname
     handlePathChange()
   }, [pathname])
 
