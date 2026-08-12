@@ -20,14 +20,38 @@ const calcImageSize = async (imageSrc: string, options?: Options) => {
   }
 }
 
-// from: https://cloud.shiyu.me/gallery/20260307-Mittenwald/DSC07124.avif
-// to:   https://cloud.shiyu.me/thumbnails/20260307-Mittenwald/DSC07124.webp
+const replaceExtensionWithWebp = (pathname: string) =>
+  pathname.replace(/\.[^/.]+$/, '.webp')
+
+const thumbnailPathTransformers: Record<
+  string,
+  (pathname: string) => string | null
+> = {
+  // https://cloud.shiyu.me/gallery/example.avif → https://cloud.shiyu.me/thumbnails/example.webp
+  'cloud.shiyu.me': (pathname) => {
+    if (!pathname.startsWith('/gallery/')) return null
+    return replaceExtensionWithWebp(
+      pathname.replace(/^\/gallery\//, '/thumbnails/'),
+    )
+  },
+  // https://assets.shiyu.me/musing/example.jpg → https://assets.shiyu.me/musing/example.webp
+  'assets.shiyu.me': replaceExtensionWithWebp,
+}
+
 const getThumbnail = (src: string) => {
-  const url = new URL(src)
-  url.pathname = url.pathname
-    .replace('/gallery/', '/thumbnails/')
-    .replace(/\.[^/.]+$/, '.webp')
-  return url.toString()
+  try {
+    const url = new URL(src)
+    const transformPathname = thumbnailPathTransformers[url.hostname]
+    if (!transformPathname) return null
+
+    const pathname = transformPathname(url.pathname)
+    if (!pathname) return null
+
+    url.pathname = pathname
+    return url.toString()
+  } catch {
+    return null
+  }
 }
 
 export const rehypeImageSize: Plugin<[Options], Root> = (options) => {
@@ -37,10 +61,13 @@ export const rehypeImageSize: Plugin<[Options], Root> = (options) => {
     // Calculate image size
     visit(tree, { type: 'element', tagName: 'img' }, (node: Element) => {
       if (!node.properties || typeof node.properties.src !== 'string') return
-      if (node.properties.src.startsWith('http')) {
-        // Remote image hosted on R2
+      if (/^https?:\/\//.test(node.properties.src)) {
+        const thumbnail = getThumbnail(node.properties.src)
+        // Only images hosted on a configured R2 bucket have thumbnails.
+        if (!thumbnail) return
+
         node.properties.originalsrc = node.properties.src
-        node.properties.src = getThumbnail(node.properties.src)
+        node.properties.src = thumbnail
         node.properties.width = 300
         node.properties.height = 200
       } else {
