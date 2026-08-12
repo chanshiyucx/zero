@@ -193,6 +193,7 @@ export function PhotoView({
   const [zoomState, setZoomState] = useState(ZoomState.Idle)
   const [previewTransform, setPreviewTransform] =
     useState<PreviewTransform | null>(null)
+  const [previewLayerKey, setPreviewLayerKey] = useState(0)
   const [loadProgress, setLoadProgress] = useState<LoadProgress>({
     loaded: 0,
     total: 0,
@@ -200,6 +201,7 @@ export function PhotoView({
   const pathname = usePathname()
   const pathnameRef = useRef(pathname)
   const imageRef = useRef<HTMLImageElement>(null)
+  const sourceSlotRef = useRef<HTMLSpanElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
 
   const getPreviewTransform = () => {
@@ -248,6 +250,8 @@ export function PhotoView({
     setLoadProgress({ loaded: 0, total: 0 })
     if (shouldReset) {
       setZoomState(ZoomState.Idle)
+      setPreviewTransform(null)
+      setPreviewLayerKey((key) => key + 1)
 
       // Revoke the ObjectURL when preview is closed to prevent memory leaks
       if (resolvedOriginalSrc) {
@@ -318,6 +322,8 @@ export function PhotoView({
       loadOriginalImage()
     } else {
       setZoomState(ZoomState.Idle)
+      setPreviewTransform(null)
+      setPreviewLayerKey((key) => key + 1)
     }
   }
 
@@ -354,6 +360,36 @@ export function PhotoView({
       document.body.style.overflow = 'initial'
     }
   }, [zoomState])
+
+  const handleSourceSlotResize = useEffectEvent(() => {
+    closePreview(true)
+  })
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const sourceSlot = sourceSlotRef.current
+    if (!sourceSlot) return
+
+    const initialRect = sourceSlot.getBoundingClientRect()
+    let hasReset = false
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      if (!entry || hasReset) return
+
+      const { width, height } = entry.contentRect
+      const hasSizeChanged =
+        Math.abs(width - initialRect.width) > 1 ||
+        Math.abs(height - initialRect.height) > 1
+
+      if (!hasSizeChanged) return
+
+      hasReset = true
+      handleSourceSlotResize()
+    })
+
+    resizeObserver.observe(sourceSlot)
+    return () => resizeObserver.disconnect()
+  }, [isOpen])
 
   const handlePathChange = useEffectEvent(() => {
     closePreview(true)
@@ -446,8 +482,13 @@ export function PhotoView({
         )}
       </AnimatePresence>
 
-      <span className="relative block" style={{ aspectRatio: '3 / 2' }}>
+      <span
+        ref={sourceSlotRef}
+        className="relative block"
+        style={{ aspectRatio: '3 / 2' }}
+      >
         <m.span
+          key={previewLayerKey}
           className={cn(
             'absolute inset-0',
             zoomState === ZoomState.Idle
