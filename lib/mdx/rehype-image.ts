@@ -27,11 +27,11 @@ const thumbnailPathTransformers: Record<
   string,
   (pathname: string) => string | null
 > = {
-  // https://cloud.shiyu.me/gallery/example.avif → https://cloud.shiyu.me/thumbnails/example.webp
+  // https://cloud.shiyu.me/public/gallery/example.avif → https://cloud.shiyu.me/public/thumbnails/example.webp
   'cloud.shiyu.me': (pathname) => {
-    if (!pathname.startsWith('/gallery/')) return null
+    if (!pathname.includes('/gallery/')) return null
     return replaceExtensionWithWebp(
-      pathname.replace(/^\/gallery\//, '/thumbnails/'),
+      pathname.replace('/gallery/', '/thumbnails/'),
     )
   },
   // https://assets.shiyu.me/musing/example.jpg → https://assets.shiyu.me/musing/example.webp
