@@ -104,7 +104,7 @@ export default async function Article({
           </div>
         </header>
         <div className="flex flex-row-reverse">
-          {article.toc.length > 0 && <Toc toc={article.toc} />}
+          {article.toc.length > 0 && <Toc toc={article.toc} slideStart={2} />}
           <MDX
             className={contentClassName}
             slideStart={1}

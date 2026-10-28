@@ -86,15 +86,14 @@ export default function RouteViewTransitionProvider({
   }, [finishTransition, pathname])
 
   const navigate = (href: string, sharedTitle = '') => {
-    // Retarget a navigation that has not finished instead of starting another,
-    // which would orphan the pending resolver and timeout
+    // Retarget an unfinished navigation: starting another would orphan its
+    // resolver and timeout
     const pending = pendingNavigationRef.current
     if (pending) {
       pending.href = href
-      // The old snapshot may already hold the previous title, which the new
-      // page cannot match, so drop the morph rather than fade the wrong title
+      // The old snapshot may show the previous title, so drop the morph
       pending.transition?.skipTransition()
-      // Before the update callback runs, it picks up the new href itself
+      // Until it runs, the update callback reads the new href itself
       if (resolveTransitionRef.current) {
         startTransition(() => {
           router.push(href)

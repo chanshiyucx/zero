@@ -1,267 +1,292 @@
 'use client'
 
 import { ListIcon } from '@phosphor-icons/react/dist/ssr'
-import { clamp, debounce } from 'es-toolkit'
-import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import type { TocEntry } from '@/lib/mdx/rehype-toc'
+import { clamp } from '@/lib/utils/helper'
 import { cn } from '@/lib/utils/style'
 
 type TocProps = {
   toc: TocEntry[]
+  slideStart?: number
+}
+
+type TocElements = {
+  nav: HTMLElement
+  list: HTMLUListElement
+  rail: SVGPathElement
+  progress: HTMLElement
 }
 
 type TocItem = {
+  heading: HTMLElement
   listItem: HTMLLIElement
-  anchor: HTMLAnchorElement
-  target: HTMLElement
-  pathStart?: number
-  pathEnd?: number
+  link: HTMLAnchorElement
 }
 
-const getIndent = (depth: number) => {
-  if (depth === 2) return 'ml-0'
-  if (depth === 3) return 'ml-4'
-  return 'ml-0'
+type Rail = {
+  d: string
+  length: number
+  /** Distances along the rail for each link. */
+  runs: { start: number; end: number }[]
 }
 
-export function Toc({ toc }: TocProps) {
-  const tocRef = useRef<HTMLUListElement>(null)
+/** Heading indices; -1 means no match. */
+type ReadingState = {
+  first: number
+  last: number
+  active: number
+}
+
+// Keep in sync with xl:block.
+const XL_MEDIA_QUERY = '(min-width: 80rem)'
+const READING_EDGE = 50
+const RAIL_GAP = 5
+
+// Axis-aligned segments let us accumulate lengths without measuring the SVG.
+const buildRail = (links: HTMLElement[]): Rail => {
+  const commands: string[] = []
+  const runs: Rail['runs'] = []
+  let length = 0
+  let pen: { x: number; y: number } | undefined
+
+  const lineTo = (x: number, y: number) => {
+    if (!pen) {
+      commands.push(`M ${x} ${y}`)
+    } else if (x !== pen.x || y !== pen.y) {
+      commands.push(`L ${x} ${y}`)
+      length += Math.abs(x - pen.x) + Math.abs(y - pen.y)
+    }
+    pen = { x, y }
+  }
+
+  links.forEach((link) => {
+    const x = link.offsetLeft - RAIL_GAP
+    const top = link.offsetTop
+
+    lineTo(pen?.x ?? x, top)
+    lineTo(x, top)
+    const start = length
+    lineTo(x, top + link.offsetHeight)
+    runs.push({ start, end: length })
+  })
+
+  return { d: commands.join(' '), length, runs }
+}
+
+/** Heading positions and content end use viewport coordinates. */
+const getReadingState = (
+  tops: number[],
+  end: number,
+  viewportHeight: number,
+): ReadingState => {
+  const state: ReadingState = { first: -1, last: -1, active: -1 }
+
+  tops.forEach((top, index) => {
+    const bottom = tops[index + 1] ?? end
+    if (bottom <= READING_EDGE || top >= viewportHeight - READING_EDGE) return
+
+    if (state.first < 0) state.first = index
+    state.last = index
+    if (top <= READING_EDGE) state.active = index
+  })
+
+  return state
+}
+
+const getProgress = () => {
+  const scrollableHeight =
+    document.documentElement.scrollHeight - window.innerHeight
+  if (scrollableHeight <= 0) return 0
+  return Math.round(clamp(window.scrollY / scrollableHeight, 0, 1) * 100)
+}
+
+const getCenterTop = (nav: HTMLElement, item: HTMLElement) => {
+  const navRect = nav.getBoundingClientRect()
+  const itemRect = item.getBoundingClientRect()
+  if (itemRect.top >= navRect.top && itemRect.bottom <= navRect.bottom) {
+    return undefined
+  }
+  return item.offsetTop - nav.clientHeight / 2 + item.clientHeight / 2
+}
+
+const trackReading = (
+  { nav, list, rail, progress }: TocElements,
+  toc: TocEntry[],
+) => {
+  const listItems = list.querySelectorAll('li')
+  const items = toc.flatMap((entry, index): TocItem[] => {
+    const heading = document.getElementById(entry.id)
+    const listItem = listItems[index]
+    const link = listItem?.querySelector('a')
+    return heading && listItem && link ? [{ heading, listItem, link }] : []
+  })
+
+  let geometry: Rail
+  let frame = 0
+  let lastRange = ''
+  let lastActive = -1
+  let lastProgress = -1
+
+  const drawRail = () => {
+    geometry = buildRail(items.map((item) => item.link))
+    rail.setAttribute('d', geometry.d)
+    lastRange = ''
+  }
+
+  const sync = () => {
+    frame = 0
+
+    // Measure before mutating the DOM.
+    const tops = items.map((item) => item.heading.getBoundingClientRect().top)
+    const end =
+      items.at(-1)?.heading.parentElement?.getBoundingClientRect().bottom ?? 0
+    const { first, last, active } = getReadingState(
+      tops,
+      end,
+      window.innerHeight,
+    )
+    const percent = getProgress()
+    const activeItem = items[active]
+    const centerTop =
+      active !== lastActive && activeItem
+        ? getCenterTop(nav, activeItem.listItem)
+        : undefined
+
+    items.forEach((item, index) => {
+      item.listItem.classList.toggle('visible', index >= first && index <= last)
+    })
+
+    const range = `${first} ${last}`
+    if (range !== lastRange) {
+      const from = geometry.runs[first]
+      const to = geometry.runs[last]
+      if (from && to) {
+        rail.setAttribute(
+          'stroke-dasharray',
+          `${to.end - from.start} ${geometry.length}`,
+        )
+        rail.setAttribute('stroke-dashoffset', `${-from.start}`)
+      }
+      rail.setAttribute('opacity', from && to ? '1' : '0')
+      lastRange = range
+    }
+
+    // Repeated scrollTo calls would restart the smooth scroll.
+    if (active !== lastActive) {
+      items[lastActive]?.link.removeAttribute('aria-current')
+      activeItem?.link.setAttribute('aria-current', 'location')
+      if (centerTop !== undefined) nav.scrollTo({ top: centerTop })
+      lastActive = active
+    }
+
+    if (percent !== lastProgress) {
+      progress.textContent = `${percent}%`
+      lastProgress = percent
+    }
+  }
+
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(sync)
+  }
+
+  drawRail()
+  schedule()
+
+  const resizeObserver = new ResizeObserver(() => {
+    drawRail()
+    schedule()
+  })
+  resizeObserver.observe(list)
+  window.addEventListener('scroll', schedule, { passive: true })
+  window.addEventListener('resize', schedule)
+
+  return () => {
+    cancelAnimationFrame(frame)
+    resizeObserver.disconnect()
+    window.removeEventListener('scroll', schedule)
+    window.removeEventListener('resize', schedule)
+    items[lastActive]?.link.removeAttribute('aria-current')
+  }
+}
+
+export function Toc({ toc, slideStart }: TocProps) {
   const navRef = useRef<HTMLElement>(null)
-  const pathRef = useRef<SVGPathElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+  const railRef = useRef<SVGPathElement>(null)
   const progressRef = useRef<HTMLSpanElement>(null)
-  const lastPathStart = useRef<number>(0)
-  const lastPathEnd = useRef<number>(0)
-  const lastProgress = useRef<number>(0)
-  const lastActiveItem = useRef<HTMLLIElement | null>(null)
-  const tocItemsRef = useRef<TocItem[]>([])
-  const isSyncScheduled = useRef<boolean>(false)
 
   useEffect(() => {
-    const getProgress = () => {
-      const scrollableHeight =
-        document.documentElement.scrollHeight - window.innerHeight
-      const ratio =
-        scrollableHeight > 0
-          ? clamp(window.scrollY / scrollableHeight, 0, 1)
-          : 0
-      return Math.round(ratio * 100)
+    const nav = navRef.current
+    const list = listRef.current
+    const rail = railRef.current
+    const progress = progressRef.current
+    if (!nav || !list || !rail || !progress) return
+
+    const media = window.matchMedia(XL_MEDIA_QUERY)
+    let stopTracking: (() => void) | undefined
+
+    const updateTracking = () => {
+      stopTracking?.()
+      stopTracking = media.matches
+        ? trackReading({ nav, list, rail, progress }, toc)
+        : undefined
     }
 
-    const updateTocItems = () => {
-      const tocElement = tocRef.current
-      if (!tocElement) return
-
-      const listItems = [...tocElement.querySelectorAll('li')]
-
-      tocItemsRef.current = listItems
-        .map((item) => {
-          const anchor = item.querySelector('a')
-          if (!anchor) return null
-          const target = document.getElementById(
-            anchor.getAttribute('href')?.slice(1) ?? '',
-          )
-          if (!target) return null
-
-          return {
-            listItem: item,
-            anchor: anchor,
-            target,
-          }
-        })
-        .filter((item) => item !== null)
-    }
-
-    const drawPath = () => {
-      const path = pathRef.current
-      if (!path) return
-
-      const pathCommands: string[] = []
-      let pathIndent: number
-
-      tocItemsRef.current.forEach((item, i) => {
-        const x = item.anchor.offsetLeft - 5
-        const y = item.anchor.offsetTop
-        const height = item.anchor.offsetHeight
-
-        if (i === 0) {
-          pathCommands.push(`M ${x} ${y} L ${x} ${y + height}`)
-          item.pathStart = 0
-        } else {
-          if (pathIndent !== x) {
-            pathCommands.push(`L ${pathIndent} ${y}`)
-          }
-          pathCommands.push(`L ${x} ${y}`)
-
-          path.setAttribute('d', pathCommands.join(' '))
-          item.pathStart = path.getTotalLength() || 0
-
-          pathCommands.push(`L ${x} ${y + height}`)
-        }
-
-        pathIndent = x
-        path.setAttribute('d', pathCommands.join(' '))
-        item.pathEnd = path.getTotalLength()
-      })
-
-      sync()
-    }
-
-    const sync = () => {
-      if (isSyncScheduled.current) return
-      isSyncScheduled.current = true
-
-      requestAnimationFrame(() => {
-        isSyncScheduled.current = false
-
-        const path = pathRef.current
-        const nav = navRef.current
-        const progressText = progressRef.current
-        if (!path || !nav || !progressText) return
-
-        const progress = getProgress()
-        const windowHeight = window.innerHeight
-        let pathStart = Number.MAX_VALUE
-        let pathEnd = 0
-        let visibleItems = 0
-        let activeItem: TocItem | undefined
-
-        tocItemsRef.current.forEach((item, index) => {
-          const targetBounds = item.target.getBoundingClientRect()
-
-          let nextTarget = null
-          if (index < tocItemsRef.current.length - 1) {
-            nextTarget = tocItemsRef.current[index + 1]?.target ?? null
-          }
-
-          const contentBottom = nextTarget
-            ? nextTarget.getBoundingClientRect().top
-            : document.documentElement.scrollHeight
-
-          const margin = 50
-          if (
-            contentBottom > margin &&
-            targetBounds.top < windowHeight - margin
-          ) {
-            pathStart = Math.min(item.pathStart ?? 0, pathStart)
-            pathEnd = Math.max(item.pathEnd ?? 0, pathEnd)
-            visibleItems += 1
-            item.listItem.classList.add('visible')
-
-            if (targetBounds.top <= margin) {
-              activeItem = item
-            }
-          } else {
-            item.listItem.classList.remove('visible')
-          }
-        })
-
-        // Re-center only when the section changes: re-issuing a smooth scroll
-        // every frame restarts it, and would fight a reader scrolling the TOC
-        const activeListItem = activeItem?.listItem ?? null
-        if (activeItem && activeListItem !== lastActiveItem.current) {
-          const navBounds = nav.getBoundingClientRect()
-          const activeItemBounds = activeItem.listItem.getBoundingClientRect()
-
-          if (
-            activeItemBounds.top < navBounds.top ||
-            activeItemBounds.bottom > navBounds.bottom
-          ) {
-            nav.scrollTo({
-              top:
-                activeItem.listItem.offsetTop -
-                nav.clientHeight / 2 +
-                activeItem.listItem.clientHeight / 2,
-            })
-          }
-        }
-
-        if (visibleItems > 0 && pathStart < pathEnd) {
-          if (
-            pathStart !== lastPathStart.current ||
-            pathEnd !== lastPathEnd.current
-          ) {
-            const pathLength = path.getTotalLength()
-            path.setAttribute('stroke-dashoffset', '1')
-            path.setAttribute(
-              'stroke-dasharray',
-              `1, ${pathStart}, ${pathEnd - pathStart}, ${pathLength}`,
-            )
-            path.setAttribute('opacity', '1')
-          }
-        } else {
-          path.setAttribute('opacity', '0')
-        }
-
-        lastPathStart.current = pathStart
-        lastPathEnd.current = pathEnd
-        lastActiveItem.current = activeListItem
-
-        // Written straight to the DOM after all layout reads, and only on
-        // change, so scrolling neither re-renders the TOC nor forces layout
-        if (progress !== lastProgress.current) {
-          progressText.textContent = `${progress}%`
-          lastProgress.current = progress
-        }
-      })
-    }
-
-    updateTocItems()
-    drawPath()
-
-    const debouncedDrawPath = debounce(drawPath, 100)
-
-    // sync() already batches to one update per frame
-    window.addEventListener('resize', debouncedDrawPath)
-    window.addEventListener('scroll', sync, { passive: true })
+    updateTracking()
+    media.addEventListener('change', updateTracking)
 
     return () => {
-      debouncedDrawPath.cancel()
-      window.removeEventListener('resize', debouncedDrawPath)
-      window.removeEventListener('scroll', sync)
+      media.removeEventListener('change', updateTracking)
+      stopTracking?.()
     }
   }, [toc])
 
   return (
     <aside
       data-slide
-      data-slide-start="2"
-      className="group hidden w-0 xl:block"
+      data-slide-start={slideStart}
+      className="hidden w-0 xl:block"
     >
       <nav
         ref={navRef}
+        aria-label="Table of contents"
         className="scrollbar-hide sticky top-25 max-h-[80vh] w-72 translate-x-6 overflow-auto overscroll-contain motion-safe:scroll-smooth"
       >
         <div className="text-subtle flex items-center gap-3 px-2">
-          <ListIcon weight="bold" />
+          <ListIcon weight="bold" aria-hidden />
           <span ref={progressRef} className="text-sm">
             0%
           </span>
         </div>
-        <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
-          {toc.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={`#${item.id}`}
+        <ul ref={listRef} className="toc p-2 pr-4 text-sm">
+          {toc.map((entry) => (
+            <li key={entry.id}>
+              <a
+                href={`#${entry.id}`}
                 className={cn(
                   'text-muted decoration-muted/40 hover:text-text hover:decoration-muted flex h-7 items-center underline underline-offset-2 duration-200',
-                  getIndent(item.depth),
+                  entry.depth === 3 && 'ml-4',
                 )}
               >
-                {item.title}
-              </Link>
+                {entry.title}
+              </a>
             </li>
           ))}
         </ul>
-        <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
+        <svg
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+        >
           <path
-            ref={pathRef}
+            ref={railRef}
             stroke="var(--color-muted)"
             strokeWidth="3"
-            fill="transparent"
-            strokeDasharray="0, 0, 0, 1000"
+            fill="none"
+            opacity="0"
             strokeLinecap="round"
             strokeLinejoin="round"
+            // Lands the 3px stroke on whole pixels
             transform="translate(-0.5, -0.5)"
             className="transition-all duration-200 ease-out"
           />
