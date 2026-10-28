@@ -9,7 +9,7 @@ export function ScrollTop() {
   const [showBackTop, setShowBackTop] = useState(false)
 
   const backToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0 })
   }
 
   const throttledHandler = useRef(

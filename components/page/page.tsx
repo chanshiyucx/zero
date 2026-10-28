@@ -5,12 +5,18 @@ type PageProps = {
   children: ReactNode
   title?: string
   showNav?: boolean
+  sharedTitle?: string
 }
 
-export function PageLayout({ children, title, showNav = true }: PageProps) {
+export function PageLayout({
+  children,
+  title,
+  showNav = true,
+  sharedTitle,
+}: PageProps) {
   return (
     <main className="page slide-container">
-      {showNav && <Nav />}
+      {showNav && <Nav sharedTitle={sharedTitle} />}
 
       {title && (
         <header>

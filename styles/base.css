@@ -1,6 +1,6 @@
 @layer base {
   :root {
-    @apply scroll-smooth;
+    @apply motion-safe:scroll-smooth;
   }
 
   ::view-transition-new(root) {
@@ -20,8 +20,9 @@
     animation: none;
   }
 
-  html[data-route-transition] .article-title-transition {
-    view-transition-name: var(--article-title-transition-name);
+  ::view-transition-group(article-title) {
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
   }
 
   *,

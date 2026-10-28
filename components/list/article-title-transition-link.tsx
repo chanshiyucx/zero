@@ -1,10 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useRouteViewTransition } from '@/app/provider/route-view-transition-provider'
-import { getArticleTitleTransitionName } from '@/lib/utils/dom'
-import { cn } from '@/lib/utils/style'
 
 type ArticleTitleTransitionLinkProps = {
   children: ReactNode
@@ -24,17 +22,12 @@ export function ArticleTitleTransitionLink({
   return (
     <Link
       href={href}
-      className={cn('article-title-transition', className)}
+      className={className}
+      data-title-transition={slug}
       onNavigate={(event) => {
         event.preventDefault()
-        navigate(href)
+        navigate(href, slug)
       }}
-      style={
-        {
-          '--article-title-transition-name':
-            getArticleTitleTransitionName(slug),
-        } as CSSProperties
-      }
     >
       {children}
     </Link>

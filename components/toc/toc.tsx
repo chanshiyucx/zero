@@ -1,9 +1,9 @@
 'use client'
 
 import { ListIcon } from '@phosphor-icons/react/dist/ssr'
-import { debounce, throttle } from 'es-toolkit'
+import { clamp, debounce } from 'es-toolkit'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import type { TocEntry } from '@/lib/mdx/rehype-toc'
 import { cn } from '@/lib/utils/style'
 
@@ -29,22 +29,23 @@ export function Toc({ toc }: TocProps) {
   const tocRef = useRef<HTMLUListElement>(null)
   const navRef = useRef<HTMLElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
+  const progressRef = useRef<HTMLSpanElement>(null)
   const lastPathStart = useRef<number>(0)
   const lastPathEnd = useRef<number>(0)
+  const lastProgress = useRef<number>(0)
+  const lastActiveItem = useRef<HTMLLIElement | null>(null)
   const tocItemsRef = useRef<TocItem[]>([])
   const isSyncScheduled = useRef<boolean>(false)
-  const [progress, setProgress] = useState<number>(0)
 
   useEffect(() => {
-    const updateProgress = () => {
+    const getProgress = () => {
       const scrollableHeight =
         document.documentElement.scrollHeight - window.innerHeight
-      if (scrollableHeight > 0) {
-        const scrolled = (window.scrollY / scrollableHeight) * 100
-        setProgress(Math.round(Math.min(100, Math.max(0, scrolled))))
-      } else {
-        setProgress(0)
-      }
+      const ratio =
+        scrollableHeight > 0
+          ? clamp(window.scrollY / scrollableHeight, 0, 1)
+          : 0
+      return Math.round(ratio * 100)
     }
 
     const updateTocItems = () => {
@@ -111,10 +112,14 @@ export function Toc({ toc }: TocProps) {
       isSyncScheduled.current = true
 
       requestAnimationFrame(() => {
+        isSyncScheduled.current = false
+
         const path = pathRef.current
         const nav = navRef.current
-        if (!path || !nav) return
+        const progressText = progressRef.current
+        if (!path || !nav || !progressText) return
 
+        const progress = getProgress()
         const windowHeight = window.innerHeight
         let pathStart = Number.MAX_VALUE
         let pathEnd = 0
@@ -151,7 +156,10 @@ export function Toc({ toc }: TocProps) {
           }
         })
 
-        if (activeItem) {
+        // Re-center only when the section changes: re-issuing a smooth scroll
+        // every frame restarts it, and would fight a reader scrolling the TOC
+        const activeListItem = activeItem?.listItem ?? null
+        if (activeItem && activeListItem !== lastActiveItem.current) {
           const navBounds = nav.getBoundingClientRect()
           const activeItemBounds = activeItem.listItem.getBoundingClientRect()
 
@@ -164,7 +172,6 @@ export function Toc({ toc }: TocProps) {
                 activeItem.listItem.offsetTop -
                 nav.clientHeight / 2 +
                 activeItem.listItem.clientHeight / 2,
-              behavior: 'smooth',
             })
           }
         }
@@ -188,29 +195,30 @@ export function Toc({ toc }: TocProps) {
 
         lastPathStart.current = pathStart
         lastPathEnd.current = pathEnd
+        lastActiveItem.current = activeListItem
 
-        isSyncScheduled.current = false
+        // Written straight to the DOM after all layout reads, and only on
+        // change, so scrolling neither re-renders the TOC nor forces layout
+        if (progress !== lastProgress.current) {
+          progressText.textContent = `${progress}%`
+          lastProgress.current = progress
+        }
       })
     }
 
-    const handleScroll = () => {
-      updateProgress()
-      sync()
-    }
-
-    updateProgress()
     updateTocItems()
     drawPath()
 
     const debouncedDrawPath = debounce(drawPath, 100)
-    const throttleSync = throttle(handleScroll, 100)
 
+    // sync() already batches to one update per frame
     window.addEventListener('resize', debouncedDrawPath)
-    window.addEventListener('scroll', throttleSync, { passive: true })
+    window.addEventListener('scroll', sync, { passive: true })
 
     return () => {
+      debouncedDrawPath.cancel()
       window.removeEventListener('resize', debouncedDrawPath)
-      window.removeEventListener('scroll', throttleSync)
+      window.removeEventListener('scroll', sync)
     }
   }, [toc])
 
@@ -222,11 +230,13 @@ export function Toc({ toc }: TocProps) {
     >
       <nav
         ref={navRef}
-        className="scrollbar-hide sticky top-25 max-h-[80vh] w-72 translate-x-6 overflow-auto overscroll-contain"
+        className="scrollbar-hide sticky top-25 max-h-[80vh] w-72 translate-x-6 overflow-auto overscroll-contain motion-safe:scroll-smooth"
       >
         <div className="text-subtle flex items-center gap-3 px-2">
           <ListIcon weight="bold" />
-          <span className="text-sm">{progress}%</span>
+          <span ref={progressRef} className="text-sm">
+            0%
+          </span>
         </div>
         <ul ref={tocRef} className="toc p-2 pr-4 text-sm">
           {toc.map((item) => (
@@ -234,7 +244,7 @@ export function Toc({ toc }: TocProps) {
               <Link
                 href={`#${item.id}`}
                 className={cn(
-                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted flex h-7 items-center underline underline-offset-2 duration-300',
+                  'text-muted decoration-muted/40 hover:text-text hover:decoration-muted flex h-7 items-center underline underline-offset-2 duration-200',
                   getIndent(item.depth),
                 )}
               >
@@ -253,7 +263,7 @@ export function Toc({ toc }: TocProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
             transform="translate(-0.5, -0.5)"
-            className="transition-all duration-300 ease-in-out"
+            className="transition-all duration-200 ease-out"
           />
         </svg>
       </nav>

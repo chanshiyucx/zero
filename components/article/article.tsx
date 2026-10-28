@@ -1,7 +1,6 @@
 import { DotIcon } from '@phosphor-icons/react/dist/ssr'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import type { CSSProperties } from 'react'
 import { DateTime } from '@/components/datetime'
 import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
@@ -9,7 +8,6 @@ import { PageLayout } from '@/components/page'
 import { Toc } from '@/components/toc'
 import { siteConfig } from '@/lib/constants/config'
 import { findContentBySlug } from '@/lib/utils/content'
-import { getArticleTitleTransitionName } from '@/lib/utils/dom'
 
 type ArticleProps = {
   params: Promise<{ slug: string }>
@@ -87,21 +85,19 @@ export default async function Article({
   }
 
   return (
-    <PageLayout>
+    <PageLayout sharedTitle={article.slug}>
       <article className="space-y-12">
         <header>
           <h1
-            className="article-title-transition text-3xl font-extrabold"
-            style={
-              {
-                '--article-title-transition-name':
-                  getArticleTitleTransitionName(article.slug),
-              } as CSSProperties
-            }
+            className="w-fit text-3xl font-extrabold"
+            data-title-transition={article.slug}
           >
             {article.title}
           </h1>
-          <div className="text-subtle mt-1 flex items-center text-sm">
+          <div
+            data-slide
+            className="text-subtle mt-1 flex items-center text-sm"
+          >
             <DateTime dateString={article.date} />
             <DotIcon size={24} />
             <span>{calculateMediumReadingTime(article.content)}</span>
@@ -111,7 +107,7 @@ export default async function Article({
           {article.toc.length > 0 && <Toc toc={article.toc} />}
           <MDX
             className={contentClassName}
-            slideStart={0}
+            slideStart={1}
             contentCode={article.contentCode}
             innerPhotoCaption={false}
             after={<Discussion label={article.type} title={article.title} />}
