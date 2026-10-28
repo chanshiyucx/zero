@@ -91,10 +91,26 @@
 
 **文件**：`app/provider/route-view-transition-provider.tsx`、`lib/utils/dom.ts`
 
+## 9. 返回列表时只让标题动
+
+**现状**：返回列表时，标题飞回原位只要 400ms，其余标题却要按错开动画依次渐入，最后一个约 1.6s 才结束，两套动效同时进行、互相争夺注意力。落点所在行的日期又没有动画，和相邻行不一致。另外，列表是读者刚看过的内容，每次返回都重播"首次进入"的级联只是噪音。还有一点：开启了 `cacheComponents` 后，Next 会把离开的页面保存在 `<Activity>` 中，返回时复用同一份 DOM，所以任何留在 DOM 上的标记都不会自动消失。
+
+**方案**：
+
+- 目标标题落在入场序列里（`[data-slide]` 或 `[data-slide-auto] > *`）时，说明是回到列表：立即 `finish()` 这一页所有 `slide-enter` 动画，整页一次就位，只让标题移动。通过 Web Animations API 结束动画，不在 DOM 上留标记，页面之后再次显示时入场动画照常重播。
+- "回到列表"和"做共享过渡"分开判断：只要目标标题已渲染（`checkVisibility()`，排除被路由保存而隐藏的页面）就整页就位；标题还在视口内时才参与 morph。目标在屏幕外时（例如手机上的长列表），没有 morph，列表同样随整页淡入，不会重播级联。
+- 文章的 h1 不在入场序列里，因此进入文章时正文照常依次展开。
+- 路由过渡时，新页面用 250ms 淡入覆盖旧页面，取代原来的瞬间切换；做法和主题切换一致，新根快照盖在静止的旧根快照之上，不使用 `plus-lighter` 混合，避免中途变暗或过亮。
+- 首次进入列表、或没有标题 morph 的跳转，保留完整的级联。
+
+**不在范围**：浏览器自带的后退按钮不经过 View Transition，Next 直接显示保存的页面，级联仍会完整播放。
+
+**文件**：`app/provider/route-view-transition-provider.tsx`、`styles/base.css`、`styles/theme.css`
+
 ## 验证
 
 - 列表 → 文章：过渡期间只有 `::view-transition-group(article-title)` 一个标题 group，时长 400ms。
-- 文章 → 返回链接 → 列表：标题 morph 回对应条目。
+- 文章 → 返回链接 → 列表：标题 morph 回对应条目，列表其余内容不再级联，随整页一起淡入。
 - 文章正文最大 `animation-delay` 为 0.8s；信息行与正文依次进入。
 - TOC 高亮和百分比随滚动逐帧更新。
 - `pnpm check` 通过。

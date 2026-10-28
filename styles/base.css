@@ -15,9 +15,12 @@
     @apply animate-turn-on;
   }
 
-  html[data-route-transition]::view-transition-old(root),
-  html[data-route-transition]::view-transition-new(root) {
+  html[data-route-transition]::view-transition-old(root) {
     animation: none;
+  }
+
+  html[data-route-transition]::view-transition-new(root) {
+    @apply animate-route-fade-in;
   }
 
   ::view-transition-group(article-title) {

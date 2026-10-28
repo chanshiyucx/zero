@@ -28,8 +28,29 @@ const SHARED_TITLE_NAME = 'article-title'
 const TRANSITION_TIMEOUT = 1000
 
 /**
- * Names the visible title whose slug matches the running route transition,
- * so exactly one element per snapshot joins the shared title morph.
+ * A title that lands inside an entrance sequence is returning to a list the
+ * reader has seen, so the page settles at once and only the title moves.
+ * Article titles sit outside the sequence and keep their content's reveal.
+ */
+const settleEntrance = (title: HTMLElement) => {
+  if (!title.closest('[data-slide], [data-slide-auto] > *')) return
+
+  const animations =
+    title.closest('.slide-container')?.getAnimations({ subtree: true }) ?? []
+  animations.forEach((animation) => {
+    if (
+      animation instanceof CSSAnimation &&
+      animation.animationName === 'slide-enter'
+    ) {
+      animation.finish()
+    }
+  })
+}
+
+/**
+ * Names the on-screen title whose slug matches the running route transition,
+ * so exactly one element per snapshot joins the shared title morph. The page
+ * settles whenever that title is rendered, even off screen without a morph.
  */
 const syncSharedTitle = () => {
   const slug = document.documentElement.dataset.routeTransition
@@ -38,9 +59,14 @@ const syncSharedTitle = () => {
   )
 
   titles.forEach((title) => {
-    const isShared =
-      !!slug && title.dataset.titleTransition === slug && isInViewport(title)
+    // Pages kept alive by the router stay in the DOM, hidden
+    const isMatch =
+      !!slug &&
+      title.dataset.titleTransition === slug &&
+      title.checkVisibility()
+    const isShared = isMatch && isInViewport(title)
     title.style.viewTransitionName = isShared ? SHARED_TITLE_NAME : ''
+    if (isMatch) settleEntrance(title)
   })
 }
 

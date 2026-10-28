@@ -24,6 +24,7 @@
 @theme inline {
   --animate-turn-on: turnOn 600ms ease-in-out;
   --animate-turn-off: turnOff 600ms ease-in-out;
+  --animate-route-fade-in: route-fade-in 250ms ease-out;
   --animate-clock-blink: clock-blink 2s steps(1, end) infinite;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
@@ -93,6 +94,15 @@
     100% {
       stroke-dashoffset: var(--path-length);
       fill-opacity: 0;
+    }
+  }
+
+  @keyframes route-fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 
