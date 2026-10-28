@@ -3,8 +3,7 @@ import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
 import GithubSlugger from 'github-slugger'
 import { z } from 'zod'
-import { getOptions } from './lib/mdx'
-import type { TocEntry } from './lib/mdx/rehype-toc'
+import { getOptions, getToc } from './lib/mdx'
 
 const FILENAME_REGEX = /^(?<no>\d+)-(?<name>.+)\.md$/
 
@@ -49,9 +48,10 @@ const getCollection = <T extends string>({
       const documentSlug = slugger.slug(title)
       const url = path.posix.join('/', name, documentSlug)
 
-      const contentCode = await compileMDX(context, document, options)
-
-      const toc = (document._meta as unknown as { toc?: TocEntry[] }).toc ?? []
+      const [contentCode, toc] = await Promise.all([
+        compileMDX(context, document, options),
+        context.cache(document.content, getToc, { key: '__toc' }),
+      ])
 
       return {
         ...document,

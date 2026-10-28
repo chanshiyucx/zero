@@ -1,12 +1,6 @@
-import type { Meta } from '@content-collections/core'
 import type { Element, Root } from 'hast'
 import { toString } from 'hast-util-to-string'
-import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-
-type Options = {
-  headings?: string[]
-}
 
 export type TocEntry = {
   id: string
@@ -14,27 +8,19 @@ export type TocEntry = {
   depth: number
 }
 
-type MetaWithToc = {
-  toc: TocEntry[]
-} & Meta
+export const extractToc = (tree: Root, headings = ['h2', 'h3']) => {
+  const toc: TocEntry[] = []
 
-export const rehypeToc: Plugin<[Options?], Root> = (options = {}) => {
-  const { headings = ['h2', 'h3'] } = options
+  visit(tree, 'element', (node: Element) => {
+    if (!headings.includes(node.tagName) || !node.properties?.id) return
 
-  return (tree, file) => {
-    const toc: TocEntry[] = []
-
-    visit(tree, 'element', (node: Element) => {
-      if (!headings.includes(node.tagName) || !node.properties?.id) return
-
-      const depth = Number(node.tagName.charAt(1))
-      toc.push({
-        id: String(node.properties.id),
-        title: toString(node),
-        depth,
-      })
+    const depth = Number(node.tagName.charAt(1))
+    toc.push({
+      id: String(node.properties.id),
+      title: toString(node),
+      depth,
     })
-    const meta = file.data._meta as MetaWithToc
-    meta.toc = toc
-  }
+  })
+
+  return toc
 }

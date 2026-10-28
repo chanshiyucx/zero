@@ -16,7 +16,7 @@ import { unified, type Pluggable, type Processor } from 'unified'
 import { rehypeCallout } from './rehype-callout'
 import { rehypeCode } from './rehype-code'
 import { rehypeImageGallery, rehypeImageSize } from './rehype-image'
-import { rehypeToc } from './rehype-toc'
+import { extractToc } from './rehype-toc'
 
 const remarkPlugins: Pluggable[] = [remarkGfm, remarkBreaks, remarkMath]
 
@@ -43,18 +43,13 @@ const getRehypePlugins = (contentType: string): Pluggable[] => [
   rehypeCallout,
 ]
 
-const getRehypePluginsWithToc = (contentType: string): Pluggable[] => [
-  ...getRehypePlugins(contentType),
-  rehypeToc,
-]
-
 const optionsCache = new Map<string, Options>()
 
 export const getOptions = (contentType: string): Options => {
   if (!optionsCache.has(contentType)) {
     optionsCache.set(contentType, {
       remarkPlugins,
-      rehypePlugins: getRehypePluginsWithToc(contentType),
+      rehypePlugins: getRehypePlugins(contentType),
     })
   }
   return optionsCache.get(contentType)!
@@ -79,3 +74,15 @@ export const getMdxToHtmlProcessor = (contentType: string) => {
 
   return processorCache.get(contentType)!
 }
+
+const tocProcessor = unified()
+  .use(remarkParse)
+  .use(remarkPlugins)
+  .use(remarkRehype)
+  .use(rehypeSlug)
+  .freeze()
+
+// Heading ids come from rehype-slug before any other rehype plugin runs, so
+// this matches the ids in the compiled MDX without depending on its cache.
+export const getToc = async (content: string) =>
+  extractToc(await tocProcessor.run(tocProcessor.parse(content)))
