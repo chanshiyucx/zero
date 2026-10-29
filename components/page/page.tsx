@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Nav } from './nav'
+import { PageMain } from './page-main'
 
 type PageProps = {
   children: ReactNode
@@ -15,7 +16,7 @@ export function PageLayout({
   sharedTitle,
 }: PageProps) {
   return (
-    <main className="page slide-container">
+    <PageMain className="page slide-container">
       {showNav && <Nav sharedTitle={sharedTitle} />}
 
       {title && (
@@ -25,6 +26,6 @@ export function PageLayout({
       )}
 
       {children}
-    </main>
+    </PageMain>
   )
 }

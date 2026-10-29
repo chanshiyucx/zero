@@ -84,10 +84,6 @@
 }
 
 @utility slide-container {
-  --enter-delay: 100ms;
-  /* Roughly one screen of blocks, so content below the fold never waits */
-  --enter-max-delay: 800ms;
-
   [data-slide],
   [data-slide-auto] {
     --enter-start: attr(data-slide-start type(<number>), 0);
@@ -103,10 +99,10 @@
 
   [data-slide],
   [data-slide-auto] > * {
-    animation: slide-enter 0.8s backwards;
+    animation: enter-slide var(--motion-enter) var(--motion-ease) backwards;
     animation-delay: min(
-      calc(var(--enter-stagger) * var(--enter-delay)),
-      var(--enter-max-delay)
+      calc(var(--enter-stagger) * var(--motion-enter-step)),
+      var(--motion-enter-max-delay)
     );
 
     @variant motion-reduce {
@@ -194,13 +190,19 @@
   @apply flex h-20 w-20 cursor-pointer items-center justify-center outline-hidden disabled:opacity-60;
 }
 
-@utility logo-path {
-  stroke-dasharray: var(--path-length);
-  stroke-dashoffset: var(--path-length);
-  stroke: var(--color-text);
-  fill: var(--color-text);
-  transition:
-    fill 0.3s ease,
-    stroke 0.3s ease;
-  @apply animate-svg-text;
+@utility logo-signature {
+  path {
+    stroke: var(--color-text);
+    stroke-dasharray: 1;
+    fill: var(--color-text);
+    transition:
+      fill 0.3s ease,
+      stroke 0.3s ease;
+    @apply animate-enter-signature;
+    animation-delay: calc((sibling-index() - 1) * var(--motion-enter-step));
+
+    @variant motion-reduce {
+      animation: none;
+    }
+  }
 }

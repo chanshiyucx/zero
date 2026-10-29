@@ -1,8 +1,5 @@
-'use client'
-
-import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { useRouteViewTransition } from '@/app/provider/route-view-transition-provider'
+import { TransitionLink } from '@/components/transition-link'
 
 type ArticleTitleTransitionLinkProps = {
   children: ReactNode
@@ -11,25 +8,16 @@ type ArticleTitleTransitionLinkProps = {
   slug: string
 }
 
+/** Article title in a list: it is the shared title and starts the morph */
 export function ArticleTitleTransitionLink({
-  children,
-  className,
-  href,
   slug,
+  ...props
 }: ArticleTitleTransitionLinkProps) {
-  const { navigate } = useRouteViewTransition()
-
   return (
-    <Link
-      href={href}
-      className={className}
+    <TransitionLink
+      {...props}
+      sharedTitle={slug}
       data-title-transition={slug}
-      onNavigate={(event) => {
-        event.preventDefault()
-        navigate(href, slug)
-      }}
-    >
-      {children}
-    </Link>
+    />
   )
 }

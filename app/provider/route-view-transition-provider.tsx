@@ -12,8 +12,17 @@ import {
 } from 'react'
 import { isInViewport, transitionViewIfSupported } from '@/lib/utils/dom'
 
+type NavigateOptions = {
+  /** Slug of the title on this page that morphs into the destination */
+  sharedTitle?: string
+  /** Goes back to where the reader came from rather than opening a page */
+  isReturn?: boolean
+}
+
 type RouteViewTransitionContextValue = {
-  navigate: (href: string, sharedTitle?: string) => void
+  navigate: (href: string, options?: NavigateOptions) => void
+  /** Whether the latest navigation went back, by link or browser history */
+  isReturning: () => boolean
 }
 
 const RouteViewTransitionContext =
@@ -28,29 +37,8 @@ const SHARED_TITLE_NAME = 'article-title'
 const TRANSITION_TIMEOUT = 1000
 
 /**
- * A title that lands inside an entrance sequence is returning to a list the
- * reader has seen, so the page settles at once and only the title moves.
- * Article titles sit outside the sequence and keep their content's reveal.
- */
-const settleEntrance = (title: HTMLElement) => {
-  if (!title.closest('[data-slide], [data-slide-auto] > *')) return
-
-  const animations =
-    title.closest('.slide-container')?.getAnimations({ subtree: true }) ?? []
-  animations.forEach((animation) => {
-    if (
-      animation instanceof CSSAnimation &&
-      animation.animationName === 'slide-enter'
-    ) {
-      animation.finish()
-    }
-  })
-}
-
-/**
  * Names the on-screen title whose slug matches the running route transition,
- * so exactly one element per snapshot joins the shared title morph. The page
- * settles whenever that title is rendered, even off screen without a morph.
+ * so exactly one element per snapshot joins the shared title morph
  */
 const syncSharedTitle = () => {
   const slug = document.documentElement.dataset.routeTransition
@@ -60,13 +48,12 @@ const syncSharedTitle = () => {
 
   titles.forEach((title) => {
     // Pages kept alive by the router stay in the DOM, hidden
-    const isMatch =
+    const isShared =
       !!slug &&
       title.dataset.titleTransition === slug &&
-      title.checkVisibility()
-    const isShared = isMatch && isInViewport(title)
+      title.checkVisibility() &&
+      isInViewport(title)
     title.style.viewTransitionName = isShared ? SHARED_TITLE_NAME : ''
-    if (isMatch) settleEntrance(title)
   })
 }
 
@@ -92,6 +79,7 @@ export default function RouteViewTransitionProvider({
   const resolveTransitionRef = useRef<(() => void) | null>(null)
   const fallbackTimeoutRef = useRef<number | null>(null)
   const pendingNavigationRef = useRef<PendingNavigation | null>(null)
+  const isReturningRef = useRef(false)
 
   const finishTransition = useCallback(() => {
     if (resolveTransitionRef.current) {
@@ -111,7 +99,23 @@ export default function RouteViewTransitionProvider({
     finishTransition()
   }, [finishTransition, pathname])
 
-  const navigate = (href: string, sharedTitle = '') => {
+  const isReturning = useCallback(() => isReturningRef.current, [])
+
+  useEffect(() => {
+    const onPopState = () => {
+      isReturningRef.current = true
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
+
+  const navigate = (
+    href: string,
+    { sharedTitle = '', isReturn = false }: NavigateOptions = {},
+  ) => {
+    isReturningRef.current = isReturn
+
     // Retarget an unfinished navigation: starting another would orphan its
     // resolver and timeout
     const pending = pendingNavigationRef.current
@@ -157,7 +161,7 @@ export default function RouteViewTransitionProvider({
   }
 
   return (
-    <RouteViewTransitionContext.Provider value={{ navigate }}>
+    <RouteViewTransitionContext.Provider value={{ navigate, isReturning }}>
       {children}
     </RouteViewTransitionContext.Provider>
   )

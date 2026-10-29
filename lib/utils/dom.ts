@@ -29,6 +29,21 @@ export const transitionViewIfSupported = (
   return transition
 }
 
+/**
+ * Jumps the entrance animations inside `container` to their final frame. An
+ * entrance is any CSS animation whose keyframes are named `enter-*`.
+ */
+export const finishEntrance = (container: Element): void => {
+  container.getAnimations({ subtree: true }).forEach((animation) => {
+    if (
+      animation instanceof CSSAnimation &&
+      animation.animationName.startsWith('enter-')
+    ) {
+      animation.finish()
+    }
+  })
+}
+
 export const isInViewport = (element: Element): boolean => {
   const { top, bottom } = element.getBoundingClientRect()
   return bottom > 0 && top < window.innerHeight

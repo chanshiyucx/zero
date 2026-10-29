@@ -6,13 +6,13 @@ import {
   GhostIcon,
   InstagramLogoIcon,
 } from '@phosphor-icons/react/dist/ssr'
-import Link from 'next/link'
 import { Card } from '@/components/card'
 import { DateTime } from '@/components/datetime'
 import { Github } from '@/components/github'
 import { ArticleTitleTransitionLink } from '@/components/list/article-title-transition-link'
 import { MDX } from '@/components/mdx'
 import { PhotoView } from '@/components/photo-view'
+import { TransitionLink } from '@/components/transition-link'
 import { getGithubRepositories } from '@/lib/api/github'
 import { getLatestGalleryPhotos, photoGalleryUrl } from '@/lib/api/photo'
 import {
@@ -36,14 +36,20 @@ function Header({ title, href, icon: Icon, newTab = false }: HeaderProps) {
         <Icon size="18" weight="bold" />
         <h2 className="font-bold">{title}</h2>
       </div>
-      <Link
-        className="link text-sm"
-        href={href}
-        target={newTab ? '_blank' : undefined}
-        rel={newTab ? 'noreferrer' : undefined}
-      >
-        View All
-      </Link>
+      {newTab ? (
+        <a
+          className="link text-sm"
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+        >
+          View All
+        </a>
+      ) : (
+        <TransitionLink className="link text-sm" href={href}>
+          View All
+        </TransitionLink>
+      )}
     </div>
   )
 }

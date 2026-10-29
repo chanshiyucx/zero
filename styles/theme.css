@@ -21,14 +21,26 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
+/* Motion tokens, see docs/motion-guidelines.md */
+:root {
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+  --motion-fade: 200ms;
+  --motion-morph: 400ms;
+  --motion-enter: 600ms;
+  --motion-enter-distance: 8px;
+  --motion-enter-step: 90ms;
+  --motion-enter-max-delay: 450ms;
+  --motion-draw: 2s;
+}
+
 @theme inline {
   --animate-turn-on: turnOn 600ms ease-in-out;
   --animate-turn-off: turnOff 600ms ease-in-out;
-  --animate-route-fade-in: route-fade-in 250ms ease-out;
+  --animate-route-fade-in: route-fade-in var(--motion-fade) ease-out;
   --animate-clock-blink: clock-blink 2s steps(1, end) infinite;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
-  --animate-svg-text: svg-text 10s var(--delay, 0s) infinite ease-in-out
+  --animate-enter-signature: enter-signature var(--motion-draw) ease-in-out
     backwards;
 
   @keyframes turnOn {
@@ -72,28 +84,14 @@
     }
   }
 
-  @keyframes svg-text {
+  @keyframes enter-signature {
     0% {
-      stroke-dashoffset: var(--path-length);
-      fill-opacity: 0;
-    }
-    30% {
-      fill-opacity: 1;
-    }
-    40% {
-      stroke-dashoffset: 0;
-      fill-opacity: 1;
-    }
-    50% {
-      fill-opacity: 1;
-    }
-    80% {
-      stroke-dashoffset: var(--path-length);
+      stroke-dashoffset: 1;
       fill-opacity: 0;
     }
     100% {
-      stroke-dashoffset: var(--path-length);
-      fill-opacity: 0;
+      stroke-dashoffset: 0;
+      fill-opacity: 1;
     }
   }
 
@@ -106,9 +104,9 @@
     }
   }
 
-  @keyframes slide-enter {
+  @keyframes enter-slide {
     0% {
-      transform: translateY(10px);
+      transform: translateY(var(--motion-enter-distance));
       opacity: 0;
     }
     100% {

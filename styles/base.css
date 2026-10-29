@@ -24,8 +24,8 @@
   }
 
   ::view-transition-group(article-title) {
-    animation-duration: 400ms;
-    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+    animation-duration: var(--motion-morph);
+    animation-timing-function: var(--motion-ease);
   }
 
   *,

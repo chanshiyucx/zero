@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import { DateTime } from '@/components/datetime'
 // import { Discussion } from '@/components/discussion'
 import { MDX } from '@/components/mdx'
 import { PageLayout } from '@/components/page'
 import type { Content } from '@/lib/utils/content'
 import { cn } from '@/lib/utils/style'
+import { ArticleTitleTransitionLink } from './article-title-transition-link'
 
 function ContentItem({
   content,
@@ -26,12 +26,13 @@ function ContentItem({
         )}
       >
         {enableLink ? (
-          <Link
+          <ArticleTitleTransitionLink
             className="link link-hover text-lg font-bold"
             href={content.url}
+            slug={content.slug}
           >
             {content.title}
-          </Link>
+          </ArticleTitleTransitionLink>
         ) : (
           <h2 className="text-lg font-bold">{content.title}</h2>
         )}

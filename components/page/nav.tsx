@@ -1,9 +1,8 @@
 'use client'
 
 import { ArrowBendUpLeftIcon } from '@phosphor-icons/react/dist/ssr'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useRouteViewTransition } from '@/app/provider/route-view-transition-provider'
+import { TransitionLink } from '@/components/transition-link'
 
 type NavProps = {
   sharedTitle?: string
@@ -11,7 +10,6 @@ type NavProps = {
 
 export function Nav({ sharedTitle }: NavProps) {
   const pathname = usePathname()
-  const { navigate } = useRouteViewTransition()
 
   const segments = pathname.split('/').filter(Boolean)
   if (segments.length === 0) return null
@@ -31,20 +29,14 @@ export function Nav({ sharedTitle }: NavProps) {
   const backPath = { name: parentName, href: parentHref }
 
   return (
-    <Link
+    <TransitionLink
       href={backPath.href}
-      onNavigate={
-        sharedTitle
-          ? (event) => {
-              event.preventDefault()
-              navigate(backPath.href, sharedTitle)
-            }
-          : undefined
-      }
+      sharedTitle={sharedTitle}
+      isReturn
       className="sticky top-25 m-0 flex h-0 w-auto -translate-x-36 items-center gap-1 italic max-lg:relative max-lg:top-0 max-lg:mb-8 max-lg:h-auto max-lg:translate-x-0"
     >
       <ArrowBendUpLeftIcon weight="bold" size="18" />
       <span className="text-lg font-bold">{backPath.name}</span>
-    </Link>
+    </TransitionLink>
   )
 }
