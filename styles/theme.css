@@ -40,8 +40,6 @@
   --animate-clock-blink: clock-blink 2s steps(1, end) infinite;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
-  --animate-enter-signature: enter-signature var(--motion-draw) ease-in-out
-    backwards;
 
   @keyframes turnOn {
     0% {
@@ -84,14 +82,21 @@
     }
   }
 
+  /* The pen draws its path, revealing the ink it masks */
   @keyframes enter-signature {
     0% {
       stroke-dashoffset: 1;
-      fill-opacity: 0;
     }
     100% {
       stroke-dashoffset: 0;
-      fill-opacity: 1;
+    }
+  }
+
+  /* Keeps a pen off the page until its piece starts; even an undrawn path
+     would leave a dot from its round cap */
+  @keyframes enter-signature-pen {
+    0% {
+      stroke-opacity: 0;
     }
   }
 

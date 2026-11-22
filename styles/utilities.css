@@ -190,16 +190,22 @@
   @apply flex h-20 w-20 cursor-pointer items-center justify-center outline-hidden disabled:opacity-60;
 }
 
+/* Pairs with `SignatureWriting`: each piece's pen sets its own timing */
 @utility logo-signature {
-  path {
-    stroke: var(--color-text);
-    stroke-dasharray: 1;
-    fill: var(--color-text);
-    transition:
-      fill 0.3s ease,
-      stroke 0.3s ease;
-    @apply animate-enter-signature;
-    animation-delay: calc((sibling-index() - 1) * var(--motion-enter-step));
+  color: var(--color-text);
+  transition: color 0.3s ease;
+
+  mask path {
+    fill: none;
+    stroke: white;
+    stroke-width: 11;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1 2;
+    animation:
+      enter-signature var(--pen-duration) var(--pen-ease) var(--pen-delay)
+        backwards,
+      enter-signature-pen 1ms var(--pen-delay) backwards;
 
     @variant motion-reduce {
       animation: none;

@@ -46,7 +46,7 @@ export async function GET(
             paddingBottom: '70px',
           }}
         >
-          <Signature stroke="#b4637a" fill="#ea9d34" strokeWidth="3px" />
+          <Signature stroke="#b4637a" fill="#ea9d34" strokeWidth="1px" />
         </div>
         <div
           style={{
